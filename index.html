@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Presentation</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+
+    <style>
+      .reveal section.title-slide h1 {
+        font-size: 2.4em;
+        margin-bottom: 0.2em;
+      }
+      .reveal section.title-slide .subtitle {
+        font-size: 1.1em;
+        opacity: 0.8;
+      }
+      .reveal .footnote {
+        font-size: 0.5em;
+        opacity: 0.6;
+        margin-top: 1.5em;
+      }
+      .reveal .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5em;
+        text-align: left;
+      }
+      .reveal .callout {
+        border-left: 4px solid #42affa;
+        padding: 0.5em 1em;
+        background: rgba(66, 175, 250, 0.08);
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- Title slide -->
+        <section class="title-slide">
+          <h1>Presentation Title</h1>
+          <p class="subtitle">Subtitle goes here</p>
+          <p class="footnote">Replace this content with the slides from the source deck.</p>
+        </section>
+
+        <!-- Notice about source -->
+        <section>
+          <h2>Source content not embedded</h2>
+          <p style="text-align: left">
+            The original Google Slides deck linked in the request requires sign-in
+            and could not be read automatically. This file is a ready-to-use
+            <a href="https://github.com/hakimel/reveal.js">reveal.js</a> scaffold —
+            replace each <code>&lt;section&gt;</code> below with the slide content
+            from the source deck.
+          </p>
+          <aside class="notes">
+            Speaker notes appear here when you press 's' to open the speaker view.
+          </aside>
+        </section>
+
+        <!-- Section break -->
+        <section>
+          <section>
+            <h2>Section 1</h2>
+            <p>Vertical slides demo — press the down arrow.</p>
+          </section>
+          <section>
+            <h3>Bullet points</h3>
+            <ul>
+              <li class="fragment">First point appears on click</li>
+              <li class="fragment">Second point</li>
+              <li class="fragment">Third point</li>
+            </ul>
+          </section>
+          <section>
+            <h3>Two-column layout</h3>
+            <div class="two-col">
+              <div>
+                <h4>Left</h4>
+                <p>Content for the left column.</p>
+              </div>
+              <div>
+                <h4>Right</h4>
+                <p>Content for the right column.</p>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- Quote -->
+        <section>
+          <blockquote cite="">
+            &ldquo;A pull quote you want to highlight on its own slide.&rdquo;
+          </blockquote>
+          <p style="text-align: right">— Attribution</p>
+        </section>
+
+        <!-- Code -->
+        <section>
+          <h3>Code sample</h3>
+          <pre><code class="language-javascript" data-trim data-line-numbers>
+import Reveal from 'reveal.js';
+import Highlight from 'reveal.js/plugin/highlight/highlight.esm.js';
+
+const deck = new Reveal({
+  hash: true,
+  plugins: [Highlight],
+});
+
+deck.initialize();
+          </code></pre>
+        </section>
+
+        <!-- Callout -->
+        <section>
+          <h3>Callout</h3>
+          <div class="callout">
+            <p>Use callouts for key takeaways or warnings.</p>
+          </div>
+        </section>
+
+        <!-- Image placeholder -->
+        <section>
+          <h3>Image slide</h3>
+          <p>Drop an image into the repo and reference it like:</p>
+          <pre><code class="language-html" data-trim>
+&lt;img src="images/diagram.png" alt="Architecture diagram" /&gt;
+          </code></pre>
+        </section>
+
+        <!-- Closing -->
+        <section>
+          <h2>Thank you</h2>
+          <p>Questions?</p>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: 'c/t',
+        controls: true,
+        progress: true,
+        transition: 'slide',
+        plugins: [RevealHighlight, RevealNotes, RevealMarkdown],
+      });
+    </script>
+  </body>
+</html>
