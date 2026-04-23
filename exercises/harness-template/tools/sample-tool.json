@@ -1,0 +1,82 @@
+{
+  "_comment": "This is a sample tool definition. Copy and modify it for each tool your agent uses. The 'description' field is the most important — it's what the model reads to decide when and how to use this tool. Treat it like UX copy for your agent.",
+
+  "name": "read_design_file",
+
+  "description": "Reads and parses a design export file (JSON or CSV) from the workspace. Use this tool when the user wants to analyze, review, or compare design tokens, component names, or style values. Do NOT use this tool to read arbitrary system files — only files in the /data directory.",
+
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "file_path": {
+        "type": "string",
+        "description": "The relative path to the file within the workspace data directory. Example: 'tokens/colors.json' or 'exports/components.csv'. Must start with 'data/'."
+      },
+      "format": {
+        "type": "string",
+        "enum": ["json", "csv", "auto"],
+        "description": "The file format. Use 'auto' to detect automatically from the file extension.",
+        "default": "auto"
+      },
+      "include_metadata": {
+        "type": "boolean",
+        "description": "Whether to include file metadata (size, last modified, etc.) in the response. Defaults to false.",
+        "default": false
+      }
+    },
+    "required": ["file_path"]
+  },
+
+  "returns": {
+    "type": "object",
+    "description": "The parsed file contents. For JSON: the parsed object. For CSV: an array of row objects with column names as keys.",
+    "properties": {
+      "content": {
+        "description": "The parsed file content"
+      },
+      "row_count": {
+        "type": "integer",
+        "description": "Number of rows (for CSV files)"
+      },
+      "metadata": {
+        "description": "File metadata (only present if include_metadata was true)"
+      }
+    }
+  },
+
+  "errors": {
+    "file_not_found": "The specified file does not exist in the data directory.",
+    "permission_denied": "The file path is outside the allowed data directory.",
+    "parse_error": "The file could not be parsed as the specified format.",
+    "file_too_large": "The file exceeds the maximum size limit (10MB). Consider filtering or summarizing the data first."
+  },
+
+  "examples": [
+    {
+      "description": "Read a design tokens file",
+      "call": {
+        "file_path": "data/tokens/colors.json",
+        "format": "json"
+      }
+    },
+    {
+      "description": "Read a component export CSV",
+      "call": {
+        "file_path": "data/exports/components.csv",
+        "format": "csv",
+        "include_metadata": true
+      }
+    }
+  ],
+
+  "_workshop_notes": {
+    "key_insight": "The 'description' field is what the model reads when deciding which tool to use and how to call it. This is 'UX copy for AI agents' — write it as if you're explaining the tool to a smart colleague who has never seen it before.",
+    "common_mistakes": [
+      "Vague descriptions like 'reads files' — be specific about WHEN to use this tool",
+      "Missing error documentation — the agent needs to know what can go wrong",
+      "Too many parameters — start minimal, add parameters only when needed",
+      "Missing examples — examples help the model call the tool correctly"
+    ],
+    "your_tools": "Replace this sample with the tools YOUR agent needs. Look at your AGENTS.md capabilities list — each capability usually maps to 1–2 tools."
+  }
+}

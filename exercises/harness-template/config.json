@@ -1,0 +1,87 @@
+{
+  "_comment": "Harness configuration file. Fill in the values marked with TODO. Remove _comment fields before production use.",
+
+  "harness": {
+    "name": "TODO: Your harness name (e.g., 'design-review-agent')",
+    "version": "0.1.0",
+    "description": "TODO: One sentence describing what this harness does",
+    "author": "TODO: Your name or team"
+  },
+
+  "model": {
+    "_comment": "Choose the model that fits your use case. Sonnet = smart + capable. Haiku = fast + cheap. Opus = most powerful.",
+    "primary": "claude-sonnet-4-6",
+    "fallback": "claude-haiku-4-5-20251001",
+    "temperature": 0.3,
+    "_temperature_note": "Lower = more consistent/predictable. Higher = more creative/varied. 0.3 is a good default for task agents."
+  },
+
+  "context": {
+    "system_prompt_file": "prompts/system-prompt.md",
+    "memory_file": "memory/knowledge-base.md",
+    "max_context_tokens": 100000,
+    "_max_context_note": "Claude Sonnet supports 200k. Reserve headroom for tool outputs and conversation history."
+  },
+
+  "tools": {
+    "_comment": "List tool definition files to load. Each file in tools/ defines one tool.",
+    "definitions": [
+      "tools/sample-tool.json"
+    ],
+    "require_confirmation_for": [
+      "_comment: List tool names that require user confirmation before executing",
+      "TODO: add tool names here, e.g., 'write_file', 'send_notification'"
+    ]
+  },
+
+  "hooks": {
+    "_comment": "Hooks run automatically — the model can't skip them. Add hooks for things that must ALWAYS happen.",
+    "pre_tool": "hooks/pre-tool.sh",
+    "post_tool": null,
+    "pre_response": null,
+    "post_response": null,
+    "on_error": null
+  },
+
+  "memory": {
+    "session_memory": true,
+    "_session_memory_note": "Agent remembers context within a single conversation session",
+    "persistent_memory": false,
+    "_persistent_memory_note": "Set to true if you want memory to persist across sessions (requires storage setup)"
+  },
+
+  "permissions": {
+    "_comment": "Define what the agent is and isn't allowed to do. These are enforced by the harness, not the model.",
+    "allowed_directories": [
+      "TODO: List directories the agent can read/write, e.g., './output', './data'"
+    ],
+    "blocked_directories": [
+      "~",
+      "/etc",
+      "/usr"
+    ],
+    "allowed_external_services": [
+      "TODO: List external APIs the agent can call, e.g., 'api.figma.com'"
+    ],
+    "blocked_actions": [
+      "TODO: List actions the agent must never take, e.g., 'delete_file', 'send_email'"
+    ]
+  },
+
+  "ui": {
+    "_comment": "How the agent presents itself to users",
+    "show_tool_calls": true,
+    "_show_tool_calls_note": "Show users when the agent is using a tool. Builds trust. Disable for simpler UX.",
+    "show_reasoning": false,
+    "loading_message": "Working on it...",
+    "error_message": "Something went wrong. Here's what I know: {error}"
+  },
+
+  "workshop": {
+    "_comment": "Remove this section before production use",
+    "app_modeled": "TODO: Which of the 5 apps are you modeling? (cursor/v0/bolt/figma-ai/claude-artifacts)",
+    "group_members": ["TODO: Name 1", "TODO: Name 2", "TODO: Name 3"],
+    "day": "TODO: day1 or day2",
+    "notes": "TODO: Any notes about your design decisions"
+  }
+}
