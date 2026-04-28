@@ -1,160 +1,2373 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<head>
+<meta charset="utf-8" />
+<title>Agentic Harness Engineering — Workshop</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
 
-    <title>Presentation</title>
+<style>
+/* =========================================================
+   SALT-INSPIRED TOKENS — used across all slides
+   ========================================================= */
+:root{
+  /* Monochrome theme — remapped from Salt tokens.
+     Keep variable names so existing CSS keeps working; all hues are neutral grays. */
+  --salt-navy-900:#0A0A0A;   /* was navy — now near-black for headlines / dark backgrounds */
+  --salt-navy-700:#2A2A2A;
+  --salt-blue-500:#404040;   /* was primary blue — now mid-dark gray for accents */
+  --salt-blue-300:#8A8A8A;   /* was secondary blue — light gray */
+  --salt-cyan-400:#6B6B6B;
+  --salt-gray-50:#FFFFFF;    /* slide background — pure white */
+  --salt-gray-100:#F2F2F2;   /* card tints */
+  --salt-gray-300:#D6D6D6;   /* borders */
+  --salt-gray-600:#6B6B6B;   /* secondary text */
+  --salt-gray-900:#1A1A1A;   /* primary text */
+  --salt-amber-500:#2A2A2A;  /* "very high" tag — dark gray pill */
+  --salt-green-500:#3D3D3D;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  --card-shadow-hover: 0 8px 24px rgba(0,0,0,0.10);
+}
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+/* =========================================================
+   BASE — html/body, all slides
+   ========================================================= */
+html,body{margin:0;padding:0;background:#000;color:var(--salt-gray-900);font-family:'Open Sans',system-ui,sans-serif;}
+*{box-sizing:border-box;}
+deck-stage{color:var(--salt-gray-900);}
 
-    <style>
-      .reveal section.title-slide h1 {
-        font-size: 2.4em;
-        margin-bottom: 0.2em;
-      }
-      .reveal section.title-slide .subtitle {
-        font-size: 1.1em;
-        opacity: 0.8;
-      }
-      .reveal .footnote {
-        font-size: 0.5em;
-        opacity: 0.6;
-        margin-top: 1.5em;
-      }
-      .reveal .two-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5em;
-        text-align: left;
-      }
-      .reveal .callout {
-        border-left: 4px solid #42affa;
-        padding: 0.5em 1em;
-        background: rgba(66, 175, 250, 0.08);
-        text-align: left;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="reveal">
-      <div class="slides">
-        <!-- Title slide -->
-        <section class="title-slide">
-          <h1>Presentation Title</h1>
-          <p class="subtitle">Subtitle goes here</p>
-          <p class="footnote">Replace this content with the slides from the source deck.</p>
-        </section>
+section{
+  background:var(--salt-gray-50);
+  font-family:'Open Sans',system-ui,sans-serif;
+  font-size:18px;
+  line-height:1.5;
+  overflow:hidden;
+}
 
-        <!-- Notice about source -->
-        <section>
-          <h2>Source content not embedded</h2>
-          <p style="text-align: left">
-            The original Google Slides deck linked in the request requires sign-in
-            and could not be read automatically. This file is a ready-to-use
-            <a href="https://github.com/hakimel/reveal.js">reveal.js</a> scaffold —
-            replace each <code>&lt;section&gt;</code> below with the slide content
-            from the source deck.
-          </p>
-          <aside class="notes">
-            Speaker notes appear here when you press 's' to open the speaker view.
-          </aside>
-        </section>
+/* Shared slide frame (80px edge padding per spec) — all content slides */
+.frame{
+  position:absolute; inset:0;
+  padding:80px 96px 88px;
+  display:flex; flex-direction:column;
+}
 
-        <!-- Section break -->
-        <section>
-          <section>
-            <h2>Section 1</h2>
-            <p>Vertical slides demo — press the down arrow.</p>
-          </section>
-          <section>
-            <h3>Bullet points</h3>
-            <ul>
-              <li class="fragment">First point appears on click</li>
-              <li class="fragment">Second point</li>
-              <li class="fragment">Third point</li>
-            </ul>
-          </section>
-          <section>
-            <h3>Two-column layout</h3>
-            <div class="two-col">
-              <div>
-                <h4>Left</h4>
-                <p>Content for the left column.</p>
-              </div>
-              <div>
-                <h4>Right</h4>
-                <p>Content for the right column.</p>
-              </div>
-            </div>
-          </section>
-        </section>
+/* Footer on every slide — spec: bottom-left, 11px, gray-600 */
+.footer{
+  position:absolute; left:96px; bottom:28px;
+  font-size:11px; letter-spacing:0.08em; color:var(--salt-gray-600);
+  text-transform:uppercase; font-weight:600;
+}
 
-        <!-- Quote -->
-        <section>
-          <blockquote cite="">
-            &ldquo;A pull quote you want to highlight on its own slide.&rdquo;
-          </blockquote>
-          <p style="text-align: right">— Attribution</p>
-        </section>
+/* Eyebrow label used on content slides */
+.eyebrow{
+  font-size:12px; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--salt-blue-500);
+  margin-bottom:24px;
+}
 
-        <!-- Code -->
-        <section>
-          <h3>Code sample</h3>
-          <pre><code class="language-javascript" data-trim data-line-numbers>
-import Reveal from 'reveal.js';
-import Highlight from 'reveal.js/plugin/highlight/highlight.esm.js';
+/* Slide title used on content slides */
+.slide-title{
+  font-family:'Open Sans',sans-serif; font-weight:700;
+  font-size:64px; line-height:1.08; letter-spacing:-0.01em;
+  color:var(--salt-navy-900);
+  margin:0 0 24px 0;
+  text-wrap:balance;
+}
+.slide-lede{
+  font-size:26px; line-height:1.4; color:var(--salt-gray-600);
+  max-width:1400px; margin:0 0 48px 0;
+  font-weight:400;
+}
 
-const deck = new Reveal({
-  hash: true,
-  plugins: [Highlight],
-});
+/* Card — base pattern, reused everywhere */
+.card{
+  background:#fff;
+  border:1px solid var(--salt-gray-300);
+  border-radius:8px;
+  box-shadow:var(--card-shadow);
+  padding:40px;
+  transition:transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.card:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
 
-deck.initialize();
-          </code></pre>
-        </section>
+/* Numbered chip (slides 10–13, 22) */
+.chip{
+  width:60px; height:60px; border-radius:999px;
+  background:var(--salt-navy-900); color:#fff;
+  font-weight:700; font-size:24px;
+  display:inline-flex; align-items:center; justify-content:center;
+  letter-spacing:0;
+}
 
-        <!-- Callout -->
-        <section>
-          <h3>Callout</h3>
-          <div class="callout">
-            <p>Use callouts for key takeaways or warnings.</p>
-          </div>
-        </section>
+/* Pill tag for leverage badges (slide 11, 12) */
+.tag{
+  display:inline-flex; align-items:center;
+  font-size:11px; font-weight:600; letter-spacing:0.08em;
+  text-transform:uppercase;
+  padding:4px 12px; border-radius:999px;
+  color:#fff;
+}
+.tag--very-high{ background:var(--salt-amber-500); }
+.tag--high{ background:var(--salt-blue-500); }
+.tag--medium{ background:var(--salt-gray-600); }
 
-        <!-- Image placeholder -->
-        <section>
-          <h3>Image slide</h3>
-          <p>Drop an image into the repo and reference it like:</p>
-          <pre><code class="language-html" data-trim>
-&lt;img src="images/diagram.png" alt="Architecture diagram" /&gt;
-          </code></pre>
-        </section>
+/* =========================================================
+   SLIDE 1 — title
+   ========================================================= */
+.s-title{
+  background:var(--salt-gray-50);
+  position:absolute; inset:0;
+  padding:96px 96px 88px;
+}
+.s-title .meta{
+  position:absolute; top:96px; right:96px;
+  text-align:right; font-size:13px; font-weight:600;
+  letter-spacing:0.12em; text-transform:uppercase; color:var(--salt-gray-600);
+  line-height:1.8;
+}
+.s-title .meta strong{ color:var(--salt-navy-900); font-weight:700; }
+.s-title .eyebrow-mark{
+  position:absolute; top:96px; left:96px;
+  display:flex; align-items:center; gap:16px;
+  font-size:12px; letter-spacing:0.16em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:700;
+}
+.s-title .eyebrow-mark::before{
+  content:""; display:block; width:56px; height:2px; background:var(--salt-blue-500);
+}
+.s-title h1{
+  position:absolute; left:96px; bottom:200px;
+  margin:0; font-weight:700; font-size:180px; line-height:0.92;
+  letter-spacing:-0.025em; color:var(--salt-navy-900);
+}
+.s-title h1 .accent{ color:var(--salt-blue-500); }
+.s-title .subtitle{
+  position:absolute; left:96px; bottom:120px;
+  font-size:28px; color:var(--salt-gray-600); font-weight:400;
+}
+.s-title .tag-pill{
+  position:absolute; right:96px; bottom:120px;
+  display:inline-flex; align-items:center; gap:12px;
+  padding:14px 24px; border:1.5px solid var(--salt-navy-900);
+  border-radius:999px; font-size:14px; font-weight:600;
+  letter-spacing:0.06em; text-transform:uppercase; color:var(--salt-navy-900);
+}
+.s-title .tag-pill .dot{
+  width:8px; height:8px; border-radius:50%; background:var(--salt-blue-500);
+}
 
-        <!-- Closing -->
-        <section>
-          <h2>Thank you</h2>
-          <p>Questions?</p>
-        </section>
+/* =========================================================
+   SLIDE 2 — 3-card grid (shared w/ other 3-col content slides)
+   ========================================================= */
+.grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+.grid-3 .card h3{
+  font-size:28px; line-height:1.2; font-weight:700;
+  color:var(--salt-navy-900); margin:0 0 16px 0;
+  letter-spacing:-0.01em;
+}
+.grid-3 .card p{ font-size:18px; line-height:1.55; color:var(--salt-gray-900); margin:0; }
+.grid-3 .card .kicker{
+  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:600; margin-bottom:20px;
+}
+
+/* =========================================================
+   SLIDE 3 — agenda timeline table
+   ========================================================= */
+.agenda{ border-top:1px solid var(--salt-gray-300); margin-top:8px; }
+.agenda .row{
+  display:grid; grid-template-columns:140px 280px 1fr 140px;
+  gap:40px; align-items:baseline;
+  padding:28px 0; border-bottom:1px solid var(--salt-gray-300);
+}
+.agenda .time{
+  font-family:'JetBrains Mono',monospace; font-weight:500;
+  font-size:22px; color:var(--salt-blue-500);
+}
+.agenda .topic{ font-size:24px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.agenda .desc{ font-size:18px; color:var(--salt-gray-600); }
+.agenda .dur{
+  font-size:13px; font-weight:600; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--salt-gray-600);
+  justify-self:end;
+}
+
+/* =========================================================
+   SLIDE 4, 9, 15, 17, 20 — section dividers
+   ========================================================= */
+.divider{
+  position:absolute; inset:0;
+  background:var(--salt-navy-900); color:#fff;
+  padding:96px; display:grid;
+  grid-template-columns:560px 1fr; gap:80px; align-items:center;
+}
+.divider .numeral{
+  font-family:'Open Sans',sans-serif; font-weight:700;
+  font-size:240px; line-height:0.9; color:var(--salt-blue-500);
+  letter-spacing:-0.04em;
+}
+.divider .body .eyebrow{ color:var(--salt-blue-300); margin-bottom:32px; }
+.divider .body h2{
+  margin:0 0 32px 0; font-size:84px; line-height:1.02;
+  font-weight:700; letter-spacing:-0.02em; color:#fff;
+}
+.divider .body p{
+  font-size:26px; line-height:1.45; color:var(--salt-gray-300);
+  max-width:900px; margin:0 0 40px 0;
+}
+.divider .duration{
+  display:inline-flex; align-items:center; gap:12px;
+  padding:12px 20px; border:1.5px solid rgba(255,255,255,0.3);
+  border-radius:999px; font-size:13px; font-weight:700;
+  letter-spacing:0.12em; text-transform:uppercase; color:#fff;
+}
+.divider .footer{ color:rgba(255,255,255,0.5); }
+.divider .numeral.ex{ font-size:180px; }
+
+/* Exercise-variant divider — accent stripe on left */
+.divider.exercise{ grid-template-columns:12px 548px 1fr; padding-left:0; }
+.divider.exercise .stripe{ background:var(--salt-amber-500); height:100%; }
+.divider.exercise .numeral{ padding-left:96px; }
+
+/* =========================================================
+   SLIDE 5 — formula hero
+   ========================================================= */
+.formula-hero{
+  background:#fff; border:1px solid var(--salt-gray-300);
+  border-radius:12px; padding:64px 48px;
+  display:flex; align-items:center; justify-content:center; gap:32px;
+  font-family:'JetBrains Mono',monospace; font-weight:500;
+  font-size:84px; letter-spacing:-0.01em;
+  color:var(--salt-navy-900);
+  box-shadow:var(--card-shadow);
+  margin-bottom:40px;
+}
+.formula-hero .op{ color:var(--salt-gray-300); }
+.formula-hero .harness{ color:var(--salt-blue-500); }
+.formula-columns{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+  margin-bottom:32px;
+}
+.formula-columns .col .label{
+  font-family:'JetBrains Mono',monospace; font-weight:500;
+  font-size:22px; color:var(--salt-blue-500); margin-bottom:12px;
+}
+.formula-columns .col h4{
+  font-size:22px; font-weight:700; color:var(--salt-navy-900);
+  margin:0 0 12px 0; letter-spacing:-0.01em;
+}
+.formula-columns .col p{ font-size:17px; color:var(--salt-gray-600); margin:0; line-height:1.5; }
+.pull-quote{
+  border-left:4px solid var(--salt-blue-500);
+  padding:8px 0 8px 28px; margin:8px 0 0 0;
+  font-size:24px; font-style:italic; color:var(--salt-navy-900);
+  line-height:1.4;
+}
+.pull-quote cite{ display:block; font-style:normal; font-size:14px; font-weight:600; color:var(--salt-gray-600); margin-top:12px; letter-spacing:0.06em; text-transform:uppercase; }
+
+/* =========================================================
+   SLIDE 6 — OS analogy table
+   ========================================================= */
+.analogy-table{
+  background:#fff; border:1px solid var(--salt-gray-300);
+  border-radius:8px; overflow:hidden;
+  box-shadow:var(--card-shadow);
+}
+.analogy-table .head,
+.analogy-table .r{
+  display:grid; grid-template-columns:320px 80px 360px 1fr;
+  gap:32px; align-items:center;
+  padding:24px 40px;
+  border-bottom:1px solid var(--salt-gray-300);
+}
+.analogy-table .r:last-child{ border-bottom:none; }
+.analogy-table .head{
+  background:var(--salt-gray-100);
+  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-gray-600); font-weight:600;
+}
+.analogy-table .hw{
+  display:flex; align-items:center; gap:16px;
+  font-family:'JetBrains Mono',monospace; font-size:22px;
+  color:var(--salt-navy-900); font-weight:500;
+}
+.analogy-table .arrow{ color:var(--salt-gray-300); font-size:22px; }
+.analogy-table .eq{
+  font-size:22px; font-weight:700; color:var(--salt-navy-900);
+}
+.analogy-table .desc{ font-size:17px; color:var(--salt-gray-600); }
+.analogy-table .r.hl{ background:rgba(10,10,10,0.08); }
+.analogy-table .r.hl .eq{ color:var(--salt-blue-500); }
+
+/* =========================================================
+   SLIDE 7 — concentric rings
+   ========================================================= */
+.rings-layout{
+  display:grid; grid-template-columns:560px 1fr; gap:64px; align-items:center;
+}
+.rings{
+  position:relative; width:520px; height:520px; margin:0 auto;
+}
+.rings .ring{
+  position:absolute; border-radius:50%; display:flex;
+  align-items:flex-start; justify-content:center;
+  padding-top:22px;
+  font-size:13px; letter-spacing:0.12em; font-weight:700; text-transform:uppercase;
+}
+.rings .r1{ inset:0; background:rgba(10,10,10,0.92); border:1.5px solid rgba(10,10,10,0.92); color:#fff; }
+.rings .r2{ inset:60px; background:rgb(67,67,67); border:1.5px solid rgba(10,10,10,0.45); color:#fff; }
+.rings .r3{ inset:110px; background:rgb(109,109,109); border:1.5px solid rgba(10,10,10,0.25); color:#fff; padding-top:22px; font-size:13px; }
+.rings .core{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#fff; color:var(--salt-navy-900);
+  border:1.5px solid rgba(10,10,10,0.25);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500;
+  text-align:center; padding:8px;
+}
+/* Prompt ring: center the label vertically so it pairs cleanly with the core */
+.rings .r3{ align-items:flex-start; padding-top:22px; padding-bottom:0; }
+.rings-cards{ display:flex; flex-direction:column; gap:20px; }
+.rings-cards .card{ padding:24px 32px; }
+.rings-cards .card h4{ margin:0 0 8px 0; font-size:22px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.01em; }
+.rings-cards .card p{ margin:0; font-size:17px; color:var(--salt-gray-600); line-height:1.5; }
+.rings-cards .card .kicker{ font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--salt-blue-500); font-weight:600; margin-bottom:6px; }
+.rings-footer{
+  margin-top:32px; font-size:18px; color:var(--salt-gray-600);
+  border-top:1px solid var(--salt-gray-300); padding-top:20px;
+}
+.rings-footer b{ color:var(--salt-navy-900); font-weight:700; }
+
+/* =========================================================
+   SLIDE 8 — limitation → solution
+   ========================================================= */
+.limit-list{
+  display:grid; grid-template-columns:1fr 1fr;
+  column-gap:40px; row-gap:0;
+  border-top:1px solid var(--salt-gray-300);
+}
+.limit-list .lr{
+  display:grid; grid-template-columns:1fr 56px 1fr;
+  gap:24px; align-items:center;
+  padding:22px 0; border-bottom:1px solid var(--salt-gray-300);
+}
+.limit-list .lim{ font-size:20px; color:var(--salt-gray-900); font-weight:400; }
+.limit-list .arrow{
+  color:var(--salt-blue-500); font-size:28px; font-weight:700;
+  text-align:center; letter-spacing:-0.05em;
+}
+.limit-list .sol{
+  font-size:20px; color:var(--salt-navy-900); font-weight:700;
+  letter-spacing:-0.005em;
+}
+
+/* =========================================================
+   SLIDE 10 — 6-card overview (3×2)
+   ========================================================= */
+.grid-6{
+  display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:1fr 1fr;
+  gap:28px; height:100%;
+}
+.grid-6 .card{
+  padding:32px; display:flex; flex-direction:column; gap:16px;
+}
+.grid-6 .card .top{ display:flex; align-items:center; justify-content:space-between; }
+.grid-6 .card h4{
+  font-size:24px; font-weight:700; color:var(--salt-navy-900);
+  margin:0; letter-spacing:-0.01em; line-height:1.2;
+}
+.grid-6 .card p{ font-size:17px; color:var(--salt-gray-600); margin:0; line-height:1.5; }
+.grid-6 .card .ico{ color:var(--salt-blue-500); }
+
+/* =========================================================
+   SLIDES 11, 12, 13 — 2-col deep-dive pair
+   ========================================================= */
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
+.deep{ padding:48px; display:flex; flex-direction:column; gap:20px; }
+.deep .head{ display:flex; align-items:center; gap:20px; }
+.deep h3{
+  font-size:32px; font-weight:700; color:var(--salt-navy-900);
+  margin:0; letter-spacing:-0.01em; line-height:1.1;
+}
+.deep .body-lede{ font-size:19px; color:var(--salt-gray-600); margin:0; }
+.deep .section-label{
+  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:600; margin-top:8px;
+}
+.deep ul{ margin:0; padding:0; list-style:none; }
+.deep ul li{
+  font-size:18px; line-height:1.5; color:var(--salt-gray-900);
+  padding:10px 0 10px 22px; position:relative;
+  border-bottom:1px solid var(--salt-gray-100);
+}
+.deep ul li:last-child{ border-bottom:none; }
+.deep ul li::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:var(--salt-blue-500);
+  position:absolute; left:0; top:19px;
+}
+.deep .lev-row{
+  margin-top:auto; display:flex; align-items:center; justify-content:space-between;
+  padding-top:16px; border-top:1px solid var(--salt-gray-300);
+}
+.deep .lev-row .lbl{
+  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-gray-600); font-weight:600;
+}
+.deep .key-insight{
+  background:var(--salt-gray-100); border-radius:8px; padding:20px 24px;
+  border-left:4px solid var(--salt-blue-500);
+  font-size:17px; color:var(--salt-navy-900); line-height:1.5;
+}
+.deep .key-insight b{ color:var(--salt-blue-500); }
+
+/* =========================================================
+   SLIDE 14 — leverage list
+   ========================================================= */
+.leverage-lede{
+  background:var(--salt-navy-900); color:#fff;
+  padding:28px 36px; border-radius:8px; font-size:24px; line-height:1.4;
+  font-weight:400;
+  margin-bottom:32px;
+  display:flex; align-items:center; gap:20px;
+}
+.leverage-lede .mark{ color:var(--salt-amber-500); font-weight:700; }
+.leverage-list{ display:grid; grid-template-columns:1fr 1fr; gap:20px 40px; }
+.leverage-list .lrow{
+  display:grid; grid-template-columns:56px 1fr; gap:20px; align-items:start;
+  padding:16px 0; border-bottom:1px solid var(--salt-gray-300);
+}
+.leverage-list .lrow .ico{
+  width:48px; height:48px; border-radius:8px;
+  background:var(--salt-gray-100); color:var(--salt-blue-500);
+  display:flex; align-items:center; justify-content:center;
+}
+.leverage-list h4{ margin:0 0 4px 0; font-size:20px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.leverage-list p{ margin:0; font-size:16px; color:var(--salt-gray-600); line-height:1.5; }
+
+/* =========================================================
+   SLIDE 16 — exercise 1 instructions + template
+   ========================================================= */
+.ex-grid{ display:grid; grid-template-columns:1.1fr 1fr; gap:40px; }
+.ex-instructions .step{
+  display:grid; grid-template-columns:56px 1fr; gap:20px;
+  padding:20px 0; border-bottom:1px solid var(--salt-gray-300); align-items:start;
+}
+.ex-instructions .step:last-child{ border-bottom:none; }
+.ex-instructions .step .n{
+  width:44px; height:44px; border-radius:999px;
+  background:var(--salt-blue-500); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:16px;
+}
+.ex-instructions .step h4{ margin:0 0 8px 0; font-size:22px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.ex-instructions .step p{ margin:0 0 8px 0; font-size:17px; color:var(--salt-gray-600); }
+.ex-instructions .products{ display:grid; grid-template-columns:1fr 1fr; gap:8px 20px; margin-top:8px; }
+.ex-instructions .products span{
+  font-size:16px; font-weight:600; color:var(--salt-navy-900);
+  padding:8px 0;
+}
+.ex-instructions .products span b{ color:var(--salt-blue-500); font-family:'JetBrains Mono',monospace; margin-right:10px; font-weight:500; }
+
+.ex-template{
+  background:var(--salt-gray-100); border:1px solid var(--salt-gray-300);
+  border-radius:8px; padding:40px;
+}
+.ex-template h4{
+  margin:0 0 24px 0; font-size:14px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--salt-blue-500); font-weight:600;
+}
+.ex-template .check{
+  display:grid; grid-template-columns:28px 1fr; gap:16px; align-items:start;
+  padding:14px 0; border-bottom:1px solid var(--salt-gray-300);
+  font-size:17px;
+}
+.ex-template .check:last-child{ border-bottom:none; }
+.ex-template .check .box{
+  width:22px; height:22px; border:2px solid var(--salt-navy-900);
+  border-radius:4px; margin-top:2px;
+}
+.ex-template .check b{ color:var(--salt-navy-900); font-weight:700; margin-right:8px; }
+.ex-template .check span{ color:var(--salt-gray-600); }
+
+/* =========================================================
+   SLIDE 18 — transformation
+   ========================================================= */
+.transform-list{ border-top:1px solid var(--salt-gray-300); }
+.transform-list .trow{
+  display:grid; grid-template-columns:300px 56px 300px 1fr;
+  gap:32px; align-items:center;
+  padding:24px 0; border-bottom:1px solid var(--salt-gray-300);
+}
+.transform-list .old{
+  font-size:20px; color:var(--salt-gray-600); font-weight:400;
+  text-decoration:line-through; text-decoration-color:var(--salt-gray-300);
+}
+.transform-list .ar{ color:var(--salt-blue-500); font-size:28px; font-weight:700; text-align:center; }
+.transform-list .new{
+  font-size:22px; color:var(--salt-navy-900); font-weight:700;
+  letter-spacing:-0.01em;
+}
+.transform-list .tdesc{ font-size:16px; color:var(--salt-gray-600); line-height:1.45; }
+
+/* =========================================================
+   SLIDE 19 — Agent time (3 col temporal)
+   ========================================================= */
+.time-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+.time-card{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:40px; box-shadow:var(--card-shadow);
+  display:flex; flex-direction:column; gap:20px; min-height:440px;
+  transition:transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.time-card:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
+.time-card .ico-wrap{
+  width:64px; height:64px; border-radius:12px;
+  background:rgba(10,10,10,0.05); color:var(--salt-blue-500);
+  display:flex; align-items:center; justify-content:center;
+}
+.time-card .tlbl{
+  font-size:14px; letter-spacing:0.18em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:700;
+}
+.time-card h3{ margin:0; font-size:28px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; line-height:1.2; }
+.time-card .tdesc{ font-size:17px; color:var(--salt-gray-600); margin:0; }
+.time-card ul{ margin:0; padding:0; list-style:none; }
+.time-card ul li{
+  font-size:17px; padding:10px 0;
+  border-bottom:1px solid var(--salt-gray-100);
+  color:var(--salt-gray-900);
+}
+.time-card ul li:last-child{ border-bottom:none; }
+
+/* =========================================================
+   SLIDE 20 — exercise 2 hybrid divider
+   ========================================================= */
+.ex2{
+  position:absolute; inset:0;
+  display:grid; grid-template-columns:12px 520px 1fr;
+  background:var(--salt-navy-900); color:#fff;
+}
+.ex2 .stripe{ background:var(--salt-amber-500); }
+.ex2 .left{ padding:96px 48px 96px 80px; display:flex; flex-direction:column; justify-content:center; }
+.ex2 .left .numeral{ font-size:180px; font-weight:700; line-height:0.9; color:var(--salt-blue-500); letter-spacing:-0.04em; }
+.ex2 .left .eyebrow{ color:var(--salt-blue-300); margin:32px 0 16px 0; }
+.ex2 .left h2{ margin:0 0 20px 0; font-size:60px; line-height:1.0; font-weight:700; letter-spacing:-0.02em; color:#fff; }
+.ex2 .left p{ font-size:22px; color:var(--salt-gray-300); line-height:1.5; margin:0 0 28px 0; }
+.ex2 .left .duration{
+  align-self:flex-start; padding:10px 18px; border:1.5px solid rgba(255,255,255,0.3);
+  border-radius:999px; font-size:12px; font-weight:700; letter-spacing:0.12em;
+  text-transform:uppercase;
+}
+.ex2 .right{
+  padding:80px 80px 96px 48px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto 1fr auto;
+  column-gap:24px; row-gap:28px;
+  align-content:center;
+}
+.ex2 .right .lede{
+  grid-column:1 / -1;
+  font-size:24px; color:#fff; line-height:1.4; font-weight:400; max-width:900px; margin:0;
+}
+.ex2 .right .chip-row{ grid-column:1 / -1; }
+.ex2 .right .card{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:none; color:#fff; padding:28px 32px;
+}
+.ex2 .right .card:hover{ transform:none; box-shadow:none; background:rgba(255,255,255,0.09); }
+.ex2 .right .card h4{
+  margin:0 0 16px 0; font-size:13px; letter-spacing:0.14em;
+  text-transform:uppercase; color:var(--salt-blue-300); font-weight:700;
+}
+.ex2 .right .check{
+  display:grid; grid-template-columns:28px 1fr; gap:14px; align-items:start;
+  padding:10px 0; font-size:24px; color:#fff;
+}
+.ex2 .right .check .ico{ color:var(--salt-green-500); }
+.ex2 .right .check .ico svg{ stroke:rgb(194, 188, 188); }
+.ex2 .right .next{
+  display:grid; grid-template-columns:36px 1fr; gap:14px; align-items:center;
+  padding:8px 0; font-size:24px; color:rgba(255,255,255,0.8);
+}
+.ex2 .right .next .n{
+  width:28px; height:28px; border-radius:999px;
+  background:rgba(255,255,255,0.18); color:#fff; display:flex;
+  align-items:center; justify-content:center; font-size:12px; font-weight:700;
+}
+.ex2 .right .chip-row{
+  margin-top:auto; display:inline-flex; align-self:flex-start;
+  align-items:center; gap:16px;
+  padding:10px 18px; border-radius:999px;
+  background:rgba(255,255,255,0.08); font-size:13px;
+  letter-spacing:0.06em; color:rgba(255,255,255,0.75); font-weight:600;
+}
+.ex2 .right .chip-row span{ display:inline-flex; align-items:center; gap:8px; }
+.ex2 .right .chip-row .d{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.35); }
+.ex2 .footer{ color:rgba(255,255,255,0.4); left:80px; }
+
+/* =========================================================
+   SLIDE 21 — scenarios + deliverables + tips
+   ========================================================= */
+.scenarios{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-bottom:32px; }
+.scenario{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:32px; box-shadow:var(--card-shadow);
+  display:flex; flex-direction:column; gap:12px; min-height:190px;
+  transition:transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.scenario:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
+.scenario .letter{
+  font-family:'JetBrains Mono',monospace; font-size:13px;
+  color:var(--salt-blue-500); font-weight:500; letter-spacing:0.12em;
+}
+.scenario h4{ margin:0; font-size:24px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.scenario p{ margin:0; font-size:16px; color:var(--salt-gray-600); line-height:1.5; }
+.ex21-bottom{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.deliverables{
+  background:var(--salt-gray-100); border-radius:8px; padding:28px 32px;
+  border-left:4px solid var(--salt-blue-500);
+}
+.deliverables h4,
+.tips h4{
+  margin:0 0 16px 0; font-size:13px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:600;
+}
+.deliverables ol{ margin:0; padding:0; list-style:none; counter-reset:d; }
+.deliverables ol li{
+  counter-increment:d; padding:10px 0 10px 40px; position:relative;
+  font-size:17px; color:var(--salt-navy-900);
+  border-bottom:1px solid var(--salt-gray-300);
+}
+.deliverables ol li:last-child{ border-bottom:none; }
+.deliverables ol li::before{
+  content:counter(d,decimal-leading-zero);
+  position:absolute; left:0; top:10px;
+  font-family:'JetBrains Mono',monospace; font-weight:500;
+  color:var(--salt-blue-500); font-size:15px;
+}
+.tips{
+  background:var(--salt-navy-900); color:#fff; border-radius:8px; padding:28px 32px;
+}
+.tips h4{ color:var(--salt-blue-300); }
+.tips ul{ margin:0; padding:0; list-style:none; }
+.tips ul li{
+  padding:10px 0 10px 26px; position:relative;
+  font-size:17px; color:#fff; line-height:1.45;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+}
+.tips ul li:last-child{ border-bottom:none; }
+.tips ul li::before{
+  content:"→"; position:absolute; left:0; top:10px;
+  color:#ffffff; font-weight:700;
+}
+
+/* =========================================================
+   SLIDE 22 — takeaways
+   ========================================================= */
+.takeaways{ display:flex; flex-direction:column; gap:18px; margin-bottom:32px; }
+.take{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  display:grid; grid-template-columns:88px 1fr; gap:28px; align-items:center;
+  padding:24px 32px; box-shadow:var(--card-shadow);
+  transition:transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.take:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
+.take .n{
+  width:64px; height:64px; border-radius:999px;
+  background:var(--salt-blue-500); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-weight:500; font-size:22px;
+}
+.take h4{ margin:0 0 6px 0; font-size:22px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.take p{ margin:0; font-size:17px; color:var(--salt-gray-600); line-height:1.45; }
+.resources{
+  border-top:1px solid var(--salt-gray-300);
+  padding-top:24px;
+  display:flex; align-items:baseline; gap:24px;
+}
+.resources .lbl{
+  font-size:12px; letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:600;
+}
+.resources .links{
+  font-family:'JetBrains Mono',monospace; font-size:15px; color:var(--salt-gray-600);
+  font-weight:500;
+}
+.resources .links span{ margin:0 12px; color:var(--salt-gray-300); }
+
+/* =========================================================
+   2-DAY AGENDA — split columns
+   ========================================================= */
+.day-agenda{ display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-top:8px; }
+.day-col{ display:flex; flex-direction:column; gap:14px; }
+.day-header{ display:flex; align-items:baseline; gap:16px; padding-bottom:10px; border-bottom:2px solid var(--salt-navy-900); }
+.day-header .day-pill{
+  display:inline-flex; align-items:center; padding:6px 14px;
+  background:var(--salt-navy-900); color:#fff; border-radius:999px;
+  font-size:11px; letter-spacing:0.12em; text-transform:uppercase; font-weight:700;
+}
+.day-header h3{ margin:0; font-size:24px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.agenda.compact .row{
+  grid-template-columns:60px 180px 1fr 50px;
+  gap:16px; padding:14px 0;
+}
+.agenda.compact .time{ font-size:14px; }
+.agenda.compact .topic{ font-size:16px; }
+.agenda.compact .desc{ font-size:14px; line-height:1.4; }
+.agenda.compact .dur{ font-size:11px; }
+
+/* =========================================================
+   FILE-TREE / CODE blocks (anatomy in files)
+   ========================================================= */
+.tree-grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:32px; flex:1; }
+pre.tree, pre.code-block{
+  background:var(--salt-navy-900); color:#E8E8E8; border-radius:8px;
+  padding:24px 28px; margin:0; overflow:hidden;
+  font-family:'JetBrains Mono',monospace; font-size:14px; line-height:1.55;
+  box-shadow:var(--card-shadow);
+}
+pre.tree .dim{ color:var(--salt-blue-300); }
+pre.tree .accent{ color:var(--salt-amber-500); }
+pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
+.file-callouts{ display:flex; flex-direction:column; gap:14px; }
+.file-callouts .item{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:18px 22px; box-shadow:var(--card-shadow);
+}
+.file-callouts .item code{
+  font-family:'JetBrains Mono',monospace; font-size:14px;
+  color:var(--salt-blue-500); font-weight:600;
+}
+.file-callouts .item h5{
+  margin:6px 0 4px 0; font-size:16px; font-weight:700;
+  color:var(--salt-navy-900); letter-spacing:-0.005em;
+}
+.file-callouts .item p{ margin:0; font-size:14px; color:var(--salt-gray-600); line-height:1.45; }
+
+/* =========================================================
+   SURFACE COMPARISON — Claude Code / RooCode / Copilot
+   ========================================================= */
+.surface-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.surface{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  box-shadow:var(--card-shadow); padding:28px 30px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.surface .name{
+  font-size:20px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em;
+}
+.surface .tag{ background:var(--salt-blue-500); align-self:flex-start; }
+.surface dl{ margin:0; display:grid; grid-template-columns:130px 1fr; gap:8px 16px; }
+.surface dt{
+  font-size:11px; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--salt-gray-600); font-weight:600; padding-top:2px;
+}
+.surface dd{ margin:0; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--salt-navy-900); line-height:1.45; }
+
+/* =========================================================
+   APPS GRID — 5 reverse-engineerable products
+   ========================================================= */
+.grid-5{
+  display:grid; grid-template-columns:repeat(5,1fr); gap:20px;
+}
+.grid-5 .app{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:24px 20px; box-shadow:var(--card-shadow);
+  display:flex; flex-direction:column; gap:12px; min-height:340px;
+  transition:transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.grid-5 .app:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
+.grid-5 .letter{
+  width:36px; height:36px; border-radius:8px;
+  background:var(--salt-navy-900); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:16px;
+}
+.grid-5 .app h4{
+  margin:0; font-size:20px; font-weight:700; color:var(--salt-navy-900);
+  letter-spacing:-0.01em; line-height:1.15;
+}
+.grid-5 .app .role{
+  font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:600;
+}
+.grid-5 .app p{ margin:0; font-size:14px; color:var(--salt-gray-600); line-height:1.45; }
+.grid-5 .app .why{
+  margin-top:auto; padding-top:12px; border-top:1px solid var(--salt-gray-300);
+  font-size:12px; color:var(--salt-navy-900); font-weight:600;
+}
+
+/* =========================================================
+   BREAKOUT INSTRUCTIONS — multi-column with deliverable card
+   ========================================================= */
+.breakout{ display:grid; grid-template-columns:1.2fr 1fr; gap:36px; flex:1; }
+.breakout .steps{ display:flex; flex-direction:column; gap:0; }
+.breakout .step{
+  display:grid; grid-template-columns:48px 1fr; gap:18px;
+  padding:18px 0; border-bottom:1px solid var(--salt-gray-300); align-items:start;
+}
+.breakout .step:last-child{ border-bottom:none; }
+.breakout .step .n{
+  width:40px; height:40px; border-radius:999px;
+  background:var(--salt-blue-500); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:15px;
+}
+.breakout .step h4{ margin:0 0 6px 0; font-size:18px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.01em; }
+.breakout .step p{ margin:0; font-size:15px; color:var(--salt-gray-600); line-height:1.45; }
+.breakout .step code{
+  font-family:'JetBrains Mono',monospace; font-size:13px;
+  background:var(--salt-gray-100); padding:1px 6px; border-radius:4px;
+  color:var(--salt-navy-900);
+}
+.deliverable-card{
+  background:var(--salt-gray-100); border:1px solid var(--salt-gray-300);
+  border-radius:8px; padding:28px 32px; align-self:start;
+}
+.deliverable-card h4{
+  margin:0 0 12px 0; font-size:13px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--salt-blue-500); font-weight:600;
+}
+.deliverable-card .row{
+  padding:10px 0; border-bottom:1px solid var(--salt-gray-300);
+  display:grid; grid-template-columns:160px 1fr; gap:16px; align-items:start;
+}
+.deliverable-card .row:last-child{ border-bottom:none; }
+.deliverable-card .row code{
+  font-family:'JetBrains Mono',monospace; font-size:13px;
+  color:var(--salt-blue-500); font-weight:600;
+}
+.deliverable-card .row span{ font-size:14px; color:var(--salt-gray-900); line-height:1.4; }
+.deliverable-card pre{
+  margin:12px 0 0 0; background:var(--salt-navy-900); color:#E8E8E8;
+  padding:14px 16px; border-radius:6px;
+  font-family:'JetBrains Mono',monospace; font-size:12px; line-height:1.55;
+  overflow:hidden;
+}
+
+/* =========================================================
+   DAY 2 OPENER — recap card
+   ========================================================= */
+.recap-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.recap-card{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:32px; box-shadow:var(--card-shadow);
+}
+.recap-card h4{
+  margin:0 0 16px 0; font-size:13px; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--salt-blue-500); font-weight:600;
+}
+.recap-card ul{ margin:0; padding:0; list-style:none; }
+.recap-card ul li{
+  font-size:17px; padding:10px 0 10px 22px; position:relative;
+  color:var(--salt-gray-900); border-bottom:1px solid var(--salt-gray-100);
+  line-height:1.45;
+}
+.recap-card ul li:last-child{ border-bottom:none; }
+.recap-card ul li::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:var(--salt-blue-500);
+  position:absolute; left:0; top:18px;
+}
+
+/* =========================================================
+   HOOKS LIFECYCLE — timeline strip
+   ========================================================= */
+.hooks-timeline{
+  display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin:8px 0 28px 0;
+}
+.hooks-timeline .hk{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:18px 18px; text-align:center;
+  display:flex; flex-direction:column; gap:6px;
+}
+.hooks-timeline .hk .ev{
+  font-family:'JetBrains Mono',monospace; font-size:13px;
+  color:var(--salt-blue-500); font-weight:600;
+}
+.hooks-timeline .hk h5{ margin:0; font-size:15px; color:var(--salt-navy-900); font-weight:700; }
+.hooks-timeline .hk p{ margin:0; font-size:12px; color:var(--salt-gray-600); line-height:1.4; }
+.hooks-timeline .arrow-row{
+  grid-column:1 / -1; display:flex; justify-content:space-between;
+  font-size:14px; color:var(--salt-gray-300);
+}
+
+/* =========================================================
+   DEMO RUBRIC — score table
+   ========================================================= */
+.rubric{
+  border-top:1px solid var(--salt-gray-300);
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  overflow:hidden; box-shadow:var(--card-shadow);
+}
+.rubric .rhead, .rubric .rrow{
+  display:grid; grid-template-columns:0.9fr 2fr 0.6fr;
+  gap:24px; padding:18px 28px;
+  border-bottom:1px solid var(--salt-gray-300); align-items:center;
+}
+.rubric .rrow:last-child{ border-bottom:none; }
+.rubric .rhead{
+  background:var(--salt-gray-100);
+  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-gray-600); font-weight:600;
+}
+.rubric .rcat{ font-size:18px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.005em; }
+.rubric .rdesc{ font-size:15px; color:var(--salt-gray-600); line-height:1.45; }
+.rubric .rpts{
+  font-family:'JetBrains Mono',monospace; font-size:18px;
+  color:var(--salt-blue-500); font-weight:600; text-align:right;
+}
+
+/* =========================================================
+   Resources — link grid
+   ========================================================= */
+.resource-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+.resource-grid--3{ grid-template-columns:repeat(3,1fr); gap:14px; }
+.resource{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:18px 22px; box-shadow:var(--card-shadow);
+  display:flex; flex-direction:column; gap:5px;
+}
+.resource .src{
+  font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:600;
+}
+.resource h5{ margin:0; font-size:15px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.005em; }
+.resource p{ margin:0; font-size:12px; color:var(--salt-gray-600); line-height:1.4; }
+.resource code{
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--salt-navy-900); background:var(--salt-gray-100);
+  padding:0 4px; border-radius:3px;
+}
+.resource .url{
+  margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--salt-gray-900); word-break:break-all;
+}
+.resource--copilot{ border-left:3px solid var(--salt-amber-500); }
+.resource--copilot .src{ color:var(--salt-amber-500); }
+
+/* =========================================================
+   ENVIRONMENT / GROUND RULES — 3-card grid + bottom callout
+   ========================================================= */
+.env-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.env-card{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:28px 32px; box-shadow:var(--card-shadow);
+  display:flex; flex-direction:column; gap:14px;
+}
+.env-card .env-tag{
+  font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:700;
+}
+.env-card ul{ margin:0; padding:0; list-style:none; }
+.env-card ul li{
+  font-size:16px; padding:10px 0 10px 22px; position:relative;
+  color:var(--salt-gray-900); line-height:1.45;
+  border-bottom:1px solid var(--salt-gray-100);
+}
+.env-card ul li:last-child{ border-bottom:none; }
+.env-card ul li::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:var(--salt-blue-500);
+  position:absolute; left:0; top:18px;
+}
+.env-card--build{ border-left:3px solid var(--salt-amber-500); }
+.env-card--build .env-tag{ color:var(--salt-amber-500); }
+.env-card--dont{ background:var(--salt-gray-100); }
+.env-card--dont .env-tag{ color:var(--salt-gray-600); }
+.env-card--dont ul li{ color:var(--salt-gray-600); }
+.env-card--dont ul li::before{ background:var(--salt-gray-600); }
+
+.env-callout{
+  margin-top:28px;
+  background:var(--salt-navy-900); color:#fff;
+  border-radius:8px; padding:24px 32px;
+  font-size:18px; line-height:1.5;
+}
+.env-callout b{ color:var(--salt-amber-500); }
+.env-callout code{
+  font-family:'JetBrains Mono',monospace; font-size:15px;
+  background:rgba(255,255,255,0.12); padding:2px 8px; border-radius:4px;
+  color:#fff;
+}
+
+/* =========================================================
+   Print support
+   ========================================================= */
+@media print{
+  html,body{ background:#fff; }
+}
+</style>
+</head>
+
+<body>
+
+<deck-stage width="1920" height="1080">
+
+<!-- ============================================================
+     SLIDE 1 — TITLE
+     ============================================================ -->
+<section data-label="01 Title">
+  <div class="s-title">
+    <div class="eyebrow-mark">Workshop · 2026</div>
+    <div class="meta"><strong>2 DAYS · 4 HRS</strong><br>Product &amp; UX Designers</div>
+
+    <h1>Agentic<br>
+        <span class="accent">Harness</span><br>
+        Engineering</h1>
+    <div class="subtitle">Reverse-engineer &amp; build the scaffolding that makes AI useful.</div>
+    <div class="tag-pill"><span class="dot"></span>2 Days · 2 Hrs each · 3 Breakouts</div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 2 — Why This Workshop Matters (3-card grid)
+     ============================================================ -->
+<section data-label="02 Why This Workshop Matters">
+  <div class="frame">
+    <div class="eyebrow">Context</div>
+    <h2 class="slide-title">Why this workshop matters</h2>
+    <p class="slide-lede">The role of design is shifting from crafting interfaces to orchestrating intelligent systems.</p>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="kicker">01 · Paradigm shift</div>
+        <h3>From static wireframes to dynamic orchestration rules.</h3>
+        <p>Designers now shape how agents coordinate — not just how screens look.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">02 · Agent = Model + Harness</div>
+        <h3>The model is the intelligence. The harness makes it useful.</h3>
+        <p>Designers have massive influence over harness decisions.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">03 · Design IS engineering</div>
+        <h3>OpenAI built a million-line product where humans steer and agents execute.</h3>
+        <p>The discipline moved to the scaffolding.</p>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 3 — Agenda
+     ============================================================ -->
+<section data-label="03 Agenda">
+  <div class="frame">
+    <div class="eyebrow">Agenda</div>
+    <h2 class="slide-title">Two days, three breakouts, one harness</h2>
+    <p class="slide-lede">Day 1 you reverse-engineer and build a harness for a real product. Day 2 you wire it up, test it in RooCode / Copilot, and demo.</p>
+
+    <div class="day-agenda">
+      <div class="day-col">
+        <div class="day-header"><span class="day-pill">Day 1 · 120 min</span><h3>Plan · Design · Develop</h3></div>
+        <div class="agenda compact">
+          <div class="row"><div class="time">0:00</div><div class="topic">Foundations</div><div class="desc">Agent = Model + Harness. OS analogy. Designer leverage.</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">0:15</div><div class="topic">Anatomy</div><div class="desc">6 components + the file structure that backs them.</div><div class="dur">25</div></div>
+          <div class="row"><div class="time">0:40</div><div class="topic">Pick an app</div><div class="desc">Choose 1 of 5 apps to reverse-engineer.</div><div class="dur">5</div></div>
+          <div class="row"><div class="time">0:45</div><div class="topic">Breakout 1 · PLAN</div><div class="desc">Reverse-engineer: capabilities, intents, harness map.</div><div class="dur">25</div></div>
+          <div class="row"><div class="time">1:10</div><div class="topic">Breakout 2 · DESIGN</div><div class="desc">Sketch file structure, system prompt, tools list.</div><div class="dur">25</div></div>
+          <div class="row"><div class="time">1:35</div><div class="topic">Breakout 3 · DEVELOP</div><div class="desc">Write CLAUDE.md, settings.json, a skill, a hook.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:55</div><div class="topic">Show &amp; tell</div><div class="desc">2-min preview from each group · homework.</div><div class="dur">5</div></div>
+        </div>
+      </div>
+      <div class="day-col">
+        <div class="day-header"><span class="day-pill">Day 2 · 120 min</span><h3>Refine · Test · Demo</h3></div>
+        <div class="agenda compact">
+          <div class="row"><div class="time">0:00</div><div class="topic">Recap</div><div class="desc">What worked / what broke between sessions.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:10</div><div class="topic">Agentic UX</div><div class="desc">Intent-system maps · Past / Present / Future.</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">0:25</div><div class="topic">Hooks deep-dive</div><div class="desc">PreToolUse, PostToolUse, SessionStart, Stop.</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">0:40</div><div class="topic">Subagents &amp; MCP</div><div class="desc">Delegation, isolation, external tool servers.</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">0:55</div><div class="topic">Evals &amp; traces</div><div class="desc">Hill-climbing the harness from real failures.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">1:05</div><div class="topic">Live wire-up</div><div class="desc">Run your harness in RooCode / Copilot.</div><div class="dur">25</div></div>
+          <div class="row"><div class="time">1:30</div><div class="topic">Group demos</div><div class="desc">5 min per group · 1 critical tradeoff each.</div><div class="dur">25</div></div>
+          <div class="row"><div class="time">1:55</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">5</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 3.5 — Workshop format / your environment
+     ============================================================ -->
+<section data-label="3b Your Environment">
+  <div class="frame">
+    <div class="eyebrow">Setup</div>
+    <h2 class="slide-title">Your environment &amp; ground rules</h2>
+    <p class="slide-lede">We're not training models or running servers today. You'll author the harness and a frontend prototype, then let your editor's AI play the agent.</p>
+
+    <div class="env-grid">
+      <div class="env-card">
+        <div class="env-tag">Stack you have</div>
+        <ul>
+          <li><b>VS Code</b> — your editor</li>
+          <li><b>RooCode</b> extension</li>
+          <li><b>GitHub Copilot</b> extension</li>
+          <li>Your <b>Figma</b> file (bring frames)</li>
+          <li>Optional: <b>MCP servers</b> (Figma, GitHub)</li>
+        </ul>
+      </div>
+      <div class="env-card env-card--build">
+        <div class="env-tag">What you'll build</div>
+        <ul>
+          <li><b>The harness</b> — markdown, JSON, scripts</li>
+          <li><b>A frontend prototype</b> — built from your Figma via Copilot / RooCode</li>
+          <li><b>An eval set</b> — 3–5 captured tasks the harness should handle</li>
+          <li><b>A demo script</b> — one task you'll run live</li>
+        </ul>
+      </div>
+      <div class="env-card env-card--dont">
+        <div class="env-tag">What you won't build</div>
+        <ul>
+          <li>A standalone agent — no API keys today</li>
+          <li>Model serving · provider billing · auth</li>
+          <li>Production backend or data layer</li>
+          <li>Anything that runs outside VS Code</li>
+        </ul>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
-    <script>
-      Reveal.initialize({
-        hash: true,
-        slideNumber: 'c/t',
-        controls: true,
-        progress: true,
-        transition: 'slide',
-        plugins: [RevealHighlight, RevealNotes, RevealMarkdown],
-      });
-    </script>
-  </body>
+    <div class="env-callout">
+      <b>The model lives inside your editor.</b> RooCode and Copilot already have the API key — yours doesn't. So your <code>harness/</code> folder + your frontend prototype are loaded <i>into</i> VS Code, and the extension's AI becomes the harnessed agent. That's your runtime for the whole workshop.
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 4 — Section divider: Foundations
+     ============================================================ -->
+<section data-label="04 Section · Foundations">
+  <div class="divider">
+    <div class="numeral">01</div>
+    <div class="body">
+      <div class="eyebrow">Section</div>
+      <h2>Foundations</h2>
+      <p>What is a harness and why should designers care?</p>
+      <div class="duration">15 Minutes</div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 5 — Core Formula
+     ============================================================ -->
+<section data-label="05 The Core Formula">
+  <div class="frame">
+    <div class="eyebrow">Foundations</div>
+    <h2 class="slide-title">The core formula</h2>
+
+    <div class="formula-hero" style="margin-top:140px;">
+      <span>AGENT</span>
+      <span class="op">=</span>
+      <span>MODEL</span>
+      <span class="op">+</span>
+      <span class="harness">HARNESS</span>
+    </div>
+
+    <div class="formula-columns">
+      <div class="col">
+        <div class="label">Agent</div>
+        <h4>The emergent behavior</h4>
+        <p>Goal-directed, tool-using, self-correcting entity the user experiences.</p>
+      </div>
+      <div class="col">
+        <div class="label">Model</div>
+        <h4>The intelligence</h4>
+        <p>Takes in text and images, outputs text. That's it.</p>
+      </div>
+      <div class="col">
+        <div class="label">Harness</div>
+        <h4>Everything else</h4>
+        <p>Code, config, tools, constraints that make the model useful.</p>
+      </div>
+    </div>
+
+    <blockquote class="pull-quote">
+      "If you're not the model, you're the harness."
+      <cite>— Vivek Trivedy · LangChain</cite>
+    </blockquote>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 6 — OS Analogy Table
+     ============================================================ -->
+<section data-label="06 The OS Analogy">
+  <div class="frame">
+    <div class="eyebrow">Foundations</div>
+    <h2 class="slide-title">The operating system analogy</h2>
+    <p class="slide-lede">A raw LLM is a CPU with no RAM, no disk, and no I/O. The harness is the operating system.</p>
+
+    <div class="analogy-table">
+      <div class="head">
+        <div>Hardware</div><div></div><div>Agent equivalent</div><div>Description</div>
+      </div>
+      <div class="r">
+        <div class="hw"><i data-lucide="cpu" width="28" height="28"></i>CPU</div>
+        <div class="arrow">→</div>
+        <div class="eq">LLM Model</div>
+        <div class="desc">Raw processing power — brilliant but can't do anything alone.</div>
+      </div>
+      <div class="r">
+        <div class="hw"><i data-lucide="database" width="28" height="28"></i>RAM</div>
+        <div class="arrow">→</div>
+        <div class="eq">Context Window</div>
+        <div class="desc">Fast but limited working memory.</div>
+      </div>
+      <div class="r">
+        <div class="hw"><i data-lucide="hard-drive" width="28" height="28"></i>Disk</div>
+        <div class="arrow">→</div>
+        <div class="eq">External DBs / Files</div>
+        <div class="desc">Large but slower — persistent knowledge.</div>
+      </div>
+      <div class="r">
+        <div class="hw"><i data-lucide="plug" width="28" height="28"></i>Drivers</div>
+        <div class="arrow">→</div>
+        <div class="eq">Tool Integrations</div>
+        <div class="desc">Interfaces to the outside world — APIs, MCP, browsers.</div>
+      </div>
+      <div class="r hl">
+        <div class="hw"><i data-lucide="layers" width="28" height="28"></i>OS</div>
+        <div class="arrow">→</div>
+        <div class="eq">The Harness</div>
+        <div class="desc">Orchestrates everything — <b>this is what we design</b>.</div>
+      </div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 7 — Three Levels of Engineering (rings)
+     ============================================================ -->
+<section data-label="07 Three Levels of Engineering">
+  <div class="frame">
+    <div class="eyebrow">Foundations</div>
+    <h2 class="slide-title">Three levels of engineering</h2>
+
+    <div class="rings-layout">
+      <div class="rings">
+        <div class="ring r1">Harness Engineering</div>
+        <div class="ring r2">Context Engineering</div>
+        <div class="ring r3">Prompt</div>
+        <div class="core" style="width: 110px; height: 110px;">the<br>model</div>
+      </div>
+      <div class="rings-cards">
+        <div class="card">
+          <div class="kicker">Outer ring</div>
+          <h4>Harness Engineering</h4>
+          <p>The full system: tools, orchestration, hooks, infrastructure.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Middle ring</div>
+          <h4>Context Engineering</h4>
+          <p>What the model sees and when: memory, retrieval, compaction.</p>
+        </div>
+        <div class="card">
+          <div class="kicker">Inner ring</div>
+          <h4>Prompt Engineering</h4>
+          <p>The instructions the model receives on each turn.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rings-footer">
+      Designers influence all three — <b>but harness engineering is where you have the most leverage.</b>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 8 — Limitations → Harness solutions
+     ============================================================ -->
+<section data-label="08 What Models Can't Do">
+  <div class="frame">
+    <div class="eyebrow">Foundations</div>
+    <h2 class="slide-title">What models can't do out of the box</h2>
+    <p class="slide-lede">Every limitation is solved by a harness feature. This is where your design decisions live.</p>
+
+    <div class="limit-list">
+      <div class="lr"><div class="lim"><i data-lucide="brain" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Remember past sessions</div><div class="arrow">→</div><div class="sol">Memory &amp; persistent storage</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="play" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Execute code or actions</div><div class="arrow">→</div><div class="sol">Tool execution &amp; sandboxes</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="globe" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Access the internet</div><div class="arrow">→</div><div class="sol">Web search, API integrations</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="users" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Coordinate with others</div><div class="arrow">→</div><div class="sol">Orchestration &amp; handoffs</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="check-circle" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Verify their own output</div><div class="arrow">→</div><div class="sol">Self-evaluation loops</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="shield" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Enforce rules reliably</div><div class="arrow">→</div><div class="sol">Hooks &amp; middleware</div></div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 9 — Section divider: The Anatomy
+     ============================================================ -->
+<section data-label="09 Section · The Anatomy">
+  <div class="divider">
+    <div class="numeral">02</div>
+    <div class="body">
+      <div class="eyebrow">Section</div>
+      <h2>The Anatomy</h2>
+      <p>Six core harness components and where design decisions live.</p>
+      <div class="duration">20 Minutes</div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 10 — 6 Core Harness Components
+     ============================================================ -->
+<section data-label="10 Six Core Components">
+  <div class="frame">
+    <div class="eyebrow">Anatomy</div>
+    <h2 class="slide-title">Six core harness components</h2>
+
+    <div class="grid-6">
+      <div class="card">
+        <div class="top"><span class="chip">01</span><i class="ico" data-lucide="file-text" width="28" height="28"></i></div>
+        <h4>System Prompt &amp; Instructions</h4>
+        <p>Persona, rules, constraints.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">02</span><i class="ico" data-lucide="wrench" width="28" height="28"></i></div>
+        <h4>Tools, Skills &amp; MCPs</h4>
+        <p>Actions the agent can take.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">03</span><i class="ico" data-lucide="server" width="28" height="28"></i></div>
+        <h4>Infrastructure &amp; Sandbox</h4>
+        <p>Filesystem, browser, runtime.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">04</span><i class="ico" data-lucide="git-branch" width="28" height="28"></i></div>
+        <h4>Orchestration Logic</h4>
+        <p>Subagents, handoffs, routing.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">05</span><i class="ico" data-lucide="shield-check" width="28" height="28"></i></div>
+        <h4>Hooks &amp; Middleware</h4>
+        <p>Deterministic execution gates.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">06</span><i class="ico" data-lucide="repeat" width="28" height="28"></i></div>
+        <h4>Feedback Loops</h4>
+        <p>Self-eval, tracing, evals.</p>
+      </div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 11 — System Prompt & Tools (2-col deep dive)
+     ============================================================ -->
+<section data-label="11 System Prompt & Tools">
+  <div class="frame">
+    <div class="eyebrow">Anatomy</div>
+    <h2 class="slide-title">System prompt &amp; tools</h2>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">01</span><h3>System Prompt &amp; Instructions</h3></div>
+        <p class="body-lede">The persona, rules, and constraints you give the model.</p>
+        <div class="section-label">Design decisions</div>
+        <ul>
+          <li>Tone &amp; personality of the agent</li>
+          <li>What it should / shouldn't do</li>
+          <li>AGENTS.md / CLAUDE.md files</li>
+          <li>Skills as progressive disclosure</li>
+        </ul>
+        <div class="lev-row"><span class="lbl">Designer leverage</span><span class="tag tag--high">High</span></div>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">02</span><h3>Tools, Skills &amp; MCPs</h3></div>
+        <p class="body-lede">The actions the agent can take in the world.</p>
+        <div class="section-label">Design decisions</div>
+        <ul>
+          <li>Which tools to expose (fewer = better)</li>
+          <li>Tool descriptions (UX copy for agents)</li>
+          <li>MCP server connections</li>
+          <li>Permission boundaries &amp; confirmations</li>
+        </ul>
+        <div class="lev-row"><span class="lbl">Designer leverage</span><span class="tag tag--very-high">Very high</span></div>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 12 — Infrastructure & Orchestration (2-col deep dive)
+     ============================================================ -->
+<section data-label="12 Infrastructure & Orchestration">
+  <div class="frame">
+    <div class="eyebrow">Anatomy</div>
+    <h2 class="slide-title">Infrastructure &amp; orchestration</h2>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">03</span><h3>Infrastructure &amp; Sandbox</h3></div>
+        <p class="body-lede">The workspace the agent operates in.</p>
+        <div class="section-label">Design decisions</div>
+        <ul>
+          <li>Filesystem as the foundational primitive</li>
+          <li>Browser access for web tasks</li>
+          <li>Sandboxed execution environments</li>
+          <li>What data is in-context vs on-disk</li>
+        </ul>
+        <div class="lev-row"><span class="lbl">Designer leverage</span><span class="tag tag--medium">Medium</span></div>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">04</span><h3>Orchestration Logic</h3></div>
+        <p class="body-lede">How agents coordinate &amp; delegate.</p>
+        <div class="section-label">Design decisions</div>
+        <ul>
+          <li>When to spawn subagents</li>
+          <li>Agent handoff protocols</li>
+          <li>Model routing (fast vs smart)</li>
+          <li>Sprint contracts between agents</li>
+        </ul>
+        <div class="lev-row"><span class="lbl">Designer leverage</span><span class="tag tag--high">High</span></div>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 13 — Hooks & Feedback Loops (2-col deep dive)
+     ============================================================ -->
+<section data-label="13 Hooks & Feedback Loops">
+  <div class="frame">
+    <div class="eyebrow">Anatomy</div>
+    <h2 class="slide-title">Hooks &amp; feedback loops</h2>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">05</span><h3>Hooks &amp; Middleware</h3></div>
+        <p class="body-lede">Deterministic logic around the agent.</p>
+        <div class="key-insight">
+          <b>Key insight.</b> When something should happen <b>every time</b>, don't rely on the model to remember — enforce it with code.
+        </div>
+        <div class="section-label">Examples</div>
+        <ul>
+          <li>Auto-lint after every code edit</li>
+          <li>Safety checks before tool execution</li>
+          <li>Context compaction at thresholds</li>
+        </ul>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">06</span><h3>Feedback Loops</h3></div>
+        <p class="body-lede">How the harness improves over time.</p>
+        <div class="section-label">The improvement cycle</div>
+        <ul>
+          <li><b>Traces</b> — understand failure modes</li>
+          <li><b>Evals</b> — the "training data" for the harness</li>
+          <li><b>Self-verification</b> — agent checks its own work</li>
+          <li><b>Hill-climbing</b> — iterative harness optimization</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 14 — Designer Leverage
+     ============================================================ -->
+<section data-label="14 Where Designers Have Leverage">
+  <div class="frame">
+    <div class="eyebrow">Anatomy</div>
+    <h2 class="slide-title">Where designers have the most leverage</h2>
+
+    <div class="leverage-lede">
+      <i data-lucide="alert-triangle" width="32" height="32" style="color:#ffffff;flex-shrink:0;"></i>
+      <span>Most agent failures aren't <span class="mark">intelligence</span> failures. They are <span class="mark">input</span> failures.</span>
+    </div>
+
+    <div class="leverage-list">
+      <div class="lrow"><div class="ico"><i data-lucide="message-square" width="24" height="24"></i></div><div><h4>Tool descriptions</h4><p>The "UX copy" for AI agents — bad descriptions = wrong tool choices.</p></div></div>
+      <div class="lrow"><div class="ico"><i data-lucide="key" width="24" height="24"></i></div><div><h4>Permission &amp; trust UX</h4><p>When to ask, when to act, what to explain.</p></div></div>
+      <div class="lrow"><div class="ico"><i data-lucide="eye" width="24" height="24"></i></div><div><h4>State &amp; progress visibility</h4><p>Users need to understand what agents are doing and why.</p></div></div>
+      <div class="lrow"><div class="ico"><i data-lucide="alert-triangle" width="24" height="24"></i></div><div><h4>Error recovery flows</h4><p>What happens when the agent fails?</p></div></div>
+      <div class="lrow"><div class="ico"><i data-lucide="network" width="24" height="24"></i></div><div><h4>Agent coordination rules</h4><p>Which agents work together, handoffs, escalation paths.</p></div></div>
+      <div class="lrow"><div class="ico"><i data-lucide="clock" width="24" height="24"></i></div><div><h4>Input data architecture</h4><p>Agent Time: Past (prefs), Present (state), Future (adaptation).</p></div></div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 15 — Anatomy in Files (the file structure backing the 6 components)
+     ============================================================ -->
+<section data-label="15 Anatomy in Files">
+  <div class="frame">
+    <div class="eyebrow">Anatomy</div>
+    <h2 class="slide-title">The harness is mostly files</h2>
+    <p class="slide-lede">Markdown for instructions. JSON for config. Shell scripts for hooks. The agent reads them every turn.</p>
+
+    <div class="tree-grid">
+<pre class="tree">my-app-harness/
+├── <span class="accent">CLAUDE.md</span>              <span class="comment"># project context, conventions, rules</span>
+├── <span class="accent">AGENTS.md</span>              <span class="comment"># Codex / generic agents read this</span>
+├── .claude/
+│   ├── <span class="accent">settings.json</span>      <span class="comment"># permissions, env, hook bindings</span>
+│   ├── skills/
+│   │   ├── design-review.md  <span class="comment"># progressive-disclosure prompt</span>
+│   │   └── component-spec.md
+│   ├── commands/
+│   │   ├── plan.md           <span class="comment"># /plan slash command</span>
+│   │   └── ship.md           <span class="comment"># /ship slash command</span>
+│   ├── agents/
+│   │   ├── researcher.md     <span class="comment"># subagent definition</span>
+│   │   └── reviewer.md
+│   └── hooks/
+│       ├── pre-tool-use.sh   <span class="comment"># gate dangerous calls</span>
+│       └── post-tool-use.sh  <span class="comment"># auto-format, lint, log</span>
+├── .roo/
+│   └── rules/01-design.md    <span class="comment"># RooCode workspace rules</span>
+├── .github/
+│   └── copilot-instructions.md <span class="comment"># Copilot project guidance</span>
+└── <span class="accent">mcp.json</span>               <span class="comment"># external tool servers (MCP)</span>
+</pre>
+
+      <div class="file-callouts">
+        <div class="item"><code>CLAUDE.md / AGENTS.md</code><h5>The system prompt you actually own</h5><p>Highest leverage. Keep under 200 lines. Survives compaction.</p></div>
+        <div class="item"><code>.claude/settings.json</code><h5>Permissions &amp; hook bindings</h5><p>Allow / deny tools, env vars, which scripts run on which events.</p></div>
+        <div class="item"><code>.claude/skills/*.md</code><h5>Reusable, discoverable prompts</h5><p>Loaded only when relevant — progressive disclosure.</p></div>
+        <div class="item"><code>.claude/hooks/*.sh</code><h5>Deterministic guardrails</h5><p>Every time the model touches X, this script runs. No "the model might forget."</p></div>
+        <div class="item"><code>mcp.json</code><h5>External tool servers</h5><p>Figma, GitHub, Linear, Slack — wire each tool source explicitly.</p></div>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 16 — Designer's editing surface across harnesses
+     ============================================================ -->
+<section data-label="16 Designer Editing Surface">
+  <div class="frame">
+    <div class="eyebrow">Anatomy</div>
+    <h2 class="slide-title">The same files, three editing surfaces</h2>
+    <p class="slide-lede">You already use RooCode and Copilot. Claude Code uses the same pattern. The names change — the anatomy doesn't.</p>
+
+    <div class="surface-grid">
+      <div class="surface">
+        <span class="tag">Used by you</span>
+        <div class="name">RooCode (VS Code)</div>
+        <dl>
+          <dt>Project rules</dt><dd>.roo/rules/<br>*.md</dd>
+          <dt>Mode rules</dt><dd>.roo/rules-{mode}/</dd>
+          <dt>Custom modes</dt><dd>.roomodes</dd>
+          <dt>Global rules</dt><dd>~/.roo/rules/</dd>
+          <dt>Tools</dt><dd>built-in + MCP</dd>
+        </dl>
+      </div>
+      <div class="surface">
+        <span class="tag">Used by you</span>
+        <div class="name">GitHub Copilot</div>
+        <dl>
+          <dt>Project guide</dt><dd>.github/<br>copilot-instructions.md</dd>
+          <dt>Path-scoped</dt><dd>.github/instructions/<br>*.instructions.md<br>(applyTo: pattern)</dd>
+          <dt>Prompt files</dt><dd>.github/prompts/<br>*.prompt.md</dd>
+          <dt>Custom agents</dt><dd>.github/agents/<br>*.md</dd>
+          <dt>Tools</dt><dd>VS Code + MCP</dd>
+        </dl>
+      </div>
+      <div class="surface">
+        <span class="tag">New today</span>
+        <div class="name">Claude Code</div>
+        <dl>
+          <dt>Project guide</dt><dd>CLAUDE.md</dd>
+          <dt>Skills</dt><dd>.claude/skills/<br>*.md</dd>
+          <dt>Commands</dt><dd>.claude/commands/<br>*.md</dd>
+          <dt>Subagents</dt><dd>.claude/agents/<br>*.md</dd>
+          <dt>Hooks</dt><dd>.claude/hooks/ + settings.json</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="key-insight" style="margin-top:24px; background:var(--salt-gray-100); border-radius:8px; padding:18px 24px; border-left:4px solid var(--salt-blue-500);">
+      <b style="color:var(--salt-blue-500);">Pattern.</b> A markdown brief + a JSON config + a folder of named prompts and scripts. Every modern harness ships some shape of this.
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 17 — Five apps to reverse-engineer
+     ============================================================ -->
+<section data-label="17 Five Apps">
+  <div class="frame">
+    <div class="eyebrow">Day 1</div>
+    <h2 class="slide-title">Pick one app to reverse-engineer</h2>
+    <p class="slide-lede">Five real, non-coding AI products in the market. Pick the one your group has used or shipped against. You'll spend the next three breakouts rebuilding its harness.</p>
+
+    <div class="grid-5">
+      <div class="app">
+        <div class="letter">A</div>
+        <div class="role">Legal · Enterprise</div>
+        <h4>Harvey</h4>
+        <p>Legal AI platform for law firms. Research, drafting, document analysis, conversational queries over a firm's knowledge.</p>
+        <div class="why">Why pick: rich agentic harness — multi-step research, document tools, strict citation &amp; privilege rules.</div>
+      </div>
+      <div class="app">
+        <div class="letter">B</div>
+        <div class="role">Legal · SMB</div>
+        <h4>Spellbook</h4>
+        <p>Contract drafting and review inside Microsoft Word. Flags risks, suggests clauses, runs against a clause library.</p>
+        <div class="why">Why pick: harness lives <i>inside</i> another product — great study in scoping and host-app constraints.</div>
+      </div>
+      <div class="app">
+        <div class="letter">C</div>
+        <div class="role">Accounting</div>
+        <h4>Pilot</h4>
+        <p>Autonomous bookkeeping for startups. Categorizes transactions, reconciles books, surfaces anomalies, reports monthly.</p>
+        <div class="why">Why pick: long-running agent + human-in-the-loop review — great for designing approval &amp; trust UX.</div>
+      </div>
+      <div class="app">
+        <div class="letter">D</div>
+        <div class="role">Productivity · Workspace</div>
+        <h4>Notion AI</h4>
+        <p>Writing, summarizing, and answering questions across a Notion workspace — embedded in pages, databases, and search.</p>
+        <div class="why">Why pick: harness is shaped by a workspace's structure — pages, databases, permissions become its filesystem.</div>
+      </div>
+      <div class="app">
+        <div class="letter">E</div>
+        <div class="role">Productivity · Meetings</div>
+        <h4>Granola</h4>
+        <p>AI notepad for back-to-back meetings. Listens, drafts notes, extracts actions, syncs to your tools.</p>
+        <div class="why">Why pick: smallest surface area, sharpest job-to-be-done — easy to map all 6 components in 25 minutes.</div>
+      </div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 18 — Section divider: Breakout 1 PLAN
+     ============================================================ -->
+<section data-label="18 Section · Breakout 1 PLAN">
+  <div class="divider exercise">
+    <div class="stripe"></div>
+    <div class="numeral ex">B1<br>PLAN</div>
+    <div class="body">
+      <div class="eyebrow" style="color:#ffffff;">Day 1 · Breakout 1</div>
+      <h2>Plan the harness</h2>
+      <p>Reverse-engineer your chosen app. What does it do, who uses it, what intents must the harness serve?</p>
+      <div class="duration">25 Minutes</div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 19 — Breakout 1 PLAN instructions
+     ============================================================ -->
+<section data-label="19 Breakout 1 · Instructions">
+  <div class="frame">
+    <div class="eyebrow" style="color:var(--salt-amber-500);">Breakout 1 · Plan</div>
+    <h2 class="slide-title">Reverse-engineer the product</h2>
+
+    <div class="breakout">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>List the top 5 user intents</h4><p>What does a real user actually try to do in a session? Phrase as <code>verb + noun</code> ("ship a PR", "fix a bug", "design a hero").</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Map the 6 anatomy components</h4><p>System prompt · Tools · Infra · Orchestration · Hooks · Feedback. One sentence each — what's there, what's enforced, what's left to the model.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Identify the failure modes</h4><p>Where does it embarrass itself today? Hallucination, wrong tool, lost context, missing permission, runaway cost?</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>Pick the slice you'll build</h4><p>You have 45 more minutes. Don't rebuild the whole thing — pick <b>one intent + one failure mode</b> and design the harness around that.</p></div></div>
+      </div>
+
+      <div class="deliverable-card">
+        <h4>Deliverable for Breakout 1</h4>
+        <div class="row"><code>plan.md</code><span>1-page brief: app, target intent, target failure mode, harness map.</span></div>
+        <div class="row"><code>intents.md</code><span>Top 5 intents · which one your slice covers.</span></div>
+        <div class="row"><code>risks.md</code><span>3 ways your harness must not fail.</span></div>
+<pre>harness/
+├── plan.md
+├── intents.md
+└── risks.md</pre>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 20 — Section divider: Breakout 2 DESIGN
+     ============================================================ -->
+<section data-label="20 Section · Breakout 2 DESIGN">
+  <div class="divider exercise">
+    <div class="stripe"></div>
+    <div class="numeral ex">B2<br>DSGN</div>
+    <div class="body">
+      <div class="eyebrow" style="color:#ffffff;">Day 1 · Breakout 2</div>
+      <h2>Design the file structure</h2>
+      <p>Translate your plan into the actual files the harness will load every turn.</p>
+      <div class="duration">25 Minutes</div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 21 — Breakout 2 DESIGN instructions
+     ============================================================ -->
+<section data-label="21 Breakout 2 · Instructions">
+  <div class="frame">
+    <div class="eyebrow" style="color:var(--salt-amber-500);">Breakout 2 · Design</div>
+    <h2 class="slide-title">Design the artifacts before you write them</h2>
+
+    <div class="breakout">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Sketch the file tree</h4><p>Draw the folder structure on paper. Decide which files are project-scoped, which are user-scoped, which are mode-scoped.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Outline the system prompt</h4><p>Persona · responsibilities · hard rules · escalation triggers · what NOT to do. Aim for ~150 lines max.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>List the tools — fewer is better</h4><p>For each: name, 1-line description (UX copy for the model), inputs, outputs, permission level. Cap at <b>7</b>.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>Decide what is deterministic</h4><p>Anything that should happen <i>every</i> time becomes a hook, not a prompt. List 2 hooks and their trigger event.</p></div></div>
+      </div>
+
+      <div class="deliverable-card">
+        <h4>Deliverable for Breakout 2</h4>
+        <div class="row"><code>file-tree.png</code><span>Photo / sketch of the folder structure you'll create.</span></div>
+        <div class="row"><code>prompt-outline.md</code><span>Section headers + 1 sentence each — not the full prompt yet.</span></div>
+        <div class="row"><code>tools.md</code><span>Table: name · description · inputs · outputs · permission.</span></div>
+        <div class="row"><code>hooks.md</code><span>2 hooks: event · trigger · script behavior.</span></div>
+<pre>Pro tip: bad tool descriptions
+make agents pick the wrong tool.
+Write each like UX copy.</pre>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 22 — Section divider: Breakout 3 DEVELOP
+     ============================================================ -->
+<section data-label="22 Section · Breakout 3 DEVELOP">
+  <div class="divider exercise">
+    <div class="stripe"></div>
+    <div class="numeral ex">B3<br>DEV</div>
+    <div class="body">
+      <div class="eyebrow" style="color:#ffffff;">Day 1 · Breakout 3</div>
+      <h2>Develop the harness</h2>
+      <p>Now write the files. By end of breakout you have a runnable folder you can drop into RooCode or Claude Code.</p>
+      <div class="duration">20 Minutes</div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 23 — Breakout 3 DEVELOP instructions
+     ============================================================ -->
+<section data-label="23 Breakout 3 · Instructions">
+  <div class="frame">
+    <div class="eyebrow" style="color:var(--salt-amber-500);">Breakout 3 · Develop</div>
+    <h2 class="slide-title">Write the actual files</h2>
+
+    <div class="breakout">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Start from the templates</h4><p>Copy <code>harness-templates/</code> in this repo as your starting point. Rename, rewrite, delete what you don't need.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Write CLAUDE.md (and mirror to .roo + .github)</h4><p>The persona, rules, constraints. Same brief, three editor surfaces: <code>CLAUDE.md</code>, <code>.roo/rules/01-project.md</code>, <code>.github/copilot-instructions.md</code>.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Author 1 skill, 1 slash command, 1 subagent</h4><p>Each as its own markdown file. Skills load on-demand · commands are user-triggered · subagents do isolated work.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>Wire 1 hook + settings.json</h4><p>Pick a real guardrail (e.g. block writes outside <code>./src</code>) and bind it in <code>settings.json</code>.</p></div></div>
+        <div class="step"><div class="n">5</div><div><h4>Sketch the frontend with Copilot / RooCode</h4><p>Open a Figma frame for your app. Ask the editor's AI to scaffold it — single page, the controls a user actually touches. The editor IS the runtime; the prototype is what they click.</p></div></div>
+        <div class="step"><div class="n">6</div><div><h4>Commit and push to a branch</h4><p>Day 2 you'll open this folder in VS Code, let RooCode / Copilot read your harness, and run it against a real task.</p></div></div>
+      </div>
+
+      <div class="deliverable-card">
+        <h4>Minimum runnable harness + prototype</h4>
+<pre>your-app/
+├── harness/                <span class="comment"># the agent's "OS"</span>
+│   ├── CLAUDE.md
+│   ├── .claude/
+│   │   ├── settings.json
+│   │   ├── skills/your-skill.md
+│   │   ├── commands/your-command.md
+│   │   ├── agents/your-subagent.md
+│   │   └── hooks/post-tool-use.sh
+│   ├── .roo/rules/01-project.md
+│   └── .github/copilot-instructions.md
+├── prototype/              <span class="comment"># the user's UI</span>
+│   ├── index.html
+│   └── (React/Tailwind from Copilot)
+└── README.md</pre>
+        <div class="row"><code>Done =</code><span>A teammate clones your branch, opens VS Code, and the editor's AI behaves like the app you reverse-engineered while their prototype gives a user something to click.</span></div>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 24 — Day 1 Wrap-up
+     ============================================================ -->
+<section data-label="24 Day 1 Wrap-up">
+  <div class="frame">
+    <div class="eyebrow">Day 1 · Close</div>
+    <h2 class="slide-title">Show, tell, sleep on it</h2>
+    <p class="slide-lede">Each group: 2 minutes. The single thing you're least sure about — that's tomorrow's first conversation.</p>
+
+    <div class="recap-grid">
+      <div class="recap-card">
+        <h4>Show &amp; tell — 2 min per group</h4>
+        <ul>
+          <li>Which app + which intent slice you're harnessing</li>
+          <li>Your file tree on screen</li>
+          <li>The one design decision you fought about most</li>
+          <li>What you couldn't decide — bring it back tomorrow</li>
+        </ul>
+      </div>
+      <div class="recap-card">
+        <h4>Homework before Day 2</h4>
+        <ul>
+          <li>Push your <code>harness/</code> folder to a branch</li>
+          <li>Run the agent at home — note 3 things it gets wrong</li>
+          <li>Save 2 transcripts where the harness misbehaved</li>
+          <li>Bring 1 question about hooks, MCP, or subagents</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 25 — Day 2 Opener
+     ============================================================ -->
+<section data-label="25 Day 2 Opener">
+  <div class="divider">
+    <div class="numeral">D2</div>
+    <div class="body">
+      <div class="eyebrow">Day 2 · 120 min</div>
+      <h2>Refine · Test · Demo</h2>
+      <p>Yesterday you built the bones. Today you wire it into a real editor, watch it fail, and harden it.</p>
+      <div class="duration">2 Hours</div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 26 — Section divider: Agentic UX Patterns (Day 2 morning)
+     ============================================================ -->
+<section data-label="26 Section · Agentic UX Patterns">
+  <div class="divider">
+    <div class="numeral">04</div>
+    <div class="body">
+      <div class="eyebrow">Section · Day 2</div>
+      <h2>Agentic UX Patterns</h2>
+      <p>From user flows to intent-system maps.</p>
+      <div class="duration">15 Minutes</div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 18 — Transformation (Old → New)
+     ============================================================ -->
+<section data-label="27 How Our Work Is Changing">
+  <div class="frame">
+    <div class="eyebrow">Agentic UX</div>
+    <h2 class="slide-title">How our work is changing</h2>
+
+    <div class="transform-list">
+      <div class="trow"><div class="old">User journey mapping</div><div class="ar">→</div><div class="new">Intent-system mapping</div><div class="tdesc">How user intents translate into agent capabilities across platforms.</div></div>
+      <div class="trow"><div class="old">Static wireframes</div><div class="ar">→</div><div class="new">Dynamic orchestration rules</div><div class="tdesc">Rules for how agents coordinate and interfaces adapt.</div></div>
+      <div class="trow"><div class="old">Usability testing</div><div class="ar">→</div><div class="new">Real system testing</div><div class="tdesc">Testing actual multi-agent systems, measuring intent resolution.</div></div>
+      <div class="trow"><div class="old">Visual design first</div><div class="ar">→</div><div class="new">State modeling first</div><div class="tdesc">90% of agentic design work is user-needs modeling and workflows.</div></div>
+      <div class="trow"><div class="old">Feature requests</div><div class="ar">→</div><div class="new">Capability boundaries</div><div class="tdesc">What problem does it solve? Agents don't need their own screen.</div></div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 19 — Agent Time (Past / Present / Future)
+     ============================================================ -->
+<section data-label="28 Agent Time">
+  <div class="frame">
+    <div class="eyebrow">Agentic UX</div>
+    <h2 class="slide-title">Agent time: designing input architecture</h2>
+    <p class="slide-lede">Designers influence what the agent knows across three temporal dimensions.</p>
+
+    <div class="time-grid">
+      <div class="time-card">
+        <div class="ico-wrap"><i data-lucide="clock" width="32" height="32"></i></div>
+        <div class="tlbl">Past</div>
+        <h3>What the system has already captured</h3>
+        <ul>
+          <li>Preferences &amp; goals</li>
+          <li>Prior decisions</li>
+          <li>Conversation history</li>
+          <li>Learned patterns</li>
+        </ul>
+      </div>
+      <div class="time-card">
+        <div class="ico-wrap"><i data-lucide="activity" width="32" height="32"></i></div>
+        <div class="tlbl">Present</div>
+        <h3>What is happening right now</h3>
+        <ul>
+          <li>Current state</li>
+          <li>Active constraints</li>
+          <li>Real-time signals</li>
+          <li>User context</li>
+        </ul>
+      </div>
+      <div class="time-card">
+        <div class="ico-wrap"><i data-lucide="trending-up" width="32" height="32"></i></div>
+        <div class="tlbl">Future</div>
+        <h3>How the agent adapts based on inputs</h3>
+        <ul>
+          <li>Predicted needs</li>
+          <li>Proactive suggestions</li>
+          <li>Continual learning</li>
+          <li>Harness optimization</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 28 — Hooks deep-dive
+     ============================================================ -->
+<section data-label="29 Hooks Deep Dive">
+  <div class="frame">
+    <div class="eyebrow">Day 2 · Determinism</div>
+    <h2 class="slide-title">Hooks: the lifecycle you can wire into</h2>
+    <p class="slide-lede">CLAUDE.md is advisory. Hooks are deterministic. Use them when "every time" matters.</p>
+
+    <div class="hooks-timeline">
+      <div class="hk"><div class="ev">SessionStart</div><h5>Boot</h5><p>Inject project state, freshness checks, env probes.</p></div>
+      <div class="hk"><div class="ev">UserPromptSubmit</div><h5>On user input</h5><p>Redact secrets, expand shortcuts, log intent.</p></div>
+      <div class="hk"><div class="ev">PreToolUse</div><h5>Before action</h5><p>Block writes outside scope · require confirm for destructive ops.</p></div>
+      <div class="hk"><div class="ev">PostToolUse</div><h5>After action</h5><p>Auto-format · run tests · summarize diff.</p></div>
+      <div class="hk"><div class="ev">Stop / SessionEnd</div><h5>Wrap-up</h5><p>Persist memory · emit a session report · archive transcript.</p></div>
+    </div>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">DO</span><h3>Use a hook when…</h3></div>
+        <ul>
+          <li>Behavior must happen <b>every time</b>, not "if it remembers"</li>
+          <li>Failure has a hard cost (broken build, leaked secret, lost data)</li>
+          <li>The check is mechanical (regex, schema, file-path scope)</li>
+          <li>You want a human gate on a destructive action</li>
+        </ul>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">DON'T</span><h3>Skip the hook when…</h3></div>
+        <ul>
+          <li>The check needs nuance — keep it in the prompt</li>
+          <li>It only matters in 1-of-100 turns — too noisy</li>
+          <li>The model's verdict is the actual logic — let it decide</li>
+          <li>You'd be flagging style preferences, not safety</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 29 — Subagents & MCP
+     ============================================================ -->
+<section data-label="30 Subagents and MCP">
+  <div class="frame">
+    <div class="eyebrow">Day 2 · Composition</div>
+    <h2 class="slide-title">Subagents &amp; MCP — when to split, when to plug in</h2>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">SUB</span><h3>Subagents</h3></div>
+        <p class="body-lede">Isolated context. Different system prompt. Returns a result, not a transcript.</p>
+        <div class="section-label">Use when</div>
+        <ul>
+          <li>The work has a clean input → output contract (research, review, summarize)</li>
+          <li>You want different rules / tools than the parent agent</li>
+          <li>You're protecting the main context window from clutter</li>
+          <li>You can describe the success criterion in one sentence</li>
+        </ul>
+        <div class="section-label">File</div>
+<pre class="code-block">.claude/agents/researcher.md
+---
+name: researcher
+description: Read-only research; returns a brief.
+tools: [WebSearch, WebFetch, Read]
+---
+You are a research agent. Be terse. Cite sources.</pre>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">MCP</span><h3>MCP — Model Context Protocol</h3></div>
+        <p class="body-lede">External tool servers your harness mounts. Figma, GitHub, Linear, Slack, your own.</p>
+        <div class="section-label">Designer-relevant servers</div>
+        <ul>
+          <li><b>Figma MCP</b> — read frames, components, variables</li>
+          <li><b>GitHub MCP</b> — issues, PRs, file contents</li>
+          <li><b>Browser MCP</b> — let the agent see the rendered UI</li>
+          <li><b>Custom MCP</b> — wrap your design-system API</li>
+        </ul>
+        <div class="section-label">Config</div>
+<pre class="code-block">{
+  "mcpServers": {
+    "figma": { "command": "npx", "args": ["@figma/mcp"] },
+    "github": { "command": "npx", "args": ["@github/mcp"] }
+  }
+}</pre>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 30 — Evals & hill-climbing
+     ============================================================ -->
+<section data-label="31 Evals and Hill Climbing">
+  <div class="frame">
+    <div class="eyebrow">Day 2 · Improvement</div>
+    <h2 class="slide-title">Evals are the training data for your harness</h2>
+    <p class="slide-lede">You don't fine-tune the model. You fine-tune the harness — by running it on captured tasks and reading the transcripts.</p>
+
+    <div class="limit-list">
+      <div class="lr"><div class="lim"><b>Capture</b> — save real failure transcripts</div><div class="arrow">→</div><div class="sol">A folder of <code>evals/*.json</code> with input + expected behavior</div></div>
+      <div class="lr"><div class="lim"><b>Replay</b> — re-run them after every harness change</div><div class="arrow">→</div><div class="sol">CI script that runs the agent against the eval set</div></div>
+      <div class="lr"><div class="lim"><b>Score</b> — pass / fail / regression / needs-review</div><div class="arrow">→</div><div class="sol">LLM-as-judge or simple assertion checks</div></div>
+      <div class="lr"><div class="lim"><b>Hill-climb</b> — change one thing, measure the delta</div><div class="arrow">→</div><div class="sol">Tighten prompts, add a hook, narrow tools, retry</div></div>
+      <div class="lr"><div class="lim"><b>Hold the line</b> — don't ship if the eval set regresses</div><div class="arrow">→</div><div class="sol">Treat the eval set like your design-system regression suite</div></div>
+    </div>
+
+    <div class="key-insight" style="margin-top:18px; background:var(--salt-gray-100); border-radius:8px; padding:18px 24px; border-left:4px solid var(--salt-blue-500);">
+      <b style="color:var(--salt-blue-500);">For designers.</b> Each transcript is a usability test. Same instinct, new artifact — read 5 sessions before you change a tool description.
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 31 — Live wire-up
+     ============================================================ -->
+<section data-label="32 Live Wire-Up">
+  <div class="frame">
+    <div class="eyebrow" style="color:var(--salt-amber-500);">Day 2 · Working session</div>
+    <h2 class="slide-title">Wire your harness into RooCode / Copilot / Claude Code</h2>
+    <p class="slide-lede">25 minutes. Same groups as Day 1. Open the editor you already use and run your harness against a real task.</p>
+
+    <div class="breakout">
+      <div class="steps">
+        <div class="step"><div class="n">1</div><div><h4>Drop your <code>harness/</code> folder into a fresh project</h4><p>RooCode reads <code>.roo/rules/</code>. Copilot reads <code>.github/copilot-instructions.md</code>. Claude Code reads <code>CLAUDE.md</code>. Move/symlink as needed.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Run a real task — the one you reverse-engineered</h4><p>Drop a real artifact in the workspace and ask the agent to handle it. Harvey: a sample contract — flag risks. Pilot: a CSV of transactions — categorize and reconcile. Notion AI: a page of meeting notes — summarize + extract actions. Granola: a transcript — produce the brief. Same intent as the live product, your harness.</p></div></div>
+        <div class="step"><div class="n">3</div><div><h4>Watch where it diverges from the original product</h4><p>Tool descriptions too vague? Hook too aggressive? System prompt missing a constraint? Take notes — don't fix yet.</p></div></div>
+        <div class="step"><div class="n">4</div><div><h4>Make ONE high-leverage change, re-run</h4><p>Edit a tool description, tighten the system prompt, or add one hook. Compare before / after.</p></div></div>
+      </div>
+
+      <div class="deliverable-card">
+        <h4>What to capture for the demo</h4>
+        <div class="row"><code>before.txt</code><span>The transcript before your change.</span></div>
+        <div class="row"><code>after.txt</code><span>The transcript after your one change.</span></div>
+        <div class="row"><code>diff.md</code><span>What you changed and why · 3 bullets max.</span></div>
+        <div class="row"><code>tradeoff</code><span>What got worse so something else could get better.</span></div>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 32 — Section divider: Demos (was Exercise 2)
+     ============================================================ -->
+<section data-label="33 Section · Demo Session">
+  <div class="ex2">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral" style="color: rgb(249, 249, 249);">D2<br>DEMO</div>
+      <div class="eyebrow" style="color: rgb(255, 255, 255);">Day 2 · Demo session</div>
+      <h2 style="color: rgb(94, 94, 94);">Show your harness</h2>
+      <p>5 minutes per group. Run the agent live, walk through the file tree, defend one tradeoff.</p>
+      <div class="duration">25 Minutes</div>
+    </div>
+    <div class="right">
+      <p class="lede">This is where it lands. You picked an app, planned, designed, developed, wired it up, watched it fail, and changed one thing. <b style="color:#ffffff;font-weight:700">Now show your work.</b></p>
+
+      <div class="card">
+        <h4>5-minute demo flow</h4>
+        <div class="check"><div class="ico"><i data-lucide="check" width="20" height="20"></i></div><div>Which app · which intent · which failure mode</div></div>
+        <div class="check"><div class="ico"><i data-lucide="check" width="20" height="20"></i></div><div>Show the file tree (15 sec)</div></div>
+        <div class="check"><div class="ico"><i data-lucide="check" width="20" height="20"></i></div><div>Run one task live in your editor</div></div>
+        <div class="check"><div class="ico"><i data-lucide="check" width="20" height="20"></i></div><div>Show the before/after diff from your one change</div></div>
+        <div class="check"><div class="ico"><i data-lucide="check" width="20" height="20"></i></div><div>Name the tradeoff you accepted</div></div>
+      </div>
+
+      <div class="card">
+        <h4>What we're listening for</h4>
+        <div class="next"><div class="n">1</div><div>Tool descriptions written like UX copy</div></div>
+        <div class="next"><div class="n">2</div><div>Hooks doing the work that prompts can't be trusted with</div></div>
+        <div class="next"><div class="n">3</div><div>A small, sharp tool list — not the kitchen sink</div></div>
+        <div class="next"><div class="n">4</div><div>An honest failure mode you didn't fully solve</div></div>
+        <div class="next"><div class="n">5</div><div>A tradeoff you can defend in one sentence</div></div>
+      </div>
+
+      <div class="chip-row">
+        <span>Same groups</span><span class="d"></span>
+        <span>5 min each · 1 min Q&amp;A</span><span class="d"></span>
+        <span>Run live in your editor</span>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 33 — Demo Rubric + Best Practices
+     ============================================================ -->
+<section data-label="34 Demo Rubric and Best Practices">
+  <div class="frame">
+    <div class="eyebrow" style="color:var(--salt-amber-500);">Day 2 · Demo</div>
+    <h2 class="slide-title">How we'll judge the demos</h2>
+    <p class="slide-lede">Same rubric for every group. Score yourselves first, then we score each other.</p>
+
+    <div class="rubric">
+      <div class="rhead"><div>Category</div><div>What "good" looks like</div><div>Pts</div></div>
+      <div class="rrow"><div class="rcat">Intent fidelity</div><div class="rdesc">The harness handles the chosen intent end-to-end without you having to coach the agent through it.</div><div class="rpts">/ 5</div></div>
+      <div class="rrow"><div class="rcat">Tool design</div><div class="rdesc">Few tools · sharp descriptions written like UX copy · clear permission boundaries.</div><div class="rpts">/ 5</div></div>
+      <div class="rrow"><div class="rcat">Determinism</div><div class="rdesc">At least one hook is doing real work — not relying on the model to remember.</div><div class="rpts">/ 5</div></div>
+      <div class="rrow"><div class="rcat">Failure design</div><div class="rdesc">Group can name the failure mode they targeted and show the before/after of their one change.</div><div class="rpts">/ 5</div></div>
+      <div class="rrow"><div class="rcat">Tradeoff clarity</div><div class="rdesc">One sentence: what you accepted as worse so something else could be better.</div><div class="rpts">/ 5</div></div>
+    </div>
+
+    <div class="ex21-bottom" style="margin-top:24px;">
+      <div class="deliverables">
+        <h4>Best practices we want to see</h4>
+        <ol>
+          <li>Start with user intent · design the failure state first</li>
+          <li>Cap tools at ~7 · description = UX copy for the model</li>
+          <li>Hooks for "every time"; prompts for "use judgment"</li>
+          <li>One file does one job · CLAUDE.md stays under 200 lines</li>
+          <li>Capture transcripts as evals · hill-climb from real failures</li>
+        </ol>
+      </div>
+      <div class="tips">
+        <h4>Anti-patterns we'll call out</h4>
+        <ul>
+          <li>"And here are 23 MCP servers it can use" — too many tools</li>
+          <li>The system prompt is doing the hook's job</li>
+          <li>No way to tell when the agent succeeded vs. gave up</li>
+          <li>Same harness for every user — no scoping at all</li>
+          <li>Demo runs only on the rehearsed task</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 34 — Takeaways
+     ============================================================ -->
+<section data-label="35 Takeaways">
+  <div class="frame">
+    <div class="eyebrow">Takeaways</div>
+    <h2 class="slide-title">Your harness engineering toolkit</h2>
+
+    <div class="takeaways">
+      <div class="take">
+        <div class="n">01</div>
+        <div><h4>Agent = Model + Harness.</h4><p>You're always designing the harness, even if you don't call it that.</p></div>
+      </div>
+      <div class="take">
+        <div class="n">02</div>
+        <div><h4>The harness is mostly files.</h4><p>Markdown for instructions · JSON for config · scripts for hooks. Same pattern across every product.</p></div>
+      </div>
+      <div class="take">
+        <div class="n">03</div>
+        <div><h4>Write tool descriptions like UX copy.</h4><p>They're the interface between the agent and its capabilities — the highest-leverage micro-copy you'll write all year.</p></div>
+      </div>
+      <div class="take">
+        <div class="n">04</div>
+        <div><h4>Hooks &gt; hoping the model remembers.</h4><p>Anything that should happen "every time" lives in code, not in a prompt.</p></div>
+      </div>
+      <div class="take">
+        <div class="n">05</div>
+        <div><h4>Most agent failures are input failures.</h4><p>Read 5 transcripts before you change a single line of the system prompt.</p></div>
+      </div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 35 — Resources
+     ============================================================ -->
+<section data-label="36 Resources">
+  <div class="frame">
+    <div class="eyebrow">Resources</div>
+    <h2 class="slide-title">Read these next</h2>
+    <p class="slide-lede">Source material first, then the docs for the editor you already use. Most of you are on Copilot or RooCode — those rows are the priority.</p>
+
+    <div class="resource-grid resource-grid--3">
+      <!-- Source material -->
+      <div class="resource">
+        <div class="src">Foundational essay</div>
+        <h5>The Anatomy of an Agent Harness</h5>
+        <p>Vivek Trivedy's framing of harness components — "if you're not the model, you're the harness."</p>
+        <div class="url">blog.langchain.com/the-anatomy-of-an-agent-harness</div>
+      </div>
+      <div class="resource">
+        <div class="src">Research paper</div>
+        <h5>Agentic Harness for Real-World Compilers</h5>
+        <p>arXiv:2603.20075 — llvm-autofix as the first agentic harness for compiler bugs. Worked anatomy example.</p>
+        <div class="url">arxiv.org/abs/2603.20075</div>
+      </div>
+      <div class="resource">
+        <div class="src">Protocol</div>
+        <h5>Model Context Protocol (MCP)</h5>
+        <p>How to expose external tools — Figma, GitHub, Linear, your design-system API — to any harness.</p>
+        <div class="url">modelcontextprotocol.io</div>
+      </div>
+
+      <!-- GitHub Copilot row -->
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Custom instructions in VS Code</h5>
+        <p>Repo-wide <code>.github/copilot-instructions.md</code> plus path-scoped <code>*.instructions.md</code> with <code>applyTo</code>. The Copilot equivalent of <code>CLAUDE.md</code>.</p>
+        <div class="url">code.visualstudio.com/docs/copilot/customization/custom-instructions</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Repository custom instructions (GitHub Docs)</h5>
+        <p>The official reference for <code>.github/copilot-instructions.md</code>, including how it composes with personal and org instructions.</p>
+        <div class="url">docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Prompt files (<code>.prompt.md</code>)</h5>
+        <p>Reusable, slash-invokable prompts in <code>.github/prompts/</code>. Treat each one like a slash command in Claude Code.</p>
+        <div class="url">docs.github.com/en/copilot/tutorials/customization-library/prompt-files</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Custom agents (cloud + CLI)</h5>
+        <p>Define agent profiles in <code>.github/agents/&lt;name&gt;.md</code> with YAML front-matter — the Copilot analog of <code>.claude/agents/</code>.</p>
+        <div class="url">docs.github.com/en/copilot/concepts/agents/cloud-agent/about-custom-agents</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Customize AI in VS Code (overview)</h5>
+        <p>Top-level map of every Copilot customization surface: instructions, prompt files, chat modes, MCP, model selection.</p>
+        <div class="url">code.visualstudio.com/docs/copilot/customization/overview</div>
+      </div>
+
+      <!-- RooCode row -->
+      <div class="resource">
+        <div class="src">RooCode · You</div>
+        <h5>Custom modes</h5>
+        <p>Workspace modes via <code>.roomodes</code> and global modes in <code>settings/custom_modes.yaml</code>.</p>
+        <div class="url">docs.roocode.com/features/custom-modes</div>
+      </div>
+      <div class="resource">
+        <div class="src">RooCode · You</div>
+        <h5>Custom instructions &amp; rules</h5>
+        <p>How <code>.roo/rules/</code> and <code>.roo/rules-{mode}/</code> compose, plus user-global <code>~/.roo/rules/</code>.</p>
+        <div class="url">docs.roocode.com/features/custom-instructions</div>
+      </div>
+      <div class="resource">
+        <div class="src">RooCode · You</div>
+        <h5>Prompt structure (advanced)</h5>
+        <p>The order in which RooCode assembles the system prompt — useful when you're fighting precedence between rule files.</p>
+        <div class="url">docs.roocode.com/advanced-usage/prompt-structure</div>
+      </div>
+
+      <!-- Claude Code row -->
+      <div class="resource">
+        <div class="src">Claude Code · New</div>
+        <h5>Settings, hooks &amp; permissions</h5>
+        <p>Reference for <code>settings.json</code>, the 12+ hook lifecycle events, and tool permission policies.</p>
+        <div class="url">code.claude.com/docs/en/settings</div>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+</deck-stage>
+
+<!-- Speaker notes (rendered by host via postMessage contract in deck-stage) -->
+<script type="application/json" id="speaker-notes">
+[
+"Welcome to Agentic Harness Engineering for Product & UX Designers. This is a 2-day, 2-hour-per-day workshop. Quick show of hands — who's been using RooCode? Copilot? Both? Great. You already touch the harness every day — you just call it 'rules' or 'instructions'. Today and tomorrow we name what you're already doing, give it a real anatomy, and you build one from scratch by reverse-engineering an AI app you actually use. By the end of Day 2 you'll have a runnable harness folder you can drop into any project.",
+"CARD 1 — Paradigm shift: from static wireframes to dynamic orchestration rules. CARD 2 — Agent = Model + Harness. The model is the brain. The harness is the body, the workshop, and the rules of engagement. Designers shape the harness. CARD 3 — Design IS engineering. OpenAI shipped a million-line product where humans steered and Codex executed. The discipline is now in the scaffolding.",
+"Two days, three breakouts, one harness. Day 1 you reverse-engineer one of five apps and build the harness in three breakouts: PLAN, DESIGN, DEVELOP. Day 2 you wire it into RooCode or Copilot, watch it fail on a real task, change one thing, and demo. I want you spending 60% of your time in breakouts and 40% with me. Let's get to it.",
+"GROUND RULES — read this slide carefully because it shapes everything. CRITICAL CONSTRAINT: API keys are only available INSIDE the RooCode and Copilot extensions today. You cannot build a standalone agent that calls a model directly. The extensions already have the key — you don't. So we don't pretend to ship a real backend. Instead, we work with what you DO have: VS Code + RooCode + Copilot. THE EDITOR IS THE RUNTIME. You author two things: (1) the harness — markdown, JSON, scripts in a folder — and (2) a frontend prototype generated from your Figma via Copilot or RooCode. Then you load both into VS Code and let the extension's AI play the harnessed agent. Your CLAUDE.md is its system prompt. Your hooks fire on real tool calls. Your prototype is what a user clicks. This is exactly what Day 2's wire-up exercise asks you to do. One sentence to remember: 'harness + frontend = product; the editor's AI is the runtime.'",
+"[Pause.] Foundations. Same mental model before we go deeper.",
+"Most important idea in the workshop. Agent = Model + Harness. Vivek Trivedy at LangChain: 'If you're not the model, you're the harness.' The AGENT is what the user experiences. The MODEL takes text and images and emits text — that's all. The HARNESS is everything else: code, config, files, tools, constraints. Designers don't train models — they absolutely design harnesses.",
+"LLM is a CPU. Context window is RAM. External files are disk. Tools are device drivers. The harness is the OS. The bottom row is highlighted because that's the layer we own.",
+"Three concentric levels. Prompt — what the model sees this turn. Context — what the model sees and when across turns. Harness — the entire system. We touch all three but harness is where product decisions live.",
+"Six things models can't do alone. Each one solved by a harness feature. Memory · tool execution · web · coordination · self-verification · enforcement. Every row is a design decision your team will make.",
+"Now the anatomy. Six components. Then we'll see them as actual files.",
+"Six core components. We'll do them in pairs of two-by-two on the next three slides. Don't memorize — orient.",
+"LEFT: System prompt = persona, rules, constraints. CLAUDE.md / AGENTS.md tell the agent how to behave. Skills are progressive disclosure. RIGHT: Tools are the actions in the world. Insight: too many MCP servers make agents dumb. Tool descriptions are UX copy for the model — fewer, sharper tools beat a kitchen sink.",
+"LEFT: Infrastructure — filesystem is the foundational primitive. Decide what's in-context vs on-disk. RIGHT: Orchestration — when to spawn a subagent, when to keep work in the main thread. These are product decisions, not engineering decisions.",
+"LEFT: Hooks. When something should happen EVERY time, enforce it with code, not with hope. RIGHT: Feedback loops. Evals are the training data for the harness. LangChain calls this hill-climbing — change one thing, measure, keep or revert.",
+"Where designer leverage is highest: tool descriptions, permission UX, state visibility, error recovery, agent coordination, input architecture. Most agent failures are input failures, not intelligence failures.",
+"NEW SLIDE — Anatomy in files. The six components live as concrete files: CLAUDE.md, settings.json, skills/, commands/, agents/, hooks/, mcp.json, plus the editor-specific .roo/ and .github/copilot-instructions.md. Walk through the tree. Highest-leverage files: CLAUDE.md (the system prompt you own), tool descriptions inside skills (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You're going to author every one of these in Day 1's breakouts.'",
+"NEW SLIDE — Same files, three editing surfaces. Most of you are on Copilot or RooCode — point at the Copilot column first. Project guide is .github/copilot-instructions.md. Path-scoped guidance lives in .github/instructions/*.instructions.md with an applyTo glob. Reusable slash-prompts are .github/prompts/*.prompt.md. Custom agents live in .github/agents/*.md. RooCode mirrors the same shape under .roo/. Claude Code uses CLAUDE.md and .claude/. The names rotate; the anatomy doesn't.",
+"FIVE APPS. Real, shipping, non-coding AI products. Two legal, one accounting, two productivity. A) Harvey — enterprise legal platform; research + drafting + document analysis; great if anyone's worked with law firms. B) Spellbook — contract drafting/review inside MS Word; the harness lives inside a host app, which is a fantastic constraints study. C) Pilot — autonomous bookkeeping for startups; long-running agent with monthly human review — perfect for designing approval flows. D) Notion AI — embedded in a workspace; pages and databases are the filesystem. E) Granola — AI meeting notes; smallest surface area, easiest to map all six components in 25 minutes. Encourage one group per app if possible. Tell groups: 'Pick the domain you'd be most embarrassed to design poorly for' — if a lawyer is in the room, take Harvey. Five minutes to choose.",
+"BREAKOUT 1 · PLAN — 25 minutes. Reverse-engineer the chosen app. List 5 user intents, map the 6 anatomy components, name 3 failure modes, then narrow to ONE intent + ONE failure mode you'll harness. Walk around. If a group is stuck, ask 'what does the agent do badly?' — the failure mode is the design surface.",
+"BREAKOUT 1 · Instructions slide. Run the room here. Deliverables: plan.md, intents.md, risks.md. Discourage perfection — they have two more breakouts. The point of B1 is to narrow scope so they can ship in B3.",
+"BREAKOUT 2 · DESIGN — 25 minutes. Translate the plan into the file tree. They sketch the folder structure on paper, outline the system prompt, list at most 7 tools, and decide what becomes a hook vs what stays a prompt. This is the slide where 'tool description = UX copy' lands.",
+"BREAKOUT 2 · Instructions slide. Walk them through the four steps. Cap tools at SEVEN — repeat this. Bad tool descriptions cause wrong tool selection more often than missing tools.",
+"BREAKOUT 3 · DEVELOP — 20 minutes. Now they actually write files. Point to the harness-templates/ folder in the workshop repo as the starting point. Insist on at least: CLAUDE.md, settings.json, one skill, one slash command, one subagent, one hook.",
+"BREAKOUT 3 · Instructions slide. The 'minimum runnable harness' card on the right is the bar. If a teammate could clone their branch and the agent behaves like the app they reverse-engineered, they passed. Don't worry about polish.",
+"DAY 1 CLOSE. 2 minutes per group. Show the file tree, name the design decision they fought about most, name what they couldn't decide. The undecided question becomes the first conversation tomorrow morning. Homework: push the branch, run the agent at home, save 2 transcripts where the harness misbehaves, bring 1 question.",
+"DAY 2 OPENER. 'Yesterday you built the bones. Today you wire it into a real editor, watch it fail, and harden it.' Quick recap — anyone bring back a transcript that surprised them? Get 1-2 stories from the room before moving on.",
+"Section divider — Agentic UX Patterns. Bridge from the morning recap to the lens shift designers need.",
+"Journey mapping → Intent-system mapping. Wireframes → Orchestration rules. Usability testing → Real system testing. Visual design → State modeling. Feature requests → Capability boundaries. The verb of design has changed. Read the row, give one example each.",
+"Past / Present / Future of agent input architecture. PAST: prefs, history — what should it remember and for how long? PRESENT: current state, signals. FUTURE: proactive suggestions — when helpful, when intrusive? Designers influence all three.",
+"HOOKS DEEP DIVE. Lifecycle: SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop / SessionEnd. Use a hook when: the rule must hold every time, the failure has hard cost, the check is mechanical, you want a human gate. DON'T use a hook when: the check needs nuance, only matters 1 in 100 turns, the model's verdict IS the logic, or you're flagging style.",
+"SUBAGENTS & MCP. Subagents = isolated context, different rules, returns a result. Use when work has a clean input→output contract. MCP = external tool servers your harness mounts. Designer-relevant servers: Figma, GitHub, Browser, your design-system API. The minute they grok MCP, the question 'how does this read my Figma?' has an answer.",
+"EVALS & HILL-CLIMBING. Capture failures → save as evals → replay after every harness change → score → keep what improves the set. For designers: each transcript is a usability test. Read 5 sessions before changing one tool description.",
+"LIVE WIRE-UP — 25 minutes. Same groups as Day 1. Reminder: the editor IS the runtime — RooCode and Copilot already have the API key, your harness configures HOW they behave. Drop the harness/ folder into a workspace, open it in VS Code, and let the extension's AI play the agent. Run a real task — preferably the one they reverse-engineered. The frontend prototype they built in Breakout 3 should be what they click while the agent works. Watch where the behavior diverges from the original product. Make ONE high-leverage change. Re-run. Capture before.txt, after.txt, diff.md, and the tradeoff. They'll demo this in the next session.",
+"DEMO SESSION DIVIDER. 5 minutes per group, 1 minute Q&A each. Live in their editor. Set the tone: 'We're not judging finish — we're judging the tradeoff you can defend.'",
+"DEMO RUBRIC. Five categories, 5 points each. Score yourselves first, then we score each other. Anti-patterns we'll call out: 23 MCP servers, system prompt doing the hook's job, no success/failure indicator, no scoping, demo only runs the rehearsed task.",
+"TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping. 05 Most agent failures are input failures. Thank the room. Keep the energy up — they earned it.",
+"RESOURCES. Three rows of links. TOP ROW — source material: LangChain's anatomy essay, arXiv 2603.20075, and the MCP spec. SECOND ROW (Copilot — orange stripe) is the priority for most of this room: VS Code custom instructions, the GitHub Docs reference for repo instructions, prompt files, custom agents, and the Customize-AI overview. Walk the room through these explicitly — these are the docs they'll re-open Monday morning. THIRD ROW — RooCode docs for the rest of the audience, plus Claude Code settings/hooks for the new surface they met today. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
+]
+</script>
+
+<script src="deck-stage.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  // Render Lucide icons after DOM ready
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide && window.lucide.createIcons) {
+      window.lucide.createIcons({ attrs: { 'stroke-width': 1.5 } });
+    }
+  });
+</script>
+</body>
 </html>
