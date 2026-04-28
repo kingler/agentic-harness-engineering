@@ -953,6 +953,51 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 .resource--copilot .src{ color:var(--salt-amber-500); }
 
 /* =========================================================
+   ENVIRONMENT / GROUND RULES — 3-card grid + bottom callout
+   ========================================================= */
+.env-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.env-card{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  padding:28px 32px; box-shadow:var(--card-shadow);
+  display:flex; flex-direction:column; gap:14px;
+}
+.env-card .env-tag{
+  font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--salt-blue-500); font-weight:700;
+}
+.env-card ul{ margin:0; padding:0; list-style:none; }
+.env-card ul li{
+  font-size:16px; padding:10px 0 10px 22px; position:relative;
+  color:var(--salt-gray-900); line-height:1.45;
+  border-bottom:1px solid var(--salt-gray-100);
+}
+.env-card ul li:last-child{ border-bottom:none; }
+.env-card ul li::before{
+  content:""; width:6px; height:6px; border-radius:50%;
+  background:var(--salt-blue-500);
+  position:absolute; left:0; top:18px;
+}
+.env-card--build{ border-left:3px solid var(--salt-amber-500); }
+.env-card--build .env-tag{ color:var(--salt-amber-500); }
+.env-card--dont{ background:var(--salt-gray-100); }
+.env-card--dont .env-tag{ color:var(--salt-gray-600); }
+.env-card--dont ul li{ color:var(--salt-gray-600); }
+.env-card--dont ul li::before{ background:var(--salt-gray-600); }
+
+.env-callout{
+  margin-top:28px;
+  background:var(--salt-navy-900); color:#fff;
+  border-radius:8px; padding:24px 32px;
+  font-size:18px; line-height:1.5;
+}
+.env-callout b{ color:var(--salt-amber-500); }
+.env-callout code{
+  font-family:'JetBrains Mono',monospace; font-size:15px;
+  background:rgba(255,255,255,0.12); padding:2px 8px; border-radius:4px;
+  color:#fff;
+}
+
+/* =========================================================
    Print support
    ========================================================= */
 @media print{
@@ -1047,6 +1092,53 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
           <div class="row"><div class="time">1:55</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">5</div></div>
         </div>
       </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 3.5 — Workshop format / your environment
+     ============================================================ -->
+<section data-label="3b Your Environment">
+  <div class="frame">
+    <div class="eyebrow">Setup</div>
+    <h2 class="slide-title">Your environment &amp; ground rules</h2>
+    <p class="slide-lede">We're not training models or running servers today. You'll author the harness and a frontend prototype, then let your editor's AI play the agent.</p>
+
+    <div class="env-grid">
+      <div class="env-card">
+        <div class="env-tag">Stack you have</div>
+        <ul>
+          <li><b>VS Code</b> — your editor</li>
+          <li><b>RooCode</b> extension</li>
+          <li><b>GitHub Copilot</b> extension</li>
+          <li>Your <b>Figma</b> file (bring frames)</li>
+          <li>Optional: <b>MCP servers</b> (Figma, GitHub)</li>
+        </ul>
+      </div>
+      <div class="env-card env-card--build">
+        <div class="env-tag">What you'll build</div>
+        <ul>
+          <li><b>The harness</b> — markdown, JSON, scripts</li>
+          <li><b>A frontend prototype</b> — built from your Figma via Copilot / RooCode</li>
+          <li><b>An eval set</b> — 3–5 captured tasks the harness should handle</li>
+          <li><b>A demo script</b> — one task you'll run live</li>
+        </ul>
+      </div>
+      <div class="env-card env-card--dont">
+        <div class="env-tag">What you won't build</div>
+        <ul>
+          <li>A standalone agent — no API keys today</li>
+          <li>Model serving · provider billing · auth</li>
+          <li>Production backend or data layer</li>
+          <li>Anything that runs outside VS Code</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="env-callout">
+      <b>The model lives inside your editor.</b> RooCode and Copilot already have the API key — yours doesn't. So your <code>harness/</code> folder + your frontend prototype are loaded <i>into</i> VS Code, and the extension's AI becomes the harnessed agent. That's your runtime for the whole workshop.
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
@@ -1697,25 +1789,31 @@ Write each like UX copy.</pre>
     <div class="breakout">
       <div class="steps">
         <div class="step"><div class="n">1</div><div><h4>Start from the templates</h4><p>Copy <code>harness-templates/</code> in this repo as your starting point. Rename, rewrite, delete what you don't need.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Write CLAUDE.md (or .roo/rules/01-project.md)</h4><p>The persona, the rules, the constraints. This is your highest-leverage file — make it count.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Write CLAUDE.md (and mirror to .roo + .github)</h4><p>The persona, rules, constraints. Same brief, three editor surfaces: <code>CLAUDE.md</code>, <code>.roo/rules/01-project.md</code>, <code>.github/copilot-instructions.md</code>.</p></div></div>
         <div class="step"><div class="n">3</div><div><h4>Author 1 skill, 1 slash command, 1 subagent</h4><p>Each as its own markdown file. Skills load on-demand · commands are user-triggered · subagents do isolated work.</p></div></div>
         <div class="step"><div class="n">4</div><div><h4>Wire 1 hook + settings.json</h4><p>Pick a real guardrail (e.g. block writes outside <code>./src</code>) and bind it in <code>settings.json</code>.</p></div></div>
-        <div class="step"><div class="n">5</div><div><h4>Commit and push to a branch</h4><p>Day 2 you'll wire it into RooCode / Copilot and run it live.</p></div></div>
+        <div class="step"><div class="n">5</div><div><h4>Sketch the frontend with Copilot / RooCode</h4><p>Open a Figma frame for your app. Ask the editor's AI to scaffold it — single page, the controls a user actually touches. The editor IS the runtime; the prototype is what they click.</p></div></div>
+        <div class="step"><div class="n">6</div><div><h4>Commit and push to a branch</h4><p>Day 2 you'll open this folder in VS Code, let RooCode / Copilot read your harness, and run it against a real task.</p></div></div>
       </div>
 
       <div class="deliverable-card">
-        <h4>Minimum runnable harness</h4>
-<pre>harness/
-├── CLAUDE.md
-├── .claude/
-│   ├── settings.json
-│   ├── skills/your-skill.md
-│   ├── commands/your-command.md
-│   ├── agents/your-subagent.md
-│   └── hooks/post-tool-use.sh
-├── .roo/rules/01-project.md
-└── README.md      <span class="comment"># 1-paragraph: what + how to run</span></pre>
-        <div class="row"><code>Done =</code><span>A teammate could clone your branch and the agent would behave like the app you reverse-engineered.</span></div>
+        <h4>Minimum runnable harness + prototype</h4>
+<pre>your-app/
+├── harness/                <span class="comment"># the agent's "OS"</span>
+│   ├── CLAUDE.md
+│   ├── .claude/
+│   │   ├── settings.json
+│   │   ├── skills/your-skill.md
+│   │   ├── commands/your-command.md
+│   │   ├── agents/your-subagent.md
+│   │   └── hooks/post-tool-use.sh
+│   ├── .roo/rules/01-project.md
+│   └── .github/copilot-instructions.md
+├── prototype/              <span class="comment"># the user's UI</span>
+│   ├── index.html
+│   └── (React/Tailwind from Copilot)
+└── README.md</pre>
+        <div class="row"><code>Done =</code><span>A teammate clones your branch, opens VS Code, and the editor's AI behaves like the app you reverse-engineered while their prototype gives a user something to click.</span></div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -2224,6 +2322,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 "Welcome to Agentic Harness Engineering for Product & UX Designers. This is a 2-day, 2-hour-per-day workshop. Quick show of hands — who's been using RooCode? Copilot? Both? Great. You already touch the harness every day — you just call it 'rules' or 'instructions'. Today and tomorrow we name what you're already doing, give it a real anatomy, and you build one from scratch by reverse-engineering an AI app you actually use. By the end of Day 2 you'll have a runnable harness folder you can drop into any project.",
 "CARD 1 — Paradigm shift: from static wireframes to dynamic orchestration rules. CARD 2 — Agent = Model + Harness. The model is the brain. The harness is the body, the workshop, and the rules of engagement. Designers shape the harness. CARD 3 — Design IS engineering. OpenAI shipped a million-line product where humans steered and Codex executed. The discipline is now in the scaffolding.",
 "Two days, three breakouts, one harness. Day 1 you reverse-engineer one of five apps and build the harness in three breakouts: PLAN, DESIGN, DEVELOP. Day 2 you wire it into RooCode or Copilot, watch it fail on a real task, change one thing, and demo. I want you spending 60% of your time in breakouts and 40% with me. Let's get to it.",
+"GROUND RULES — read this slide carefully because it shapes everything. CRITICAL CONSTRAINT: API keys are only available INSIDE the RooCode and Copilot extensions today. You cannot build a standalone agent that calls a model directly. The extensions already have the key — you don't. So we don't pretend to ship a real backend. Instead, we work with what you DO have: VS Code + RooCode + Copilot. THE EDITOR IS THE RUNTIME. You author two things: (1) the harness — markdown, JSON, scripts in a folder — and (2) a frontend prototype generated from your Figma via Copilot or RooCode. Then you load both into VS Code and let the extension's AI play the harnessed agent. Your CLAUDE.md is its system prompt. Your hooks fire on real tool calls. Your prototype is what a user clicks. This is exactly what Day 2's wire-up exercise asks you to do. One sentence to remember: 'harness + frontend = product; the editor's AI is the runtime.'",
 "[Pause.] Foundations. Same mental model before we go deeper.",
 "Most important idea in the workshop. Agent = Model + Harness. Vivek Trivedy at LangChain: 'If you're not the model, you're the harness.' The AGENT is what the user experiences. The MODEL takes text and images and emits text — that's all. The HARNESS is everything else: code, config, files, tools, constraints. Designers don't train models — they absolutely design harnesses.",
 "LLM is a CPU. Context window is RAM. External files are disk. Tools are device drivers. The harness is the OS. The bottom row is highlighted because that's the layer we own.",
@@ -2252,7 +2351,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 "HOOKS DEEP DIVE. Lifecycle: SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop / SessionEnd. Use a hook when: the rule must hold every time, the failure has hard cost, the check is mechanical, you want a human gate. DON'T use a hook when: the check needs nuance, only matters 1 in 100 turns, the model's verdict IS the logic, or you're flagging style.",
 "SUBAGENTS & MCP. Subagents = isolated context, different rules, returns a result. Use when work has a clean input→output contract. MCP = external tool servers your harness mounts. Designer-relevant servers: Figma, GitHub, Browser, your design-system API. The minute they grok MCP, the question 'how does this read my Figma?' has an answer.",
 "EVALS & HILL-CLIMBING. Capture failures → save as evals → replay after every harness change → score → keep what improves the set. For designers: each transcript is a usability test. Read 5 sessions before changing one tool description.",
-"LIVE WIRE-UP — 25 minutes. Same groups as Day 1. Drop their harness/ folder into RooCode or Copilot. Run a real task — preferably the one they reverse-engineered. Watch where it diverges from the original product. Make ONE high-leverage change. Re-run. Capture before.txt, after.txt, diff.md, and the tradeoff. They'll demo this.",
+"LIVE WIRE-UP — 25 minutes. Same groups as Day 1. Reminder: the editor IS the runtime — RooCode and Copilot already have the API key, your harness configures HOW they behave. Drop the harness/ folder into a workspace, open it in VS Code, and let the extension's AI play the agent. Run a real task — preferably the one they reverse-engineered. The frontend prototype they built in Breakout 3 should be what they click while the agent works. Watch where the behavior diverges from the original product. Make ONE high-leverage change. Re-run. Capture before.txt, after.txt, diff.md, and the tradeoff. They'll demo this in the next session.",
 "DEMO SESSION DIVIDER. 5 minutes per group, 1 minute Q&A each. Live in their editor. Set the tone: 'We're not judging finish — we're judging the tradeoff you can defend.'",
 "DEMO RUBRIC. Five categories, 5 points each. Score yourselves first, then we score each other. Anti-patterns we'll call out: 23 MCP servers, system prompt doing the hook's job, no success/failure indicator, no scoping, demo only runs the rehearsed task.",
 "TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping. 05 Most agent failures are input failures. Thank the room. Keep the energy up — they earned it.",
