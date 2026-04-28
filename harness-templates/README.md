@@ -43,6 +43,28 @@ harness-templates/
    `.github/copilot-instructions.md` so the same harness works in RooCode and
    Copilot too.
 
+## These templates work for non-coding domains too
+
+The five apps you'll choose from on Day 1 (Harvey, Spellbook, Pilot, Notion
+AI, Granola) are legal / accounting / productivity products — not coding
+tools. The harness shape is the same; the contents change.
+
+Concrete examples of what to put in each file by domain:
+
+| File | Legal (Harvey-style) | Accounting (Pilot-style) | Productivity (Granola-style) |
+|---|---|---|---|
+| `CLAUDE.md` persona | Junior associate; never gives legal advice | Bookkeeper; flags, never finalizes | Meeting note-taker; never paraphrases quotes |
+| Hard rules | Never reveal privileged content across matters | Never close a period without human approval | Never share notes outside the meeting's attendees |
+| Skill | `clause-extraction.md` | `transaction-categorize.md` | `action-item-extract.md` |
+| Slash command | `/draft-NDA` | `/reconcile-month` | `/post-meeting-brief` |
+| Subagent | `case-law-researcher` | `anomaly-investigator` | `followup-drafter` |
+| Hook (PreToolUse) | Block writes to other matters' folders | Block postings to closed accounting periods | Redact PII before any external send |
+| Hook (PostToolUse) | Append matter ID to every saved file | Log every ledger change with user ID | Tag every note with attendee list |
+| MCP server | iManage / NetDocuments | QuickBooks / Xero / Plaid | Google Calendar / Slack / Linear |
+
+The included `design-review.md` skill and shell hooks are illustrative — keep
+the structure, replace the body with your domain's logic.
+
 ## Ground rules
 
 - Keep `CLAUDE.md` under 200 lines — it is your highest-leverage file.

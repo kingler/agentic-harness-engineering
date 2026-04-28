@@ -1529,43 +1529,43 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
   <div class="frame">
     <div class="eyebrow">Day 1</div>
     <h2 class="slide-title">Pick one app to reverse-engineer</h2>
-    <p class="slide-lede">Choose the one your group has used most. You'll spend the next three breakouts rebuilding its harness.</p>
+    <p class="slide-lede">Five real, non-coding AI products in the market. Pick the one your group has used or shipped against. You'll spend the next three breakouts rebuilding its harness.</p>
 
     <div class="grid-5">
       <div class="app">
         <div class="letter">A</div>
-        <div class="role">Coding agent</div>
-        <h4>Claude Code</h4>
-        <p>Long-running coding agent that reads your repo, edits files, runs tests, and ships PRs.</p>
-        <div class="why">Why pick: rich harness — skills, hooks, subagents, MCP all visible.</div>
+        <div class="role">Legal · Enterprise</div>
+        <h4>Harvey</h4>
+        <p>Legal AI platform for law firms. Research, drafting, document analysis, conversational queries over a firm's knowledge.</p>
+        <div class="why">Why pick: rich agentic harness — multi-step research, document tools, strict citation &amp; privilege rules.</div>
       </div>
       <div class="app">
         <div class="letter">B</div>
-        <div class="role">AI-first IDE</div>
-        <h4>Cursor</h4>
-        <p>VS Code fork with tab-completion, inline edits, agent mode, and rules files.</p>
-        <div class="why">Why pick: classic "rules + tools + memory" surface you already touch daily.</div>
+        <div class="role">Legal · SMB</div>
+        <h4>Spellbook</h4>
+        <p>Contract drafting and review inside Microsoft Word. Flags risks, suggests clauses, runs against a clause library.</p>
+        <div class="why">Why pick: harness lives <i>inside</i> another product — great study in scoping and host-app constraints.</div>
       </div>
       <div class="app">
         <div class="letter">C</div>
-        <div class="role">UI generator</div>
-        <h4>v0.dev</h4>
-        <p>Generates React + Tailwind UIs from a prompt or a Figma frame, then iterates inline.</p>
-        <div class="why">Why pick: closest to what you do — Figma → code is the loop you're optimizing.</div>
+        <div class="role">Accounting</div>
+        <h4>Pilot</h4>
+        <p>Autonomous bookkeeping for startups. Categorizes transactions, reconciles books, surfaces anomalies, reports monthly.</p>
+        <div class="why">Why pick: long-running agent + human-in-the-loop review — great for designing approval &amp; trust UX.</div>
       </div>
       <div class="app">
         <div class="letter">D</div>
-        <div class="role">App builder</div>
-        <h4>Lovable</h4>
-        <p>End-to-end app builder — agents plan, generate, deploy, and edit a running web app.</p>
-        <div class="why">Why pick: complete harness — multi-agent, sandbox, deploy, recovery flows.</div>
+        <div class="role">Productivity · Workspace</div>
+        <h4>Notion AI</h4>
+        <p>Writing, summarizing, and answering questions across a Notion workspace — embedded in pages, databases, and search.</p>
+        <div class="why">Why pick: harness is shaped by a workspace's structure — pages, databases, permissions become its filesystem.</div>
       </div>
       <div class="app">
         <div class="letter">E</div>
-        <div class="role">Search agent</div>
-        <h4>Perplexity</h4>
-        <p>Conversational search with citations, follow-ups, and (in Pro) multi-step research.</p>
-        <div class="why">Why pick: smaller surface area — easier to map all 6 components in 25 minutes.</div>
+        <div class="role">Productivity · Meetings</div>
+        <h4>Granola</h4>
+        <p>AI notepad for back-to-back meetings. Listens, drafts notes, extracts actions, syncs to your tools.</p>
+        <div class="why">Why pick: smallest surface area, sharpest job-to-be-done — easy to map all 6 components in 25 minutes.</div>
       </div>
     </div>
 
@@ -1982,7 +1982,7 @@ You are a research agent. Be terse. Cite sources.</pre>
     <div class="breakout">
       <div class="steps">
         <div class="step"><div class="n">1</div><div><h4>Drop your <code>harness/</code> folder into a fresh project</h4><p>RooCode reads <code>.roo/rules/</code>. Copilot reads <code>.github/copilot-instructions.md</code>. Claude Code reads <code>CLAUDE.md</code>. Move/symlink as needed.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Run a real task — the one you reverse-engineered</h4><p>If your app was v0.dev, give it a Figma frame. If it was Perplexity, ask a research question. Same intent, your harness.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Run a real task — the one you reverse-engineered</h4><p>Drop a real artifact in the workspace and ask the agent to handle it. Harvey: a sample contract — flag risks. Pilot: a CSV of transactions — categorize and reconcile. Notion AI: a page of meeting notes — summarize + extract actions. Granola: a transcript — produce the brief. Same intent as the live product, your harness.</p></div></div>
         <div class="step"><div class="n">3</div><div><h4>Watch where it diverges from the original product</h4><p>Tool descriptions too vague? Hook too aggressive? System prompt missing a constraint? Take notes — don't fix yet.</p></div></div>
         <div class="step"><div class="n">4</div><div><h4>Make ONE high-leverage change, re-run</h4><p>Edit a tool description, tighten the system prompt, or add one hook. Compare before / after.</p></div></div>
       </div>
@@ -2237,7 +2237,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 "Where designer leverage is highest: tool descriptions, permission UX, state visibility, error recovery, agent coordination, input architecture. Most agent failures are input failures, not intelligence failures.",
 "NEW SLIDE — Anatomy in files. The six components live as concrete files: CLAUDE.md, settings.json, skills/, commands/, agents/, hooks/, mcp.json, plus the editor-specific .roo/ and .github/copilot-instructions.md. Walk through the tree. Highest-leverage files: CLAUDE.md (the system prompt you own), tool descriptions inside skills (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You're going to author every one of these in Day 1's breakouts.'",
 "NEW SLIDE — Same files, three editing surfaces. Most of you are on Copilot or RooCode — point at the Copilot column first. Project guide is .github/copilot-instructions.md. Path-scoped guidance lives in .github/instructions/*.instructions.md with an applyTo glob. Reusable slash-prompts are .github/prompts/*.prompt.md. Custom agents live in .github/agents/*.md. RooCode mirrors the same shape under .roo/. Claude Code uses CLAUDE.md and .claude/. The names rotate; the anatomy doesn't.",
-"NEW SLIDE — Five apps. Pick one your group has actually used. A) Claude Code — coding agent (rich harness, easy to spot). B) Cursor — AI IDE you may already use. C) v0.dev — UI generator from Figma frames or prompts (closest to your day job). D) Lovable — full app builder (multi-agent, sandbox, deploy). E) Perplexity — search agent with citations (smallest surface area, good for the 25-min time box). Encourage one group per app if possible. 5 minutes to choose.",
+"FIVE APPS. Real, shipping, non-coding AI products. Two legal, one accounting, two productivity. A) Harvey — enterprise legal platform; research + drafting + document analysis; great if anyone's worked with law firms. B) Spellbook — contract drafting/review inside MS Word; the harness lives inside a host app, which is a fantastic constraints study. C) Pilot — autonomous bookkeeping for startups; long-running agent with monthly human review — perfect for designing approval flows. D) Notion AI — embedded in a workspace; pages and databases are the filesystem. E) Granola — AI meeting notes; smallest surface area, easiest to map all six components in 25 minutes. Encourage one group per app if possible. Tell groups: 'Pick the domain you'd be most embarrassed to design poorly for' — if a lawyer is in the room, take Harvey. Five minutes to choose.",
 "BREAKOUT 1 · PLAN — 25 minutes. Reverse-engineer the chosen app. List 5 user intents, map the 6 anatomy components, name 3 failure modes, then narrow to ONE intent + ONE failure mode you'll harness. Walk around. If a group is stuck, ask 'what does the agent do badly?' — the failure mode is the design surface.",
 "BREAKOUT 1 · Instructions slide. Run the room here. Deliverables: plan.md, intents.md, risks.md. Discourage perfection — they have two more breakouts. The point of B1 is to narrow scope so they can ship in B3.",
 "BREAKOUT 2 · DESIGN — 25 minutes. Translate the plan into the file tree. They sketch the folder structure on paper, outline the system prompt, list at most 7 tools, and decide what becomes a hook vs what stays a prompt. This is the slide where 'tool description = UX copy' lands.",
