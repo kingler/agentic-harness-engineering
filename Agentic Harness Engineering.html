@@ -928,21 +928,29 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
    Resources — link grid
    ========================================================= */
 .resource-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+.resource-grid--3{ grid-template-columns:repeat(3,1fr); gap:14px; }
 .resource{
   background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
-  padding:20px 24px; box-shadow:var(--card-shadow);
-  display:flex; flex-direction:column; gap:6px;
+  padding:18px 22px; box-shadow:var(--card-shadow);
+  display:flex; flex-direction:column; gap:5px;
 }
 .resource .src{
-  font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
+  font-size:10px; letter-spacing:0.12em; text-transform:uppercase;
   color:var(--salt-blue-500); font-weight:600;
 }
-.resource h5{ margin:0; font-size:17px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.005em; }
-.resource p{ margin:0; font-size:14px; color:var(--salt-gray-600); line-height:1.4; }
+.resource h5{ margin:0; font-size:15px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.005em; }
+.resource p{ margin:0; font-size:12px; color:var(--salt-gray-600); line-height:1.4; }
+.resource code{
+  font-family:'JetBrains Mono',monospace; font-size:11px;
+  color:var(--salt-navy-900); background:var(--salt-gray-100);
+  padding:0 4px; border-radius:3px;
+}
 .resource .url{
-  font-family:'JetBrains Mono',monospace; font-size:12px;
+  margin-top:auto; font-family:'JetBrains Mono',monospace; font-size:11px;
   color:var(--salt-gray-900); word-break:break-all;
 }
+.resource--copilot{ border-left:3px solid var(--salt-amber-500); }
+.resource--copilot .src{ color:var(--salt-amber-500); }
 
 /* =========================================================
    Print support
@@ -1488,8 +1496,9 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
         <div class="name">GitHub Copilot</div>
         <dl>
           <dt>Project guide</dt><dd>.github/<br>copilot-instructions.md</dd>
-          <dt>Path-scoped</dt><dd>.github/<br>instructions/*.md</dd>
-          <dt>Prompts</dt><dd>.github/prompts/<br>*.prompt.md</dd>
+          <dt>Path-scoped</dt><dd>.github/instructions/<br>*.instructions.md<br>(applyTo: pattern)</dd>
+          <dt>Prompt files</dt><dd>.github/prompts/<br>*.prompt.md</dd>
+          <dt>Custom agents</dt><dd>.github/agents/<br>*.md</dd>
           <dt>Tools</dt><dd>VS Code + MCP</dd>
         </dl>
       </div>
@@ -2120,44 +2129,87 @@ You are a research agent. Be terse. Cite sources.</pre>
   <div class="frame">
     <div class="eyebrow">Resources</div>
     <h2 class="slide-title">Read these next</h2>
-    <p class="slide-lede">The two pieces of source material this workshop is built on, plus the docs for the tools you already use.</p>
+    <p class="slide-lede">Source material first, then the docs for the editor you already use. Most of you are on Copilot or RooCode — those rows are the priority.</p>
 
-    <div class="resource-grid">
+    <div class="resource-grid resource-grid--3">
+      <!-- Source material -->
       <div class="resource">
         <div class="src">Foundational essay</div>
         <h5>The Anatomy of an Agent Harness</h5>
-        <p>Vivek Trivedy's framing of what a harness is and the components every modern one ships. The "if you're not the model, you're the harness" piece.</p>
+        <p>Vivek Trivedy's framing of harness components — "if you're not the model, you're the harness."</p>
         <div class="url">blog.langchain.com/the-anatomy-of-an-agent-harness</div>
       </div>
       <div class="resource">
         <div class="src">Research paper</div>
         <h5>Agentic Harness for Real-World Compilers</h5>
-        <p>arXiv:2603.20075 — introduces llvm-autofix as the first agentic harness for compiler bugs. A concrete worked example of harness anatomy on a hard domain.</p>
+        <p>arXiv:2603.20075 — llvm-autofix as the first agentic harness for compiler bugs. Worked anatomy example.</p>
         <div class="url">arxiv.org/abs/2603.20075</div>
-      </div>
-      <div class="resource">
-        <div class="src">Editor docs · You</div>
-        <h5>RooCode — Custom Modes &amp; Rules</h5>
-        <p>How <code>.roo/rules/</code>, <code>.roo/rules-{mode}/</code>, and <code>.roomodes</code> compose into a workspace harness.</p>
-        <div class="url">docs.roocode.com/features/custom-modes</div>
-      </div>
-      <div class="resource">
-        <div class="src">Editor docs · You</div>
-        <h5>GitHub Copilot — Custom Instructions</h5>
-        <p>Project-level <code>.github/copilot-instructions.md</code>, path-scoped instruction files, and prompt files.</p>
-        <div class="url">docs.github.com/copilot</div>
-      </div>
-      <div class="resource">
-        <div class="src">Editor docs · New today</div>
-        <h5>Claude Code — Settings, Hooks, Skills</h5>
-        <p>Reference for <code>CLAUDE.md</code>, <code>settings.json</code>, hook lifecycle events, skills, subagents, and slash commands.</p>
-        <div class="url">code.claude.com/docs</div>
       </div>
       <div class="resource">
         <div class="src">Protocol</div>
         <h5>Model Context Protocol (MCP)</h5>
-        <p>How to expose external tools to your harness in a portable way — Figma, GitHub, Linear, your design system API.</p>
+        <p>How to expose external tools — Figma, GitHub, Linear, your design-system API — to any harness.</p>
         <div class="url">modelcontextprotocol.io</div>
+      </div>
+
+      <!-- GitHub Copilot row -->
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Custom instructions in VS Code</h5>
+        <p>Repo-wide <code>.github/copilot-instructions.md</code> plus path-scoped <code>*.instructions.md</code> with <code>applyTo</code>. The Copilot equivalent of <code>CLAUDE.md</code>.</p>
+        <div class="url">code.visualstudio.com/docs/copilot/customization/custom-instructions</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Repository custom instructions (GitHub Docs)</h5>
+        <p>The official reference for <code>.github/copilot-instructions.md</code>, including how it composes with personal and org instructions.</p>
+        <div class="url">docs.github.com/copilot/customizing-copilot/adding-custom-instructions-for-github-copilot</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Prompt files (<code>.prompt.md</code>)</h5>
+        <p>Reusable, slash-invokable prompts in <code>.github/prompts/</code>. Treat each one like a slash command in Claude Code.</p>
+        <div class="url">docs.github.com/en/copilot/tutorials/customization-library/prompt-files</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Custom agents (cloud + CLI)</h5>
+        <p>Define agent profiles in <code>.github/agents/&lt;name&gt;.md</code> with YAML front-matter — the Copilot analog of <code>.claude/agents/</code>.</p>
+        <div class="url">docs.github.com/en/copilot/concepts/agents/cloud-agent/about-custom-agents</div>
+      </div>
+      <div class="resource resource--copilot">
+        <div class="src">Copilot · You</div>
+        <h5>Customize AI in VS Code (overview)</h5>
+        <p>Top-level map of every Copilot customization surface: instructions, prompt files, chat modes, MCP, model selection.</p>
+        <div class="url">code.visualstudio.com/docs/copilot/customization/overview</div>
+      </div>
+
+      <!-- RooCode row -->
+      <div class="resource">
+        <div class="src">RooCode · You</div>
+        <h5>Custom modes</h5>
+        <p>Workspace modes via <code>.roomodes</code> and global modes in <code>settings/custom_modes.yaml</code>.</p>
+        <div class="url">docs.roocode.com/features/custom-modes</div>
+      </div>
+      <div class="resource">
+        <div class="src">RooCode · You</div>
+        <h5>Custom instructions &amp; rules</h5>
+        <p>How <code>.roo/rules/</code> and <code>.roo/rules-{mode}/</code> compose, plus user-global <code>~/.roo/rules/</code>.</p>
+        <div class="url">docs.roocode.com/features/custom-instructions</div>
+      </div>
+      <div class="resource">
+        <div class="src">RooCode · You</div>
+        <h5>Prompt structure (advanced)</h5>
+        <p>The order in which RooCode assembles the system prompt — useful when you're fighting precedence between rule files.</p>
+        <div class="url">docs.roocode.com/advanced-usage/prompt-structure</div>
+      </div>
+
+      <!-- Claude Code row -->
+      <div class="resource">
+        <div class="src">Claude Code · New</div>
+        <h5>Settings, hooks &amp; permissions</h5>
+        <p>Reference for <code>settings.json</code>, the 12+ hook lifecycle events, and tool permission policies.</p>
+        <div class="url">code.claude.com/docs/en/settings</div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -2184,7 +2236,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 "LEFT: Hooks. When something should happen EVERY time, enforce it with code, not with hope. RIGHT: Feedback loops. Evals are the training data for the harness. LangChain calls this hill-climbing — change one thing, measure, keep or revert.",
 "Where designer leverage is highest: tool descriptions, permission UX, state visibility, error recovery, agent coordination, input architecture. Most agent failures are input failures, not intelligence failures.",
 "NEW SLIDE — Anatomy in files. The six components live as concrete files: CLAUDE.md, settings.json, skills/, commands/, agents/, hooks/, mcp.json, plus the editor-specific .roo/ and .github/copilot-instructions.md. Walk through the tree. Highest-leverage files: CLAUDE.md (the system prompt you own), tool descriptions inside skills (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You're going to author every one of these in Day 1's breakouts.'",
-"NEW SLIDE — Same files, three editing surfaces. RooCode reads .roo/rules/ — you already do this. Copilot reads .github/copilot-instructions.md — you already do this. Claude Code reads CLAUDE.md and .claude/. The names rotate; the anatomy doesn't. The pattern: a markdown brief + a JSON config + a folder of named prompts and scripts. Once they see this, the rest of the workshop clicks.",
+"NEW SLIDE — Same files, three editing surfaces. Most of you are on Copilot or RooCode — point at the Copilot column first. Project guide is .github/copilot-instructions.md. Path-scoped guidance lives in .github/instructions/*.instructions.md with an applyTo glob. Reusable slash-prompts are .github/prompts/*.prompt.md. Custom agents live in .github/agents/*.md. RooCode mirrors the same shape under .roo/. Claude Code uses CLAUDE.md and .claude/. The names rotate; the anatomy doesn't.",
 "NEW SLIDE — Five apps. Pick one your group has actually used. A) Claude Code — coding agent (rich harness, easy to spot). B) Cursor — AI IDE you may already use. C) v0.dev — UI generator from Figma frames or prompts (closest to your day job). D) Lovable — full app builder (multi-agent, sandbox, deploy). E) Perplexity — search agent with citations (smallest surface area, good for the 25-min time box). Encourage one group per app if possible. 5 minutes to choose.",
 "BREAKOUT 1 · PLAN — 25 minutes. Reverse-engineer the chosen app. List 5 user intents, map the 6 anatomy components, name 3 failure modes, then narrow to ONE intent + ONE failure mode you'll harness. Walk around. If a group is stuck, ask 'what does the agent do badly?' — the failure mode is the design surface.",
 "BREAKOUT 1 · Instructions slide. Run the room here. Deliverables: plan.md, intents.md, risks.md. Discourage perfection — they have two more breakouts. The point of B1 is to narrow scope so they can ship in B3.",
@@ -2204,7 +2256,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 "DEMO SESSION DIVIDER. 5 minutes per group, 1 minute Q&A each. Live in their editor. Set the tone: 'We're not judging finish — we're judging the tradeoff you can defend.'",
 "DEMO RUBRIC. Five categories, 5 points each. Score yourselves first, then we score each other. Anti-patterns we'll call out: 23 MCP servers, system prompt doing the hook's job, no success/failure indicator, no scoping, demo only runs the rehearsed task.",
 "TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping. 05 Most agent failures are input failures. Thank the room. Keep the energy up — they earned it.",
-"RESOURCES. The two source pieces — LangChain blog post and arXiv 2603.20075 — plus the docs for the editors they use. Tell them: keep editing your harness in the open. Push to a branch you share. The harness is a living artifact, not a deliverable."
+"RESOURCES. Three rows of links. TOP ROW — source material: LangChain's anatomy essay, arXiv 2603.20075, and the MCP spec. SECOND ROW (Copilot — orange stripe) is the priority for most of this room: VS Code custom instructions, the GitHub Docs reference for repo instructions, prompt files, custom agents, and the Customize-AI overview. Walk the room through these explicitly — these are the docs they'll re-open Monday morning. THIRD ROW — RooCode docs for the rest of the audience, plus Claude Code settings/hooks for the new surface they met today. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
 ]
 </script>
 

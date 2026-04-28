@@ -8,19 +8,26 @@ to match the app your group is reverse-engineering.
 
 ```
 harness-templates/
-├── CLAUDE.md                       # project-level system prompt for Claude Code
-├── AGENTS.md                       # same idea, for Codex / generic agents
-├── mcp.json                        # external tool servers (Figma, GitHub, etc.)
+├── CLAUDE.md                                 # Claude Code project guide
+├── AGENTS.md                                 # Codex / generic-agent guide
+├── mcp.json                                  # external tool servers
 ├── .claude/
-│   ├── settings.json               # permissions + hook bindings
-│   ├── skills/design-review.md     # progressive-disclosure prompt
-│   ├── commands/plan.md            # /plan slash command
-│   ├── agents/researcher.md        # subagent definition
-│   └── hooks/post-tool-use.sh      # deterministic guardrail
+│   ├── settings.json                         # permissions + hook bindings
+│   ├── skills/design-review.md               # progressive-disclosure prompt
+│   ├── commands/plan.md                      # /plan slash command
+│   ├── agents/researcher.md                  # subagent definition
+│   ├── hooks/pre-tool-use.sh                 # deny dangerous Bash patterns
+│   └── hooks/post-tool-use.sh                # scope check + auto-format + log
 ├── .roo/
-│   └── rules/01-project.md         # RooCode workspace rule
+│   └── rules/01-project.md                   # RooCode workspace rule
 └── .github/
-    └── copilot-instructions.md     # GitHub Copilot project guide
+    ├── copilot-instructions.md               # repo-wide Copilot guidance
+    ├── instructions/
+    │   └── frontend.instructions.md          # path-scoped rules (applyTo)
+    ├── prompts/
+    │   └── plan.prompt.md                    # /plan reusable prompt
+    └── agents/
+        └── researcher.md                     # Copilot custom agent
 ```
 
 ## How to use it in the workshop
