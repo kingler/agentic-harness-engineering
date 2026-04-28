@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "@figma/mcp"],
+      "env": { "FIGMA_PERSONAL_ACCESS_TOKEN": "${FIGMA_TOKEN}" }
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@github/mcp"],
+      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" }
+    },
+    "browser": {
+      "command": "npx",
+      "args": ["-y", "@browserbase/mcp"]
+    }
+  }
+}
