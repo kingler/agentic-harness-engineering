@@ -45,6 +45,28 @@ cp -r harness-templates ../my-harness && cd ../my-harness
 
 Then follow the steps in [`harness-templates/README.md`](./harness-templates/README.md).
 
+For a local server (mermaid diagrams need module loading, which `file://`
+blocks):
+
+```sh
+python3 -m http.server 8000
+# open http://localhost:8000/
+```
+
+## Deploy to Vercel
+
+The deck is plain static HTML and ships with a `vercel.json`, so it
+deploys with no build step.
+
+1. Open <https://vercel.com/new>.
+2. **Import Git Repository** → pick `kingler/agentic-harness-engineering`.
+3. Framework preset: **Other** (auto-detected).
+4. Leave build command empty.
+5. **Deploy.**
+
+`vercel.json` sets `cleanUrls: true`, no-cache for HTML, and one-year
+immutable cache for static assets.
+
 ## Ground rules (from the workshop)
 
 - Keep `CLAUDE.md` under 200 lines.
