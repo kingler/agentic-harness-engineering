@@ -1,0 +1,10 @@
+{
+  "id": "smoke-design-review",
+  "prompt": "Review this UI diff: a Save button changed colour from #2A6 to #28a. The rest of the screen is unchanged.",
+  "expect": {
+    "must_include": ["contrast", "token"],
+    "must_not_include": ["please", "delight", "leverage"],
+    "max_tokens": 400
+  },
+  "tags": ["smoke", "design-review"]
+}

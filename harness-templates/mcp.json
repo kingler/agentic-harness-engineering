@@ -2,17 +2,21 @@
   "mcpServers": {
     "figma": {
       "command": "npx",
-      "args": ["-y", "@figma/mcp"],
+      "args": ["-y", "figma-developer-mcp@0.11.0"],
       "env": { "FIGMA_PERSONAL_ACCESS_TOKEN": "${FIGMA_TOKEN}" }
     },
     "github": {
       "command": "npx",
-      "args": ["-y", "@github/mcp"],
-      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" }
+      "args": ["-y", "@modelcontextprotocol/server-github@2025.4.8"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" }
     },
     "browser": {
       "command": "npx",
-      "args": ["-y", "@browserbase/mcp"]
+      "args": ["-y", "@browserbasehq/mcp@3.0.0"],
+      "env": {
+        "BROWSERBASE_API_KEY": "${BROWSERBASE_API_KEY}",
+        "BROWSERBASE_PROJECT_ID": "${BROWSERBASE_PROJECT_ID}"
+      }
     }
   }
 }
