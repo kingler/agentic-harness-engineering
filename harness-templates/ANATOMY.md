@@ -1,6 +1,6 @@
 # Harness Anatomy — Visual Reference
 
-Ten concepts make up an agent harness. Each diagram below shows
+Fourteen concepts make up an agent harness. Each diagram below shows
 *behaviour*, not file layout — i.e. what happens at runtime when the
 agent is working.
 
@@ -54,7 +54,7 @@ disclosure" applied to prompts.
 
 ```mermaid
 flowchart LR
-    User[User input] --> Match{Trigger match?<br/>e.g. "design review"}
+    User[User input] --> Match{"Trigger match?<br/>e.g. 'design review'"}
     Match -->|yes| Load[Load skill prompt]
     Match -->|no| Plain[Continue without skill]
     Load --> Apply[Apply skill steps]
@@ -150,10 +150,10 @@ many times, let's bottle it".
 
 ```mermaid
 flowchart LR
-    Plan[/plan] --> Research[researcher subagent]
+    Plan["/plan"] --> Research[researcher subagent]
     Research --> Edit[edit files]
     Edit --> Review[design-review skill]
-    Review --> Fix[/fix-until-green]
+    Review --> Fix["/fix-until-green"]
     Fix --> Report[ship report]
 ```
 
@@ -199,20 +199,106 @@ File: `.claude/commands/review-team.md`.
 
 ---
 
+## 11. Memory
+
+Memory is **state that survives between sessions**. The system prompt
+is static; memory is read at session start and written during/after.
+Useful for decisions, names, and conventions you don't want the user
+to repeat.
+
+```mermaid
+flowchart LR
+    Start[Session start] -->|read| Mem[("memory/SESSION.md")]
+    Mem --> Agent[Agent works]
+    Agent -->|append| Mem
+    Mem -.persists.-> NextSession[Next session]
+```
+
+File: `memory/SESSION.md`.
+
+---
+
+## 12. Domain knowledge
+
+Domain knowledge is **facts the agent retrieves on demand**, distinct
+from skills (which describe *behaviour*). For workshop-scale harnesses
+this is just markdown files; in production, swap in a vector store or
+retrieval MCP.
+
+```mermaid
+flowchart LR
+    Q[Agent question] --> Need{"Need a domain fact?"}
+    Need -->|yes| KB[("knowledge/*.md")]
+    KB -->|cite verbatim| Cited[Answer with citation]
+    Need -->|no| Plain[Answer from prompt]
+```
+
+Files: `knowledge/README.md`, `knowledge/style-guide.md`.
+
+---
+
+## 13. Evaluation
+
+Evals are **the regression test for prompts**. A change in CLAUDE.md,
+a new skill, or a model upgrade can silently break behaviour. Evals
+catch that before it ships. One JSON case per behaviour you care
+about; one runner script that prints pass/fail per case.
+
+```mermaid
+flowchart LR
+    Cases[("evals/cases/*.json")] --> Run["scripts/run-eval.sh"]
+    Run --> Per["per-case JSON: pass/fail"]
+    Per --> Diff{"Regression vs. baseline?"}
+    Diff -->|yes| Block[Block ship]
+    Diff -->|no| Pass[Ship + log baseline]
+```
+
+Files: `evals/README.md`, `evals/cases/smoke.json`, `scripts/run-eval.sh`.
+
+---
+
+## 14. Learning
+
+Learning is **how the harness improves between sessions**. You don't
+train the model — you refine its prompts, skills, hooks, and tools
+based on what real sessions reveal. One change per cycle, evaluated
+against the eval set, kept or discarded based on the delta.
+
+```mermaid
+flowchart LR
+    Logs[("transcripts +<br/>edits.log")] --> Find[Find one pattern]
+    Find --> Propose[Propose one change]
+    Propose --> Eval["Run evals"]
+    Eval --> Better{"Score improves?"}
+    Better -->|yes| Merge[Update CLAUDE.md / skill]
+    Better -->|no| Discard[Discard]
+```
+
+File: `.claude/commands/improve.md`.
+
+---
+
 ## How they compose
 
-The ten concepts aren't independent. A real harness layers them:
+The fourteen concepts aren't independent. A real harness layers them:
 
 ```mermaid
 flowchart TB
     User[User turn] --> Main[Main agent]
-    Main -.persistent.-> SP[System prompt + Rules]
+    Main -.persistent.-> SP["System prompt + Rules"]
+    Main -.session start.-> Mem[(Memory)]
     Main -->|may load| Skill[Skill]
-    Main -->|may delegate| Team[Team / Subagents]
-    Main -->|may run| Workflow[Workflow / Loop]
-    Workflow --> Tool[Tool / MCP call]
+    Main -->|may retrieve| KB[(Knowledge)]
+    Main -->|may delegate| Team["Team / Subagents"]
+    Main -->|may run| Workflow["Workflow / Loop"]
+    Workflow --> Tool["Tool / MCP call"]
     Tool --> Hook{Hooks}
     Hook -->|allow| Exec[Execute]
     Hook -->|deny| Block[Block]
     Exec --> Main
+    Main -.append.-> Mem
+    Main -.transcripts.-> Eval[(Eval set)]
+    Eval --> Learn[Learning loop]
+    Learn -.updates.-> SP
+    Learn -.updates.-> Skill
 ```

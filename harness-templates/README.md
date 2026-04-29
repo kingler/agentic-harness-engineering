@@ -11,8 +11,16 @@ harness-templates/
 ├── CLAUDE.md                                 # Claude Code project guide (system prompt + rules)
 ├── AGENTS.md                                 # Codex / generic-agent guide
 ├── mcp.json                                  # external tool servers (MCPs)
+├── memory/
+│   └── SESSION.md                            # session memory — survives between runs
+├── knowledge/
+│   ├── README.md                             # how domain knowledge is used
+│   └── style-guide.md                        # example domain doc (replace per workshop)
+├── evals/
+│   ├── README.md                             # eval format and runner contract
+│   └── cases/smoke.json                      # one example eval case
 ├── scripts/
-│   └── run-eval.sh                           # custom tool — invokable script
+│   └── run-eval.sh                           # custom tool — invokable eval runner
 ├── .claude/
 │   ├── settings.json                         # permissions + hook bindings
 │   ├── skills/design-review.md               # progressive-disclosure prompt
@@ -20,7 +28,8 @@ harness-templates/
 │   │   ├── plan.md                           # /plan — single-step command
 │   │   ├── fix-until-green.md                # loop pattern (capped iterations)
 │   │   ├── ship-ui-change.md                 # workflow / skill chain
-│   │   └── review-team.md                    # agent team (parallel fan-out)
+│   │   ├── review-team.md                    # agent team (parallel fan-out)
+│   │   └── improve.md                        # learning cycle (one change per pass)
 │   ├── agents/
 │   │   ├── researcher.md                     # read-only research subagent
 │   │   └── critic.md                         # read-only critic subagent
@@ -54,6 +63,10 @@ For a visual reference (one diagram per concept), see [`ANATOMY.md`](./ANATOMY.m
 | Workflows | `.claude/commands/ship-ui-change.md` (named skill chain) |
 | Subagents | `.claude/agents/` (one per role) |
 | Agent teams | `.claude/commands/review-team.md` (parallel fan-out + merge) |
+| Memory | `memory/SESSION.md` |
+| Domain knowledge | `knowledge/` (markdown today, vector store / retrieval MCP later) |
+| Evaluation | `evals/` + `scripts/run-eval.sh` |
+| Learning | `.claude/commands/improve.md` (transcripts → one change → eval) |
 
 ## How to use it in the workshop
 
