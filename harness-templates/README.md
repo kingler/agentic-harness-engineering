@@ -40,6 +40,8 @@ harness-templates/
 
 ## Anatomy mapped to files
 
+For a visual reference (one diagram per concept), see [`ANATOMY.md`](./ANATOMY.md).
+
 | Concept | Where it lives |
 |---|---|
 | System prompt | `CLAUDE.md` (Persona + Scope) |
