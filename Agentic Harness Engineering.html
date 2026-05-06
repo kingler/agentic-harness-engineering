@@ -1063,33 +1063,34 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 <section data-label="03 Agenda">
   <div class="frame">
     <div class="eyebrow">Agenda</div>
-    <h2 class="slide-title">Two days, three breakouts, one harness</h2>
-    <p class="slide-lede">Day 1 you reverse-engineer and build a harness for a real product. Day 2 you wire it up, test it in RooCode / Copilot, and demo.</p>
+    <h2 class="slide-title">Two days, six components, one harness</h2>
+    <p class="slide-lede">Day 1 you learn each component of an agentic harness in focused breakouts. Day 2 you bring them together and test your harness in VS Code with GitHub Copilot.</p>
 
     <div class="day-agenda">
       <div class="day-col">
-        <div class="day-header"><span class="day-pill">Day 1 · 120 min</span><h3>Plan · Design · Develop</h3></div>
+        <div class="day-header"><span class="day-pill">Day 1 · 120 min</span><h3>Anatomy · Components · Breakouts</h3></div>
         <div class="agenda compact">
-          <div class="row"><div class="time">0:00</div><div class="topic">Foundations</div><div class="desc">Agent = Model + Harness. OS analogy. Designer leverage.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:15</div><div class="topic">Anatomy</div><div class="desc">6 components + the file structure that backs them.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">0:40</div><div class="topic">Pick an app</div><div class="desc">Choose 1 of 5 apps to reverse-engineer.</div><div class="dur">5</div></div>
-          <div class="row"><div class="time">0:45</div><div class="topic">Breakout 1 · PLAN</div><div class="desc">Reverse-engineer: capabilities, intents, harness map.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:10</div><div class="topic">Breakout 2 · DESIGN</div><div class="desc">Sketch file structure, system prompt, tools list.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:35</div><div class="topic">Breakout 3 · DEVELOP</div><div class="desc">Write CLAUDE.md, settings.json, a skill, a hook.</div><div class="dur">20</div></div>
-          <div class="row"><div class="time">1:55</div><div class="topic">Show &amp; tell</div><div class="desc">2-min preview from each group · homework.</div><div class="dur">5</div></div>
+          <div class="row"><div class="time">0:00</div><div class="topic">Foundations</div><div class="desc">Agent = Model + Harness. OS analogy. Designer leverage.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:10</div><div class="topic">Anatomy walk-through</div><div class="desc">Six components + the file structure that backs them.</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">0:25</div><div class="topic">Breakout · System prompt</div><div class="desc">Write the agent identity, scope, and failure modes.</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">0:37</div><div class="topic">Breakout · Rules</div><div class="desc">Three never/always rules; mark which need a hook.</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">0:49</div><div class="topic">Breakout · Skills</div><div class="desc">Design one on-demand prompt with a clear trigger.</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">1:01</div><div class="topic">Breakout · Tools / scripts</div><div class="desc">Define one tool: name, description, params, returns.</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">1:13</div><div class="topic">Breakout · Hooks</div><div class="desc">Wire one pre- or post-tool guard for a "never" rule.</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">1:25</div><div class="topic">Breakout · Knowledge base</div><div class="desc">Capture the domain context the agent always reads.</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">1:37</div><div class="topic">Show &amp; tell</div><div class="desc">Each group · 1 decision they're proud of · 1 question.</div><div class="dur">18</div></div>
+          <div class="row"><div class="time">1:55</div><div class="topic">Homework</div><div class="desc">Read VS Code Copilot customization docs before Day 2.</div><div class="dur">5</div></div>
         </div>
       </div>
       <div class="day-col">
-        <div class="day-header"><span class="day-pill">Day 2 · 120 min</span><h3>Refine · Test · Demo</h3></div>
+        <div class="day-header"><span class="day-pill">Day 2 · 120 min</span><h3>Bring it together · Test in VS Code</h3></div>
         <div class="agenda compact">
           <div class="row"><div class="time">0:00</div><div class="topic">Recap</div><div class="desc">What worked / what broke between sessions.</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">0:10</div><div class="topic">Agentic UX</div><div class="desc">Intent-system maps · Past / Present / Future.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:25</div><div class="topic">Hooks deep-dive</div><div class="desc">PreToolUse, PostToolUse, SessionStart, Stop.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:40</div><div class="topic">Subagents &amp; MCP</div><div class="desc">Delegation, isolation, external tool servers.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:55</div><div class="topic">Evals &amp; traces</div><div class="desc">Hill-climbing the harness from real failures.</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">1:05</div><div class="topic">Live wire-up</div><div class="desc">Run your harness in RooCode / Copilot.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:30</div><div class="topic">Group demos</div><div class="desc">5 min per group · 1 critical tradeoff each.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:55</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">5</div></div>
+          <div class="row"><div class="time">0:10</div><div class="topic">Copilot customization tour</div><div class="desc">Hooks, skills, slash commands, instructions files.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">0:30</div><div class="topic">Pair work · wire-up</div><div class="desc">Drop your harness into VS Code; connect each component.</div><div class="dur">40</div></div>
+          <div class="row"><div class="time">1:10</div><div class="topic">Test the golden path</div><div class="desc">Run prompts; watch hooks fire; iterate on misses.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:30</div><div class="topic">Group demos</div><div class="desc">5 min per group · 1 critical tradeoff each.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:50</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">10</div></div>
         </div>
       </div>
     </div>
