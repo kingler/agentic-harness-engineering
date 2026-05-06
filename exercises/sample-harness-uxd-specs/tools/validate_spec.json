@@ -1,0 +1,39 @@
+{
+  "name": "validate_spec",
+  "description": "Validates a spec against the schema in knowledge/spec-schema.md: required frontmatter fields, required sections in order, internal SPEC ID links resolve, Figma URLs are well-formed, design system component names match knowledge/design-system-index.md exactly. Use before any status transition, before saving an in-review spec, and whenever the user asks 'is this spec ready'. Do NOT use as a general read — use Read for that. Returns a structured list of violations; does not modify the file.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "spec_id": {
+        "type": "string",
+        "description": "SPEC-YYYY-NNN ID to validate.",
+        "pattern": "^SPEC-\\d{4}-\\d{3}$"
+      },
+      "strict": {
+        "type": "boolean",
+        "description": "If true, treat warnings as errors. Use when validating before transition to in-review or approved.",
+        "default": false
+      }
+    },
+    "required": ["spec_id"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "ok": { "type": "boolean" },
+      "errors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "rule": { "type": "string" },
+            "line": { "type": "integer" },
+            "message": { "type": "string" }
+          }
+        }
+      },
+      "warnings": { "type": "array" }
+    }
+  },
+  "implementation": "scripts/validate_spec.sh"
+}

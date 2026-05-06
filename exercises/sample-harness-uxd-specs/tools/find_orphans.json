@@ -1,0 +1,26 @@
+{
+  "name": "find_orphans",
+  "description": "Scans the spec library for orphaned documents: (a) approved or implemented specs with no inbound links from any other spec, and (b) drafts older than `stale_days` with no `updated:` activity. Use for periodic library audits, weekly review prep, or when the user asks 'what specs need attention'. Do NOT use for general listing — use list_specs.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "stale_days": {
+        "type": "integer",
+        "default": 90,
+        "minimum": 7
+      },
+      "include_archived": {
+        "type": "boolean",
+        "default": false
+      }
+    }
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "no_inbound_links": { "type": "array", "items": { "type": "string" } },
+      "stale_drafts": { "type": "array", "items": { "type": "string" } }
+    }
+  },
+  "implementation": "scripts/find_orphans.sh"
+}

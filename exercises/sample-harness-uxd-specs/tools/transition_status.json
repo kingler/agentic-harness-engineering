@@ -1,0 +1,36 @@
+{
+  "name": "transition_status",
+  "description": "Transitions a spec from one workflow state to the next, enforcing the preconditions defined in knowledge/workflow.md. Use this — and ONLY this — to change a spec's status field. Do NOT hand-edit `status:` in frontmatter; the post-tool-use hook will reject it. Allowed transitions: draft→in-review, in-review→approved, in-review→draft, approved→implemented, any→archived.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "spec_id": {
+        "type": "string",
+        "pattern": "^SPEC-\\d{4}-\\d{3}$"
+      },
+      "to": {
+        "type": "string",
+        "enum": ["draft", "in-review", "approved", "implemented", "archived"]
+      },
+      "reason": {
+        "type": "string",
+        "description": "Short rationale recorded in the spec's history block. Required for transitions to approved, implemented, or archived."
+      }
+    },
+    "required": ["spec_id", "to"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "ok": { "type": "boolean" },
+      "from": { "type": "string" },
+      "to": { "type": "string" },
+      "blocked_by": {
+        "type": "array",
+        "items": { "type": "string" },
+        "description": "List of precondition failures, if any."
+      }
+    }
+  },
+  "implementation": "scripts/transition_status.sh"
+}
