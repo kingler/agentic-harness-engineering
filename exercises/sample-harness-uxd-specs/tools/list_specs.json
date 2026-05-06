@@ -1,0 +1,48 @@
+{
+  "name": "list_specs",
+  "description": "Lists specs in the library matching a filter. Use for queries like 'what's in review', 'specs owned by jane.doe', 'all component specs'. Do NOT use to fetch a single known SPEC ID — use Read on specs/<id>.md for that. Returns a compact table of id, title, status, owner, type, updated.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["draft", "in-review", "approved", "implemented", "archived", "any"],
+        "default": "any"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["ux-flow", "component", "research", "prd", "any"],
+        "default": "any"
+      },
+      "owner": {
+        "type": "string",
+        "description": "Filter to specs owned by this username. Omit for all owners."
+      },
+      "title_match": {
+        "type": "string",
+        "description": "Case-insensitive substring match against the title."
+      },
+      "limit": {
+        "type": "integer",
+        "default": 50,
+        "minimum": 1,
+        "maximum": 200
+      }
+    }
+  },
+  "returns": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string" },
+        "owner": { "type": "string" },
+        "type": { "type": "string" },
+        "updated": { "type": "string", "format": "date" }
+      }
+    }
+  },
+  "implementation": "scripts/list_specs.sh"
+}

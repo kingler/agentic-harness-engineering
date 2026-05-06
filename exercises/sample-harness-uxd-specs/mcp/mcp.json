@@ -1,0 +1,46 @@
+{
+  "_comment": "MCP server registration for the Spec Steward harness. Each entry tells the harness how to launch (or connect to) an MCP server. The agent gets one toolset per server. Keep this list small — every server you connect adds tools the model has to read past.",
+
+  "mcpServers": {
+    "filesystem": {
+      "_purpose": "Read/write inside specs/, knowledge/, and notes/. Bounded path list — do NOT add the repo root.",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${workspaceFolder}/specs",
+        "${workspaceFolder}/knowledge",
+        "${workspaceFolder}/notes"
+      ]
+    },
+
+    "figma": {
+      "_purpose": "Fetch Figma frame metadata when a spec references a frame URL. Read-only.",
+      "url": "https://mcp.figma.com/mcp",
+      "transport": "http",
+      "headers": {
+        "Authorization": "Bearer ${env:FIGMA_TOKEN}"
+      },
+      "_scope": "read-only — never call any mutating Figma endpoint from this harness"
+    },
+
+    "linear": {
+      "_purpose": "Link a spec to a Linear ticket on transition to implemented. Confirmation gated in the agent — see AGENTS.md 'Never do'.",
+      "url": "https://mcp.linear.app/mcp",
+      "transport": "http",
+      "_scope": "agent must ask the user before any save_issue, create_attachment, or save_comment call"
+    },
+
+    "github": {
+      "_purpose": "Create a PR description from an approved spec. Optional — only enable when the user runs /publish-spec.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
+      },
+      "_scope": "repo-scoped, read + PR-create only"
+    }
+  },
+
+  "_load_order_note": "When the agent decides which tool to call, it sees ALL tools from ALL connected servers in one big list. To keep that list short, the agent's system prompt explicitly names the local tools (validate_spec, transition_status, etc.) as the default path, and reserves MCP tools for the specific cases noted above."
+}

@@ -852,6 +852,24 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 }
 
 /* =========================================================
+   BREAKOUT CUE — pill + lede on a teaching slide
+   ========================================================= */
+.breakout-cue{
+  margin-top:24px; padding:16px 20px;
+  background:#fff7ed; border:1px solid #fdba74; border-left:4px solid #f59e0b;
+  border-radius:6px;
+  display:flex; gap:18px; align-items:center;
+}
+.cue-pill{
+  background:#f59e0b; color:#fff; padding:6px 12px;
+  border-radius:999px; font-size:13px; font-weight:700;
+  letter-spacing:0.04em; white-space:nowrap;
+}
+.breakout-cue > span:not(.cue-pill){
+  font-size:17px; color:var(--salt-navy-900); line-height:1.45;
+}
+
+/* =========================================================
    DAY 2 OPENER — recap card
    ========================================================= */
 .recap-grid{ display:grid; grid-template-columns:1fr 1fr; gap:32px; }
@@ -1063,33 +1081,34 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 <section data-label="03 Agenda">
   <div class="frame">
     <div class="eyebrow">Agenda</div>
-    <h2 class="slide-title">Two days, three breakouts, one harness</h2>
-    <p class="slide-lede">Day 1 you reverse-engineer and build a harness for a real product. Day 2 you wire it up, test it in RooCode / Copilot, and demo.</p>
+    <h2 class="slide-title">Two days, six components, one harness</h2>
+    <p class="slide-lede">Day 1 you learn each component of an agentic harness in focused breakouts. Day 2 you bring them together and test your harness in VS Code with GitHub Copilot.</p>
 
     <div class="day-agenda">
       <div class="day-col">
-        <div class="day-header"><span class="day-pill">Day 1 · 120 min</span><h3>Plan · Design · Develop</h3></div>
+        <div class="day-header"><span class="day-pill">Day 1 · 120 min</span><h3>Anatomy · Components · Breakouts</h3></div>
         <div class="agenda compact">
-          <div class="row"><div class="time">0:00</div><div class="topic">Foundations</div><div class="desc">Agent = Model + Harness. OS analogy. Designer leverage.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:15</div><div class="topic">Anatomy</div><div class="desc">6 components + the file structure that backs them.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">0:40</div><div class="topic">Pick an app</div><div class="desc">Choose 1 of 5 apps to reverse-engineer.</div><div class="dur">5</div></div>
-          <div class="row"><div class="time">0:45</div><div class="topic">Breakout 1 · PLAN</div><div class="desc">Reverse-engineer: capabilities, intents, harness map.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:10</div><div class="topic">Breakout 2 · DESIGN</div><div class="desc">Sketch file structure, system prompt, tools list.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:35</div><div class="topic">Breakout 3 · DEVELOP</div><div class="desc">Write CLAUDE.md, settings.json, a skill, a hook.</div><div class="dur">20</div></div>
-          <div class="row"><div class="time">1:55</div><div class="topic">Show &amp; tell</div><div class="desc">2-min preview from each group · homework.</div><div class="dur">5</div></div>
+          <div class="row"><div class="time">0:00</div><div class="topic">Foundations</div><div class="desc">Agent = Model + Harness. OS analogy. Designer leverage.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:10</div><div class="topic">Anatomy overview</div><div class="desc">Six components + the file structure that backs them.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:20</div><div class="topic">System prompt</div><div class="desc">Identity + structure visual (4 teach) → write yours (8 do).</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">0:32</div><div class="topic">Rules</div><div class="desc">Strong vs weak example (3) → write 3 numbered rules (7).</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:42</div><div class="topic">Skills</div><div class="desc">What/anatomy/example (7) → design one skill (8).</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">0:57</div><div class="topic">Tools (functions / scripts / MCP)</div><div class="desc">Three flavors · description craft · script · MCP (10) → define one (10).</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:17</div><div class="topic">Hooks</div><div class="desc">Pre/post gate model (3) → wire one pre-tool guard (7).</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">1:27</div><div class="topic">Knowledge base</div><div class="desc">What goes in / out (3) → capture one domain file (7).</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">1:37</div><div class="topic">Show &amp; tell + Memory</div><div class="desc">Each group: what's worth keeping. Memory concept wrap-up.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:57</div><div class="topic">Homework</div><div class="desc">Read VS Code Copilot customization docs before Day 2.</div><div class="dur">3</div></div>
         </div>
       </div>
       <div class="day-col">
-        <div class="day-header"><span class="day-pill">Day 2 · 120 min</span><h3>Refine · Test · Demo</h3></div>
+        <div class="day-header"><span class="day-pill">Day 2 · 120 min</span><h3>Bring it together · Test in VS Code</h3></div>
         <div class="agenda compact">
           <div class="row"><div class="time">0:00</div><div class="topic">Recap</div><div class="desc">What worked / what broke between sessions.</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">0:10</div><div class="topic">Agentic UX</div><div class="desc">Intent-system maps · Past / Present / Future.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:25</div><div class="topic">Hooks deep-dive</div><div class="desc">PreToolUse, PostToolUse, SessionStart, Stop.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:40</div><div class="topic">Subagents &amp; MCP</div><div class="desc">Delegation, isolation, external tool servers.</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:55</div><div class="topic">Evals &amp; traces</div><div class="desc">Hill-climbing the harness from real failures.</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">1:05</div><div class="topic">Live wire-up</div><div class="desc">Run your harness in RooCode / Copilot.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:30</div><div class="topic">Group demos</div><div class="desc">5 min per group · 1 critical tradeoff each.</div><div class="dur">25</div></div>
-          <div class="row"><div class="time">1:55</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">5</div></div>
+          <div class="row"><div class="time">0:10</div><div class="topic">Copilot customization tour</div><div class="desc">Hooks, skills, slash commands, instructions files.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">0:30</div><div class="topic">Pair work · wire-up</div><div class="desc">Drop your harness into VS Code; connect each component.</div><div class="dur">40</div></div>
+          <div class="row"><div class="time">1:10</div><div class="topic">Test the golden path</div><div class="desc">Run prompts; watch hooks fire; iterate on misses.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:30</div><div class="topic">Group demos</div><div class="desc">5 min per group · 1 critical tradeoff each.</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:50</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">10</div></div>
         </div>
       </div>
     </div>
@@ -1666,47 +1685,51 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 </section>
 
 <!-- ============================================================
-     SLIDE 18 — Section divider: Breakout 1 PLAN
+     SLIDE 18 — Section divider: Component Deep Dive
      ============================================================ -->
-<section data-label="18 Section · Breakout 1 PLAN">
+<section data-label="18 Section · Component Deep Dive">
   <div class="divider exercise">
     <div class="stripe"></div>
-    <div class="numeral ex">B1<br>PLAN</div>
+    <div class="numeral ex">CDD</div>
     <div class="body">
-      <div class="eyebrow" style="color:#ffffff;">Day 1 · Breakout 1</div>
-      <h2>Plan the harness</h2>
-      <p>Reverse-engineer your chosen app. What does it do, who uses it, what intents must the harness serve?</p>
-      <div class="duration">25 Minutes</div>
+      <div class="eyebrow" style="color:#ffffff;">Day 1 · Anatomy in depth</div>
+      <h2>One component at a time</h2>
+      <p>For each of the six components: a short teach, then a focused breakout. By the end of the day you have a working harness folder with all six.</p>
+      <div class="duration">90 Minutes</div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>
 
 <!-- ============================================================
-     SLIDE 19 — Breakout 1 PLAN instructions
+     SLIDE 19 — System Prompt overview
      ============================================================ -->
-<section data-label="19 Breakout 1 · Instructions">
+<section data-label="19 System Prompt · Overview">
   <div class="frame">
-    <div class="eyebrow" style="color:var(--salt-amber-500);">Breakout 1 · Plan</div>
-    <h2 class="slide-title">Reverse-engineer the product</h2>
+    <div class="eyebrow">Component 1 · System Prompt</div>
+    <h2 class="slide-title">The agent's identity, prepended every turn</h2>
+    <p class="slide-lede">Persistent context. Survives compaction. Sets persona, scope, and the rules the model is supposed to remember. Most expensive real estate in the harness — keep it short and load-bearing.</p>
 
-    <div class="breakout">
-      <div class="steps">
-        <div class="step"><div class="n">1</div><div><h4>List the top 5 user intents</h4><p>What does a real user actually try to do in a session? Phrase as <code>verb + noun</code> ("ship a PR", "fix a bug", "design a hero").</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Map the 6 anatomy components</h4><p>System prompt · Tools · Infra · Orchestration · Hooks · Feedback. One sentence each — what's there, what's enforced, what's left to the model.</p></div></div>
-        <div class="step"><div class="n">3</div><div><h4>Identify the failure modes</h4><p>Where does it embarrass itself today? Hallucination, wrong tool, lost context, missing permission, runaway cost?</p></div></div>
-        <div class="step"><div class="n">4</div><div><h4>Pick the slice you'll build</h4><p>You have 45 more minutes. Don't rebuild the whole thing — pick <b>one intent + one failure mode</b> and design the harness around that.</p></div></div>
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">What</span><h3>The non-negotiables</h3></div>
+        <p class="body-lede">Identity, scope, hard rules, escalation, failure modes.</p>
+        <div class="section-label">Lives in</div>
+        <ul>
+          <li><code>CLAUDE.md</code> — Claude Code</li>
+          <li><code>AGENTS.md</code> — Codex, Aider, generic harnesses</li>
+          <li><code>.github/copilot-instructions.md</code> — GitHub Copilot</li>
+        </ul>
       </div>
-
-      <div class="deliverable-card">
-        <h4>Deliverable for Breakout 1</h4>
-        <div class="row"><code>plan.md</code><span>1-page brief: app, target intent, target failure mode, harness map.</span></div>
-        <div class="row"><code>intents.md</code><span>Top 5 intents · which one your slice covers.</span></div>
-        <div class="row"><code>risks.md</code><span>3 ways your harness must not fail.</span></div>
-<pre>harness/
-├── plan.md
-├── intents.md
-└── risks.md</pre>
+      <div class="card deep">
+        <div class="head"><span class="chip">Why</span><h3>What it earns you</h3></div>
+        <p class="body-lede">Consistent behavior across turns and sessions.</p>
+        <div class="section-label">Failure if missing</div>
+        <ul>
+          <li>Agent re-asks scope every session</li>
+          <li>Drifts off-task halfway through long work</li>
+          <li>Forgets the rules you said in chat</li>
+        </ul>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -1714,108 +1737,436 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 </section>
 
 <!-- ============================================================
-     SLIDE 20 — Section divider: Breakout 2 DESIGN
+     SLIDE 20 — System Prompt anatomy (visual structure)
      ============================================================ -->
-<section data-label="20 Section · Breakout 2 DESIGN">
-  <div class="divider exercise">
-    <div class="stripe"></div>
-    <div class="numeral ex">B2<br>DSGN</div>
-    <div class="body">
-      <div class="eyebrow" style="color:#ffffff;">Day 1 · Breakout 2</div>
-      <h2>Design the file structure</h2>
-      <p>Translate your plan into the actual files the harness will load every turn.</p>
-      <div class="duration">25 Minutes</div>
-    </div>
-    <div class="footer">Agentic Harness Engineering Workshop</div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SLIDE 21 — Breakout 2 DESIGN instructions
-     ============================================================ -->
-<section data-label="21 Breakout 2 · Instructions">
+<section data-label="20 System Prompt · Anatomy">
   <div class="frame">
-    <div class="eyebrow" style="color:var(--salt-amber-500);">Breakout 2 · Design</div>
-    <h2 class="slide-title">Design the artifacts before you write them</h2>
+    <div class="eyebrow">Component 1 · System Prompt</div>
+    <h2 class="slide-title">Anatomy of a high-quality system prompt</h2>
+    <p class="slide-lede">Five sections, in order. Each one earns its place — if you can't say what failure mode a section prevents, cut it.</p>
 
-    <div class="breakout">
-      <div class="steps">
-        <div class="step"><div class="n">1</div><div><h4>Sketch the file tree</h4><p>Draw the folder structure on paper. Decide which files are project-scoped, which are user-scoped, which are mode-scoped.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Outline the system prompt</h4><p>Persona · responsibilities · hard rules · escalation triggers · what NOT to do. Aim for ~150 lines max.</p></div></div>
-        <div class="step"><div class="n">3</div><div><h4>List the tools — fewer is better</h4><p>For each: name, 1-line description (UX copy for the model), inputs, outputs, permission level. Cap at <b>7</b>.</p></div></div>
-        <div class="step"><div class="n">4</div><div><h4>Decide what is deterministic</h4><p>Anything that should happen <i>every</i> time becomes a hook, not a prompt. List 2 hooks and their trigger event.</p></div></div>
-      </div>
+    <pre class="mermaid">
+flowchart TD
+    A["1 — Identity<br/><i>Who is this agent? Who do they serve?</i>"] --> B
+    B["2 — How you work<br/><i>3–5 step pattern the agent follows</i>"] --> C
+    C["3 — Rules<br/><i>3–5 never / always constraints</i>"] --> D
+    D["4 — Background<br/><i>Domain context the agent always reads</i>"] --> E
+    E["5 — When things go wrong<br/><i>Specific instructions per failure mode</i>"]
 
-      <div class="deliverable-card">
-        <h4>Deliverable for Breakout 2</h4>
-        <div class="row"><code>file-tree.png</code><span>Photo / sketch of the folder structure you'll create.</span></div>
-        <div class="row"><code>prompt-outline.md</code><span>Section headers + 1 sentence each — not the full prompt yet.</span></div>
-        <div class="row"><code>tools.md</code><span>Table: name · description · inputs · outputs · permission.</span></div>
-        <div class="row"><code>hooks.md</code><span>2 hooks: event · trigger · script behavior.</span></div>
-<pre>Pro tip: bad tool descriptions
-make agents pick the wrong tool.
-Write each like UX copy.</pre>
-      </div>
+    style A fill:#fff7ed,stroke:#f59e0b
+    style B fill:#eff6ff,stroke:#3b82f6
+    style C fill:#fef2f2,stroke:#ef4444
+    style D fill:#f0fdf4,stroke:#22c55e
+    style E fill:#faf5ff,stroke:#a855f7
+    </pre>
+
+    <div class="breakout-cue">
+      <span class="cue-pill">Now · Breakout 1 · 12 min</span>
+      <span>Write your agent's system prompt. Identity + 3 rules + 1 failure mode. Keep it under 200 lines.</span>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>
 
 <!-- ============================================================
-     SLIDE 22 — Section divider: Breakout 3 DEVELOP
+     SLIDE 21 — Rules with example
      ============================================================ -->
-<section data-label="22 Section · Breakout 3 DEVELOP">
-  <div class="divider exercise">
-    <div class="stripe"></div>
-    <div class="numeral ex">B3<br>DEV</div>
-    <div class="body">
-      <div class="eyebrow" style="color:#ffffff;">Day 1 · Breakout 3</div>
-      <h2>Develop the harness</h2>
-      <p>Now write the files. By end of breakout you have a runnable folder you can drop into RooCode or Claude Code.</p>
-      <div class="duration">20 Minutes</div>
-    </div>
-    <div class="footer">Agentic Harness Engineering Workshop</div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SLIDE 23 — Breakout 3 DEVELOP instructions
-     ============================================================ -->
-<section data-label="23 Breakout 3 · Instructions">
+<section data-label="21 Rules · Example">
   <div class="frame">
-    <div class="eyebrow" style="color:var(--salt-amber-500);">Breakout 3 · Develop</div>
-    <h2 class="slide-title">Write the actual files</h2>
+    <div class="eyebrow">Component 2 · Rules</div>
+    <h2 class="slide-title">Rules: the model's hard stops</h2>
+    <p class="slide-lede">Rules are predicates on the agent's actions. <b>Soft rules</b> live in the system prompt — the model may forget them. <b>Hard rules</b> live in <code>settings.json</code> allow/deny lists and hooks — the harness enforces them.</p>
 
-    <div class="breakout">
-      <div class="steps">
-        <div class="step"><div class="n">1</div><div><h4>Start from the templates</h4><p>Copy <code>harness-templates/</code> in this repo as your starting point. Rename, rewrite, delete what you don't need.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Write CLAUDE.md (and mirror to .roo + .github)</h4><p>The persona, rules, constraints. Same brief, three editor surfaces: <code>CLAUDE.md</code>, <code>.roo/rules/01-project.md</code>, <code>.github/copilot-instructions.md</code>.</p></div></div>
-        <div class="step"><div class="n">3</div><div><h4>Author 1 skill, 1 slash command, 1 subagent</h4><p>Each as its own markdown file. Skills load on-demand · commands are user-triggered · subagents do isolated work.</p></div></div>
-        <div class="step"><div class="n">4</div><div><h4>Wire 1 hook + settings.json</h4><p>Pick a real guardrail (e.g. block writes outside <code>./src</code>) and bind it in <code>settings.json</code>.</p></div></div>
-        <div class="step"><div class="n">5</div><div><h4>Sketch the frontend with Copilot / RooCode</h4><p>Open a Figma frame for your app. Ask the editor's AI to scaffold it — single page, the controls a user actually touches. The editor IS the runtime; the prototype is what they click.</p></div></div>
-        <div class="step"><div class="n">6</div><div><h4>Commit and push to a branch</h4><p>Day 2 you'll open this folder in VS Code, let RooCode / Copilot read your harness, and run it against a real task.</p></div></div>
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep" style="border-color:#fca5a5;">
+        <div class="head"><span class="chip" style="background:#fee2e2;color:#991b1b;">Weak</span><h3>Vague, unenforced</h3></div>
+<pre>"Always be helpful and safe.
+Don't do anything destructive."</pre>
+        <p class="body-lede" style="margin-top:12px;">Model may comply most of the time. Will eventually drift. No backstop.</p>
       </div>
+      <div class="card deep" style="border-color:#86efac;">
+        <div class="head"><span class="chip" style="background:#dcfce7;color:#166534;">Strong</span><h3>Specific, enforced</h3></div>
+<pre>R-20: A spec with status: approved
+or implemented is locked. Use
+create_spec --revise &lt;id&gt; instead.
 
-      <div class="deliverable-card">
-        <h4>Minimum runnable harness + prototype</h4>
-<pre>your-app/
-├── harness/                <span class="comment"># the agent's "OS"</span>
-│   ├── CLAUDE.md
-│   ├── .claude/
-│   │   ├── settings.json
-│   │   ├── skills/your-skill.md
-│   │   ├── commands/your-command.md
-│   │   ├── agents/your-subagent.md
-│   │   └── hooks/post-tool-use.sh
-│   ├── .roo/rules/01-project.md
-│   └── .github/copilot-instructions.md
-├── prototype/              <span class="comment"># the user's UI</span>
-│   ├── index.html
-│   └── (React/Tailwind from Copilot)
-└── README.md</pre>
-        <div class="row"><code>Done =</code><span>A teammate clones your branch, opens VS Code, and the editor's AI behaves like the app you reverse-engineered while their prototype gives a user something to click.</span></div>
+(Backed by hooks/pre-tool-use.sh
+ which blocks the Edit tool call.)</pre>
+        <p class="body-lede" style="margin-top:12px;">Numbered, specific, paired with a hook. The model can't quietly violate it.</p>
       </div>
     </div>
+
+    <div class="breakout-cue">
+      <span class="cue-pill">Now · Breakout 2 · 12 min</span>
+      <span>Write 3 numbered rules for your agent. Mark which ones need a hook.</span>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 22 — Skills · what they are
+     ============================================================ -->
+<section data-label="22 Skills · What and When">
+  <div class="frame">
+    <div class="eyebrow">Component 3 · Skills</div>
+    <h2 class="slide-title">Skills: prompts loaded on demand</h2>
+    <p class="slide-lede">A skill is a specialist instruction set the agent loads <b>only when a trigger fires</b>. The base context stays small; expertise is paged in.</p>
+
+    <pre class="mermaid">
+flowchart LR
+    User["User input"] --> Match{"Trigger match?<br/>(e.g. 'review this PR',<br/>'audit accessibility')"}
+    Match -->|yes| Load["Load skill prompt<br/>(skills/design-review.md)"]
+    Match -->|no| Plain["Continue with base prompt"]
+    Load --> Apply["Apply skill steps"]
+    Apply --> Reply["Reply to user"]
+    Plain --> Reply
+    style Load fill:#eff6ff,stroke:#3b82f6
+    style Apply fill:#eff6ff,stroke:#3b82f6
+    </pre>
+
+    <p class="footnote">Without skills, every specialist instruction lives in the base prompt — the model carries weight it doesn't need 90% of the time.</p>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 23 — Skills · anatomy of a skill file
+     ============================================================ -->
+<section data-label="23 Skills · Anatomy">
+  <div class="frame">
+    <div class="eyebrow">Component 3 · Skills</div>
+    <h2 class="slide-title">Anatomy of a skill file</h2>
+    <p class="slide-lede">A skill is a markdown file with frontmatter that tells the harness when to load it, plus a body that tells the model what to do once loaded.</p>
+
+<pre>---
+name: design-review
+description: <span style="color:#0369a1;">Reviews UX changes against the design system.
+  Trigger: user asks to "review", "audit",
+  or "check" a design or PR. Do NOT load
+  for general code review.</span>
+---
+
+# Design Review
+
+When a design review is requested, follow these steps:
+1. Read the changed files in the PR.
+2. For each component reference, check
+   knowledge/design-system-index.md.
+3. Flag mismatches as `design_system.unknown_component`.
+4. End with a 1-sentence verdict: <i>ship</i>, <i>fix first</i>, or <i>needs human</i>.</pre>
+
+    <p class="footnote">The <code>description:</code> field is the most important. The model reads it to decide whether to load the skill — write it like UX copy, not docs.</p>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 24 — Skills · worked example
+     ============================================================ -->
+<section data-label="24 Skills · Worked Example">
+  <div class="frame">
+    <div class="eyebrow">Component 3 · Skills</div>
+    <h2 class="slide-title">Skill in action: a design-review pass</h2>
+    <p class="slide-lede">User asks for a review. The trigger matches. The harness loads the skill. The agent follows the skill's steps — not its base instinct.</p>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">Without skill</span><h3>Generic review</h3></div>
+<pre>"Here are some thoughts on
+the design:
+- Looks clean overall
+- Maybe consider spacing
+- The button could be bigger"</pre>
+        <p class="body-lede" style="margin-top:12px;">Soft, unfocused. No trace back to your design system. Useful only as a vibe check.</p>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">With skill</span><h3>Structured pass</h3></div>
+<pre>Component check:
+✓ Button — matches DS index
+⚠ Pill — not in DS, did you
+  mean Chip or Badge?
+✗ NavTab — unknown component
+
+Verdict: <b>fix first</b> (1 unknown
+component blocks ship)</pre>
+        <p class="body-lede" style="margin-top:12px;">Specific, actionable, traceable. The skill made the agent <i>useful</i>.</p>
+      </div>
+    </div>
+
+    <div class="breakout-cue">
+      <span class="cue-pill">Now · Breakout 3 · 12 min</span>
+      <span>Design one skill for your agent. Frontmatter (name + trigger description) + 3-step body.</span>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 25 — Tools · three flavors
+     ============================================================ -->
+<section data-label="25 Tools · Three Flavors">
+  <div class="frame">
+    <div class="eyebrow">Component 4 · Tools</div>
+    <h2 class="slide-title">Functions, scripts, and MCP — three ways to give the agent hands</h2>
+    <p class="slide-lede">Same idea, different transport. Pick the one that matches where the capability already lives.</p>
+
+    <div class="grid-3" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">Function</span><h3>Native tool call</h3></div>
+        <p class="body-lede">A JSON-described function the model invokes directly. Built into the agent SDK.</p>
+        <div class="section-label">Use when</div>
+        <ul>
+          <li>The capability is in-process</li>
+          <li>You control the runtime</li>
+          <li>Latency matters</li>
+        </ul>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">Script</span><h3>Bash / shell tool</h3></div>
+        <p class="body-lede">A binary the agent runs via Bash. Stdout is the return value.</p>
+        <div class="section-label">Use when</div>
+        <ul>
+          <li>The capability is already a CLI</li>
+          <li>You want code-level enforcement</li>
+          <li>Logs matter for debugging</li>
+        </ul>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">MCP</span><h3>External server</h3></div>
+        <p class="body-lede">A standalone server the agent connects to over HTTP/stdio. Hosts a toolset.</p>
+        <div class="section-label">Use when</div>
+        <ul>
+          <li>The capability lives elsewhere (Figma, Linear, GitHub)</li>
+          <li>Multiple agents share it</li>
+          <li>Auth / quota live there</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 26 — Tools · writing the description
+     ============================================================ -->
+<section data-label="26 Tools · Description Craft">
+  <div class="frame">
+    <div class="eyebrow">Component 4 · Tools</div>
+    <h2 class="slide-title">The tool description is UX copy for the model</h2>
+    <p class="slide-lede">The model reads every tool's description on every turn before deciding what to call. Bad descriptions = wrong tool picks. Three sentences: <b>what it does</b>, <b>when to use it</b>, <b>when NOT to use it</b>.</p>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep" style="border-color:#fca5a5;">
+        <div class="head"><span class="chip" style="background:#fee2e2;color:#991b1b;">Weak</span><h3>Generic, ambiguous</h3></div>
+<pre>{
+  "name": "validate",
+  "description": "Validates files."
+}</pre>
+        <p class="body-lede" style="margin-top:12px;">Model has to guess: which files? when? based on what? Will pick this for everything that smells "validation."</p>
+      </div>
+      <div class="card deep" style="border-color:#86efac;">
+        <div class="head"><span class="chip" style="background:#dcfce7;color:#166534;">Strong</span><h3>Specific boundaries</h3></div>
+<pre>{
+  "name": "validate_spec",
+  "description": "Validates a spec
+   against knowledge/spec-schema.md.
+   Use before any status transition,
+   before saving an in-review spec.
+   Do NOT use as a general read —
+   use Read for that."
+}</pre>
+        <p class="body-lede" style="margin-top:12px;">Tells the model exactly when this tool is the right pick — and when it isn't.</p>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 27 — Tools · script as tool
+     ============================================================ -->
+<section data-label="27 Tools · Script as Tool">
+  <div class="frame">
+    <div class="eyebrow">Component 4 · Tools</div>
+    <h2 class="slide-title">Script-as-tool: the JSON points, the script does</h2>
+    <p class="slide-lede">The JSON declares the interface. The script does the work. The agent reads stdout.</p>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">Interface</span><h3><code>tools/validate_spec.json</code></h3></div>
+<pre>{
+  "name": "validate_spec",
+  "description": "...",
+  "parameters": {
+    "spec_id": { "type": "string" },
+    "strict":  { "type": "boolean" }
+  },
+  "implementation":
+    "scripts/validate_spec.sh"
+}</pre>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">Implementation</span><h3><code>scripts/validate_spec.sh</code></h3></div>
+<pre>#!/usr/bin/env bash
+# Validates against schema rules.
+# Emits JSON to stdout.
+
+required_fields=(id title type
+  status owner created updated
+  version)
+for f in "${required_fields[@]}";
+  do ...
+done
+
+echo '{"ok":true,"errors":[]}'</pre>
+      </div>
+    </div>
+    <p class="footnote">Why scripts? You can read the diff, write tests, audit logs. Pure prompts can't do any of that.</p>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 28 — Tools · MCP server example
+     ============================================================ -->
+<section data-label="28 Tools · MCP Example">
+  <div class="frame">
+    <div class="eyebrow">Component 4 · Tools</div>
+    <h2 class="slide-title">MCP: borrow someone else's toolset</h2>
+    <p class="slide-lede">Register an external server in <code>mcp.json</code>. The agent gets every tool that server exposes — Figma frames, Linear tickets, GitHub PRs — without you writing the integration.</p>
+
+<pre>{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem",
+               "${workspaceFolder}/specs",
+               "${workspaceFolder}/knowledge"]
+    },
+    "figma": {
+      "url": "https://mcp.figma.com/mcp",
+      "transport": "http",
+      "headers": { "Authorization": "Bearer ${env:FIGMA_TOKEN}" }
+    },
+    "linear": {
+      "url": "https://mcp.linear.app/mcp",
+      "transport": "http"
+    }
+  }
+}</pre>
+
+    <p class="footnote"><b>Cost:</b> every MCP server adds tools the model has to read past on every turn. Keep the server list short — it's not free context.</p>
+
+    <div class="breakout-cue">
+      <span class="cue-pill">Now · Breakout 4 · 12 min</span>
+      <span>Define one tool for your agent. JSON spec + 3-sentence description. Pick the flavor (function / script / MCP).</span>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 29 — Hooks
+     ============================================================ -->
+<section data-label="29 Hooks · Overview">
+  <div class="frame">
+    <div class="eyebrow">Component 5 · Hooks</div>
+    <h2 class="slide-title">Hooks: deterministic gates around tool calls</h2>
+    <p class="slide-lede">Hooks run code at fixed points in the agent's loop. They're how you make a "never" rule actually never. The model can forget; the hook can't.</p>
+
+    <pre class="mermaid">
+flowchart LR
+    M[Model decides<br/>to call a tool] --> Pre[pre-tool-use.sh]
+    Pre -->|exit 0| Tool[Tool runs]
+    Pre -->|exit 2 + reason| Block[Blocked<br/>reason → model]
+    Tool --> Post[post-tool-use.sh]
+    Post --> Next[Next turn]
+    style Pre fill:#fef2f2,stroke:#ef4444
+    style Post fill:#f0fdf4,stroke:#22c55e
+    </pre>
+
+    <p class="footnote">Common patterns: pre-tool blocks writes outside scope · post-tool stamps metadata · session-start loads context · stop runs lint.</p>
+
+    <div class="breakout-cue">
+      <span class="cue-pill">Now · Breakout 5 · 12 min</span>
+      <span>Wire one hook. Pick a "never" rule from breakout 2 and write the pre-tool-use.sh that enforces it.</span>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 30 — Knowledge Base
+     ============================================================ -->
+<section data-label="30 Knowledge Base">
+  <div class="frame">
+    <div class="eyebrow">Component 6 · Knowledge</div>
+    <h2 class="slide-title">Knowledge base: the domain context the agent always reads</h2>
+    <p class="slide-lede">Files in <code>knowledge/</code> are referenced by the system prompt and loaded on demand by skills. They're how you keep the agent's domain awareness fresh without bloating the prompt.</p>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">What goes in</span><h3>Stable domain truth</h3></div>
+        <ul>
+          <li>Schema / data shape definitions</li>
+          <li>Workflow diagrams and state machines</li>
+          <li>Naming conventions and dictionaries</li>
+          <li>Style guides and house rules</li>
+        </ul>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">What stays out</span><h3>Volatile, session-specific</h3></div>
+        <ul>
+          <li>What the user just said this turn</li>
+          <li>Per-session working state → memory</li>
+          <li>Secrets, tokens, PII</li>
+          <li>Anything that changes daily</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="breakout-cue">
+      <span class="cue-pill">Now · Breakout 6 · 12 min</span>
+      <span>Capture one domain file your agent always needs. Schema, dictionary, or workflow — whichever unblocks more behavior.</span>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 31 — Memory
+     ============================================================ -->
+<section data-label="31 Memory">
+  <div class="frame">
+    <div class="eyebrow">Bonus · Memory</div>
+    <h2 class="slide-title">Memory: what the agent remembers across turns</h2>
+    <p class="slide-lede">Memory is the working scratchpad — different from the knowledge base (which is stable) and the system prompt (which is identity). It's how the agent keeps state between tool calls without re-asking.</p>
+
+    <div class="grid-2" style="flex:1;">
+      <div class="card deep">
+        <div class="head"><span class="chip">Session</span><h3>Within one conversation</h3></div>
+        <p class="body-lede">Notes the agent writes to <code>notes/SESSION.md</code> as it works. Cleared on session end.</p>
+        <div class="section-label">Good for</div>
+        <ul>
+          <li>Tracking partial progress</li>
+          <li>Cross-turn working state</li>
+          <li>"Last time you said X"</li>
+        </ul>
+      </div>
+      <div class="card deep">
+        <div class="head"><span class="chip">Persistent</span><h3>Across sessions</h3></div>
+        <p class="body-lede">Files the agent reads on every <code>SessionStart</code> hook. Survives restarts.</p>
+        <div class="section-label">Good for</div>
+        <ul>
+          <li>User preferences</li>
+          <li>Long-running project state</li>
+          <li>Decisions made days ago</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footnote">Memory is not a breakout — it's a concept to keep in your head while you build. The post-tool-use hook in your harness is often the place memory gets written.</p>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>
@@ -1823,7 +2174,7 @@ Write each like UX copy.</pre>
 <!-- ============================================================
      SLIDE 24 — Day 1 Wrap-up
      ============================================================ -->
-<section data-label="24 Day 1 Wrap-up">
+<section data-label="32 Day 1 Wrap-up">
   <div class="frame">
     <div class="eyebrow">Day 1 · Close</div>
     <h2 class="slide-title">Show, tell, sleep on it</h2>
@@ -1856,7 +2207,7 @@ Write each like UX copy.</pre>
 <!-- ============================================================
      SLIDE 25 — Day 2 Opener
      ============================================================ -->
-<section data-label="25 Day 2 Opener">
+<section data-label="33 Day 2 Opener">
   <div class="divider">
     <div class="numeral">D2</div>
     <div class="body">
@@ -1872,7 +2223,7 @@ Write each like UX copy.</pre>
 <!-- ============================================================
      SLIDE 26 — Section divider: Agentic UX Patterns (Day 2 morning)
      ============================================================ -->
-<section data-label="26 Section · Agentic UX Patterns">
+<section data-label="34 Section · Agentic UX Patterns">
   <div class="divider">
     <div class="numeral">04</div>
     <div class="body">
@@ -1888,7 +2239,7 @@ Write each like UX copy.</pre>
 <!-- ============================================================
      SLIDE 18 — Transformation (Old → New)
      ============================================================ -->
-<section data-label="27 How Our Work Is Changing">
+<section data-label="35 How Our Work Is Changing">
   <div class="frame">
     <div class="eyebrow">Agentic UX</div>
     <h2 class="slide-title">How our work is changing</h2>
@@ -1907,7 +2258,7 @@ Write each like UX copy.</pre>
 <!-- ============================================================
      SLIDE 19 — Agent Time (Past / Present / Future)
      ============================================================ -->
-<section data-label="28 Agent Time">
+<section data-label="36 Agent Time">
   <div class="frame">
     <div class="eyebrow">Agentic UX</div>
     <h2 class="slide-title">Agent time: designing input architecture</h2>
@@ -1955,7 +2306,7 @@ Write each like UX copy.</pre>
 <!-- ============================================================
      SLIDE 28 — Hooks deep-dive
      ============================================================ -->
-<section data-label="29 Hooks Deep Dive">
+<section data-label="37 Hooks Deep Dive">
   <div class="frame">
     <div class="eyebrow">Day 2 · Determinism</div>
     <h2 class="slide-title">Hooks: the lifecycle you can wire into</h2>
@@ -1996,7 +2347,7 @@ Write each like UX copy.</pre>
 <!-- ============================================================
      SLIDE 29 — Subagents & MCP
      ============================================================ -->
-<section data-label="30 Subagents and MCP">
+<section data-label="38 Subagents and MCP">
   <div class="frame">
     <div class="eyebrow">Day 2 · Composition</div>
     <h2 class="slide-title">Subagents &amp; MCP — when to split, when to plug in</h2>
@@ -2047,7 +2398,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 <!-- ============================================================
      SLIDE 30 — Evals & hill-climbing
      ============================================================ -->
-<section data-label="31 Evals and Hill Climbing">
+<section data-label="39 Evals and Hill Climbing">
   <div class="frame">
     <div class="eyebrow">Day 2 · Improvement</div>
     <h2 class="slide-title">Evals are the training data for your harness</h2>
@@ -2071,7 +2422,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 <!-- ============================================================
      SLIDE 31 — Live wire-up
      ============================================================ -->
-<section data-label="32 Live Wire-Up">
+<section data-label="40 Live Wire-Up">
   <div class="frame">
     <div class="eyebrow" style="color:var(--salt-amber-500);">Day 2 · Working session</div>
     <h2 class="slide-title">Wire your harness into RooCode / Copilot / Claude Code</h2>
@@ -2100,7 +2451,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 <!-- ============================================================
      SLIDE 32 — Section divider: Demos (was Exercise 2)
      ============================================================ -->
-<section data-label="33 Section · Demo Session">
+<section data-label="41 Section · Demo Session">
   <div class="ex2">
     <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
     <div class="left">
@@ -2144,7 +2495,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 <!-- ============================================================
      SLIDE 33 — Demo Rubric + Best Practices
      ============================================================ -->
-<section data-label="34 Demo Rubric and Best Practices">
+<section data-label="42 Demo Rubric and Best Practices">
   <div class="frame">
     <div class="eyebrow" style="color:var(--salt-amber-500);">Day 2 · Demo</div>
     <h2 class="slide-title">How we'll judge the demos</h2>
@@ -2188,7 +2539,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 <!-- ============================================================
      SLIDE 34 — Takeaways
      ============================================================ -->
-<section data-label="35 Takeaways">
+<section data-label="43 Takeaways">
   <div class="frame">
     <div class="eyebrow">Takeaways</div>
     <h2 class="slide-title">Your harness engineering toolkit</h2>
@@ -2223,7 +2574,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 <!-- ============================================================
      SLIDE 35 — Resources
      ============================================================ -->
-<section data-label="36 Resources">
+<section data-label="44 Resources">
   <div class="frame">
     <div class="eyebrow">Resources</div>
     <h2 class="slide-title">Read these next</h2>

@@ -1,0 +1,37 @@
+{
+  "name": "create_spec",
+  "description": "Scaffolds a new spec document from a type-specific template and allocates the next SPEC-YYYY-NNN ID. Use when the user asks to start a new spec, draft a new design proposal, or create a revision of an approved spec (with --revise <id>). Do NOT use to edit an existing draft — use Edit on the spec file directly. Do NOT use to copy a spec to a new ID; use --revise so the lineage is preserved.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": ["ux-flow", "component", "research", "prd"],
+        "description": "Which template to scaffold from. ux-flow for end-to-end user journeys, component for design system components, research for synthesis docs, prd for product specs."
+      },
+      "title": {
+        "type": "string",
+        "description": "Human-readable title. Becomes the H1 and the title: frontmatter field."
+      },
+      "owner": {
+        "type": "string",
+        "description": "Username of the spec owner (e.g. jane.doe). Must match a known team member."
+      },
+      "revise_of": {
+        "type": "string",
+        "description": "Optional. SPEC-YYYY-NNN ID to base this revision on. Required when revising an approved or implemented spec.",
+        "pattern": "^SPEC-\\d{4}-\\d{3}$"
+      }
+    },
+    "required": ["type", "title", "owner"]
+  },
+  "returns": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "string", "description": "Allocated SPEC ID, e.g. SPEC-2026-007" },
+      "path": { "type": "string", "description": "Absolute path to the new spec file" },
+      "warnings": { "type": "array", "items": { "type": "string" } }
+    }
+  },
+  "implementation": "scripts/create_spec.sh"
+}
