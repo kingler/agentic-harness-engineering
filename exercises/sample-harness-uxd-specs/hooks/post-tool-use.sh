@@ -22,7 +22,9 @@ status=$(echo "$input" | jq -r '.tool_response.exit_code // .result.exit_code //
 ts=$(date -Iseconds)
 echo "$ts $tool $path exit=$status" >> "$LOG"
 
-# Only post-process when a spec file was edited successfully.
+# Only post-process when a spec file was edited successfully. The audit
+# line above always writes; metadata mutation only runs on a clean exit.
+[[ "$status" != "0" ]] && exit 0
 [[ "$path" != "$SPECS_DIR/SPEC-"*.md ]] && exit 0
 [[ ! -f "$path" ]] && exit 0
 [[ "$tool" != "Edit" && "$tool" != "Write" && "$tool" != "MultiEdit" ]] && exit 0

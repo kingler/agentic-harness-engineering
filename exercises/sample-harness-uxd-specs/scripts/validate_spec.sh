@@ -36,6 +36,27 @@ for f in "${required_fields[@]}"; do
   fi
 done
 
+# Frontmatter field order — the first five fields must appear as
+# id, title, type, status, owner. Subsequent fields may be in any order.
+canonical_prefix=(id title type status owner)
+actual_order=()
+while IFS= read -r key; do
+  [[ -n "$key" ]] && actual_order+=("$key")
+done < <(awk '
+  /^---$/ { fm = !fm; next }
+  fm && match($0, /^[a-zA-Z_][a-zA-Z0-9_]*:/) {
+    print substr($0, RSTART, RLENGTH - 1)
+  }
+' "$file")
+for i in 0 1 2 3 4; do
+  expected="${canonical_prefix[$i]}"
+  actual="${actual_order[$i]:-}"
+  if [[ -n "$actual" && "$actual" != "$expected" ]]; then
+    warnings+=("{\"rule\":\"frontmatter.field_order\",\"line\":0,\"message\":\"expected '${expected}' at position $((i+1)), got '${actual}'\"}")
+    break
+  fi
+done
+
 # Required sections in order.
 required_sections=("# " "## Problem" "## Users" "## Goals & Non-goals" "## Flow" "## Acceptance criteria" "## Accessibility" "## Open questions")
 prev_line=0
