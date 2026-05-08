@@ -109,7 +109,7 @@ Think about:
 
 **The trust spectrum:**
 - **No sandbox:** Agent can access everything the user can (developer tools)
-- **Filesystem sandbox:** Agent limited to a specific directory (Cursor, Claude Code)
+- **Filesystem sandbox:** Agent limited to a specific directory (Cursor, Cline, RooCode, Copilot CLI)
 - **Browser sandbox:** Agent runs in an iframe, no system access (Artifacts, v0)
 - **Full cloud isolation:** Agent runs in a managed cloud environment (Bolt)
 

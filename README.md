@@ -30,7 +30,7 @@ hooks, MCP). Day 2 is hands-on: groups reverse-engineer one of five
 non-coding AI products (Harvey, Spellbook, Pilot, Notion AI, Granola)
 and rebuild its harness using the templates here.
 
-The same harness shape works across Claude Code, GitHub Copilot, and
+The same harness shape works across GitHub Copilot and
 RooCode — the templates ship a mirrored configuration for all three so
 attendees can see the contract is portable.
 
@@ -69,7 +69,7 @@ immutable cache for static assets.
 
 ## Ground rules (from the workshop)
 
-- Keep `CLAUDE.md` under 200 lines.
+- Keep `AGENTS.md` under 200 lines.
 - Cap tools at 7.
 - Tool descriptions are UX copy for the model.
 - Anything that should happen "every time" belongs in a hook, not a
