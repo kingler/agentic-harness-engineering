@@ -118,12 +118,12 @@
           </p>
           <pre class="mermaid">
 flowchart LR
-    SP["System prompt<br/>(CLAUDE.md)"] -.->|prepended| T1[Turn 1]
+    SP["System prompt<br/>(AGENTS.md)"] -.->|prepended| T1[Turn 1]
     SP -.->|prepended| T2[Turn 2]
     SP -.->|prepended| Tn[Turn N...]
     T1 --> T2 --> Tn
           </pre>
-          <p class="footnote">File: <code>harness-templates/CLAUDE.md</code></p>
+          <p class="footnote">File: <code>harness-templates/AGENTS.md</code></p>
         </section>
 
         <!-- 3. Rules -->
@@ -139,7 +139,7 @@ flowchart LR
     Rules -->|allow| Act[Action runs]
     Rules -->|deny| Refuse[Refuse + explain]
           </pre>
-          <p class="footnote">Files: <code>CLAUDE.md</code>, <code>.roo/rules/</code>, <code>.claude/settings.json</code></p>
+          <p class="footnote">Files: <code>AGENTS.md</code>, <code>.roo/rules/</code>, <code>.github/copilot-instructions.md</code></p>
         </section>
 
         <!-- 4. Skills -->
@@ -158,7 +158,7 @@ flowchart LR
     Apply --> Reply[Reply]
     Plain --> Reply
           </pre>
-          <p class="footnote">File: <code>.claude/skills/design-review.md</code></p>
+          <p class="footnote">File: <code>.github/prompts/design-review.prompt.md</code></p>
         </section>
 
         <!-- 5. Tools (scripts) -->
@@ -192,7 +192,7 @@ flowchart LR
     Tool --> Post{PostToolUse}
     Post -->|scope/format/log| Agent
           </pre>
-          <p class="footnote">Files: <code>.claude/hooks/{pre,post}-tool-use.sh</code></p>
+          <p class="footnote">Files: <code>.github/hooks/{pre,post}-tool-use.sh</code></p>
         </section>
 
         <!-- 7. MCPs -->
@@ -226,7 +226,7 @@ flowchart LR
     Act --> Obs
     Check -->|no, cap hit| Esc[Stop: escalate]
           </pre>
-          <p class="footnote">File: <code>.claude/commands/fix-until-green.md</code></p>
+          <p class="footnote">File: <code>.github/prompts/fix-until-green.prompt.md</code></p>
         </section>
 
         <!-- 9. Workflows -->
@@ -244,7 +244,7 @@ flowchart LR
     Review --> Fix["/fix-until-green"]
     Fix --> Report[ship report]
           </pre>
-          <p class="footnote">File: <code>.claude/commands/ship-ui-change.md</code></p>
+          <p class="footnote">File: <code>.github/prompts/ship-ui-change.prompt.md</code></p>
         </section>
 
         <!-- 10. Subagents -->
@@ -260,7 +260,7 @@ flowchart LR
     Sub -->|narrow tools| Sources[("docs, code, web")]
     Sub -->|structured brief| Main
           </pre>
-          <p class="footnote">Files: <code>.claude/agents/researcher.md</code>, <code>critic.md</code></p>
+          <p class="footnote">Files: <code>.github/agents/researcher.md</code>, <code>critic.md</code></p>
         </section>
 
         <!-- 11. Agent teams -->
@@ -278,7 +278,7 @@ flowchart LR
     C -->|issues| Merge
     Merge --> Out[ranked report]
           </pre>
-          <p class="footnote">File: <code>.claude/commands/review-team.md</code></p>
+          <p class="footnote">File: <code>.github/prompts/review-team.prompt.md</code></p>
         </section>
 
         <!-- 12. Memory -->
@@ -346,10 +346,10 @@ flowchart LR
     Find --> Propose[Propose one change]
     Propose --> Eval[Run evals]
     Eval --> Better{Score improves?}
-    Better -->|yes| Merge[Update CLAUDE.md / skill]
+    Better -->|yes| Merge[Update AGENTS.md / skill]
     Better -->|no| Discard[Discard]
           </pre>
-          <p class="footnote">File: <code>.claude/commands/improve.md</code></p>
+          <p class="footnote">File: <code>.github/prompts/improve.prompt.md</code></p>
         </section>
 
         <!-- 16. Composition -->
@@ -388,10 +388,10 @@ flowchart TB
             <li><code>harness-templates/</code> — copy this into a new repo.</li>
             <li><code>harness-templates/ANATOMY.md</code> — same diagrams, more text.</li>
             <li><code>harness-templates/README.md</code> — file-by-file walkthrough.</li>
-            <li><code>CLAUDE.md</code> — the highest-leverage file. Edit first.</li>
+            <li><code>AGENTS.md</code> — the highest-leverage file. Edit first.</li>
           </ul>
           <p class="footnote" style="margin-top:2em">
-            Ground rules: keep CLAUDE.md under 200 lines, cap tools at 7,
+            Ground rules: keep AGENTS.md under 200 lines, cap tools at 7,
             and read 5 transcripts before changing a tool description.
           </p>
         </section>

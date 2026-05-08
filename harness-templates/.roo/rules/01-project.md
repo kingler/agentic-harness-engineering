@@ -1,7 +1,8 @@
-# Project Rules — RooCode
+# Project Rules — Cline / RooCode
 
-This file is read by RooCode (`.roo/rules/`) and is the same content as the
-"Hard rules" and "Conventions" sections of `CLAUDE.md`. Keep them in sync.
+This file is read by Cline / RooCode (`.roo/rules/`) and is the same content
+as the "Hard rules" and "Conventions" sections of `AGENTS.md`. Keep them in
+sync.
 
 ## Hard rules
 

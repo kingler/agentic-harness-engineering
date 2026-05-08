@@ -17,13 +17,13 @@ scope, and hard rules.
 
 ```mermaid
 flowchart LR
-    SP[System prompt<br/>CLAUDE.md] -.->|prepended| T1[Turn 1]
+    SP[System prompt<br/>AGENTS.md] -.->|prepended| T1[Turn 1]
     SP -.->|prepended| T2[Turn 2]
     SP -.->|prepended| Tn[Turn N...]
     T1 --> T2 --> Tn
 ```
 
-File: `CLAUDE.md` (and its mirrors in `AGENTS.md`, `.github/copilot-instructions.md`).
+File: `AGENTS.md` (and its mirrors in `AGENTS.md`, `.github/copilot-instructions.md`).
 
 ---
 
@@ -41,7 +41,7 @@ flowchart LR
     Rules -->|deny| Refuse[Refuse + explain]
 ```
 
-Files: `CLAUDE.md` "Hard rules", `.roo/rules/01-project.md`, `.claude/settings.json` allow/deny.
+Files: `AGENTS.md` "Hard rules", `.roo/rules/01-project.md`, `.github/copilot-instructions.md` allow/deny.
 
 ---
 
@@ -62,7 +62,7 @@ flowchart LR
     Plain --> Reply
 ```
 
-File: `.claude/skills/design-review.md`.
+File: `.github/prompts/design-review.md`.
 
 ---
 
@@ -101,7 +101,7 @@ flowchart LR
     Post -->|scope/format/log| Agent
 ```
 
-Files: `.claude/hooks/pre-tool-use.sh`, `.claude/hooks/post-tool-use.sh`, bound in `settings.json`.
+Files: `.github/hooks/pre-tool-use.sh`, `.github/hooks/post-tool-use.sh`, bound via Copilot hook config.
 
 ---
 
@@ -137,7 +137,7 @@ flowchart LR
     Check -->|no, n = 3| Esc[Stop: escalate]
 ```
 
-File: `.claude/commands/fix-until-green.md`.
+File: `.github/prompts/fix-until-green.md`.
 
 ---
 
@@ -157,7 +157,7 @@ flowchart LR
     Fix --> Report[ship report]
 ```
 
-File: `.claude/commands/ship-ui-change.md`.
+File: `.github/prompts/ship-ui-change.md`.
 
 ---
 
@@ -175,7 +175,7 @@ flowchart LR
     Sub -->|structured brief| Main
 ```
 
-Files: `.claude/agents/researcher.md`, `.claude/agents/critic.md`.
+Files: `.github/agents/researcher.md`, `.github/agents/critic.md`.
 
 ---
 
@@ -195,7 +195,7 @@ flowchart LR
     Merge --> Out[ranked report]
 ```
 
-File: `.claude/commands/review-team.md`.
+File: `.github/prompts/review-team.md`.
 
 ---
 
@@ -239,7 +239,7 @@ Files: `knowledge/README.md`, `knowledge/style-guide.md`.
 
 ## 13. Evaluation
 
-Evals are **the regression test for prompts**. A change in CLAUDE.md,
+Evals are **the regression test for prompts**. A change in AGENTS.md,
 a new skill, or a model upgrade can silently break behaviour. Evals
 catch that before it ships. One JSON case per behaviour you care
 about; one runner script that prints pass/fail per case.
@@ -270,11 +270,11 @@ flowchart LR
     Find --> Propose[Propose one change]
     Propose --> Eval["Run evals"]
     Eval --> Better{"Score improves?"}
-    Better -->|yes| Merge[Update CLAUDE.md / skill]
+    Better -->|yes| Merge[Update AGENTS.md / skill]
     Better -->|no| Discard[Discard]
 ```
 
-File: `.claude/commands/improve.md`.
+File: `.github/prompts/improve.md`.
 
 ---
 

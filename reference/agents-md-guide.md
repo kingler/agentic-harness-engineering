@@ -1,6 +1,6 @@
 # How to Write Effective AGENTS.md Files
 
-AGENTS.md (also called CLAUDE.md in Anthropic's tools) is the primary way to give persistent, project-level instructions to an AI agent. It's the most important file in your harness — everything else is plumbing.
+AGENTS.md is the primary way to give persistent, project-level instructions to an AI agent. It's the most important file in your harness — everything else is plumbing.
 
 RooCode reads `AGENTS.md` automatically when it's in the workspace root. GitHub Copilot uses a similar concept with "instructions files." The principles apply to both.
 

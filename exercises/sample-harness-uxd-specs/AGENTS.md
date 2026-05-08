@@ -2,7 +2,7 @@
 
 > Read `prompts/system-prompt.md` first. This file lists the agent's
 > capabilities, tools, and the never/always rules in a form that any harness
-> (Claude Code, Codex, RooCode, GitHub Copilot) can pick up.
+> (GitHub Copilot, Cline, RooCode) can pick up.
 
 ## Identity
 

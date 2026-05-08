@@ -28,10 +28,10 @@ The basic unit of text a language model processes. Roughly 3/4 of a word, or 4 c
 ## Harness Components
 
 ### System Prompt
-The instructions given to the model before the conversation begins. Defines the agent's identity, rules, tone, and constraints. In RooCode, this is set via `AGENTS.md`. In GitHub Copilot, via the instructions file. In Claude.ai, via project settings.
+The instructions given to the model before the conversation begins. Defines the agent's identity, rules, tone, and constraints. In GitHub Copilot, via `AGENTS.md` and `.github/copilot-instructions.md`. In Cline / RooCode, via `AGENTS.md` and `.roo/rules/`.
 
 ### AGENTS.md
-A markdown file that lives in your project root and serves as the persistent system prompt for AI agents in your workspace. RooCode reads it automatically. Claude Code uses `CLAUDE.md`. The format is similar — human-readable instructions that travel with your project.
+A markdown file that lives in your project root and serves as the persistent system prompt for AI agents in your workspace. GitHub Copilot's coding agent, Cline, and RooCode all read it automatically. Format: human-readable instructions that travel with your project.
 
 ### Tool (in agentic context)
 A specific action an agent can take that has side effects in the world: reading a file, writing to a database, calling an API, running code, sending a message. Tools are defined by: a name, a description (the most important part), parameters, return values, and error cases.
@@ -116,23 +116,24 @@ A mechanism for capturing signals about agent quality and feeding them back into
 A VS Code extension that enables full agentic tool use inside the code editor. Reads `AGENTS.md` for persistent instructions. Has built-in tools (read file, write file, run terminal command) and supports MCP for connecting to external services. Used in this workshop for harness testing.
 
 ### GitHub Copilot
-Microsoft/GitHub's AI code assistant. Available as a VS Code extension. Primarily focused on code completion and chat, with an instructions file for persistent context. Less agentic than RooCode by default (doesn't run multi-step tool loops), but deeply integrated into the VS Code editing experience.
+Microsoft/GitHub's AI code assistant. Available as a VS Code extension. Reads `AGENTS.md` and `.github/copilot-instructions.md` for persistent context. Supports custom prompts (`.github/prompts/`), custom agents (`.github/agents/`), and hooks (`.github/hooks/`) for the cloud agent. Used in this workshop alongside Cline / RooCode.
 
-### Claude Code
-Anthropic's agentic coding assistant — a CLI and VS Code extension that uses `CLAUDE.md` for persistent project instructions. Highly agentic: can edit files, run tests, and orchestrate complex multi-step coding tasks autonomously. Uses the same underlying harness principles covered in this workshop.
+### Cline
+A VS Code extension for autonomous AI coding agents. Reads `AGENTS.md` and `.clinerules` for persistent instructions. Supports MCP servers for external tools. Sibling to RooCode in scope and shape.
 
 ### Figma
 A collaborative design tool widely used for UI/UX design. Relevant to this workshop because: (a) Figma AI is one of the 5 apps we reverse-engineer, and (b) participants use Figma as their primary design tool, making the Figma AI case study immediately relatable.
 
 ---
 
-## Anthropic Concepts
+## Model-Provider Concepts
 
-### CLAUDE.md
-Anthropic's convention for project-level persistent instructions for Claude Code. Equivalent to AGENTS.md in RooCode. Tells Claude Code how to behave in a specific project — what it should and shouldn't do, conventions to follow, team-specific context. Lives in the project root.
+> The Copilot, Cline, and RooCode extensions can each be configured to call
+> Claude, GPT, or Gemini behind the scenes. The terms below describe
+> model-side features participants may encounter when picking a provider.
 
 ### Prompt Caching
-An Anthropic API feature that caches frequently-used portions of the system prompt (like a long AGENTS.md) to reduce latency and cost. When the same prompt prefix is used repeatedly, Claude serves it from cache rather than re-processing it. Particularly valuable for harnesses with large, stable system prompts.
+A model-provider feature that caches frequently-used portions of the system prompt (like a long AGENTS.md) to reduce latency and cost. When the same prompt prefix is used repeatedly, the provider serves it from cache rather than re-processing it. Particularly valuable for harnesses with large, stable system prompts.
 
 ### Extended Thinking
-A Claude feature that allows the model to reason through complex problems in a "scratchpad" before producing its final response. Useful for harness tasks that require multi-step planning or complex judgment calls. Enabled via the API — not visible to end users by default.
+A model feature that lets the model reason through complex problems in a "scratchpad" before producing its final response. Useful for harness tasks that require multi-step planning or complex judgment calls. Enabled via the API — not visible to end users by default.

@@ -2,8 +2,8 @@
 # scripts/run-eval.sh — example custom tool the agent can invoke.
 #
 # Concept demonstrated: a "tool" in harness terms is just a script with a
-# stable interface. Bind its allow rule in .claude/settings.json so the agent
-# can call it without prompting:
+# stable interface. Allow it from Copilot or RooCode/Cline so the agent can
+# call it without prompting (e.g. an allow entry like):
 #
 #   "Bash(scripts/run-eval.sh:*)"
 #

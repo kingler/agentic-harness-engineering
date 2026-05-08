@@ -51,8 +51,8 @@ Designers influence all three levels. Harness engineering is where product-level
 **In practice:**
 - RooCode reads `AGENTS.md` in your workspace root
 - GitHub Copilot reads your instructions file (configurable in settings)
-- Claude.ai reads the system prompt you set in the project settings
-- The `CLAUDE.md` / `AGENTS.md` pattern — project-level rules that persist
+- ChatGPT / Claude.ai project settings — chat UIs let you set the system prompt per project
+- The `AGENTS.md` pattern — project-level rules that persist
 
 **Designer leverage: HIGH**
 
@@ -108,7 +108,7 @@ What you can design:
 - The sandbox boundary (what can the agent access?)
 
 **In practice:**
-- Local agents (Cursor, Claude Code): filesystem access scoped to the workspace
+- Local agents (Cursor, Cline, RooCode, Copilot CLI): filesystem access scoped to the workspace
 - Browser-based agents (Bolt.new): WebContainer or cloud sandbox
 - Plugin-based agents (Figma AI): Plugin API sandbox with restricted permissions
 - The sandbox is the primary safety mechanism for autonomous agents
@@ -140,7 +140,7 @@ What you can design:
 - Single-agent: one model, one context window. Works for most tasks.
 - Multi-agent: "orchestrator" agent spawns specialist "worker" agents for parallel work
 - Anthropic's recommendation: subagents keep context separated, preventing degradation in long tasks
-- Claude Code uses "sprint contracts" between orchestrator and subagents
+- Copilot's coding agent uses task hand-off conventions between orchestrator and subagents
 
 **Designer leverage: HIGH**
 
@@ -169,7 +169,7 @@ What you can design:
 - Hooks are code, not prompts — they run deterministically, every time
 - If you want something to happen always, enforce it with a hook, not with the system prompt
 - The model can forget rules. Hooks cannot.
-- Claude Code uses hooks extensively: auto-lint, auto-test, context compaction
+- Copilot's cloud agent supports hooks for auto-lint, auto-test, context compaction
 
 **Designer leverage: HIGH**
 
