@@ -1106,34 +1106,34 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 .surface dd{ margin:0; font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--salt-navy-900); line-height:1.45; }
 
 /* =========================================================
-   APPS GRID — 4 reverse-engineerable products
+   APPS GRID — 3 reverse-engineerable products (pick matrix)
    ========================================================= */
-.grid-4{
-  display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+.grid-3{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
 }
-.grid-4 .app{
+.grid-3 .app{
   background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
   padding:24px 20px; box-shadow:var(--card-shadow);
   display:flex; flex-direction:column; gap:12px; min-height:340px;
   transition:transform 200ms ease-out, box-shadow 200ms ease-out;
 }
-.grid-4 .app:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
-.grid-4 .letter{
+.grid-3 .app:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
+.grid-3 .letter{
   width:36px; height:36px; border-radius:8px;
   background:var(--salt-navy-900); color:#fff;
   display:flex; align-items:center; justify-content:center;
   font-weight:700; font-size:16px;
 }
-.grid-4 .app h4{
+.grid-3 .app h4{
   margin:0; font-size:20px; font-weight:700; color:var(--salt-navy-900);
   letter-spacing:-0.01em; line-height:1.15;
 }
-.grid-4 .app .role{
+.grid-3 .app .role{
   font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
   color:var(--salt-blue-500); font-weight:600;
 }
-.grid-4 .app p{ margin:0; font-size:14px; color:var(--salt-gray-600); line-height:1.45; }
-.grid-4 .app .why{
+.grid-3 .app p{ margin:0; font-size:14px; color:var(--salt-gray-600); line-height:1.45; }
+.grid-3 .app .why{
   margin-top:auto; padding-top:12px; border-top:1px solid var(--salt-gray-300);
   font-size:12px; color:var(--salt-navy-900); font-weight:600;
 }
@@ -2136,7 +2136,7 @@ section[data-deck-active] .ps-grid .ps-card:nth-child(4){ animation: ah-pop 520m
       <div class="duration">25 Minutes</div>
     </div>
     <div class="right">
-      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner"><b>Anatomy arc:</b> orient to the grid → mirror it into folders and Copilot/Roo surfaces → stare at Harvey and Claude for Financial Services through the SAME six-bullet lens → you'll pick Harvey, Spellbook, Pilot, or Granola for today's reverse-engineering. <b>The long teach+dive passes start in the section after you've committed to an app.</b></span></p>
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner"><b>Anatomy arc:</b> orient to the grid → mirror it into folders and Copilot/Roo surfaces → stare at Harvey and Claude for Financial Services through the SAME six-bullet lens → you'll pick Harvey, Claude Financial Services, or Granola for today's reverse-engineering. <b>The long teach+dive passes start in the section after you've committed to an app.</b></span></p>
       <div class="chip-row">
         <span>Grid + files</span><span class="d"></span>
         <span>Shipped demos</span><span class="d"></span>
@@ -2582,15 +2582,15 @@ section[data-deck-active] .ps-grid .ps-card:nth-child(4){ animation: ah-pop 520m
 </section>
 
 <!-- ============================================================
-     SLIDE 17 — Four apps to reverse-engineer
+     SLIDE 17 — Three apps to reverse-engineer
      ============================================================ -->
-<section data-label="17 Four Apps">
+<section data-label="17 Three Apps">
   <div class="frame">
     <div class="eyebrow">Day 1 · After the shipped examples</div>
     <h2 class="slide-title">Pick one app to reverse-engineer</h2>
-    <p class="slide-lede">You just traced the same six slots through Harvey (legal platform) and Claude for Financial Services. Now grab one live product you'll actually unpack: four non-coding AI apps on the matrix below — same anatomy exercise, scoped to software your group knows.</p>
+    <p class="slide-lede">You just traced the same six slots through Harvey (legal platform) and Claude for Financial Services. Now commit to <b>one</b> product you'll unpack: three options on the matrix below — same anatomy exercise, scoped to software your group knows.</p>
 
-    <div class="grid-4">
+    <div class="grid-3">
       <div class="app">
         <div class="letter">A</div>
         <div class="role">Legal · Enterprise</div>
@@ -2600,20 +2600,13 @@ section[data-deck-active] .ps-grid .ps-card:nth-child(4){ animation: ah-pop 520m
       </div>
       <div class="app">
         <div class="letter">B</div>
-        <div class="role">Legal · SMB</div>
-        <h4>Spellbook</h4>
-        <p>Contract drafting and review inside Microsoft Word. Flags risks, suggests clauses, runs against a clause library.</p>
-        <div class="why">Why pick: harness lives <i>inside</i> another product — great study in scoping and host-app constraints.</div>
+        <div class="role">Financial services · Regulated</div>
+        <h4>Claude Financial Services</h4>
+        <p>Vertical Claude for banking, insurance, asset management, and fintech — verification-first outputs, native in Excel and PowerPoint, agent templates for modeling and reporting workflows.</p>
+        <div class="why">Why pick: you already mapped this harness on the shipped demo — now reverse-engineer the full product story, tools, and governance layer, not just the landing page.</div>
       </div>
       <div class="app">
         <div class="letter">C</div>
-        <div class="role">Accounting</div>
-        <h4>Pilot</h4>
-        <p>Autonomous bookkeeping for startups. Categorizes transactions, reconciles books, surfaces anomalies, reports monthly.</p>
-        <div class="why">Why pick: long-running agent + human-in-the-loop review — great for designing approval &amp; trust UX.</div>
-      </div>
-      <div class="app">
-        <div class="letter">D</div>
         <div class="role">Productivity · Meetings</div>
         <h4>Granola</h4>
         <p>AI notepad for back-to-back meetings. Listens, drafts notes, extracts actions, syncs to your tools.</p>
@@ -3626,7 +3619,7 @@ You are a research agent. Be terse. Cite sources.</pre>
     <div class="breakout">
       <div class="steps">
         <div class="step"><div class="n">1</div><div><h4>Drop your <code>harness/</code> folder into a fresh project</h4><p>Copilot reads <code>AGENTS.md</code> and <code>.github/copilot-instructions.md</code>. RooCode / Cline read <code>AGENTS.md</code> and <code>.roo/rules/</code>. Move/symlink as needed.</p></div></div>
-        <div class="step"><div class="n">2</div><div><h4>Run a real task — the one you reverse-engineered</h4><p>Drop a real artifact in the workspace and ask the agent to handle it. Harvey: a sample contract — flag risks. Spellbook: a clause in Word — review against your playbook. Pilot: a CSV of transactions — categorize and reconcile. Granola: a transcript — produce the brief. Same intent as the live product, your harness.</p></div></div>
+        <div class="step"><div class="n">2</div><div><h4>Run a real task — the one you reverse-engineered</h4><p>Drop a real artifact in the workspace and ask the agent to handle it. Harvey: a sample contract — flag risks. Claude Financial Services: a small workbook or diligence slide outline — trace numbers, cite sources, flag what needs human sign-off. Granola: a transcript — produce the brief. Same intent as the live product, your harness.</p></div></div>
         <div class="step"><div class="n">3</div><div><h4>Watch where it diverges from the original product</h4><p>Tool descriptions too vague? Hook too aggressive? System prompt missing a constraint? Take notes — don't fix yet.</p></div></div>
         <div class="step"><div class="n">4</div><div><h4>Make ONE high-leverage change, re-run</h4><p>Edit a tool description, tighten the system prompt, or add one hook. Compare before / after.</p></div></div>
       </div>
@@ -3896,7 +3889,7 @@ You are a research agent. Be terse. Cite sources.</pre>
   "Most important idea in the workshop. Agent = Model + Harness. Vivek Trivedy at LangChain: 'If you're not the model, you're the harness.' The AGENT is what the user experiences. The MODEL takes text and images and emits text — that's all. The HARNESS is everything else: code, config, files, tools, constraints. Designers don't train models — they absolutely design harnesses.",
   "Three concentric levels. Prompt — what the model sees this turn. Context — what the model sees and when across turns. Harness — the entire system. We touch all three but harness is where product decisions live.",
   "Every limitation is solved by a harness feature. This is where your design decisions live. — Six things models can't do alone. Each one solved by a harness feature. Memory · tool execution · web · coordination · self-verification · enforcement. Every row is a design decision your team will make.",
-  "SECTION divider · The Anatomy. Foundations closed on the gaps models can't plug alone ; this NEXT stretch aligns vocabulary BEFORE the marathon teach+dive block. Outline in order on screen: six-slot overview → pairwise 2×2 deepens → leverage map → file tree diagram → Copilot vs Roo surfaces → TWO shipped demos (Harvey + Claude FS) that relabel the SAME six slots → pick one breakout app from the Four Apps matrix. Immediately after THAT comes Section 03's component-by-component pass + hands-on sketches.",
+  "SECTION divider · The Anatomy. Foundations closed on the gaps models can't plug alone ; this NEXT stretch aligns vocabulary BEFORE the marathon teach+dive block. Outline in order on screen: six-slot overview → pairwise 2×2 deepens → leverage map → file tree diagram → Copilot vs Roo surfaces → TWO shipped demos (Harvey + Claude FS) that relabel the SAME six slots → pick one breakout app from the Three Apps matrix (Harvey, Claude FS product, Granola). Immediately after THAT comes Section 03's component-by-component pass + hands-on sketches.",
   "Six core components on one slide — orient, don't memorize. Next three slides widen each pair ; say explicitly 'every bullet maps to breakout work later'.",
   "LEFT: System prompt = persona, rules, constraints. AGENTS.md and .github/copilot-instructions.md tell the agent how to behave. Prompt files are progressive disclosure. RIGHT: Tools are the actions in the world. Insight: too many MCP servers make agents dumb. Tool descriptions are UX copy for the model — fewer, sharper tools beat a kitchen sink.",
   "LEFT: Infrastructure — filesystem is the foundational primitive. Decide what's in-context vs on-disk. RIGHT: Orchestration — when to spawn a subagent, when to keep work in the main thread. These are product decisions, not engineering decisions.",
@@ -3906,7 +3899,7 @@ You are a research agent. Be terse. Cite sources.</pre>
   "NEW SLIDE — Same files, two editing surfaces. Everyone in this room is on GitHub Copilot or Cline / RooCode — point at the Copilot column first. Project guide is AGENTS.md (Copilot's coding agent reads it) plus .github/copilot-instructions.md for repo-wide brief. Path-scoped guidance lives in .github/instructions/*.instructions.md with an applyTo glob. Reusable slash-prompts are .github/prompts/*.prompt.md. Custom agents live in .github/agents/*.md. RooCode and Cline mirror the same shape via AGENTS.md and .roo/rules/. The names rotate; the anatomy doesn't.",
   "Harvey AFTER the scaffolding on purpose — each bullet NAMES a slot learners just saw on the grid + filesystem + editor columns. Tie line: polished vendor harness vs bare repo they'll assemble for their OWN app.",
   "Claude Financial Services pairing — SAME six-bullet mapping in regulated finance (verification posture, workbook-native tools + agent templates, traceable numeric lineage, AML-style multi-agent stories, SOC 2/FedRAMP cues, MCP-like data integrations). Explicit ask: naming pattern should feel boringly familiar now.",
-  "PICK slide — IMMEDIATELY after two shipped demos so the contrast is deliberate. They've watched vertical-specific polish map to IDENTICAL scaffolding terms ; now OWN one breakout app (Harvey duplicate allowed if cohort needs depth, otherwise diversify across Spellbook, Pilot, Granola). Five-ish minutes ; energy line = 'Pick the harness you'd hate to embarrass users with.'",
+  "PICK slide — IMMEDIATELY after two shipped demos so the contrast is deliberate. They've watched vertical-specific polish map to IDENTICAL scaffolding terms ; now OWN one breakout app (Harvey duplicate allowed if cohort needs depth, otherwise diversify across Claude Financial Services vs Granola so groups don't all pile on the same card). Five-ish minutes ; energy line = 'Pick the harness you'd hate to embarrass users with.'",
   "SECTION divider · Component deep dive. Anatomy orient + demos + breakout choice are anchored — reset expectations: ninety minutes drilling each harness slot ON their chosen reverse-engineered app. Depth beats another overview.",
   "The system prompt is the agent's identity — prepended every turn, survives compaction. Most expensive real estate in the harness, so keep it short and load-bearing. Lives in CLAUDE.md, AGENTS.md, or .github/copilot-instructions.md depending on your editor. Failure mode if it's missing or vague: agent has no consistent persona, drifts in tone, forgets your hard rules between turns. The room mostly already has one — they just call it 'rules' or 'instructions'. Today we name the shape.",
   "Five sections, in order. IDENTITY — who you are. SCOPE — what you do and don't do. RULES — hard predicates. TOOLS — the roster. FAILURE MODES — what to do when stuck. Each section earns its place: if you can't name the failure mode it prevents, cut it. The mermaid diagram on screen IS the template — copy it for your harness in the breakout. Don't add a sixth section unless you can defend why.",
