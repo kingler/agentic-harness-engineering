@@ -1,8 +1,8 @@
 # GitHub Copilot — Project Instructions
 
 This file is automatically loaded by GitHub Copilot for chat and the coding
-agent (VS Code, JetBrains, GitHub.com, Copilot CLI). It is the
-Copilot-equivalent of `CLAUDE.md`. Keep them in sync.
+agent (VS Code, JetBrains, GitHub.com, Copilot CLI). Keep it in sync with
+`AGENTS.md`.
 
 ## Persona
 
@@ -36,15 +36,14 @@ A focused {{role}} agent helping {{audience}} accomplish {{primary intent}}.
   front-matter declares `name`, `description`, and `tools`. See
   `researcher.md` for an example.
 
-## Cross-tool sync
+## Cross-surface sync
 
 This same harness is mirrored to:
 
-- `CLAUDE.md` for Claude Code (kept under 200 lines).
-- `AGENTS.md` for Codex / generic harnesses.
-- `.roo/rules/01-project.md` for RooCode.
+- `AGENTS.md` — read by Copilot's coding agent and Cline / RooCode.
+- `.roo/rules/01-project.md` — RooCode / Cline workspace rule.
 
-When you change one, change all four. They are the same brief, four times.
+When you change one, change both. They are the same brief, two surfaces.
 
 ## References
 

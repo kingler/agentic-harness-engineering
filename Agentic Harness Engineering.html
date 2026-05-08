@@ -751,9 +751,9 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 .file-callouts .item p{ margin:0; font-size:14px; color:var(--salt-gray-600); line-height:1.45; }
 
 /* =========================================================
-   SURFACE COMPARISON — Claude Code / RooCode / Copilot
+   SURFACE COMPARISON — GitHub Copilot / RooCode / Cline
    ========================================================= */
-.surface-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.surface-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:28px; }
 .surface{
   background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
   box-shadow:var(--card-shadow); padding:28px 30px;
@@ -1412,8 +1412,8 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
         <ul>
           <li>Tone &amp; personality of the agent</li>
           <li>What it should / shouldn't do</li>
-          <li>AGENTS.md / CLAUDE.md files</li>
-          <li>Skills as progressive disclosure</li>
+          <li>AGENTS.md / .github/copilot-instructions.md</li>
+          <li>Prompt files as progressive disclosure</li>
         </ul>
         <div class="lev-row"><span class="lbl">Designer leverage</span><span class="tag tag--high">High</span></div>
       </div>
@@ -1546,34 +1546,32 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 
     <div class="tree-grid">
 <pre class="tree">my-app-harness/
-├── <span class="accent">CLAUDE.md</span>              <span class="comment"># project context, conventions, rules</span>
-├── <span class="accent">AGENTS.md</span>              <span class="comment"># Codex / generic agents read this</span>
-├── .claude/
-│   ├── <span class="accent">settings.json</span>      <span class="comment"># permissions, env, hook bindings</span>
-│   ├── skills/
-│   │   ├── design-review.md  <span class="comment"># progressive-disclosure prompt</span>
-│   │   └── component-spec.md
-│   ├── commands/
-│   │   ├── plan.md           <span class="comment"># /plan slash command</span>
-│   │   └── ship.md           <span class="comment"># /ship slash command</span>
+├── <span class="accent">AGENTS.md</span>              <span class="comment"># project context, conventions, rules — read by Copilot &amp; RooCode</span>
+├── .github/
+│   ├── <span class="accent">copilot-instructions.md</span> <span class="comment"># Copilot repo-wide instructions</span>
+│   ├── instructions/
+│   │   ├── frontend.instructions.md <span class="comment"># path-scoped instructions (applyTo: glob)</span>
+│   │   └── backend.instructions.md
+│   ├── prompts/
+│   │   ├── plan.prompt.md   <span class="comment"># reusable /plan prompt</span>
+│   │   └── ship.prompt.md   <span class="comment"># reusable /ship prompt</span>
 │   ├── agents/
-│   │   ├── researcher.md     <span class="comment"># subagent definition</span>
+│   │   ├── researcher.md     <span class="comment"># custom Copilot agent</span>
 │   │   └── reviewer.md
 │   └── hooks/
-│       ├── pre-tool-use.sh   <span class="comment"># gate dangerous calls</span>
+│       ├── pre-tool-use.sh   <span class="comment"># gate dangerous calls (cloud agent)</span>
 │       └── post-tool-use.sh  <span class="comment"># auto-format, lint, log</span>
 ├── .roo/
-│   └── rules/01-design.md    <span class="comment"># RooCode workspace rules</span>
-├── .github/
-│   └── copilot-instructions.md <span class="comment"># Copilot project guidance</span>
+│   ├── rules/01-design.md    <span class="comment"># RooCode workspace rules</span>
+│   └── rules-{mode}/         <span class="comment"># per-mode rules</span>
 └── <span class="accent">mcp.json</span>               <span class="comment"># external tool servers (MCP)</span>
 </pre>
 
       <div class="file-callouts">
-        <div class="item"><code>CLAUDE.md / AGENTS.md</code><h5>The system prompt you actually own</h5><p>Highest leverage. Keep under 200 lines. Survives compaction.</p></div>
-        <div class="item"><code>.claude/settings.json</code><h5>Permissions &amp; hook bindings</h5><p>Allow / deny tools, env vars, which scripts run on which events.</p></div>
-        <div class="item"><code>.claude/skills/*.md</code><h5>Reusable, discoverable prompts</h5><p>Loaded only when relevant — progressive disclosure.</p></div>
-        <div class="item"><code>.claude/hooks/*.sh</code><h5>Deterministic guardrails</h5><p>Every time the model touches X, this script runs. No "the model might forget."</p></div>
+        <div class="item"><code>AGENTS.md</code><h5>The system prompt you actually own</h5><p>Highest leverage. Read by Copilot and RooCode. Keep under 200 lines.</p></div>
+        <div class="item"><code>.github/copilot-instructions.md</code><h5>Copilot repo-wide brief</h5><p>Per-repo guidance, automatically attached to every Copilot turn.</p></div>
+        <div class="item"><code>.github/prompts/*.prompt.md</code><h5>Reusable, discoverable prompts</h5><p>Slash-invokable. Loaded only when called — progressive disclosure.</p></div>
+        <div class="item"><code>.github/hooks/*.sh</code><h5>Deterministic guardrails</h5><p>Every time the cloud agent touches X, this script runs. No "the model might forget."</p></div>
         <div class="item"><code>mcp.json</code><h5>External tool servers</h5><p>Figma, GitHub, Linear, Slack — wire each tool source explicitly.</p></div>
       </div>
     </div>
@@ -1587,41 +1585,30 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 <section data-label="16 Designer Editing Surface">
   <div class="frame">
     <div class="eyebrow">Anatomy</div>
-    <h2 class="slide-title">The same files, three editing surfaces</h2>
-    <p class="slide-lede">You already use RooCode and Copilot. Claude Code uses the same pattern. The names change — the anatomy doesn't.</p>
+    <h2 class="slide-title">The same anatomy, two editing surfaces</h2>
+    <p class="slide-lede">You'll use GitHub Copilot or Cline / RooCode in VS Code. The file names differ between the two — the anatomy doesn't.</p>
 
     <div class="surface-grid">
       <div class="surface">
         <span class="tag">Used by you</span>
-        <div class="name">RooCode (VS Code)</div>
+        <div class="name">GitHub Copilot</div>
         <dl>
-          <dt>Project rules</dt><dd>.roo/rules/<br>*.md</dd>
-          <dt>Mode rules</dt><dd>.roo/rules-{mode}/</dd>
-          <dt>Custom modes</dt><dd>.roomodes</dd>
-          <dt>Global rules</dt><dd>~/.roo/rules/</dd>
-          <dt>Tools</dt><dd>built-in + MCP</dd>
+          <dt>Project guide</dt><dd>AGENTS.md or<br>.github/<br>copilot-instructions.md</dd>
+          <dt>Path-scoped</dt><dd>.github/instructions/<br>*.instructions.md<br>(applyTo: pattern)</dd>
+          <dt>Prompt files</dt><dd>.github/prompts/<br>*.prompt.md</dd>
+          <dt>Custom agents</dt><dd>.github/agents/<br>*.md</dd>
+          <dt>Hooks</dt><dd>.github/hooks/<br>(cloud agent)</dd>
         </dl>
       </div>
       <div class="surface">
         <span class="tag">Used by you</span>
-        <div class="name">GitHub Copilot</div>
+        <div class="name">Cline / RooCode (VS Code)</div>
         <dl>
-          <dt>Project guide</dt><dd>.github/<br>copilot-instructions.md</dd>
-          <dt>Path-scoped</dt><dd>.github/instructions/<br>*.instructions.md<br>(applyTo: pattern)</dd>
-          <dt>Prompt files</dt><dd>.github/prompts/<br>*.prompt.md</dd>
-          <dt>Custom agents</dt><dd>.github/agents/<br>*.md</dd>
-          <dt>Tools</dt><dd>VS Code + MCP</dd>
-        </dl>
-      </div>
-      <div class="surface">
-        <span class="tag">New today</span>
-        <div class="name">Claude Code</div>
-        <dl>
-          <dt>Project guide</dt><dd>CLAUDE.md</dd>
-          <dt>Skills</dt><dd>.claude/skills/<br>*.md</dd>
-          <dt>Commands</dt><dd>.claude/commands/<br>*.md</dd>
-          <dt>Subagents</dt><dd>.claude/agents/<br>*.md</dd>
-          <dt>Hooks</dt><dd>.claude/hooks/ + settings.json</dd>
+          <dt>Project guide</dt><dd>AGENTS.md</dd>
+          <dt>Project rules</dt><dd>.roo/rules/<br>*.md</dd>
+          <dt>Mode rules</dt><dd>.roo/rules-{mode}/</dd>
+          <dt>Custom modes</dt><dd>.roomodes</dd>
+          <dt>Tools</dt><dd>built-in + MCP</dd>
         </dl>
       </div>
     </div>
@@ -1716,9 +1703,9 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
         <p class="body-lede">Identity, scope, hard rules, escalation, failure modes.</p>
         <div class="section-label">Lives in</div>
         <ul>
-          <li><code>CLAUDE.md</code> — Claude Code</li>
-          <li><code>AGENTS.md</code> — Codex, Aider, generic harnesses</li>
-          <li><code>.github/copilot-instructions.md</code> — GitHub Copilot</li>
+          <li><code>AGENTS.md</code> — read by Copilot's coding agent &amp; Cline / RooCode</li>
+          <li><code>.github/copilot-instructions.md</code> — Copilot repo-wide brief</li>
+          <li><code>.roo/rules/*.md</code> — RooCode workspace rules</li>
         </ul>
       </div>
       <div class="card deep">
@@ -2310,7 +2297,7 @@ flowchart LR
   <div class="frame">
     <div class="eyebrow">Day 2 · Determinism</div>
     <h2 class="slide-title">Hooks: the lifecycle you can wire into</h2>
-    <p class="slide-lede">CLAUDE.md is advisory. Hooks are deterministic. Use them when "every time" matters.</p>
+    <p class="slide-lede">AGENTS.md is advisory. Hooks are deterministic. Use them when "every time" matters.</p>
 
     <div class="hooks-timeline">
       <div class="hk"><div class="ev">SessionStart</div><h5>Boot</h5><p>Inject project state, freshness checks, env probes.</p></div>
@@ -2364,7 +2351,7 @@ flowchart LR
           <li>You can describe the success criterion in one sentence</li>
         </ul>
         <div class="section-label">File</div>
-<pre class="code-block">.claude/agents/researcher.md
+<pre class="code-block">.github/agents/researcher.md
 ---
 name: researcher
 description: Read-only research; returns a brief.
@@ -2425,12 +2412,12 @@ You are a research agent. Be terse. Cite sources.</pre>
 <section data-label="40 Live Wire-Up">
   <div class="frame">
     <div class="eyebrow" style="color:var(--salt-amber-500);">Day 2 · Working session</div>
-    <h2 class="slide-title">Wire your harness into RooCode / Copilot / Claude Code</h2>
+    <h2 class="slide-title">Wire your harness into GitHub Copilot or Cline / RooCode</h2>
     <p class="slide-lede">25 minutes. Same groups as Day 1. Open the editor you already use and run your harness against a real task.</p>
 
     <div class="breakout">
       <div class="steps">
-        <div class="step"><div class="n">1</div><div><h4>Drop your <code>harness/</code> folder into a fresh project</h4><p>RooCode reads <code>.roo/rules/</code>. Copilot reads <code>.github/copilot-instructions.md</code>. Claude Code reads <code>CLAUDE.md</code>. Move/symlink as needed.</p></div></div>
+        <div class="step"><div class="n">1</div><div><h4>Drop your <code>harness/</code> folder into a fresh project</h4><p>Copilot reads <code>AGENTS.md</code> and <code>.github/copilot-instructions.md</code>. RooCode / Cline read <code>AGENTS.md</code> and <code>.roo/rules/</code>. Move/symlink as needed.</p></div></div>
         <div class="step"><div class="n">2</div><div><h4>Run a real task — the one you reverse-engineered</h4><p>Drop a real artifact in the workspace and ask the agent to handle it. Harvey: a sample contract — flag risks. Pilot: a CSV of transactions — categorize and reconcile. Notion AI: a page of meeting notes — summarize + extract actions. Granola: a transcript — produce the brief. Same intent as the live product, your harness.</p></div></div>
         <div class="step"><div class="n">3</div><div><h4>Watch where it diverges from the original product</h4><p>Tool descriptions too vague? Hook too aggressive? System prompt missing a constraint? Take notes — don't fix yet.</p></div></div>
         <div class="step"><div class="n">4</div><div><h4>Make ONE high-leverage change, re-run</h4><p>Edit a tool description, tighten the system prompt, or add one hook. Compare before / after.</p></div></div>
@@ -2517,7 +2504,7 @@ You are a research agent. Be terse. Cite sources.</pre>
           <li>Start with user intent · design the failure state first</li>
           <li>Cap tools at ~7 · description = UX copy for the model</li>
           <li>Hooks for "every time"; prompts for "use judgment"</li>
-          <li>One file does one job · CLAUDE.md stays under 200 lines</li>
+          <li>One file does one job · AGENTS.md stays under 200 lines</li>
           <li>Capture transcripts as evals · hill-climb from real failures</li>
         </ol>
       </div>
@@ -2605,7 +2592,7 @@ You are a research agent. Be terse. Cite sources.</pre>
       <div class="resource resource--copilot">
         <div class="src">Copilot · You</div>
         <h5>Custom instructions in VS Code</h5>
-        <p>Repo-wide <code>.github/copilot-instructions.md</code> plus path-scoped <code>*.instructions.md</code> with <code>applyTo</code>. The Copilot equivalent of <code>CLAUDE.md</code>.</p>
+        <p>Repo-wide <code>.github/copilot-instructions.md</code> plus path-scoped <code>*.instructions.md</code> with <code>applyTo</code>. Both are read by Copilot on every turn.</p>
         <div class="url">code.visualstudio.com/docs/copilot/customization/custom-instructions</div>
       </div>
       <div class="resource resource--copilot">
@@ -2617,13 +2604,13 @@ You are a research agent. Be terse. Cite sources.</pre>
       <div class="resource resource--copilot">
         <div class="src">Copilot · You</div>
         <h5>Prompt files (<code>.prompt.md</code>)</h5>
-        <p>Reusable, slash-invokable prompts in <code>.github/prompts/</code>. Treat each one like a slash command in Claude Code.</p>
+        <p>Reusable, slash-invokable prompts in <code>.github/prompts/</code>. Treat each one like a /slash command participants invoke from Copilot Chat.</p>
         <div class="url">docs.github.com/en/copilot/tutorials/customization-library/prompt-files</div>
       </div>
       <div class="resource resource--copilot">
         <div class="src">Copilot · You</div>
         <h5>Custom agents (cloud + CLI)</h5>
-        <p>Define agent profiles in <code>.github/agents/&lt;name&gt;.md</code> with YAML front-matter — the Copilot analog of <code>.claude/agents/</code>.</p>
+        <p>Define agent profiles in <code>.github/agents/&lt;name&gt;.md</code> with YAML front-matter. Copilot's coding agent loads them on demand.</p>
         <div class="url">docs.github.com/en/copilot/concepts/agents/cloud-agent/about-custom-agents</div>
       </div>
       <div class="resource resource--copilot">
@@ -2653,13 +2640,6 @@ You are a research agent. Be terse. Cite sources.</pre>
         <div class="url">docs.roocode.com/advanced-usage/prompt-structure</div>
       </div>
 
-      <!-- Claude Code row -->
-      <div class="resource">
-        <div class="src">Claude Code · New</div>
-        <h5>Settings, hooks &amp; permissions</h5>
-        <p>Reference for <code>settings.json</code>, the 12+ hook lifecycle events, and tool permission policies.</p>
-        <div class="url">code.claude.com/docs/en/settings</div>
-      </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
@@ -2673,7 +2653,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 "Welcome to Agentic Harness Engineering for Product & UX Designers. This is a 2-day, 2-hour-per-day workshop. Quick show of hands — who's been using RooCode? Copilot? Both? Great. You already touch the harness every day — you just call it 'rules' or 'instructions'. Today and tomorrow we name what you're already doing, give it a real anatomy, and you build one from scratch by reverse-engineering an AI app you actually use. By the end of Day 2 you'll have a runnable harness folder you can drop into any project.",
 "CARD 1 — Paradigm shift: from static wireframes to dynamic orchestration rules. CARD 2 — Agent = Model + Harness. The model is the brain. The harness is the body, the workshop, and the rules of engagement. Designers shape the harness. CARD 3 — Design IS engineering. OpenAI shipped a million-line product where humans steered and Codex executed. The discipline is now in the scaffolding.",
 "Two days, three breakouts, one harness. Day 1 you reverse-engineer one of five apps and build the harness in three breakouts: PLAN, DESIGN, DEVELOP. Day 2 you wire it into RooCode or Copilot, watch it fail on a real task, change one thing, and demo. I want you spending 60% of your time in breakouts and 40% with me. Let's get to it.",
-"GROUND RULES — read this slide carefully because it shapes everything. CRITICAL CONSTRAINT: API keys are only available INSIDE the RooCode and Copilot extensions today. You cannot build a standalone agent that calls a model directly. The extensions already have the key — you don't. So we don't pretend to ship a real backend. Instead, we work with what you DO have: VS Code + RooCode + Copilot. THE EDITOR IS THE RUNTIME. You author two things: (1) the harness — markdown, JSON, scripts in a folder — and (2) a frontend prototype generated from your Figma via Copilot or RooCode. Then you load both into VS Code and let the extension's AI play the harnessed agent. Your CLAUDE.md is its system prompt. Your hooks fire on real tool calls. Your prototype is what a user clicks. This is exactly what Day 2's wire-up exercise asks you to do. One sentence to remember: 'harness + frontend = product; the editor's AI is the runtime.'",
+"GROUND RULES — read this slide carefully because it shapes everything. CRITICAL CONSTRAINT: API keys are only available INSIDE the GitHub Copilot, Cline, and RooCode extensions today. You cannot build a standalone agent that calls a model directly. The extensions already have the key — you don't. So we don't pretend to ship a real backend. Instead, we work with what you DO have: VS Code + Copilot or Cline / RooCode. THE EDITOR IS THE RUNTIME. You author two things: (1) the harness — markdown, JSON, scripts in a folder — and (2) a frontend prototype generated from your Figma via Copilot or RooCode. Then you load both into VS Code and let the extension's AI play the harnessed agent. Your AGENTS.md is its system prompt. Your hooks fire on real tool calls. Your prototype is what a user clicks. This is exactly what Day 2's wire-up exercise asks you to do. One sentence to remember: 'harness + frontend = product; the editor's AI is the runtime.'",
 "[Pause.] Foundations. Same mental model before we go deeper.",
 "Most important idea in the workshop. Agent = Model + Harness. Vivek Trivedy at LangChain: 'If you're not the model, you're the harness.' The AGENT is what the user experiences. The MODEL takes text and images and emits text — that's all. The HARNESS is everything else: code, config, files, tools, constraints. Designers don't train models — they absolutely design harnesses.",
 "LLM is a CPU. Context window is RAM. External files are disk. Tools are device drivers. The harness is the OS. The bottom row is highlighted because that's the layer we own.",
@@ -2681,18 +2661,18 @@ You are a research agent. Be terse. Cite sources.</pre>
 "Six things models can't do alone. Each one solved by a harness feature. Memory · tool execution · web · coordination · self-verification · enforcement. Every row is a design decision your team will make.",
 "Now the anatomy. Six components. Then we'll see them as actual files.",
 "Six core components. We'll do them in pairs of two-by-two on the next three slides. Don't memorize — orient.",
-"LEFT: System prompt = persona, rules, constraints. CLAUDE.md / AGENTS.md tell the agent how to behave. Skills are progressive disclosure. RIGHT: Tools are the actions in the world. Insight: too many MCP servers make agents dumb. Tool descriptions are UX copy for the model — fewer, sharper tools beat a kitchen sink.",
+"LEFT: System prompt = persona, rules, constraints. AGENTS.md and .github/copilot-instructions.md tell the agent how to behave. Prompt files are progressive disclosure. RIGHT: Tools are the actions in the world. Insight: too many MCP servers make agents dumb. Tool descriptions are UX copy for the model — fewer, sharper tools beat a kitchen sink.",
 "LEFT: Infrastructure — filesystem is the foundational primitive. Decide what's in-context vs on-disk. RIGHT: Orchestration — when to spawn a subagent, when to keep work in the main thread. These are product decisions, not engineering decisions.",
 "LEFT: Hooks. When something should happen EVERY time, enforce it with code, not with hope. RIGHT: Feedback loops. Evals are the training data for the harness. LangChain calls this hill-climbing — change one thing, measure, keep or revert.",
 "Where designer leverage is highest: tool descriptions, permission UX, state visibility, error recovery, agent coordination, input architecture. Most agent failures are input failures, not intelligence failures.",
-"NEW SLIDE — Anatomy in files. The six components live as concrete files: CLAUDE.md, settings.json, skills/, commands/, agents/, hooks/, mcp.json, plus the editor-specific .roo/ and .github/copilot-instructions.md. Walk through the tree. Highest-leverage files: CLAUDE.md (the system prompt you own), tool descriptions inside skills (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You're going to author every one of these in Day 1's breakouts.'",
-"NEW SLIDE — Same files, three editing surfaces. Most of you are on Copilot or RooCode — point at the Copilot column first. Project guide is .github/copilot-instructions.md. Path-scoped guidance lives in .github/instructions/*.instructions.md with an applyTo glob. Reusable slash-prompts are .github/prompts/*.prompt.md. Custom agents live in .github/agents/*.md. RooCode mirrors the same shape under .roo/. Claude Code uses CLAUDE.md and .claude/. The names rotate; the anatomy doesn't.",
+"NEW SLIDE — Anatomy in files. The six components live as concrete files: AGENTS.md, .github/copilot-instructions.md, .github/instructions/, .github/prompts/, .github/agents/, .github/hooks/, mcp.json, plus the RooCode/Cline shape under .roo/rules/. Walk through the tree. Highest-leverage files: AGENTS.md (the system prompt you own), tool descriptions inside prompt files (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You're going to author every one of these in Day 1's breakouts.'",
+"NEW SLIDE — Same files, two editing surfaces. Everyone in this room is on GitHub Copilot or Cline / RooCode — point at the Copilot column first. Project guide is AGENTS.md (Copilot's coding agent reads it) plus .github/copilot-instructions.md for repo-wide brief. Path-scoped guidance lives in .github/instructions/*.instructions.md with an applyTo glob. Reusable slash-prompts are .github/prompts/*.prompt.md. Custom agents live in .github/agents/*.md. RooCode and Cline mirror the same shape via AGENTS.md and .roo/rules/. The names rotate; the anatomy doesn't.",
 "FIVE APPS. Real, shipping, non-coding AI products. Two legal, one accounting, two productivity. A) Harvey — enterprise legal platform; research + drafting + document analysis; great if anyone's worked with law firms. B) Spellbook — contract drafting/review inside MS Word; the harness lives inside a host app, which is a fantastic constraints study. C) Pilot — autonomous bookkeeping for startups; long-running agent with monthly human review — perfect for designing approval flows. D) Notion AI — embedded in a workspace; pages and databases are the filesystem. E) Granola — AI meeting notes; smallest surface area, easiest to map all six components in 25 minutes. Encourage one group per app if possible. Tell groups: 'Pick the domain you'd be most embarrassed to design poorly for' — if a lawyer is in the room, take Harvey. Five minutes to choose.",
 "BREAKOUT 1 · PLAN — 25 minutes. Reverse-engineer the chosen app. List 5 user intents, map the 6 anatomy components, name 3 failure modes, then narrow to ONE intent + ONE failure mode you'll harness. Walk around. If a group is stuck, ask 'what does the agent do badly?' — the failure mode is the design surface.",
 "BREAKOUT 1 · Instructions slide. Run the room here. Deliverables: plan.md, intents.md, risks.md. Discourage perfection — they have two more breakouts. The point of B1 is to narrow scope so they can ship in B3.",
 "BREAKOUT 2 · DESIGN — 25 minutes. Translate the plan into the file tree. They sketch the folder structure on paper, outline the system prompt, list at most 7 tools, and decide what becomes a hook vs what stays a prompt. This is the slide where 'tool description = UX copy' lands.",
 "BREAKOUT 2 · Instructions slide. Walk them through the four steps. Cap tools at SEVEN — repeat this. Bad tool descriptions cause wrong tool selection more often than missing tools.",
-"BREAKOUT 3 · DEVELOP — 20 minutes. Now they actually write files. Point to the harness-templates/ folder in the workshop repo as the starting point. Insist on at least: CLAUDE.md, settings.json, one skill, one slash command, one subagent, one hook.",
+"BREAKOUT 3 · DEVELOP — 20 minutes. Now they actually write files. Point to the harness-templates/ folder in the workshop repo as the starting point. Insist on at least: AGENTS.md, .github/copilot-instructions.md, one prompt file, one custom agent, one hook.",
 "BREAKOUT 3 · Instructions slide. The 'minimum runnable harness' card on the right is the bar. If a teammate could clone their branch and the agent behaves like the app they reverse-engineered, they passed. Don't worry about polish.",
 "DAY 1 CLOSE. 2 minutes per group. Show the file tree, name the design decision they fought about most, name what they couldn't decide. The undecided question becomes the first conversation tomorrow morning. Homework: push the branch, run the agent at home, save 2 transcripts where the harness misbehaves, bring 1 question.",
 "DAY 2 OPENER. 'Yesterday you built the bones. Today you wire it into a real editor, watch it fail, and harden it.' Quick recap — anyone bring back a transcript that surprised them? Get 1-2 stories from the room before moving on.",
@@ -2706,7 +2686,7 @@ You are a research agent. Be terse. Cite sources.</pre>
 "DEMO SESSION DIVIDER. 5 minutes per group, 1 minute Q&A each. Live in their editor. Set the tone: 'We're not judging finish — we're judging the tradeoff you can defend.'",
 "DEMO RUBRIC. Five categories, 5 points each. Score yourselves first, then we score each other. Anti-patterns we'll call out: 23 MCP servers, system prompt doing the hook's job, no success/failure indicator, no scoping, demo only runs the rehearsed task.",
 "TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping. 05 Most agent failures are input failures. Thank the room. Keep the energy up — they earned it.",
-"RESOURCES. Three rows of links. TOP ROW — source material: LangChain's anatomy essay, arXiv 2603.20075, and the MCP spec. SECOND ROW (Copilot — orange stripe) is the priority for most of this room: VS Code custom instructions, the GitHub Docs reference for repo instructions, prompt files, custom agents, and the Customize-AI overview. Walk the room through these explicitly — these are the docs they'll re-open Monday morning. THIRD ROW — RooCode docs for the rest of the audience, plus Claude Code settings/hooks for the new surface they met today. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
+"RESOURCES. Three rows of links. TOP ROW — source material: LangChain's anatomy essay, arXiv 2603.20075, and the MCP spec. SECOND ROW (Copilot — orange stripe) is the priority for most of this room: VS Code custom instructions, the GitHub Docs reference for repo instructions, prompt files, custom agents, and the Customize-AI overview. Walk the room through these explicitly — these are the docs they'll re-open Monday morning. THIRD ROW — RooCode and Cline docs for the rest of the audience. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
 ]
 </script>
 
