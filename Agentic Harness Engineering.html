@@ -976,17 +976,36 @@ pre.tree, pre.code-block{
   font-family:'JetBrains Mono',monospace; font-size:14px; line-height:1.55;
   box-shadow:var(--card-shadow);
 }
+/* Anatomy slide: file tree mono sized between body copy and full deck title scale */
+pre.tree{
+  font-size:18px;
+  line-height:1.5;
+}
 pre.tree .dim{ color:var(--salt-blue-300); }
-pre.tree .accent{ color:var(--salt-amber-500); }
+/* Key harness files — real orange on dark tree bg (salt-amber token is grayscale in this deck) */
+pre.tree .accent{ color:#FB923C; }
 pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
-.file-callouts{ display:flex; flex-direction:column; gap:14px; }
+.file-callouts{ display:flex; flex-direction:column; gap:40px; }
 .file-callouts .item{
-  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
-  padding:18px 22px; box-shadow:var(--card-shadow);
+  background:transparent;
+  border:none;
+  border-radius:0;
+  padding:4px 0;
+  box-shadow:none;
+}
+/** Path row: icon + monospace path (Lucide icons rendered on DOMContentLoaded). */
+.file-callouts .file-callout-path{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.file-callouts .file-callout-ico{
+  flex-shrink:0;
+  color:var(--salt-blue-500);
 }
 .file-callouts .item code{
-  font-family:'JetBrains Mono',monospace; font-size:14px;
-  color:var(--salt-blue-500); font-weight:600;
+  font-family:'JetBrains Mono',monospace; font-size:24px;
+  color:var(--salt-blue-500); font-weight:600; line-height:1.25;
 }
 .file-callouts .item h5{
   margin:6px 0 4px 0; font-size:16px; font-weight:700;
@@ -2222,11 +2241,41 @@ section[data-deck-active] .ps-grid .ps-card:nth-child(4){ animation: ah-pop 520m
 </pre>
 
       <div class="file-callouts">
-        <div class="item"><code>CLAUDE.md / AGENTS.md</code><h5>The system prompt you actually own</h5><p>Highest leverage. Keep under 200 lines. Survives compaction.</p></div>
-        <div class="item"><code>.claude/settings.json</code><h5>Permissions &amp; hook bindings</h5><p>Allow / deny tools, env vars, which scripts run on which events.</p></div>
-        <div class="item"><code>.claude/skills/*.md</code><h5>Reusable, discoverable prompts</h5><p>Loaded only when relevant — progressive disclosure.</p></div>
-        <div class="item"><code>.claude/hooks/*.sh</code><h5>Deterministic guardrails</h5><p>Every time the model touches X, this script runs. No "the model might forget."</p></div>
-        <div class="item"><code>mcp.json</code><h5>External tool servers</h5><p>Figma, GitHub, Linear, Slack — wire each tool source explicitly.</p></div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="file-text" width="28" height="28" aria-hidden="true"></i>
+            <code>CLAUDE.md / AGENTS.md</code>
+          </div>
+          <h5>The system prompt you actually own</h5><p>Highest leverage. Keep under 200 lines. Survives compaction.</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="braces" width="28" height="28" aria-hidden="true"></i>
+            <code>.claude/settings.json</code>
+          </div>
+          <h5>Permissions &amp; hook bindings</h5><p>Allow / deny tools, env vars, which scripts run on which events.</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="files" width="28" height="28" aria-hidden="true"></i>
+            <code>.claude/skills/*.md</code>
+          </div>
+          <h5>Reusable, discoverable prompts</h5><p>Loaded only when relevant — progressive disclosure.</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="terminal" width="28" height="28" aria-hidden="true"></i>
+            <code>.claude/hooks/*.sh</code>
+          </div>
+          <h5>Deterministic guardrails</h5><p>Every time the model touches X, this script runs. No "the model might forget."</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="plug" width="28" height="28" aria-hidden="true"></i>
+            <code>mcp.json</code>
+          </div>
+          <h5>External tool servers</h5><p>Figma, Github Copilot, Confluence (setup required)</p>
+        </div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
