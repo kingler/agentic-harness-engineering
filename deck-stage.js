@@ -85,7 +85,10 @@
     }
 
     /* Slides live in light DOM (via <slot>) so authored CSS still applies.
-       We absolutely position each slotted child to stack them. */
+       We absolutely position each slotted child to stack them. Active
+       slide swipes IN from the side that matches the navigation
+       direction; the previous slide (marked data-deck-leaving) swipes
+       OUT the opposite way. Direction set by data-deck-dir on host. */
     ::slotted(*) {
       position: absolute !important;
       inset: 0 !important;
@@ -96,11 +99,57 @@
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
+      will-change: opacity, transform;
     }
     ::slotted([data-deck-active]) {
       opacity: 1;
       pointer-events: auto;
       visibility: visible;
+    }
+    /* Outgoing slide stays painted while it swipes off-screen. */
+    ::slotted([data-deck-leaving]) {
+      visibility: visible;
+    }
+
+    /* Forward (next): new slide enters from the RIGHT, old exits LEFT. */
+    :host([data-deck-dir="forward"]) ::slotted([data-deck-active]){
+      animation: deck-enter-right 480ms cubic-bezier(.2,.7,.2,1) both;
+    }
+    :host([data-deck-dir="forward"]) ::slotted([data-deck-leaving]){
+      animation: deck-exit-left 480ms cubic-bezier(.2,.7,.2,1) both;
+    }
+    /* Back (prev): new slide enters from the LEFT, old exits RIGHT. */
+    :host([data-deck-dir="back"]) ::slotted([data-deck-active]){
+      animation: deck-enter-left 480ms cubic-bezier(.2,.7,.2,1) both;
+    }
+    :host([data-deck-dir="back"]) ::slotted([data-deck-leaving]){
+      animation: deck-exit-right 480ms cubic-bezier(.2,.7,.2,1) both;
+    }
+
+    @keyframes deck-enter-right {
+      from { opacity: 0; transform: translateX(64px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes deck-enter-left {
+      from { opacity: 0; transform: translateX(-64px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes deck-exit-left {
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(-64px); }
+    }
+    @keyframes deck-exit-right {
+      from { opacity: 1; transform: translateX(0); }
+      to   { opacity: 0; transform: translateX(64px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      ::slotted(*),
+      ::slotted([data-deck-active]),
+      ::slotted([data-deck-leaving]) {
+        animation: none !important;
+        transform: none !important;
+      }
     }
 
     /* Tap zones for mobile — back/forward thirds like Stories.
@@ -482,6 +531,26 @@
       if (!this._slides.length) return;
       const prev = this._prevIndex == null ? -1 : this._prevIndex;
       const curr = this._index;
+
+      // Direction attribute drives the swipe animation in shadow CSS.
+      // Initial mount and forward steps swipe in from the right; going
+      // back swipes in from the left.
+      const dir = (prev < 0 || curr >= prev) ? 'forward' : 'back';
+      this.setAttribute('data-deck-dir', dir);
+
+      // Mark the outgoing slide so it can animate off-screen, then
+      // clear the marker after the swipe completes. Cancel any prior
+      // marker first to handle rapid navigation cleanly.
+      if (this._leavingTimer) clearTimeout(this._leavingTimer);
+      this._slides.forEach(s => s.removeAttribute('data-deck-leaving'));
+      if (prev >= 0 && prev !== curr && this._slides[prev]) {
+        const leavingSlide = this._slides[prev];
+        leavingSlide.setAttribute('data-deck-leaving', '');
+        this._leavingTimer = setTimeout(() => {
+          leavingSlide.removeAttribute('data-deck-leaving');
+        }, 520);
+      }
+
       this._slides.forEach((s, i) => {
         if (i === curr) s.setAttribute('data-deck-active', '');
         else s.removeAttribute('data-deck-active');

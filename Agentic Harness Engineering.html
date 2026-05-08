@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
 
 <style>
 /* =========================================================
@@ -169,9 +169,31 @@ section{
 }
 .grid-3 .card p{ font-size:18px; line-height:1.55; color:var(--salt-gray-900); margin:0; }
 .grid-3 .card .kicker{
-  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  font-size:24px; letter-spacing:0.12em; text-transform:uppercase;
   color:var(--salt-blue-500); font-weight:600; margin-bottom:20px;
 }
+/* Title sits directly above grid (no lede): headline → cards spacing */
+.frame > .slide-title + .grid-3{ margin-top:100px; }
+/* Six-component overview — title → 3×2 card grid */
+.frame > .slide-title + .grid-6{
+  margin-top:100px;
+}
+.frame > .slide-title:has(+ .grid-6){ margin-bottom:0; }
+/* Env slide — same 100px band below headline before the two dark cards */
+.frame > .slide-title + .env-grid{
+  margin-top:100px;
+}
+.frame > .slide-title:has(+ .env-grid){ margin-bottom:0; }
+/* Models-can't-do slide — 100px under headline before the limit → solution rows */
+.frame > .slide-title + .limit-list{
+  margin-top:100px;
+}
+.frame > .slide-title:has(+ .limit-list){ margin-bottom:0; }
+/* Harvey slide — 100px under headline before GIF + two-column list */
+.frame > .slide-title + .harvey-split{
+  margin-top:100px;
+}
+.frame > .slide-title:has(+ .harvey-split){ margin-bottom:0; }
 
 /* =========================================================
    SLIDE 3 — agenda timeline table
@@ -194,6 +216,16 @@ section{
   justify-self:end;
 }
 
+/**
+ * Visually hidden label for screen readers when decorative ASCII replaces
+ * visible title glyphs (parent remains the slide’s single level-2 heading).
+ */
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); clip-path:inset(50%);
+  white-space:nowrap; border:0;
+}
+
 /* =========================================================
    SLIDE 4, 9, 15, 17, 20 — section dividers
    ========================================================= */
@@ -212,6 +244,30 @@ section{
 .divider .body h2{
   margin:0 0 32px 0; font-size:84px; line-height:1.02;
   font-weight:700; letter-spacing:-0.02em; color:#fff;
+}
+/**
+ * Figlet Big Money-ne “3D block” title (`$` / `\` extrusion): font-size scales with
+ * viewport so the full banner fits the 1920×1080 slide without clipping.
+ * Wrapper keeps a valid phrasing-only h2 for assistive tech plus a decorative pre.
+ */
+.divider .body .divider-ascii-heading{
+  margin:0 0 28px 0;
+}
+.divider .body .divider-ascii-heading h2.sr-only{
+  margin:0;
+}
+.divider .body pre.divider-ascii-title{
+  margin:0;
+  font-size:clamp(7.5px,0.9vw,11px);
+  line-height:1;
+  font-weight:400;
+  font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:#fff;
+  background:transparent;
+  border:0;
+  /* Monospace art: Figlet “Big Money-ne” uses `$`, `/`, `\`, and `|` for extruded caps */
+  letter-spacing:0;
+  white-space:pre;
 }
 .divider .body p{
   font-size:26px; line-height:1.45; color:var(--salt-gray-300);
@@ -235,19 +291,24 @@ section{
    SLIDE 5 — formula hero
    ========================================================= */
 .formula-hero{
-  background:#fff; border:1px solid var(--salt-gray-300);
+  /* High-contrast strip: white terms on black; operators stay muted */
+  background:#000;
+  border:1px solid #262626;
   border-radius:12px; padding:64px 48px;
   display:flex; align-items:center; justify-content:center; gap:32px;
   font-family:'JetBrains Mono',monospace; font-weight:500;
   font-size:84px; letter-spacing:-0.01em;
-  color:var(--salt-navy-900);
-  box-shadow:var(--card-shadow);
-  margin-bottom:40px;
+  color:#fff;
+  box-shadow:0 16px 48px rgba(0,0,0,.35);
+  /* Extra air before the three formula columns */
+  margin-bottom:140px;
 }
-.formula-hero .op{ color:var(--salt-gray-300); }
-.formula-hero .harness{ color:var(--salt-blue-500); }
+.formula-hero .op{ color:var(--salt-gray-600); }
+.formula-hero .harness{ color:#fff; }
 .formula-columns{
   display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+  /* Breathing room so the three definitions don't hug the frame edge */
+  padding:0 100px;
   margin-bottom:32px;
 }
 .formula-columns .col .label{
@@ -259,13 +320,6 @@ section{
   margin:0 0 12px 0; letter-spacing:-0.01em;
 }
 .formula-columns .col p{ font-size:17px; color:var(--salt-gray-600); margin:0; line-height:1.5; }
-.pull-quote{
-  border-left:4px solid var(--salt-blue-500);
-  padding:8px 0 8px 28px; margin:8px 0 0 0;
-  font-size:24px; font-style:italic; color:var(--salt-navy-900);
-  line-height:1.4;
-}
-.pull-quote cite{ display:block; font-style:normal; font-size:14px; font-weight:600; color:var(--salt-gray-600); margin-top:12px; letter-spacing:0.06em; text-transform:uppercase; }
 
 /* =========================================================
    SLIDE 6 — OS analogy table
@@ -302,66 +356,195 @@ section{
 .analogy-table .r.hl .eq{ color:var(--salt-blue-500); }
 
 /* =========================================================
-   SLIDE 7 — concentric rings
+   SLIDE 7 — concentric rings (side cards · 3-column)
    ========================================================= */
 .rings-layout{
-  display:grid; grid-template-columns:560px 1fr; gap:64px; align-items:center;
+  display:grid;
+  /* Narrow side stacks; center column sized to the rings diagram (90% of prior 749px). */
+  grid-template-columns:1fr minmax(360px,674px) 1fr;
+  /* Wider column-gap pushes side cards away from the diagram */
+  gap:36px 110px;
+  align-items:center;
+  justify-items:stretch;
+  flex:1;
+  min-height:0;
+  width:100%;
 }
+.rings-layout .rings{
+  justify-self:center;
+}
+/*
+  Equal radial thickness every band: diameter steps down by 2×band each layer
+  (harness shell, context shell, prompt shell, then core disk).
+  674 − 6×97 = 92px core; every annulus has 97px radial width (−10% vs prior 749×108).
+*/
 .rings{
-  position:relative; width:520px; height:520px; margin:0 auto;
+  --ring-band:97px;
+  position:relative;
+  width:674px;
+  height:674px;
+  flex-shrink:0;
+  box-sizing:border-box;
+}
+.rings *,
+.rings *::before,
+.rings *::after{
+  box-sizing:border-box;
 }
 .rings .ring{
-  position:absolute; border-radius:50%; display:flex;
-  align-items:flex-start; justify-content:center;
-  padding-top:22px;
-  font-size:13px; letter-spacing:0.12em; font-weight:700; text-transform:uppercase;
-}
-.rings .r1{ inset:0; background:rgba(10,10,10,0.92); border:1.5px solid rgba(10,10,10,0.92); color:#fff; }
-.rings .r2{ inset:60px; background:rgb(67,67,67); border:1.5px solid rgba(10,10,10,0.45); color:#fff; }
-.rings .r3{ inset:110px; background:rgb(109,109,109); border:1.5px solid rgba(10,10,10,0.25); color:#fff; padding-top:22px; font-size:13px; }
-.rings .core{
-  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
   border-radius:50%;
-  background:#fff; color:var(--salt-navy-900);
+  aspect-ratio:1;
+  overflow:visible;
+  font-size:14px;
+  letter-spacing:0.12em;
+  font-weight:700;
+  text-transform:uppercase;
+  border:none;
+}
+/* Labels sit in the ring band without affecting circle geometry (pure concentric disks) */
+.rings .ring-label{
+  position:absolute;
+  left:50%;
+  /* +30px shifts all ring titles down without affecting circle geometry */
+  top:calc(clamp(14px,calc(var(--ring-band)*0.24),34px) + 30px);
+  transform:translateX(-50%);
+  width:94%;
+  text-align:center;
+  line-height:1.2;
+  pointer-events:none;
+  color:inherit;
+}
+.rings .r1{
+  width:100%;
+  height:100%;
+  background:rgba(10,10,10,0.92);
+  color:#fff;
+  /* Same elevation token as .card so the harness shell matches deck chrome */
+  box-shadow:var(--card-shadow);
+}
+.rings .r2{
+  width:calc(100% - 2 * var(--ring-band));
+  height:calc(100% - 2 * var(--ring-band));
+  max-width:calc(100% - 2 * var(--ring-band));
+  max-height:calc(100% - 2 * var(--ring-band));
+  background:rgb(67,67,67);
+  color:#fff;
+}
+.rings .r3{
+  width:calc(100% - 4 * var(--ring-band));
+  height:calc(100% - 4 * var(--ring-band));
+  max-width:calc(100% - 4 * var(--ring-band));
+  max-height:calc(100% - 4 * var(--ring-band));
+  background:rgb(109,109,109);
+  color:#fff;
+  font-size:14px;
+}
+.rings .core{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:calc(100% - 6 * var(--ring-band));
+  height:calc(100% - 6 * var(--ring-band));
+  max-width:calc(100% - 6 * var(--ring-band));
+  max-height:calc(100% - 6 * var(--ring-band));
+  border-radius:50%;
+  background:#fff;
+  color:var(--salt-navy-900);
   border:1.5px solid rgba(10,10,10,0.25);
-  display:flex; align-items:center; justify-content:center;
-  font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:500;
-  text-align:center; padding:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  font-weight:500;
+  text-align:center;
+  padding:10px;
+  aspect-ratio:1;
 }
-/* Prompt ring: center the label vertically so it pairs cleanly with the core */
-.rings .r3{ align-items:flex-start; padding-top:22px; padding-bottom:0; }
-.rings-cards{ display:flex; flex-direction:column; gap:20px; }
-.rings-cards .card{ padding:24px 32px; }
-.rings-cards .card h4{ margin:0 0 8px 0; font-size:22px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.01em; }
-.rings-cards .card p{ margin:0; font-size:17px; color:var(--salt-gray-600); line-height:1.5; }
-.rings-cards .card .kicker{ font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--salt-blue-500); font-weight:600; margin-bottom:6px; }
-.rings-footer{
-  margin-top:32px; font-size:18px; color:var(--salt-gray-600);
-  border-top:1px solid var(--salt-gray-300); padding-top:20px;
+/* Side cards: ~40% larger type/pad vs prior 306px cap; more air between stacked cards */
+.rings-cards-col{
+  display:flex;
+  flex-direction:column;
+  gap:25px;
+  justify-content:center;
+  min-width:0;
+  max-width:428px;
+  width:100%;
 }
-.rings-footer b{ color:var(--salt-navy-900); font-weight:700; }
+.rings-cards-col--left{ justify-self:end; }
+.rings-cards-col--right{ justify-self:start; }
+.rings-cards-col .card{
+  padding:31px 34px;
+  margin:0;
+}
+.rings-cards-col .card h4{
+  margin:0 0 8px 0;
+  font-size:27px;
+  color:var(--salt-navy-900);
+  font-weight:700;
+  letter-spacing:-0.01em;
+}
+.rings-cards-col .card p{
+  margin:0;
+  font-size:21px;
+  color:var(--salt-gray-600);
+  line-height:1.45;
+}
+.rings-cards-col .card .kicker{
+  font-size:14px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--salt-blue-500);
+  font-weight:600;
+  margin-bottom:8px;
+}
+/* Tighter title stack so the diagram stays below the headline */
+section.slide-rings .slide-title{ margin-bottom:20px; }
 
 /* =========================================================
    SLIDE 8 — limitation → solution
    ========================================================= */
+/* Fills viewport below eyebrow/title/lede; rows split remaining height evenly (3 tiers × 2 cols) */
 .limit-list{
-  display:grid; grid-template-columns:1fr 1fr;
-  column-gap:40px; row-gap:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:repeat(3,minmax(0,1fr));
+  column-gap:48px;
+  row-gap:0;
+  flex:1;
+  min-height:0;
   border-top:1px solid var(--salt-gray-300);
 }
 .limit-list .lr{
-  display:grid; grid-template-columns:1fr 56px 1fr;
-  gap:24px; align-items:center;
-  padding:22px 0; border-bottom:1px solid var(--salt-gray-300);
+  display:grid;
+  grid-template-columns:1fr min(67px,5vw) 1fr;
+  gap:29px;
+  align-items:center;
+  padding:26px 0;
+  border-bottom:1px solid var(--salt-gray-300);
 }
-.limit-list .lim{ font-size:20px; color:var(--salt-gray-900); font-weight:400; }
+/* +20% vs prior 20/28px */
+.limit-list .lim{ font-size:24px; color:var(--salt-gray-900); font-weight:400; line-height:1.35; }
+/* Lucide in .lim: doubled (+100%) from prior 24px sizing so icons read beside 24px copy */
+.limit-list .lim svg{
+  width:48px;
+  height:48px;
+  vertical-align:middle;
+  margin-right:28px;
+  color:inherit;
+}
 .limit-list .arrow{
-  color:var(--salt-blue-500); font-size:28px; font-weight:700;
+  color:var(--salt-blue-500); font-size:calc(28px * 1.2); font-weight:700;
   text-align:center; letter-spacing:-0.05em;
 }
 .limit-list .sol{
-  font-size:20px; color:var(--salt-navy-900); font-weight:700;
-  letter-spacing:-0.005em;
+  font-size:24px; color:var(--salt-navy-900); font-weight:700;
+  letter-spacing:-0.005em; line-height:1.35;
 }
 
 /* =========================================================
@@ -375,9 +558,23 @@ section{
   padding:32px; display:flex; flex-direction:column; gap:16px;
 }
 .grid-6 .card .top{ display:flex; align-items:center; justify-content:space-between; }
+/* Lucide icons match chip diameter (100% of .chip footprint) */
+.grid-6 .card .top .ico{
+  width:60px;
+  height:60px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.grid-6 .card .top .ico svg{
+  width:100%;
+  height:100%;
+}
 .grid-6 .card h4{
   font-size:24px; font-weight:700; color:var(--salt-navy-900);
-  margin:0; letter-spacing:-0.01em; line-height:1.2;
+  /* Extra air below chip row — pulls title + body down as a block */
+  margin:50px 0 0 0; letter-spacing:-0.01em; line-height:1.2;
 }
 .grid-6 .card p{ font-size:17px; color:var(--salt-gray-600); margin:0; line-height:1.5; }
 .grid-6 .card .ico{ color:var(--salt-blue-500); }
@@ -552,11 +749,18 @@ section{
   background:var(--salt-navy-900); color:#fff;
 }
 .ex2 .stripe{ background:var(--salt-amber-500); }
-.ex2 .left{ padding:96px 48px 96px 80px; display:flex; flex-direction:column; justify-content:center; }
+/* 12px stripe + 84px pad = 96px — matches .frame title gutter across the deck */
+.ex2 .left{ padding:96px 48px 96px 84px; display:flex; flex-direction:column; justify-content:center; }
 .ex2 .left .numeral{ font-size:180px; font-weight:700; line-height:0.9; color:var(--salt-blue-500); letter-spacing:-0.04em; }
 .ex2 .left .eyebrow{ color:var(--salt-blue-300); margin:32px 0 16px 0; }
 .ex2 .left h2{ margin:0 0 20px 0; font-size:60px; line-height:1.0; font-weight:700; letter-spacing:-0.02em; color:#fff; }
 .ex2 .left p{ font-size:22px; color:var(--salt-gray-300); line-height:1.5; margin:0 0 28px 0; }
+/* Demo session intro: subline under h2 — medium gray vs white headline */
+/* Demo session + numbered section openers: same split layout */
+.ex2.ex2-demo-intro .left > p,
+.ex2.ex2-section-intro .left > p{ color:var(--salt-gray-600); }
+.ex2.ex2-section-intro .left .numeral{ color:rgb(249,249,249); }
+.ex2.ex2-section-intro .left .eyebrow{ color:#fff; }
 .ex2 .left .duration{
   align-self:flex-start; padding:10px 18px; border:1.5px solid rgba(255,255,255,0.3);
   border-radius:999px; font-size:12px; font-weight:700; letter-spacing:0.12em;
@@ -570,9 +774,62 @@ section{
   column-gap:24px; row-gap:28px;
   align-content:center;
 }
-.ex2 .right .lede{
-  grid-column:1 / -1;
-  font-size:24px; color:#fff; line-height:1.4; font-weight:400; max-width:900px; margin:0;
+/**
+ * Split intro (demo + section openers): right column lede + chip row — same geometry
+ * as the demo session slide.
+ */
+.ex2.ex2-demo-intro .right,
+.ex2.ex2-section-intro .right{
+  grid-template-columns:1fr;
+  grid-template-rows:1fr auto;
+  column-gap:0;
+  row-gap:28px;
+  align-content:stretch;
+  position:relative;
+  min-height:0;
+}
+.ex2.ex2-demo-intro .ex2-lede-overlay,
+.ex2.ex2-section-intro .ex2-lede-overlay{
+  grid-row:1;
+  grid-column:1;
+  align-self:stretch;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  margin:0;
+  padding:100px 16px 0 400px;
+  z-index:2;
+  max-width:none;
+  font-size:32px;
+  font-weight:200;
+  line-height:1.35;
+  color:#fff;
+  text-align:left;
+}
+.ex2.ex2-demo-intro .ex2-lede-inner,
+.ex2.ex2-section-intro .ex2-lede-inner{
+  display:block;
+  max-width:400px;
+  width:100%;
+}
+.ex2.ex2-demo-intro .ex2-lede-overlay b,
+.ex2.ex2-section-intro .ex2-lede-overlay b{
+  font-weight:700;
+  color:#fff;
+}
+.ex2.ex2-demo-intro .right .chip-row,
+.ex2.ex2-section-intro .right .chip-row{
+  grid-row:2;
+  grid-column:1;
+  margin-top:0;
+  /* Hug content so grid stretch does not imply a full-bleed bar; pin start edge numerically below */
+  justify-self:start;
+  width:max-content;
+  max-width:100%;
+  /* Match .slide-title column: stripe (12) + left rail (520) + .right padding-left (48) → offset to 96px */
+  margin-left: calc(96px - 12px - 520px - 48px);
+  z-index:3;
+  position:relative;
 }
 .ex2 .right .chip-row{ grid-column:1 / -1; }
 .ex2 .right .card{
@@ -609,7 +866,20 @@ section{
 }
 .ex2 .right .chip-row span{ display:inline-flex; align-items:center; gap:8px; }
 .ex2 .right .chip-row .d{ width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.35); }
-.ex2 .footer{ color:rgba(255,255,255,0.4); left:80px; }
+/**
+ * Right column with only the two checklist cards (no lede / chip row):
+ * single auto row so the cards stay vertically centered between header and footer.
+ */
+.ex2 .right.ex2-right--dual-cards{
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:auto;
+  row-gap:28px;
+  align-content:center;
+  /* Extra inset so checklist cards clear the left DEMO rail */
+  padding-left:200px;
+  padding-top:90px;
+}
+.ex2 .footer{ color:rgba(255,255,255,0.4); left:96px; }
 
 /* =========================================================
    SLIDE 21 — scenarios + deliverables + tips
@@ -628,56 +898,102 @@ section{
 }
 .scenario h4{ margin:0; font-size:24px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
 .scenario p{ margin:0; font-size:16px; color:var(--salt-gray-600); line-height:1.5; }
-.ex21-bottom{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
+.ex21-bottom{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:1fr;
+  gap:28px;
+  align-items:stretch;
+  flex:1;
+  min-height:0;
+}
 .deliverables{
   background:var(--salt-gray-100); border-radius:8px; padding:28px 32px;
-  border-left:4px solid var(--salt-blue-500);
+  min-height:0;
+  height:100%;
+  display:flex;
+  flex-direction:column;
 }
 .deliverables h4,
 .tips h4{
   margin:0 0 16px 0; font-size:13px; letter-spacing:0.12em; text-transform:uppercase;
   color:var(--salt-blue-500); font-weight:600;
+  flex-shrink:0;
 }
-.deliverables ol{ margin:0; padding:0; list-style:none; counter-reset:d; }
+.deliverables ol{
+  margin:0; padding:0; list-style:none; counter-reset:d;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
 .deliverables ol li{
-  counter-increment:d; padding:10px 0 10px 40px; position:relative;
-  font-size:17px; color:var(--salt-navy-900);
+  counter-increment:d;
+  flex:1;
+  display:flex;
+  align-items:center;
+  padding:12px 12px 12px 52px;
+  position:relative;
+  min-height:0;
+  font-size:24px; line-height:1.35; color:var(--salt-navy-900);
   border-bottom:1px solid var(--salt-gray-300);
 }
 .deliverables ol li:last-child{ border-bottom:none; }
 .deliverables ol li::before{
   content:counter(d,decimal-leading-zero);
-  position:absolute; left:0; top:10px;
+  position:absolute; left:0; top:50%;
+  transform:translateY(-50%);
   font-family:'JetBrains Mono',monospace; font-weight:500;
-  color:var(--salt-blue-500); font-size:15px;
+  color:var(--salt-blue-500); font-size:18px;
 }
 .tips{
   background:var(--salt-navy-900); color:#fff; border-radius:8px; padding:28px 32px;
+  min-height:0;
+  height:100%;
+  display:flex;
+  flex-direction:column;
 }
 .tips h4{ color:var(--salt-blue-300); }
-.tips ul{ margin:0; padding:0; list-style:none; }
+.tips ul{
+  margin:0; padding:0; list-style:none;
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
 .tips ul li{
-  padding:10px 0 10px 26px; position:relative;
-  font-size:17px; color:#fff; line-height:1.45;
+  flex:1;
+  display:flex;
+  align-items:center;
+  padding:12px 12px 12px 34px;
+  position:relative;
+  min-height:0;
+  font-size:24px; color:#fff; line-height:1.35;
   border-bottom:1px solid rgba(255,255,255,0.12);
 }
 .tips ul li:last-child{ border-bottom:none; }
 .tips ul li::before{
-  content:"→"; position:absolute; left:0; top:10px;
-  color:#ffffff; font-weight:700;
+  content:"→"; position:absolute; left:0; top:50%;
+  transform:translateY(-50%);
+  color:#ffffff; font-weight:700; font-size:22px;
 }
 
 /* =========================================================
    SLIDE 22 — takeaways
    ========================================================= */
-.takeaways{ display:flex; flex-direction:column; gap:18px; margin-bottom:32px; }
-.take{
-  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
-  display:grid; grid-template-columns:88px 1fr; gap:28px; align-items:center;
-  padding:24px 32px; box-shadow:var(--card-shadow);
-  transition:transform 200ms ease-out, box-shadow 200ms ease-out;
+.takeaways{
+  display:flex; flex-direction:column; gap:50px; margin-bottom:32px;
+  padding:100px 0 0 50px;
 }
-.take:hover{ transform:translateY(-4px); box-shadow:var(--card-shadow-hover); }
+.take{
+  background:transparent;
+  border:none;
+  border-radius:0;
+  display:grid; grid-template-columns:88px 1fr; gap:28px; align-items:center;
+  padding:0;
+  box-shadow:none;
+}
+.take:hover{ transform:none; box-shadow:none; }
 .take .n{
   width:64px; height:64px; border-radius:999px;
   background:var(--salt-blue-500); color:#fff;
@@ -732,17 +1048,36 @@ pre.tree, pre.code-block{
   font-family:'JetBrains Mono',monospace; font-size:14px; line-height:1.55;
   box-shadow:var(--card-shadow);
 }
+/* Anatomy slide: file tree mono sized between body copy and full deck title scale */
+pre.tree{
+  font-size:18px;
+  line-height:1.5;
+}
 pre.tree .dim{ color:var(--salt-blue-300); }
-pre.tree .accent{ color:var(--salt-amber-500); }
+/* Key harness files — real orange on dark tree bg (salt-amber token is grayscale in this deck) */
+pre.tree .accent{ color:#FB923C; }
 pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
-.file-callouts{ display:flex; flex-direction:column; gap:14px; }
+.file-callouts{ display:flex; flex-direction:column; gap:40px; }
 .file-callouts .item{
-  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
-  padding:18px 22px; box-shadow:var(--card-shadow);
+  background:transparent;
+  border:none;
+  border-radius:0;
+  padding:4px 0;
+  box-shadow:none;
+}
+/** Path row: icon + monospace path (Lucide icons rendered on DOMContentLoaded). */
+.file-callouts .file-callout-path{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.file-callouts .file-callout-ico{
+  flex-shrink:0;
+  color:var(--salt-blue-500);
 }
 .file-callouts .item code{
-  font-family:'JetBrains Mono',monospace; font-size:14px;
-  color:var(--salt-blue-500); font-weight:600;
+  font-family:'JetBrains Mono',monospace; font-size:24px;
+  color:var(--salt-blue-500); font-weight:600; line-height:1.25;
 }
 .file-callouts .item h5{
   margin:6px 0 4px 0; font-size:16px; font-weight:700;
@@ -917,28 +1252,43 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 }
 
 /* =========================================================
-   DEMO RUBRIC — score table
+   DEMO RUBRIC — score table (flexes to fill frame height on slide)
    ========================================================= */
 .rubric{
   border-top:1px solid var(--salt-gray-300);
   background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
   overflow:hidden; box-shadow:var(--card-shadow);
+  flex:1;
+  min-height:0;
+  display:flex;
+  flex-direction:column;
 }
 .rubric .rhead, .rubric .rrow{
   display:grid; grid-template-columns:0.9fr 2fr 0.6fr;
-  gap:24px; padding:18px 28px;
-  border-bottom:1px solid var(--salt-gray-300); align-items:center;
+  gap:32px;
+  padding:clamp(24px,2.4vh,36px) 36px;
+  border-bottom:1px solid var(--salt-gray-300);
+  align-items:center;
 }
-.rubric .rrow:last-child{ border-bottom:none; }
 .rubric .rhead{
+  flex:0 0 auto;
   background:var(--salt-gray-100);
-  font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+  font-size:14px; letter-spacing:0.12em; text-transform:uppercase;
   color:var(--salt-gray-600); font-weight:600;
 }
-.rubric .rcat{ font-size:18px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.005em; }
-.rubric .rdesc{ font-size:15px; color:var(--salt-gray-600); line-height:1.45; }
+.rubric .rrow{
+  flex:1 1 0;
+  min-height:0;
+}
+.rubric .rrow:last-child{ border-bottom:none; }
+.rubric .rcat{
+  font-size:22px; color:var(--salt-navy-900); font-weight:700; letter-spacing:-0.005em;
+}
+.rubric .rdesc{
+  font-size:18px; color:var(--salt-gray-600); line-height:1.52;
+}
 .rubric .rpts{
-  font-family:'JetBrains Mono',monospace; font-size:18px;
+  font-family:'JetBrains Mono',monospace; font-size:22px;
   color:var(--salt-blue-500); font-weight:600; text-align:right;
 }
 
@@ -971,48 +1321,481 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 .resource--copilot .src{ color:var(--salt-amber-500); }
 
 /* =========================================================
-   ENVIRONMENT / GROUND RULES — 3-card grid + bottom callout
+   ENVIRONMENT / GROUND RULES — 2-card grid (full-height row)
    ========================================================= */
-.env-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.env-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  grid-template-rows:1fr;
+  gap:24px;
+  flex:1;
+  min-height:0;
+  align-items:stretch;
+}
 .env-card{
-  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
-  padding:28px 32px; box-shadow:var(--card-shadow);
+  background:#000;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:28px 32px;
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
   display:flex; flex-direction:column; gap:14px;
+  min-height:0;
+  height:100%;
 }
 .env-card .env-tag{
-  font-size:11px; letter-spacing:0.12em; text-transform:uppercase;
-  color:var(--salt-blue-500); font-weight:700;
+  /* Match body list scale so headers don’t feel like tiny captions */
+  font-size:24px; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--salt-gray-600); font-weight:700;
 }
 .env-card ul{ margin:0; padding:0; list-style:none; }
 .env-card ul li{
-  font-size:16px; padding:10px 0 10px 22px; position:relative;
-  color:var(--salt-gray-900); line-height:1.45;
-  border-bottom:1px solid var(--salt-gray-100);
+  font-size:24px; padding:12px 0 12px 24px; position:relative;
+  color:#fff; line-height:1.45;
+  border-bottom:1px solid rgba(255,255,255,.12);
 }
 .env-card ul li:last-child{ border-bottom:none; }
 .env-card ul li::before{
   content:""; width:6px; height:6px; border-radius:50%;
   background:var(--salt-blue-500);
-  position:absolute; left:0; top:18px;
+  position:absolute; left:0; top:calc(12px + 0.55em);
 }
-.env-card--build{ border-left:3px solid var(--salt-amber-500); }
-.env-card--build .env-tag{ color:var(--salt-amber-500); }
-.env-card--dont{ background:var(--salt-gray-100); }
-.env-card--dont .env-tag{ color:var(--salt-gray-600); }
-.env-card--dont ul li{ color:var(--salt-gray-600); }
-.env-card--dont ul li::before{ background:var(--salt-gray-600); }
+/* Same kicker treatment as left card — amber stripe not needed on dark panel */
+.env-card--build .env-tag{ color:var(--salt-gray-600); }
 
-.env-callout{
-  margin-top:28px;
-  background:var(--salt-navy-900); color:#fff;
-  border-radius:8px; padding:24px 32px;
-  font-size:18px; line-height:1.5;
+/* =========================================================
+   SLIDE 2 — full-height card variant (slide 02 only; inverts to dark panel)
+   ========================================================= */
+.grid-3--full{ flex:1; align-items:stretch; }
+.grid-3--full .card{
+  display:flex; flex-direction:column;
+  background:#000;
+  border:1px solid #333;
+  box-shadow:0 16px 40px rgba(0,0,0,.45);
 }
-.env-callout b{ color:var(--salt-amber-500); }
-.env-callout code{
-  font-family:'JetBrains Mono',monospace; font-size:15px;
-  background:rgba(255,255,255,0.12); padding:2px 8px; border-radius:4px;
+.grid-3--full .card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 22px 52px rgba(0,0,0,.55);
+}
+.grid-3--full .card .kicker{
+  color:var(--salt-gray-600);
+}
+.grid-3--full .card h3{
   color:#fff;
+}
+.grid-3--full .card p{ font-size:24px; line-height:1.5; color:#fff; }
+
+/* =========================================================
+   SADDLE INTRO — Foundations · What is a harness?
+   ========================================================= */
+.saddle-layout{
+  display:grid; grid-template-columns:1.1fr 1fr; gap:80px;
+  align-items:center; flex:1;
+}
+.saddle-layout .saddle-art{
+  width:100%;
+  max-width:960px;
+  height:auto;
+  max-height:min(560px,52vh);
+  display:block;
+  margin:0 auto;
+  object-fit:contain;
+  object-position:left center;
+}
+.saddle-layout .saddle-points{
+  display:flex; flex-direction:column; gap:36px;
+  background:#000;
+  border:1px solid #333;
+  border-radius:8px;
+  padding:40px;
+  box-shadow:0 16px 40px rgba(0,0,0,.25);
+}
+.saddle-layout .saddle-points .point .label{
+  font-size:24px; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--salt-gray-600); margin-bottom:10px;
+}
+.saddle-layout .saddle-points .point h4{
+  font-size:33.8px; font-weight:700; color:#fff;
+  margin:0 0 10px 0; letter-spacing:-0.01em;
+}
+.saddle-layout .saddle-points .point p{
+  font-size:23.4px; line-height:1.55; color:#fff; margin:0;
+}
+
+/* =========================================================
+   HARVEY EXAMPLE — when a harness becomes a product
+   ========================================================= */
+.harvey-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+  align-items:stretch;
+}
+.harvey-grid .h-card{
+  background:#fff; border:1px solid var(--salt-gray-300);
+  border-radius:8px; box-shadow:var(--card-shadow);
+  padding:28px; display:flex; flex-direction:column; gap:10px;
+}
+.harvey-grid .h-card .h-tag{
+  font-size:11px; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--salt-blue-500);
+}
+.harvey-grid .h-card h4{
+  font-size:20px; font-weight:700; color:var(--salt-navy-900);
+  margin:0; letter-spacing:-0.01em;
+}
+.harvey-grid .h-card p{
+  font-size:15px; line-height:1.5; color:var(--salt-gray-600); margin:0;
+}
+.harvey-grid .h-card .h-comp{
+  margin-top:auto; padding-top:14px; border-top:1px dashed var(--salt-gray-300);
+  font-size:11px; font-weight:600; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--salt-gray-600);
+}
+/* Two-column Harvey slide: ~60%/40%; media column fills full width of left track */
+.harvey-split{
+  display:grid;
+  grid-template-columns:minmax(0, 6fr) minmax(0, 4fr);
+  gap:48px;
+  align-items:start;
+  flex:1;
+  min-height:0;
+}
+.harvey-split .harvey-gif-col{
+  box-sizing:border-box;
+  position:relative;
+  border-radius:8px;
+  overflow:hidden;
+  background:var(--salt-gray-100);
+  border:1px solid var(--salt-gray-300);
+  width:100%;
+  min-width:0;
+  /* Match harness-demo.gif frame (1280×800) so height tracks column width */
+  aspect-ratio:16 / 10;
+  height:auto;
+  /* Inner img.harvey-embed is position:absolute; fills this box with object-fit:cover */
+}
+.harvey-split .harvey-embed{
+  position:absolute;
+  inset:0;
+  box-sizing:border-box;
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  border:0;
+  object-fit:cover;
+  object-position:center center;
+  background:transparent;
+}
+/* Row-major grid: cells (1,4), (2,5), (3,6) → first three stack left, last three right */
+.harvey-split .harvey-list{
+  margin:0;
+  padding:0;
+  list-style:none;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  column-gap:36px;
+  row-gap:20px;
+  align-items:start;
+}
+.harvey-split .harvey-list > li{
+  margin:0;
+  padding:0 0 18px 0;
+  border-bottom:1px solid var(--salt-gray-300);
+}
+/* Bottom row of each column: no rule under the third row (items 3 and 6 in DOM order) */
+.harvey-split .harvey-list > li:nth-child(3),
+.harvey-split .harvey-list > li:nth-child(6){
+  border-bottom:none;
+  padding-bottom:0;
+}
+.harvey-split .harvey-list .h-tag{
+  font-size:11px; font-weight:600; letter-spacing:0.12em;
+  text-transform:uppercase; color:var(--salt-blue-500);
+  margin-bottom:6px;
+}
+.harvey-split .harvey-list h4{
+  font-size:20px; font-weight:700; color:var(--salt-navy-900);
+  margin:0 0 6px 0; letter-spacing:-0.01em;
+}
+.harvey-split .harvey-list p{
+  font-size:15px; line-height:1.5; color:var(--salt-gray-600); margin:0 0 8px 0;
+}
+.harvey-split .harvey-list .h-comp{
+  font-size:11px; font-weight:600; letter-spacing:0.08em;
+  text-transform:uppercase; color:var(--salt-gray-600);
+}
+/* =========================================================
+   PROMPT STRUCTURES — meta vs template, chains, by component
+   ========================================================= */
+.prompt-block{
+  background:var(--salt-navy-900); color:#E8E8E8; border-radius:8px;
+  padding:16px 18px; margin:0; overflow:hidden;
+  font-family:'JetBrains Mono',monospace; font-size:12.5px; line-height:1.55;
+  white-space:pre;
+}
+.prompt-block .key{ color:var(--salt-amber-500); font-weight:600; }
+.prompt-block .var{ color:var(--salt-blue-300); }
+.prompt-block .comment{ color:var(--salt-gray-600); font-style:italic; }
+
+/* Meta vs Template — 2 cards */
+.meta-template-grid{
+  display:grid; grid-template-columns:1fr 1fr; gap:32px;
+  align-items:stretch;
+}
+.mt-card{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  box-shadow:var(--card-shadow); padding:28px 32px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.mt-tag{
+  display:inline-flex; align-self:flex-start;
+  font-size:11px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+  padding:5px 12px; border-radius:999px; color:#fff;
+}
+.mt-tag--meta{ background:var(--salt-navy-900); }
+.mt-tag--template{ background:var(--salt-blue-500); }
+.mt-tag--context{ background:var(--salt-amber-500); }
+.mt-card h3{
+  font-size:22px; font-weight:700; color:var(--salt-navy-900);
+  margin:0; letter-spacing:-0.01em;
+}
+.mt-card ul{ margin:0; padding-left:20px; font-size:15px; color:var(--salt-gray-600); line-height:1.55; }
+.mt-card ul li{ margin-bottom:4px; }
+.mt-strap{
+  margin-top:24px; padding:18px 24px;
+  border-left:4px solid var(--salt-blue-500); background:rgba(10,10,10,0.04);
+  font-size:17px; line-height:1.5; color:var(--salt-navy-900);
+}
+
+/* Prompt chains in workflows */
+.chain-meta-band{
+  background:var(--salt-navy-900); color:#fff;
+  padding:14px 22px; border-radius:8px;
+  font-size:13px; font-weight:600; letter-spacing:0.06em;
+  text-align:center; margin-bottom:24px;
+  display:flex; align-items:center; justify-content:center; gap:14px;
+}
+.chain-meta-band .pin{
+  display:inline-flex; padding:4px 10px; border-radius:999px;
+  background:rgba(255,255,255,0.15); font-size:10px; letter-spacing:0.16em;
+}
+.prompt-chain{
+  display:grid; grid-template-columns:1fr auto 1fr auto 1fr;
+  gap:16px; align-items:stretch;
+}
+.chain-stage{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  box-shadow:var(--card-shadow); padding:20px 22px;
+  display:flex; flex-direction:column; gap:10px;
+}
+.chain-num{
+  width:36px; height:36px; border-radius:999px;
+  background:var(--salt-blue-500); color:#fff; font-weight:700; font-size:16px;
+  display:inline-flex; align-items:center; justify-content:center;
+  align-self:flex-start;
+}
+.chain-stage h4{ margin:0; font-size:18px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.chain-stage .prompt-block{ font-size:11.5px; padding:12px 14px; }
+.chain-out{
+  margin-top:auto; padding-top:10px; border-top:1px dashed var(--salt-gray-300);
+  font-size:11px; font-weight:600; letter-spacing:0.06em;
+  text-transform:uppercase; color:var(--salt-blue-500);
+}
+.chain-arrow{
+  align-self:center; font-size:32px; font-weight:300;
+  color:var(--salt-gray-300);
+}
+.chain-strap{
+  margin-top:24px; padding:18px 24px;
+  border-left:4px solid var(--salt-amber-500); background:rgba(10,10,10,0.04);
+  font-size:17px; line-height:1.5; color:var(--salt-navy-900);
+}
+
+/* Prompt structures by component — 4-card grid */
+.ps-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+  align-items:stretch;
+}
+.ps-card{
+  background:#fff; border:1px solid var(--salt-gray-300); border-radius:8px;
+  box-shadow:var(--card-shadow); padding:20px 22px;
+  display:flex; flex-direction:column; gap:10px;
+}
+.ps-head{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.ps-head h4{ margin:0; font-size:20px; font-weight:700; color:var(--salt-navy-900); letter-spacing:-0.01em; }
+.ps-where{
+  margin:0; font-family:'JetBrains Mono',monospace;
+  font-size:11px; color:var(--salt-gray-600);
+}
+.ps-card .prompt-block{
+  font-size:11px; line-height:1.5; padding:14px 16px;
+  flex:1;
+}
+
+/* =========================================================
+   SLIDE REVEAL ANIMATIONS — fire on data-deck-active
+   ========================================================= */
+@keyframes ah-rise{
+  from{ opacity:0; transform:translateY(14px); }
+  to  { opacity:1; transform:translateY(0); }
+}
+@keyframes ah-pop{
+  from{ opacity:0; transform:translateY(14px) scale(.985); }
+  to  { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes ah-fade{
+  from{ opacity:0; }
+  to  { opacity:1; }
+}
+@keyframes ah-from-left{
+  from{ opacity:0; transform:translateX(-22px); }
+  to  { opacity:1; transform:translateX(0); }
+}
+@keyframes ah-from-right{
+  from{ opacity:0; transform:translateX(22px); }
+  to  { opacity:1; transform:translateX(0); }
+}
+
+/* Stop animations on inactive slides so the outgoing slide doesn't
+   re-trigger anything during the cross-fade. */
+section:not([data-deck-active]) *{ animation:none !important; }
+
+/* Universal text reveal: eyebrow → title → lede → footer */
+section[data-deck-active] .eyebrow{
+  animation: ah-rise 460ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .slide-title{
+  animation: ah-rise 520ms 80ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .slide-lede{
+  animation: ah-rise 560ms 180ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .footer{
+  animation: ah-fade 600ms 320ms ease both;
+}
+
+/* Title slide */
+section[data-deck-active] .s-title .eyebrow-mark{ animation: ah-fade 800ms 200ms ease both; }
+section[data-deck-active] .s-title .meta{ animation: ah-fade 800ms 400ms ease both; }
+section[data-deck-active] .s-title h1{ animation: ah-rise 760ms 200ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .s-title .subtitle{ animation: ah-rise 600ms 600ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .s-title .tag-pill{ animation: ah-pop 600ms 800ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* Section dividers */
+section[data-deck-active] .divider .numeral{ animation: ah-rise 720ms 100ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .divider .body{ animation: ah-rise 600ms 280ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .ex2.ex2-demo-intro .left .numeral,
+section[data-deck-active] .ex2.ex2-section-intro .left .numeral{
+  animation: ah-rise 720ms 100ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .ex2.ex2-demo-intro .right,
+section[data-deck-active] .ex2.ex2-section-intro .right{
+  animation: ah-rise 600ms 280ms cubic-bezier(.2,.7,.2,1) both;
+}
+
+/* Slide 2 — Why this workshop matters: 3-card stagger */
+section[data-deck-active] .grid-3 .card:nth-child(1){ animation: ah-pop 560ms 260ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .grid-3 .card:nth-child(2){ animation: ah-pop 560ms 360ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .grid-3 .card:nth-child(3){ animation: ah-pop 560ms 460ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* Agenda — columns slide in then rows stagger */
+section[data-deck-active] .day-agenda .day-col:nth-child(1){ animation: ah-from-left 560ms 240ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .day-agenda .day-col:nth-child(2){ animation: ah-from-right 560ms 320ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .agenda .row{
+  animation: ah-rise 420ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .agenda .row:nth-child(1){ animation-delay: 480ms; }
+section[data-deck-active] .agenda .row:nth-child(2){ animation-delay: 540ms; }
+section[data-deck-active] .agenda .row:nth-child(3){ animation-delay: 600ms; }
+section[data-deck-active] .agenda .row:nth-child(4){ animation-delay: 660ms; }
+section[data-deck-active] .agenda .row:nth-child(5){ animation-delay: 720ms; }
+section[data-deck-active] .agenda .row:nth-child(6){ animation-delay: 780ms; }
+section[data-deck-active] .agenda .row:nth-child(7){ animation-delay: 840ms; }
+section[data-deck-active] .agenda .row:nth-child(8){ animation-delay: 900ms; }
+section[data-deck-active] .agenda .row:nth-child(9){ animation-delay: 960ms; }
+section[data-deck-active] .agenda .row:nth-child(10){ animation-delay: 1020ms; }
+section[data-deck-active] .agenda .row:nth-child(11){ animation-delay: 1080ms; }
+
+/* Environment grid (3b) */
+section[data-deck-active] .env-grid .env-card{ animation: ah-pop 520ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .env-grid .env-card:nth-child(1){ animation-delay: 240ms; }
+section[data-deck-active] .env-grid .env-card:nth-child(2){ animation-delay: 320ms; }
+
+/* Saddle metaphor art + text columns */
+section[data-deck-active] .saddle-art{
+  animation:ah-from-left 780ms 200ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .saddle-points .point:nth-child(1){ animation: ah-rise 540ms 600ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .saddle-points .point:nth-child(2){ animation: ah-rise 540ms 800ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .saddle-points .point:nth-child(3){ animation: ah-rise 540ms 1000ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* Core formula — hero spans pop in sequence, then columns, then quote */
+section[data-deck-active] .formula-hero > *{
+  animation: ah-pop 480ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .formula-hero > *:nth-child(1){ animation-delay: 280ms; }
+section[data-deck-active] .formula-hero > *:nth-child(2){ animation-delay: 420ms; }
+section[data-deck-active] .formula-hero > *:nth-child(3){ animation-delay: 520ms; }
+section[data-deck-active] .formula-hero > *:nth-child(4){ animation-delay: 640ms; }
+section[data-deck-active] .formula-hero > *:nth-child(5){ animation-delay: 760ms; }
+section[data-deck-active] .formula-columns .col:nth-child(1){ animation: ah-rise 520ms 940ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .formula-columns .col:nth-child(2){ animation: ah-rise 520ms 1020ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .formula-columns .col:nth-child(3){ animation: ah-rise 520ms 1100ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* Three Levels rings */
+section[data-deck-active] .rings{ animation: ah-pop 720ms 240ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .rings-cards-col--left .card:nth-child(1){ animation: ah-rise 460ms 360ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .rings-cards-col--left .card:nth-child(2){ animation: ah-rise 460ms 460ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .rings-cards-col--right .card:nth-child(1){ animation: ah-rise 460ms 560ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .rings-cards-col--right .card:nth-child(2){ animation: ah-rise 460ms 660ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* What models can't do — limit list rows */
+section[data-deck-active] .limit-list .lr{ animation: ah-rise 420ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .limit-list .lr:nth-child(1){ animation-delay: 240ms; }
+section[data-deck-active] .limit-list .lr:nth-child(2){ animation-delay: 320ms; }
+section[data-deck-active] .limit-list .lr:nth-child(3){ animation-delay: 400ms; }
+section[data-deck-active] .limit-list .lr:nth-child(4){ animation-delay: 480ms; }
+section[data-deck-active] .limit-list .lr:nth-child(5){ animation-delay: 560ms; }
+section[data-deck-active] .limit-list .lr:nth-child(6){ animation-delay: 640ms; }
+
+/* Harvey slide — list rows (replaces former 6-up card grid) */
+section[data-deck-active] .harvey-split .harvey-list > li{
+  animation: ah-rise 480ms cubic-bezier(.2,.7,.2,1) both;
+}
+section[data-deck-active] .harvey-split .harvey-list > li:nth-child(1){ animation-delay: 200ms; }
+section[data-deck-active] .harvey-split .harvey-list > li:nth-child(2){ animation-delay: 260ms; }
+section[data-deck-active] .harvey-split .harvey-list > li:nth-child(3){ animation-delay: 320ms; }
+section[data-deck-active] .harvey-split .harvey-list > li:nth-child(4){ animation-delay: 380ms; }
+section[data-deck-active] .harvey-split .harvey-list > li:nth-child(5){ animation-delay: 440ms; }
+section[data-deck-active] .harvey-split .harvey-list > li:nth-child(6){ animation-delay: 500ms; }
+section[data-deck-active] .harvey-split .harvey-gif-col{
+  animation: ah-pop 520ms 180ms cubic-bezier(.2,.7,.2,1) both;
+}
+/* Meta vs Template — 2 cards stagger, strap last */
+section[data-deck-active] .meta-template-grid .mt-card:nth-child(1){ animation: ah-pop 560ms 240ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .meta-template-grid .mt-card:nth-child(2){ animation: ah-pop 560ms 360ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .mt-strap{ animation: ah-rise 520ms 600ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* Prompt chain — meta band → stages walk in left to right → strap */
+section[data-deck-active] .chain-meta-band{ animation: ah-rise 480ms 240ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .prompt-chain .chain-stage:nth-child(1){ animation: ah-pop 520ms 380ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .prompt-chain .chain-arrow:nth-child(2){ animation: ah-fade 400ms 540ms ease both; }
+section[data-deck-active] .prompt-chain .chain-stage:nth-child(3){ animation: ah-pop 520ms 600ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .prompt-chain .chain-arrow:nth-child(4){ animation: ah-fade 400ms 760ms ease both; }
+section[data-deck-active] .prompt-chain .chain-stage:nth-child(5){ animation: ah-pop 520ms 820ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .chain-strap{ animation: ah-rise 520ms 1020ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* Prompt structures — 4 cards stagger */
+section[data-deck-active] .ps-grid .ps-card:nth-child(1){ animation: ah-pop 520ms 240ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .ps-grid .ps-card:nth-child(2){ animation: ah-pop 520ms 320ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .ps-grid .ps-card:nth-child(3){ animation: ah-pop 520ms 400ms cubic-bezier(.2,.7,.2,1) both; }
+section[data-deck-active] .ps-grid .ps-card:nth-child(4){ animation: ah-pop 520ms 480ms cubic-bezier(.2,.7,.2,1) both; }
+
+/* Reduced motion — kill the choreography */
+@media (prefers-reduced-motion: reduce){
+  section[data-deck-active] *,
+  section[data-deck-active] .saddle-art{
+    animation: none !important;
+  }
 }
 
 /* =========================================================
@@ -1020,6 +1803,10 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
    ========================================================= */
 @media print{
   html,body{ background:#fff; }
+  /* No animations or transforms in print. */
+  section[data-deck-active] *{
+    animation: none !important;
+  }
 }
 </style>
 </head>
@@ -1052,9 +1839,8 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
   <div class="frame">
     <div class="eyebrow">Context</div>
     <h2 class="slide-title">Why this workshop matters</h2>
-    <p class="slide-lede">The role of design is shifting from crafting interfaces to orchestrating intelligent systems.</p>
 
-    <div class="grid-3">
+    <div class="grid-3 grid-3--full">
       <div class="card">
         <div class="kicker">01 · Paradigm shift</div>
         <h3>From static wireframes to dynamic orchestration rules.</h3>
@@ -1081,34 +1867,35 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 <section data-label="03 Agenda">
   <div class="frame">
     <div class="eyebrow">Agenda</div>
-    <h2 class="slide-title">Two days, six components, one harness</h2>
-    <p class="slide-lede">Day 1 you learn each component of an agentic harness in focused breakouts. Day 2 you bring them together and test your harness in VS Code with GitHub Copilot.</p>
+    <h2 class="slide-title">Two days, one productized app</h2>
 
     <div class="day-agenda">
       <div class="day-col">
-        <div class="day-header"><span class="day-pill">Day 1 · 120 min</span><h3>Anatomy · Components · Breakouts</h3></div>
+        <div class="day-header"><span class="day-pill">Day 1 · 120 min</span><h3>Build the harness</h3></div>
         <div class="agenda compact">
-          <div class="row"><div class="time">0:00</div><div class="topic">Foundations</div><div class="desc">Agent = Model + Harness. OS analogy. Designer leverage.</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">0:10</div><div class="topic">Anatomy overview</div><div class="desc">Six components + the file structure that backs them.</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">0:20</div><div class="topic">System prompt</div><div class="desc">Identity + structure visual (4 teach) → write yours (8 do).</div><div class="dur">12</div></div>
-          <div class="row"><div class="time">0:32</div><div class="topic">Rules</div><div class="desc">Strong vs weak example (3) → write 3 numbered rules (7).</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">0:42</div><div class="topic">Skills</div><div class="desc">What/anatomy/example (7) → design one skill (8).</div><div class="dur">15</div></div>
-          <div class="row"><div class="time">0:57</div><div class="topic">Tools (functions / scripts / MCP)</div><div class="desc">Three flavors · description craft · script · MCP (10) → define one (10).</div><div class="dur">20</div></div>
-          <div class="row"><div class="time">1:17</div><div class="topic">Hooks</div><div class="desc">Pre/post gate model (3) → wire one pre-tool guard (7).</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">1:27</div><div class="topic">Knowledge base</div><div class="desc">What goes in / out (3) → capture one domain file (7).</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">1:37</div><div class="topic">Show &amp; tell + Memory</div><div class="desc">Each group: what's worth keeping. Memory concept wrap-up.</div><div class="dur">20</div></div>
-          <div class="row"><div class="time">1:57</div><div class="topic">Homework</div><div class="desc">Read VS Code Copilot customization docs before Day 2.</div><div class="dur">3</div></div>
+          <div class="row"><div class="time">0:00</div><div class="topic">Foundations</div><div class="desc">Saddle metaphor · Agent = Model + Harness · Harvey at scale.</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">0:12</div><div class="topic">Anatomy overview</div><div class="desc">Six components + the file structure that backs them.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:22</div><div class="topic">Prompt structures</div><div class="desc">Meta vs template prompts · prompt chains in workflows · 4-way reference.</div><div class="dur">8</div></div>
+          <div class="row"><div class="time">0:30</div><div class="topic">System prompt</div><div class="desc">Identity + structure visual (4 teach) → write yours (8 do).</div><div class="dur">12</div></div>
+          <div class="row"><div class="time">0:42</div><div class="topic">Rules</div><div class="desc">Strong vs weak example (3) → write 3 numbered rules (7).</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:52</div><div class="topic">Skills</div><div class="desc">What/anatomy/example (7) → design one skill (8).</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">1:07</div><div class="topic">Tools (functions / scripts / MCP)</div><div class="desc">Three flavors · description craft · script · MCP (10) → define one (10).</div><div class="dur">20</div></div>
+          <div class="row"><div class="time">1:27</div><div class="topic">Hooks</div><div class="desc">Pre/post gate model (3) → wire one pre-tool guard (7).</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">1:37</div><div class="topic">Knowledge base</div><div class="desc">What goes in / out (3) → capture one domain file (7).</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">1:47</div><div class="topic">Memory + show &amp; tell</div><div class="desc">Persistent vs session memory. Each group: what's worth keeping.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">1:57</div><div class="topic">Homework</div><div class="desc">Bring Figma frames + read Copilot / RooCode docs before Day 2.</div><div class="dur">3</div></div>
         </div>
       </div>
       <div class="day-col">
-        <div class="day-header"><span class="day-pill">Day 2 · 120 min</span><h3>Bring it together · Test in VS Code</h3></div>
+        <div class="day-header"><span class="day-pill">Day 2 · 120 min</span><h3>Figma → frontend → wire the product</h3></div>
         <div class="agenda compact">
-          <div class="row"><div class="time">0:00</div><div class="topic">Recap</div><div class="desc">What worked / what broke between sessions.</div><div class="dur">10</div></div>
-          <div class="row"><div class="time">0:10</div><div class="topic">Copilot customization tour</div><div class="desc">Hooks, skills, slash commands, instructions files.</div><div class="dur">20</div></div>
-          <div class="row"><div class="time">0:30</div><div class="topic">Pair work · wire-up</div><div class="desc">Drop your harness into VS Code; connect each component.</div><div class="dur">40</div></div>
-          <div class="row"><div class="time">1:10</div><div class="topic">Test the golden path</div><div class="desc">Run prompts; watch hooks fire; iterate on misses.</div><div class="dur">20</div></div>
-          <div class="row"><div class="time">1:30</div><div class="topic">Group demos</div><div class="desc">5 min per group · 1 critical tradeoff each.</div><div class="dur">20</div></div>
-          <div class="row"><div class="time">1:50</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">10</div></div>
+          <div class="row"><div class="time">0:00</div><div class="topic">Recap &amp; Day 2 brief</div><div class="desc">What broke overnight. The productized-app target.</div><div class="dur">8</div></div>
+          <div class="row"><div class="time">0:08</div><div class="topic">Figma → frontend design</div><div class="desc">Sketch the UX for your harness in Figma — frames, states, agent surfaces.</div><div class="dur">22</div></div>
+          <div class="row"><div class="time">0:30</div><div class="topic">Define harness &amp; build frontend (Copilot / RooCode)</div><div class="desc">Same app folder in VS Code: extend instructions, tools, and hooks while you generate the UI from your Figma frames.</div><div class="dur">30</div></div>
+          <div class="row"><div class="time">1:00</div><div class="topic">Wire agent + harness + frontend</div><div class="desc">Stay in that project: connect the editor AI, harness files, hooks, and prototype into one runnable flow.</div><div class="dur">25</div></div>
+          <div class="row"><div class="time">1:25</div><div class="topic">Test the productized app</div><div class="desc">Run the golden path end-to-end; watch hooks fire; iterate on misses.</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">1:40</div><div class="topic">Group demos</div><div class="desc">5 min per group · 1 critical tradeoff each.</div><div class="dur">15</div></div>
+          <div class="row"><div class="time">1:55</div><div class="topic">Takeaways</div><div class="desc">Toolkit · resources · what to build next.</div><div class="dur">5</div></div>
         </div>
       </div>
     </div>
@@ -1123,7 +1910,6 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
   <div class="frame">
     <div class="eyebrow">Setup</div>
     <h2 class="slide-title">Your environment &amp; ground rules</h2>
-    <p class="slide-lede">We're not training models or running servers today. You'll author the harness and a frontend prototype, then let your editor's AI play the agent.</p>
 
     <div class="env-grid">
       <div class="env-card">
@@ -1145,20 +1931,8 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
           <li><b>A demo script</b> — one task you'll run live</li>
         </ul>
       </div>
-      <div class="env-card env-card--dont">
-        <div class="env-tag">What you won't build</div>
-        <ul>
-          <li>A standalone agent — no API keys today</li>
-          <li>Model serving · provider billing · auth</li>
-          <li>Production backend or data layer</li>
-          <li>Anything that runs outside VS Code</li>
-        </ul>
-      </div>
     </div>
 
-    <div class="env-callout">
-      <b>The model lives inside your editor.</b> RooCode and Copilot already have the API key — yours doesn't. So your <code>harness/</code> folder + your frontend prototype are loaded <i>into</i> VS Code, and the extension's AI becomes the harnessed agent. That's your runtime for the whole workshop.
-    </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>
@@ -1167,22 +1941,72 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
      SLIDE 4 — Section divider: Foundations
      ============================================================ -->
 <section data-label="04 Section · Foundations">
-  <div class="divider">
-    <div class="numeral">01</div>
-    <div class="body">
-      <div class="eyebrow">Section</div>
+  <div class="ex2 ex2-section-intro">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral">01</div>
+      <div class="eyebrow">Section · Foundations</div>
       <h2>Foundations</h2>
       <p>What is a harness and why should designers care?</p>
       <div class="duration">15 Minutes</div>
+    </div>
+    <div class="right">
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner">One mental model before components and files: the harness is what you design between the user and the model. <b>Everything in this block ladders up to that.</b></span></p>
+      <div class="chip-row">
+        <span>Saddle metaphor</span><span class="d"></span>
+        <span>Core formula</span><span class="d"></span>
+        <span>Rings &amp; limits</span>
+      </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>
 
 <!-- ============================================================
-     SLIDE 5 — Core Formula
+     SLIDE 5 — Intro to the harness concept (saddle metaphor)
      ============================================================ -->
-<section data-label="05 The Core Formula">
+<section data-label="05 Harness Concept · Saddle">
+  <div class="frame">
+    <div class="eyebrow">Foundations · The metaphor</div>
+    <h2 class="slide-title">What is a harness?</h2>
+
+    <div class="saddle-layout">
+      <img
+        class="saddle-art"
+        src="assets/saddle-rider-illustration.png"
+        width="1024"
+        height="819"
+        alt="Western saddle and rider: the horse carries power; tack (seat, stirrups, reins, breast collar, cinch) supplies control — the harness metaphor."
+        decoding="async"
+      />
+
+      <div class="saddle-points">
+        <div class="point">
+          <div class="label">The horse</div>
+          <h4>The model has the power.</h4>
+          <p>Raw intelligence — fast, capable, untrained on your task. Powerful enough to throw a rider.</p>
+        </div>
+        <div class="point">
+          <div class="label">The saddle</div>
+          <h4>The harness makes it ridable.</h4>
+          <p>A seat to sit on, stirrups to steer, a girth to hold the work in place. Not the power — the leverage.</p>
+        </div>
+        <div class="point">
+          <div class="label">The rider</div>
+          <h4>The user gives direction.</h4>
+          <p>Without the saddle, the user is on the ground. With it, they go where they meant to go.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 6 — Core Formula
+     ============================================================ -->
+<section data-label="06 The Core Formula">
   <div class="frame">
     <div class="eyebrow">Foundations</div>
     <h2 class="slide-title">The core formula</h2>
@@ -1213,60 +2037,6 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
       </div>
     </div>
 
-    <blockquote class="pull-quote">
-      "If you're not the model, you're the harness."
-      <cite>— Vivek Trivedy · LangChain</cite>
-    </blockquote>
-
-    <div class="footer">Agentic Harness Engineering Workshop</div>
-  </div>
-</section>
-
-<!-- ============================================================
-     SLIDE 6 — OS Analogy Table
-     ============================================================ -->
-<section data-label="06 The OS Analogy">
-  <div class="frame">
-    <div class="eyebrow">Foundations</div>
-    <h2 class="slide-title">The operating system analogy</h2>
-    <p class="slide-lede">A raw LLM is a CPU with no RAM, no disk, and no I/O. The harness is the operating system.</p>
-
-    <div class="analogy-table">
-      <div class="head">
-        <div>Hardware</div><div></div><div>Agent equivalent</div><div>Description</div>
-      </div>
-      <div class="r">
-        <div class="hw"><i data-lucide="cpu" width="28" height="28"></i>CPU</div>
-        <div class="arrow">→</div>
-        <div class="eq">LLM Model</div>
-        <div class="desc">Raw processing power — brilliant but can't do anything alone.</div>
-      </div>
-      <div class="r">
-        <div class="hw"><i data-lucide="database" width="28" height="28"></i>RAM</div>
-        <div class="arrow">→</div>
-        <div class="eq">Context Window</div>
-        <div class="desc">Fast but limited working memory.</div>
-      </div>
-      <div class="r">
-        <div class="hw"><i data-lucide="hard-drive" width="28" height="28"></i>Disk</div>
-        <div class="arrow">→</div>
-        <div class="eq">External DBs / Files</div>
-        <div class="desc">Large but slower — persistent knowledge.</div>
-      </div>
-      <div class="r">
-        <div class="hw"><i data-lucide="plug" width="28" height="28"></i>Drivers</div>
-        <div class="arrow">→</div>
-        <div class="eq">Tool Integrations</div>
-        <div class="desc">Interfaces to the outside world — APIs, MCP, browsers.</div>
-      </div>
-      <div class="r hl">
-        <div class="hw"><i data-lucide="layers" width="28" height="28"></i>OS</div>
-        <div class="arrow">→</div>
-        <div class="eq">The Harness</div>
-        <div class="desc">Orchestrates everything — <b>this is what we design</b>.</div>
-      </div>
-    </div>
-
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>
@@ -1274,19 +2044,13 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 <!-- ============================================================
      SLIDE 7 — Three Levels of Engineering (rings)
      ============================================================ -->
-<section data-label="07 Three Levels of Engineering">
+<section data-label="07 Three Levels of Engineering" class="slide-rings">
   <div class="frame">
     <div class="eyebrow">Foundations</div>
     <h2 class="slide-title">Three levels of engineering</h2>
 
     <div class="rings-layout">
-      <div class="rings">
-        <div class="ring r1">Harness Engineering</div>
-        <div class="ring r2">Context Engineering</div>
-        <div class="ring r3">Prompt</div>
-        <div class="core" style="width: 110px; height: 110px;">the<br>model</div>
-      </div>
-      <div class="rings-cards">
+      <div class="rings-cards-col rings-cards-col--left">
         <div class="card">
           <div class="kicker">Outer ring</div>
           <h4>Harness Engineering</h4>
@@ -1297,16 +2061,25 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
           <h4>Context Engineering</h4>
           <p>What the model sees and when: memory, retrieval, compaction.</p>
         </div>
+      </div>
+      <div class="rings">
+        <div class="ring r1"><span class="ring-label">Harness Engineering</span></div>
+        <div class="ring r2"><span class="ring-label">Context Engineering</span></div>
+        <div class="ring r3"><span class="ring-label">Prompt</span></div>
+        <div class="core">the<br>model</div>
+      </div>
+      <div class="rings-cards-col rings-cards-col--right">
         <div class="card">
           <div class="kicker">Inner ring</div>
           <h4>Prompt Engineering</h4>
           <p>The instructions the model receives on each turn.</p>
         </div>
+        <div class="card">
+          <div class="kicker">Core</div>
+          <h4>The model</h4>
+          <p>Weights and architecture — capability without tools, memory, or agency until the harness (and editor) turns it into behavior.</p>
+        </div>
       </div>
-    </div>
-
-    <div class="rings-footer">
-      Designers influence all three — <b>but harness engineering is where you have the most leverage.</b>
     </div>
 
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -1320,15 +2093,79 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
   <div class="frame">
     <div class="eyebrow">Foundations</div>
     <h2 class="slide-title">What models can't do out of the box</h2>
-    <p class="slide-lede">Every limitation is solved by a harness feature. This is where your design decisions live.</p>
 
     <div class="limit-list">
-      <div class="lr"><div class="lim"><i data-lucide="brain" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Remember past sessions</div><div class="arrow">→</div><div class="sol">Memory &amp; persistent storage</div></div>
-      <div class="lr"><div class="lim"><i data-lucide="play" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Execute code or actions</div><div class="arrow">→</div><div class="sol">Tool execution &amp; sandboxes</div></div>
-      <div class="lr"><div class="lim"><i data-lucide="globe" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Access the internet</div><div class="arrow">→</div><div class="sol">Web search, API integrations</div></div>
-      <div class="lr"><div class="lim"><i data-lucide="users" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Coordinate with others</div><div class="arrow">→</div><div class="sol">Orchestration &amp; handoffs</div></div>
-      <div class="lr"><div class="lim"><i data-lucide="check-circle" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Verify their own output</div><div class="arrow">→</div><div class="sol">Self-evaluation loops</div></div>
-      <div class="lr"><div class="lim"><i data-lucide="shield" width="20" height="20" style="vertical-align:-4px;margin-right:12px;color:var(--salt-gray-600)"></i>Enforce rules reliably</div><div class="arrow">→</div><div class="sol">Hooks &amp; middleware</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="brain" style="color:var(--salt-gray-600)"></i>Remember past sessions</div><div class="arrow">→</div><div class="sol">Memory &amp; persistent storage</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="play" style="color:var(--salt-gray-600)"></i>Execute code or actions</div><div class="arrow">→</div><div class="sol">Tool execution &amp; sandboxes</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="globe" style="color:var(--salt-gray-600)"></i>Access the internet</div><div class="arrow">→</div><div class="sol">Web search, API integrations</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="users" style="color:var(--salt-gray-600)"></i>Coordinate with others</div><div class="arrow">→</div><div class="sol">Orchestration &amp; handoffs</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="check-circle" style="color:var(--salt-gray-600)"></i>Verify their own output</div><div class="arrow">→</div><div class="sol">Self-evaluation loops</div></div>
+      <div class="lr"><div class="lim"><i data-lucide="shield" style="color:var(--salt-gray-600)"></i>Enforce rules reliably</div><div class="arrow">→</div><div class="sol">Hooks &amp; middleware</div></div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 8b — Harvey: when a harness becomes a product
+     ============================================================ -->
+<section data-label="08b Harness as Product · Harvey">
+  <div class="frame">
+    <div class="eyebrow">Foundations · At scale</div>
+    <h2 class="slide-title">When a harness becomes a product</h2>
+
+    <div class="harvey-split">
+      <div class="harvey-gif-col">
+        <!-- Media spans full ~60% track; aspect 16∶10 tracks GIF crop; embed fills via object-fit:cover -->
+        <img
+          class="harvey-embed"
+          src="assets/harness-demo.gif"
+          width="1280"
+          height="800"
+          alt="Screen recording — harness / editor walkthrough demo"
+          decoding="async"
+          loading="lazy"
+        >
+      </div>
+      <ul class="harvey-list" aria-label="Harvey harness vs generic anatomy">
+        <li>
+          <div class="h-tag">Persona &amp; rules</div>
+          <h4>Domain-specific assistant</h4>
+          <p>Purpose-built for legal — privilege, citations, jurisdictional grounding baked into the system prompt.</p>
+          <div class="h-comp">↳ system prompt</div>
+        </li>
+        <li>
+          <div class="h-tag">Tools</div>
+          <h4>Vault · Knowledge · Workflow Agents</h4>
+          <p>Document store, legal/regulatory/tax retrieval, and pre-built agents for litigation, transactional, in-house.</p>
+          <div class="h-comp">↳ tools + skills</div>
+        </li>
+        <li>
+          <div class="h-tag">Memory &amp; retrieval</div>
+          <h4>Source-grounded answers</h4>
+          <p>Vault is the knowledge base; every output cited back to documents the firm trusts.</p>
+          <div class="h-comp">↳ knowledge base + RAG</div>
+        </li>
+        <li>
+          <div class="h-tag">Orchestration</div>
+          <h4>Specialized agents end-to-end</h4>
+          <p>Distinct workflow agents per practice area; firms build their own within bounds.</p>
+          <div class="h-comp">↳ subagents + handoffs</div>
+        </li>
+        <li>
+          <div class="h-tag">Hooks &amp; governance</div>
+          <h4>Privacy &amp; security gates</h4>
+          <p>Privilege protection, audit trails, deterministic guardrails the model can't bypass.</p>
+          <div class="h-comp">↳ hooks + middleware</div>
+        </li>
+        <li>
+          <div class="h-tag">Integrations</div>
+          <h4>Ecosystem layer</h4>
+          <p>Plugs into the firm's existing workflows — DMS, mobile capture, collaboration spaces.</p>
+          <div class="h-comp">↳ MCP-style connectors</div>
+        </li>
+      </ul>
     </div>
 
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -1339,13 +2176,22 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
      SLIDE 9 — Section divider: The Anatomy
      ============================================================ -->
 <section data-label="09 Section · The Anatomy">
-  <div class="divider">
-    <div class="numeral">02</div>
-    <div class="body">
-      <div class="eyebrow">Section</div>
+  <div class="ex2 ex2-section-intro">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral">02</div>
+      <div class="eyebrow">Section · Harness anatomy</div>
       <h2>The Anatomy</h2>
       <p>Six core harness components and where design decisions live.</p>
       <div class="duration">20 Minutes</div>
+    </div>
+    <div class="right">
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner">You've seen all six on one frame. Next we walk each component with concrete shapes — and tie every decision to a file you can open in the editor. <b>The longest teach-and-build stretch of Day 1.</b></span></p>
+      <div class="chip-row">
+        <span>Six components</span><span class="d"></span>
+        <span>Teach + breakout</span><span class="d"></span>
+        <span>Files on disk</span>
+      </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
@@ -1361,32 +2207,32 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 
     <div class="grid-6">
       <div class="card">
-        <div class="top"><span class="chip">01</span><i class="ico" data-lucide="file-text" width="28" height="28"></i></div>
+        <div class="top"><span class="chip">01</span><i class="ico" data-lucide="file-text" width="60" height="60"></i></div>
         <h4>System Prompt &amp; Instructions</h4>
         <p>Persona, rules, constraints.</p>
       </div>
       <div class="card">
-        <div class="top"><span class="chip">02</span><i class="ico" data-lucide="wrench" width="28" height="28"></i></div>
+        <div class="top"><span class="chip">02</span><i class="ico" data-lucide="wrench" width="60" height="60"></i></div>
         <h4>Tools, Skills &amp; MCPs</h4>
         <p>Actions the agent can take.</p>
       </div>
       <div class="card">
-        <div class="top"><span class="chip">03</span><i class="ico" data-lucide="server" width="28" height="28"></i></div>
+        <div class="top"><span class="chip">03</span><i class="ico" data-lucide="server" width="60" height="60"></i></div>
         <h4>Infrastructure &amp; Sandbox</h4>
         <p>Filesystem, browser, runtime.</p>
       </div>
       <div class="card">
-        <div class="top"><span class="chip">04</span><i class="ico" data-lucide="git-branch" width="28" height="28"></i></div>
+        <div class="top"><span class="chip">04</span><i class="ico" data-lucide="git-branch" width="60" height="60"></i></div>
         <h4>Orchestration Logic</h4>
-        <p>Subagents, handoffs, routing.</p>
+        <p>Subagents, handoffs, routing, workflows and skill chaining.</p>
       </div>
       <div class="card">
-        <div class="top"><span class="chip">05</span><i class="ico" data-lucide="shield-check" width="28" height="28"></i></div>
+        <div class="top"><span class="chip">05</span><i class="ico" data-lucide="shield-check" width="60" height="60"></i></div>
         <h4>Hooks &amp; Middleware</h4>
         <p>Deterministic execution gates.</p>
       </div>
       <div class="card">
-        <div class="top"><span class="chip">06</span><i class="ico" data-lucide="repeat" width="28" height="28"></i></div>
+        <div class="top"><span class="chip">06</span><i class="ico" data-lucide="repeat" width="60" height="60"></i></div>
         <h4>Feedback Loops</h4>
         <p>Self-eval, tracing, evals.</p>
       </div>
@@ -1568,11 +2414,41 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
 </pre>
 
       <div class="file-callouts">
-        <div class="item"><code>AGENTS.md</code><h5>The system prompt you actually own</h5><p>Highest leverage. Read by Copilot and RooCode. Keep under 200 lines.</p></div>
-        <div class="item"><code>.github/copilot-instructions.md</code><h5>Copilot repo-wide brief</h5><p>Per-repo guidance, automatically attached to every Copilot turn.</p></div>
-        <div class="item"><code>.github/prompts/*.prompt.md</code><h5>Reusable, discoverable prompts</h5><p>Slash-invokable. Loaded only when called — progressive disclosure.</p></div>
-        <div class="item"><code>.github/hooks/*.sh</code><h5>Deterministic guardrails</h5><p>Every time the cloud agent touches X, this script runs. No "the model might forget."</p></div>
-        <div class="item"><code>mcp.json</code><h5>External tool servers</h5><p>Figma, GitHub, Linear, Slack — wire each tool source explicitly.</p></div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="file-text" width="28" height="28" aria-hidden="true"></i>
+            <code>CLAUDE.md / AGENTS.md</code>
+          </div>
+          <h5>The system prompt you actually own</h5><p>Highest leverage. Keep under 200 lines. Survives compaction.</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="braces" width="28" height="28" aria-hidden="true"></i>
+            <code>.claude/settings.json</code>
+          </div>
+          <h5>Permissions &amp; hook bindings</h5><p>Allow / deny tools, env vars, which scripts run on which events.</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="files" width="28" height="28" aria-hidden="true"></i>
+            <code>.claude/skills/*.md</code>
+          </div>
+          <h5>Reusable, discoverable prompts</h5><p>Loaded only when relevant — progressive disclosure.</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="terminal" width="28" height="28" aria-hidden="true"></i>
+            <code>.claude/hooks/*.sh</code>
+          </div>
+          <h5>Deterministic guardrails</h5><p>Every time the model touches X, this script runs. No "the model might forget."</p>
+        </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="plug" width="28" height="28" aria-hidden="true"></i>
+            <code>mcp.json</code>
+          </div>
+          <h5>External tool servers</h5><p>Figma, Github Copilot, Confluence (setup required)</p>
+        </div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -1675,14 +2551,22 @@ pre.tree .comment{ color:var(--salt-gray-600); font-style:italic; }
      SLIDE 18 — Section divider: Component Deep Dive
      ============================================================ -->
 <section data-label="18 Section · Component Deep Dive">
-  <div class="divider exercise">
-    <div class="stripe"></div>
-    <div class="numeral ex">CDD</div>
-    <div class="body">
-      <div class="eyebrow" style="color:#ffffff;">Day 1 · Anatomy in depth</div>
+  <div class="ex2 ex2-section-intro">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral">03</div>
+      <div class="eyebrow">Day 1 · Component deep dive</div>
       <h2>One component at a time</h2>
       <p>For each of the six components: a short teach, then a focused breakout. By the end of the day you have a working harness folder with all six.</p>
       <div class="duration">90 Minutes</div>
+    </div>
+    <div class="right">
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner">Each slot on the anatomy gets a pattern to copy and a breakout to apply to your reverse-engineered app. <b>Depth over breadth — leave with a real folder, not slides.</b></span></p>
+      <div class="chip-row">
+        <span>90 minutes</span><span class="d"></span>
+        <span>Hands-on breakouts</span><span class="d"></span>
+        <span>One harness folder</span>
+      </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
@@ -2159,6 +3043,234 @@ flowchart LR
 </section>
 
 <!-- ============================================================
+     SLIDE 31b — Prompt structures · Meta vs Template
+     ============================================================ -->
+<section data-label="31b Prompt Structures · Meta vs Template">
+  <div class="frame">
+    <div class="eyebrow">Bonus · Context engineering</div>
+    <h2 class="slide-title">Meta vs template prompts</h2>
+    <p class="slide-lede">Two shapes that show up everywhere in the harness. <b>Meta</b> defines the agent. <b>Template</b> defines the turn. Most harness components are one or the other — or both, layered.</p>
+
+    <div class="meta-template-grid">
+      <div class="mt-card">
+        <span class="mt-tag mt-tag--meta">Meta prompt</span>
+        <h3>Persistent · the agent's frame</h3>
+        <ul>
+          <li>Lives in <code>AGENTS.md</code> / <code>CLAUDE.md</code> / system prompt</li>
+          <li>Loaded once per session, prepended every turn</li>
+          <li>Sets identity, scope, hard rules, tool roster</li>
+        </ul>
+        <pre class="prompt-block"><span class="comment"># AGENTS.md</span>
+You are a UX design reviewer.
+
+<span class="key">RULES</span>
+  1. Always cite the design token used.
+  2. Never invent component names.
+  3. Defer to the system index.
+
+<span class="key">TOOLS</span>
+  read_file, search_tokens,
+  validate_spec
+
+<span class="key">KNOWLEDGE</span>
+  knowledge/design-system-index.md</pre>
+      </div>
+
+      <div class="mt-card">
+        <span class="mt-tag mt-tag--template">Template prompt</span>
+        <h3>Parameterized · the agent's task slot</h3>
+        <ul>
+          <li>Lives in skill bodies, slash commands, tool inputs, hook outputs</li>
+          <li>Filled in at runtime with task-specific values</li>
+          <li>Renders per-turn from a fixed shape</li>
+        </ul>
+        <pre class="prompt-block"><span class="comment"># skills/design-review.md (body)</span>
+Review the component for
+design-token violations.
+
+<span class="key">INPUT</span>
+  component_path: <span class="var">{{component_path}}</span>
+  scope: <span class="var">{{scope}}</span>
+
+<span class="key">OUTPUT</span>
+  list of {token, line, fix}
+
+Stop when violations covered
+or 5 minutes elapse.</pre>
+      </div>
+    </div>
+
+    <div class="mt-strap">
+      <b>Meta defines the agent. Template defines the turn.</b> The system prompt is meta. A skill body is template. A tool description is template. A hook injection is template — referenced from a meta. They layer.
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 31c — Prompt chains in workflows
+     ============================================================ -->
+<section data-label="31c Prompt Structures · Chains">
+  <div class="frame">
+    <div class="eyebrow">Bonus · Workflows</div>
+    <h2 class="slide-title">Prompt chains: how stages compose</h2>
+    <p class="slide-lede">A subagent is a stage with its own meta + template, returning a result. A workflow is the chain — each stage's output becomes the next stage's input. You don't write orchestration code; you write prompts that compose.</p>
+
+    <div class="chain-meta-band">
+      <span class="pin">META</span>
+      System identity + rules — prepended to every stage in the chain
+    </div>
+
+    <div class="prompt-chain">
+      <div class="chain-stage">
+        <div class="chain-num">1</div>
+        <h4>Parse intent</h4>
+        <pre class="prompt-block">User said: <span class="var">{{utterance}}</span>
+
+Classify into:
+  - review
+  - draft
+  - validate
+
+<span class="key">Return</span>
+  {intent, target}</pre>
+        <div class="chain-out">→ produces: {intent, target}</div>
+      </div>
+
+      <div class="chain-arrow">→</div>
+
+      <div class="chain-stage">
+        <div class="chain-num">2</div>
+        <h4>Gather context</h4>
+        <pre class="prompt-block">For <span class="var">{{target}}</span>, load:
+  - design-system index
+  - relevant tokens
+  - prior reviews
+
+<span class="key">Return</span>
+  context bundle</pre>
+        <div class="chain-out">→ produces: context bundle</div>
+      </div>
+
+      <div class="chain-arrow">→</div>
+
+      <div class="chain-stage">
+        <div class="chain-num">3</div>
+        <h4>Run review</h4>
+        <pre class="prompt-block">Given <span class="var">{{context}}</span>,
+review <span class="var">{{target}}</span>.
+
+<span class="key">Return</span>
+  list of
+  {issue, fix, severity}</pre>
+        <div class="chain-out">→ produces: review</div>
+      </div>
+    </div>
+
+    <div class="chain-strap">
+      The chain isn't code — it's prompts. Each stage is a small, named template. The harness's job is to <b>pass outputs as inputs</b> and keep the meta consistent across stages.
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 31d — Prompt structures across the harness
+     ============================================================ -->
+<section data-label="31d Prompt Structures · By Component">
+  <div class="frame">
+    <div class="eyebrow">Bonus · Reference</div>
+    <h2 class="slide-title">Prompt structures across the harness</h2>
+    <p class="slide-lede">Every harness component is a shaped prompt. Same four ingredients — identity, rules, inputs, outputs — different surface, different lifecycle.</p>
+
+    <div class="ps-grid">
+      <div class="ps-card">
+        <div class="ps-head">
+          <span class="mt-tag mt-tag--meta">Meta</span>
+          <h4>Agent</h4>
+        </div>
+        <p class="ps-where">CLAUDE.md / AGENTS.md</p>
+        <pre class="prompt-block">You are a <span class="var">{persona}</span>.
+
+<span class="key">RULES</span>
+  1. <span class="var">{rule}</span>
+  2. <span class="var">{rule}</span>
+
+<span class="key">TOOLS</span>
+  <span class="var">{tool list}</span>
+
+<span class="key">KNOWLEDGE</span>
+  <span class="var">{files to load}</span></pre>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-head">
+          <span class="mt-tag mt-tag--template">Template</span>
+          <h4>Skill</h4>
+        </div>
+        <p class="ps-where">.claude/skills/*.md</p>
+        <pre class="prompt-block">---
+name: <span class="var">design-review</span>
+description: when user
+  asks for a UX review
+trigger: <span class="var">/review</span>
+---
+
+1. Load design-system-
+   index.md
+2. For each section,
+   run <span class="var">{check}</span>
+3. Output:
+   {issue, fix, severity}</pre>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-head">
+          <span class="mt-tag mt-tag--template">Template</span>
+          <h4>Tool</h4>
+        </div>
+        <p class="ps-where">tools/*.json</p>
+        <pre class="prompt-block">{
+  "name": "validate_spec",
+  "description":
+    "Run validation on
+     a spec.
+     <span class="key">USE WHEN</span>: user
+       asks 'validate'
+       or 'check'.
+     <span class="key">DON'T USE</span>: for
+       unsaved drafts.",
+  "input": {
+    "spec_id": "string"
+  }
+}</pre>
+      </div>
+
+      <div class="ps-card">
+        <div class="ps-head">
+          <span class="mt-tag mt-tag--context">Context</span>
+          <h4>Hook</h4>
+        </div>
+        <p class="ps-where">.claude/hooks/*.sh</p>
+        <pre class="prompt-block"><span class="key">event</span>: pre-tool-use
+<span class="key">trigger</span>:
+  tool == "write_file"
+
+<span class="key">inject_to_context</span>: |
+  Before writing, you
+  MUST:
+  1. Confirm path is
+     in /specs
+  2. Validate front-
+     matter
+  3. Cite the spec ID</pre>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
      SLIDE 24 — Day 1 Wrap-up
      ============================================================ -->
 <section data-label="32 Day 1 Wrap-up">
@@ -2195,13 +3307,22 @@ flowchart LR
      SLIDE 25 — Day 2 Opener
      ============================================================ -->
 <section data-label="33 Day 2 Opener">
-  <div class="divider">
-    <div class="numeral">D2</div>
-    <div class="body">
+  <div class="ex2 ex2-section-intro">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral">D2</div>
       <div class="eyebrow">Day 2 · 120 min</div>
       <h2>Refine · Test · Demo</h2>
       <p>Yesterday you built the bones. Today you wire it into a real editor, watch it fail, and harden it.</p>
       <div class="duration">2 Hours</div>
+    </div>
+    <div class="right">
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner">Same harness folder, new loop: reproduce a failure, read the trace, change one lever in files or hooks, re-run. <b>Debugging is the design craft today.</b></span></p>
+      <div class="chip-row">
+        <span>Wire-up lab</span><span class="d"></span>
+        <span>Eval mindset</span><span class="d"></span>
+        <span>Demo prep</span>
+      </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
@@ -2211,13 +3332,22 @@ flowchart LR
      SLIDE 26 — Section divider: Agentic UX Patterns (Day 2 morning)
      ============================================================ -->
 <section data-label="34 Section · Agentic UX Patterns">
-  <div class="divider">
-    <div class="numeral">04</div>
-    <div class="body">
+  <div class="ex2 ex2-section-intro">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral">04</div>
       <div class="eyebrow">Section · Day 2</div>
       <h2>Agentic UX Patterns</h2>
       <p>From user flows to intent-system maps.</p>
       <div class="duration">15 Minutes</div>
+    </div>
+    <div class="right">
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner">Morning recap in the rear-view. Now we retool the designer lens — how intents, hooks, and states show up when the agent is the surface. <b>New verbs; same rigor.</b></span></p>
+      <div class="chip-row">
+        <span>Intent maps</span><span class="d"></span>
+        <span>Hooks lifecycle</span><span class="d"></span>
+        <span>Subagents &amp; MCP</span>
+      </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
@@ -2439,18 +3569,41 @@ You are a research agent. Be terse. Cite sources.</pre>
      SLIDE 32 — Section divider: Demos (was Exercise 2)
      ============================================================ -->
 <section data-label="41 Section · Demo Session">
-  <div class="ex2">
+  <div class="ex2 ex2-demo-intro">
     <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
     <div class="left">
-      <div class="numeral" style="color: rgb(249, 249, 249);">D2<br>DEMO</div>
+      <div class="numeral" style="color: rgb(249, 249, 249);">DEMO</div>
       <div class="eyebrow" style="color: rgb(255, 255, 255);">Day 2 · Demo session</div>
-      <h2 style="color: rgb(94, 94, 94);">Show your harness</h2>
+      <h2 style="color:#fff;">Show your harness</h2>
       <p>5 minutes per group. Run the agent live, walk through the file tree, defend one tradeoff.</p>
       <div class="duration">25 Minutes</div>
     </div>
     <div class="right">
-      <p class="lede">This is where it lands. You picked an app, planned, designed, developed, wired it up, watched it fail, and changed one thing. <b style="color:#ffffff;font-weight:700">Now show your work.</b></p>
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner">This is where it lands. You picked an app, planned, designed, developed, wired it up, watched it fail, and changed one thing. <b>Now show your work.</b></span></p>
 
+      <div class="chip-row">
+        <span>Same groups</span><span class="d"></span>
+        <span>5 min each · 1 min Q&amp;A</span><span class="d"></span>
+        <span>Run live in your editor</span>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 32b — Demo flow checklists (split from Demo Session slide)
+     ============================================================ -->
+<section data-label="41b Demo Flow & Listening">
+  <div class="ex2">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral" style="color: rgb(249, 249, 249);">DEMO</div>
+      <div class="eyebrow" style="color: rgb(255, 255, 255);">Day 2 · Demo session</div>
+      <h2 style="color:#fff;">Flow &amp; listening</h2>
+      <p>Keep this slide up during demos — presenters follow the checklist; everyone else listens for the signals on the right.</p>
+    </div>
+    <div class="right ex2-right--dual-cards">
       <div class="card">
         <h4>5-minute demo flow</h4>
         <div class="check"><div class="ico"><i data-lucide="check" width="20" height="20"></i></div><div>Which app · which intent · which failure mode</div></div>
@@ -2468,21 +3621,15 @@ You are a research agent. Be terse. Cite sources.</pre>
         <div class="next"><div class="n">4</div><div>An honest failure mode you didn't fully solve</div></div>
         <div class="next"><div class="n">5</div><div>A tradeoff you can defend in one sentence</div></div>
       </div>
-
-      <div class="chip-row">
-        <span>Same groups</span><span class="d"></span>
-        <span>5 min each · 1 min Q&amp;A</span><span class="d"></span>
-        <span>Run live in your editor</span>
-      </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>
 
 <!-- ============================================================
-     SLIDE 33 — Demo Rubric + Best Practices
+     SLIDE 33 — Demo Rubric (score table only)
      ============================================================ -->
-<section data-label="42 Demo Rubric and Best Practices">
+<section data-label="42 Demo Rubric">
   <div class="frame">
     <div class="eyebrow" style="color:var(--salt-amber-500);">Day 2 · Demo</div>
     <h2 class="slide-title">How we'll judge the demos</h2>
@@ -2496,6 +3643,18 @@ You are a research agent. Be terse. Cite sources.</pre>
       <div class="rrow"><div class="rcat">Failure design</div><div class="rdesc">Group can name the failure mode they targeted and show the before/after of their one change.</div><div class="rpts">/ 5</div></div>
       <div class="rrow"><div class="rcat">Tradeoff clarity</div><div class="rdesc">One sentence: what you accepted as worse so something else could be better.</div><div class="rpts">/ 5</div></div>
     </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 33b — Best practices & anti-patterns (split from rubric slide)
+     ============================================================ -->
+<section data-label="42b Demo Practices &amp; Anti-Patterns">
+  <div class="frame">
+    <div class="eyebrow" style="color:var(--salt-amber-500);">Day 2 · Demo</div>
+    <h2 class="slide-title">Best practices &amp; anti-patterns</h2>
+    <p class="slide-lede">Reference during demos and debrief — what we reward vs. what we'll name in discussion.</p>
 
     <div class="ex21-bottom" style="margin-top:24px;">
       <div class="deliverables">
@@ -2651,14 +3810,15 @@ You are a research agent. Be terse. Cite sources.</pre>
 <script type="application/json" id="speaker-notes">
 [
 "Welcome to Agentic Harness Engineering for Product & UX Designers. This is a 2-day, 2-hour-per-day workshop. Quick show of hands — who's been using RooCode? Copilot? Both? Great. You already touch the harness every day — you just call it 'rules' or 'instructions'. Today and tomorrow we name what you're already doing, give it a real anatomy, and you build one from scratch by reverse-engineering an AI app you actually use. By the end of Day 2 you'll have a runnable harness folder you can drop into any project.",
-"CARD 1 — Paradigm shift: from static wireframes to dynamic orchestration rules. CARD 2 — Agent = Model + Harness. The model is the brain. The harness is the body, the workshop, and the rules of engagement. Designers shape the harness. CARD 3 — Design IS engineering. OpenAI shipped a million-line product where humans steered and Codex executed. The discipline is now in the scaffolding.",
-"Two days, three breakouts, one harness. Day 1 you reverse-engineer one of five apps and build the harness in three breakouts: PLAN, DESIGN, DEVELOP. Day 2 you wire it into RooCode or Copilot, watch it fail on a real task, change one thing, and demo. I want you spending 60% of your time in breakouts and 40% with me. Let's get to it.",
-"GROUND RULES — read this slide carefully because it shapes everything. CRITICAL CONSTRAINT: API keys are only available INSIDE the GitHub Copilot, Cline, and RooCode extensions today. You cannot build a standalone agent that calls a model directly. The extensions already have the key — you don't. So we don't pretend to ship a real backend. Instead, we work with what you DO have: VS Code + Copilot or Cline / RooCode. THE EDITOR IS THE RUNTIME. You author two things: (1) the harness — markdown, JSON, scripts in a folder — and (2) a frontend prototype generated from your Figma via Copilot or RooCode. Then you load both into VS Code and let the extension's AI play the harnessed agent. Your AGENTS.md is its system prompt. Your hooks fire on real tool calls. Your prototype is what a user clicks. This is exactly what Day 2's wire-up exercise asks you to do. One sentence to remember: 'harness + frontend = product; the editor's AI is the runtime.'",
+"The role of design is shifting from crafting interfaces to orchestrating intelligent systems. CARD 1 — Paradigm shift: from static wireframes to dynamic orchestration rules. CARD 2 — Agent = Model + Harness. The model is the brain. The harness is the body, the workshop, and the rules of engagement. Designers shape the harness. CARD 3 — Design IS engineering. OpenAI shipped a million-line product where humans steered and Codex executed. The discipline is now in the scaffolding.",
+"Day 1 you build the harness for your product. Day 2 you design the frontend in Figma, then in one VS Code app project use GitHub Copilot or RooCode to refine the harness and build the UI before wiring agent, harness, and UX together. — Two days, one product. Day 1 you build the harness for your chosen app — six components, taught and worked in focused breakouts. Day 2 changes shape: you design the frontend in Figma, generate the code with Copilot or RooCode, then wire the agent + harness + frontend UX together into a productized demo. I want you 60% hands-on, 40% with me. Let's go.",
+"We're not training models or running servers today. You'll author the harness and a frontend prototype, then let your editor's AI play the agent. GROUND RULES — read this slide carefully because it shapes everything. CRITICAL CONSTRAINT: API keys are only available INSIDE the RooCode and Copilot extensions today. You cannot build a standalone agent that calls a model directly. The extensions already have the key — you don't. So we don't pretend to ship a real backend. Instead, we work with what you DO have: VS Code + RooCode + Copilot. THE EDITOR IS THE RUNTIME. You author two things: (1) the harness — markdown, JSON, scripts in a folder — and (2) a frontend prototype generated from your Figma via Copilot or RooCode. Then you load both into VS Code and let the extension's AI play the harnessed agent. Your CLAUDE.md is its system prompt. Your hooks fire on real tool calls. Your prototype is what a user clicks. This is exactly what Day 2's wire-up exercise asks you to do. One sentence to remember: 'harness + frontend = product; the editor's AI is the runtime.'",
 "[Pause.] Foundations. Same mental model before we go deeper.",
+"A model is a brilliant mind with no body. The harness is the tack that lets it carry weight, take direction, and do useful work. — Plant the metaphor. The model is the horse — fast, strong, but it has no reins, no seat, no destination. The saddle isn't the power; it's the leverage. Three pieces map across: model = horse (raw capability), harness = saddle (tools, rules, memory, hooks — the tack that makes the horse ridable), user = rider (gives direction). This is the working metaphor for the rest of Day 1: every component you build is a piece of saddle. If a model alone could do it, you wouldn't be here.",
 "Most important idea in the workshop. Agent = Model + Harness. Vivek Trivedy at LangChain: 'If you're not the model, you're the harness.' The AGENT is what the user experiences. The MODEL takes text and images and emits text — that's all. The HARNESS is everything else: code, config, files, tools, constraints. Designers don't train models — they absolutely design harnesses.",
-"LLM is a CPU. Context window is RAM. External files are disk. Tools are device drivers. The harness is the OS. The bottom row is highlighted because that's the layer we own.",
 "Three concentric levels. Prompt — what the model sees this turn. Context — what the model sees and when across turns. Harness — the entire system. We touch all three but harness is where product decisions live.",
-"Six things models can't do alone. Each one solved by a harness feature. Memory · tool execution · web · coordination · self-verification · enforcement. Every row is a design decision your team will make.",
+"Every limitation is solved by a harness feature. This is where your design decisions live. — Six things models can't do alone. Each one solved by a harness feature. Memory · tool execution · web · coordination · self-verification · enforcement. Every row is a design decision your team will make.",
+"Harvey is a fully productized harness for legal work. Same six components — built once by a vendor, sold to law firms. Lawyers configure within it; they don't author it. Show the room what a harness LOOKS like once it's productized. Harvey wraps a frontier model with legal-specific tools (Vault, Knowledge), workflow agents per practice area, retrieval grounded in firm-trusted sources, and governance hooks for privilege/audit. Lawyers don't write the harness — they live INSIDE it. The six cards on this slide map exactly to the six components we're about to teach. Takeaway: the harness IS the product. By end of Day 2 you'll ship a thin slice of this — your own domain-specific harness wired to a Figma-designed frontend, all running inside VS Code via Copilot or RooCode.",
 "Now the anatomy. Six components. Then we'll see them as actual files.",
 "Six core components. We'll do them in pairs of two-by-two on the next three slides. Don't memorize — orient.",
 "LEFT: System prompt = persona, rules, constraints. AGENTS.md and .github/copilot-instructions.md tell the agent how to behave. Prompt files are progressive disclosure. RIGHT: Tools are the actions in the world. Insight: too many MCP servers make agents dumb. Tool descriptions are UX copy for the model — fewer, sharper tools beat a kitchen sink.",
@@ -2668,12 +3828,23 @@ You are a research agent. Be terse. Cite sources.</pre>
 "NEW SLIDE — Anatomy in files. The six components live as concrete files: AGENTS.md, .github/copilot-instructions.md, .github/instructions/, .github/prompts/, .github/agents/, .github/hooks/, mcp.json, plus the RooCode/Cline shape under .roo/rules/. Walk through the tree. Highest-leverage files: AGENTS.md (the system prompt you own), tool descriptions inside prompt files (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You're going to author every one of these in Day 1's breakouts.'",
 "NEW SLIDE — Same files, two editing surfaces. Everyone in this room is on GitHub Copilot or Cline / RooCode — point at the Copilot column first. Project guide is AGENTS.md (Copilot's coding agent reads it) plus .github/copilot-instructions.md for repo-wide brief. Path-scoped guidance lives in .github/instructions/*.instructions.md with an applyTo glob. Reusable slash-prompts are .github/prompts/*.prompt.md. Custom agents live in .github/agents/*.md. RooCode and Cline mirror the same shape via AGENTS.md and .roo/rules/. The names rotate; the anatomy doesn't.",
 "FIVE APPS. Real, shipping, non-coding AI products. Two legal, one accounting, two productivity. A) Harvey — enterprise legal platform; research + drafting + document analysis; great if anyone's worked with law firms. B) Spellbook — contract drafting/review inside MS Word; the harness lives inside a host app, which is a fantastic constraints study. C) Pilot — autonomous bookkeeping for startups; long-running agent with monthly human review — perfect for designing approval flows. D) Notion AI — embedded in a workspace; pages and databases are the filesystem. E) Granola — AI meeting notes; smallest surface area, easiest to map all six components in 25 minutes. Encourage one group per app if possible. Tell groups: 'Pick the domain you'd be most embarrassed to design poorly for' — if a lawyer is in the room, take Harvey. Five minutes to choose.",
-"BREAKOUT 1 · PLAN — 25 minutes. Reverse-engineer the chosen app. List 5 user intents, map the 6 anatomy components, name 3 failure modes, then narrow to ONE intent + ONE failure mode you'll harness. Walk around. If a group is stuck, ask 'what does the agent do badly?' — the failure mode is the design surface.",
-"BREAKOUT 1 · Instructions slide. Run the room here. Deliverables: plan.md, intents.md, risks.md. Discourage perfection — they have two more breakouts. The point of B1 is to narrow scope so they can ship in B3.",
-"BREAKOUT 2 · DESIGN — 25 minutes. Translate the plan into the file tree. They sketch the folder structure on paper, outline the system prompt, list at most 7 tools, and decide what becomes a hook vs what stays a prompt. This is the slide where 'tool description = UX copy' lands.",
-"BREAKOUT 2 · Instructions slide. Walk them through the four steps. Cap tools at SEVEN — repeat this. Bad tool descriptions cause wrong tool selection more often than missing tools.",
-"BREAKOUT 3 · DEVELOP — 20 minutes. Now they actually write files. Point to the harness-templates/ folder in the workshop repo as the starting point. Insist on at least: AGENTS.md, .github/copilot-instructions.md, one prompt file, one custom agent, one hook.",
-"BREAKOUT 3 · Instructions slide. The 'minimum runnable harness' card on the right is the bar. If a teammate could clone their branch and the agent behaves like the app they reverse-engineered, they passed. Don't worry about polish.",
+"Section divider. We saw the anatomy at a glance two slides ago — six components in one frame. Now we go through each one with concrete shapes you can copy. Same six things, but with examples and a quick sketch exercise per component. Set expectation: this is the longest section of Day 1 and the bulk of the teaching.",
+"The system prompt is the agent's identity — prepended every turn, survives compaction. Most expensive real estate in the harness, so keep it short and load-bearing. Lives in CLAUDE.md, AGENTS.md, or .github/copilot-instructions.md depending on your editor. Failure mode if it's missing or vague: agent has no consistent persona, drifts in tone, forgets your hard rules between turns. The room mostly already has one — they just call it 'rules' or 'instructions'. Today we name the shape.",
+"Five sections, in order. IDENTITY — who you are. SCOPE — what you do and don't do. RULES — hard predicates. TOOLS — the roster. FAILURE MODES — what to do when stuck. Each section earns its place: if you can't name the failure mode it prevents, cut it. The mermaid diagram on screen IS the template — copy it for your harness in the breakout. Don't add a sixth section unless you can defend why.",
+"Strong vs weak rules. Weak: 'be helpful' — the model can't enforce that, no predicate to check. Strong: 'never write outside /specs without confirmation' — clear, checkable. Soft rules go in the system prompt; the model may forget them. Hard rules go in settings.json allow/deny lists or in hooks; the harness enforces them. Walk the room: which of YOUR rules are hard, which are soft?",
+"A skill is a specialist instruction set the agent loads ONLY when triggered. Base context stays small; expertise gets paged in. This is progressive disclosure for AI. Trigger by keyword, slash command, file pattern, or user intent. The trigger is the most important field — vague triggers mean the skill never loads, then the agent falls back to its base instinct. The whole reason skills exist: keep the system prompt short.",
+"A skill is just a markdown file with frontmatter. Frontmatter tells the harness WHEN to load it: name, description (used for trigger matching), trigger pattern. Body tells the model WHAT to do once loaded. Treat the description like UX copy — vague descriptions cause vague triggering. Same writing discipline as a tool description.",
+"Walk through a real flow. User says 'review my homepage'. The harness sees the trigger 'review', loads the design-review skill, agent now follows the skill's steps instead of its base instinct. Without the skill: a generic critique. With the skill: token violations, line numbers, fix suggestions — the shape you wanted. Point: skills aren't decorative, they CHANGE the agent's behavior on the matching turn.",
+"Three ways to give an agent hands. FUNCTIONS — code in the same process. SCRIPTS — anything you can run from a shell. MCP — borrow someone else's toolset over a server protocol. Same idea, different transport. Pick by where the capability already lives. Python lib you have? Function. Curl + jq pipeline? Script. Figma? MCP. You don't have to invent the integration.",
+"The tool description is UX copy for the model. The model reads every tool description on every turn before deciding what to call. Bad descriptions = wrong tool picks more often than missing tools. Three sentences: WHAT it does, WHEN to use it, WHEN NOT to use it. The 'when not' line saves you most failures — it teaches the model to delegate or refuse instead of jamming the wrong tool.",
+"Script-as-tool: JSON declares the interface, the script does the work. The agent reads stdout. This is how you wrap existing CLI tools into the harness without writing new code — your validate.sh becomes a tool by adding a JSON descriptor next to it. Minimal commitment, big leverage. Use this when the capability already exists in your team's tooling.",
+"MCP is how you mount someone else's tools. Register a server in mcp.json — the agent gets every tool that server exposes. Figma frames, Linear tickets, GitHub PRs — no integration code from you. Designer-relevant servers: Figma, GitHub, browser, your design-system API. Caution: too many MCP servers make the agent dumb — too many tools to choose from. Start with one, add only when needed. The 'kitchen sink' is the failure mode here.",
+"Hooks: deterministic gates around tool calls. PreToolUse fires BEFORE — you can block it. PostToolUse fires AFTER — you can react. The model can forget its rules. The hook can't. Use a hook when 'every time' matters: every time the agent writes a file, every time a tool returns an error, every time the session starts. Hooks > hoping. Designers don't usually write the shell — but you decide WHICH rules deserve a hook vs. a soft prompt.",
+"Knowledge base = the domain context the agent reads on demand. Files in knowledge/ are referenced by the system prompt and loaded by skills. Stable info — schemas, dictionaries, workflows, design system facts — goes here. Volatile info — current session, secrets, what the user just said — does NOT. Breakout 6: capture one domain file your agent always needs. 12 minutes — schema, dictionary, or workflow, whichever unblocks more behavior.",
+"Memory is the working scratchpad. Different from the knowledge base (stable) and the system prompt (identity). Two types. SESSION — notes/SESSION.md cleared at session end. PERSISTENT — files reread on every SessionStart hook, survive restarts. The post-tool-use hook is often where memory gets WRITTEN. Memory is not a breakout — it's a concept to keep in your head while you build. The hook IS often where memory lives.",
+"Two prompt shapes you'll see everywhere in the harness. META = persistent — the agent's frame. Lives in AGENTS.md / CLAUDE.md / system prompt. Loaded once per session, prepended every turn. Sets identity, scope, hard rules, tool roster. TEMPLATE = parameterized — the agent's task slot. Lives in skill bodies, slash commands, tool inputs, hook outputs. Filled in at runtime with task-specific values. Renders per-turn from a fixed shape. Drill the room: every harness component you build is one or the other — or both layered. The system prompt is meta. A skill body is template. A tool description is template. A hook injection is template referenced from a meta. Get them to call out which is which from their own breakout work.",
+"This is how subagents and workflows work — without spending time on mechanics. A subagent is just a stage with its own meta + template, returning a result. A workflow is the chain. Each stage's output becomes the next stage's input. The black band across the top is the META — same identity and rules persist across all three stages. The three stage cards are TEMPLATES — each has its own input variables and produces a typed output. The chain isn't code, it's prompts. The harness's job is to route outputs to inputs. When someone asks 'how do I build a multi-step workflow?', point at this slide. You write three small templates, you let the meta carry across. We won't write orchestration today — but you'll recognize this shape when you read RooCode workflows or LangGraph chains.",
+"Reference card. Every component is a shaped prompt. Same four ingredients — identity, rules, inputs, outputs — different surface, different lifecycle. AGENT (META, navy tag) is the long-lived shape in CLAUDE.md / AGENTS.md. SKILL (TEMPLATE, blue tag) is loaded on trigger from .claude/skills/*.md. TOOL (TEMPLATE, blue tag) is invoked when the agent picks it from tools/*.json. HOOK (CONTEXT, amber tag) injects fresh content before/after a step from .claude/hooks/*.sh. Use this slide as a mental cheat-sheet during the breakouts. When someone asks 'where does this rule go?' — the answer is on this card. Pin it open in a second tab if you can.",
 "DAY 1 CLOSE. 2 minutes per group. Show the file tree, name the design decision they fought about most, name what they couldn't decide. The undecided question becomes the first conversation tomorrow morning. Homework: push the branch, run the agent at home, save 2 transcripts where the harness misbehaves, bring 1 question.",
 "DAY 2 OPENER. 'Yesterday you built the bones. Today you wire it into a real editor, watch it fail, and harden it.' Quick recap — anyone bring back a transcript that surprised them? Get 1-2 stories from the room before moving on.",
 "Section divider — Agentic UX Patterns. Bridge from the morning recap to the lens shift designers need.",
@@ -2683,8 +3854,10 @@ You are a research agent. Be terse. Cite sources.</pre>
 "SUBAGENTS & MCP. Subagents = isolated context, different rules, returns a result. Use when work has a clean input→output contract. MCP = external tool servers your harness mounts. Designer-relevant servers: Figma, GitHub, Browser, your design-system API. The minute they grok MCP, the question 'how does this read my Figma?' has an answer.",
 "EVALS & HILL-CLIMBING. Capture failures → save as evals → replay after every harness change → score → keep what improves the set. For designers: each transcript is a usability test. Read 5 sessions before changing one tool description.",
 "LIVE WIRE-UP — 25 minutes. Same groups as Day 1. Reminder: the editor IS the runtime — RooCode and Copilot already have the API key, your harness configures HOW they behave. Drop the harness/ folder into a workspace, open it in VS Code, and let the extension's AI play the agent. Run a real task — preferably the one they reverse-engineered. The frontend prototype they built in Breakout 3 should be what they click while the agent works. Watch where the behavior diverges from the original product. Make ONE high-leverage change. Re-run. Capture before.txt, after.txt, diff.md, and the tradeoff. They'll demo this in the next session.",
-"DEMO SESSION DIVIDER. 5 minutes per group, 1 minute Q&A each. Live in their editor. Set the tone: 'We're not judging finish — we're judging the tradeoff you can defend.'",
-"DEMO RUBRIC. Five categories, 5 points each. Score yourselves first, then we score each other. Anti-patterns we'll call out: 23 MCP servers, system prompt doing the hook's job, no success/failure indicator, no scoping, demo only runs the rehearsed task.",
+"DEMO SESSION DIVIDER. 5 minutes per group, 1 minute Q&A each. Live in their editor. Set the tone: 'We're not judging finish — we're judging the tradeoff you can defend.' Advance once — the next slide is the two checklists: demo flow and what we're listening for.",
+"DEMO CHECKLISTS. Left card: 5-minute flow — app + intent + failure mode, file tree, live task, before/after diff, name the tradeoff. Right card: listening criteria — tool copy as UX, hooks doing real work, tight tool list, honest failure mode, defendable tradeoff. Leave this up while groups present.",
+"DEMO RUBRIC — score table only. Five categories, 5 points each. Score yourselves first, then we score each other. Next slide: best practices on the left, anti-patterns on the right — leave it up during debrief.",
+"DEMO DO'S AND DON'TS. Left column: best practices — intent-first, cap tools at ~7, hooks for every-time rules, small files, evals. Right column: anti-patterns we call out in discussion — MCP sprawl, prompt doing hook work, no success signal, no user scoping, rehearsed-only demos.",
 "TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping. 05 Most agent failures are input failures. Thank the room. Keep the energy up — they earned it.",
 "RESOURCES. Three rows of links. TOP ROW — source material: LangChain's anatomy essay, arXiv 2603.20075, and the MCP spec. SECOND ROW (Copilot — orange stripe) is the priority for most of this room: VS Code custom instructions, the GitHub Docs reference for repo instructions, prompt files, custom agents, and the Customize-AI overview. Walk the room through these explicitly — these are the docs they'll re-open Monday morning. THIRD ROW — RooCode and Cline docs for the rest of the audience. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
 ]
@@ -2699,6 +3872,407 @@ You are a research agent. Be terse. Cite sources.</pre>
       window.lucide.createIcons({ attrs: { 'stroke-width': 1.5 } });
     }
   });
+</script>
+
+<!-- ─────────────────────────────────────────────────────────────
+     IN-SLIDE EDIT MODE
+     Medium-gray pencil/check toggle (works on light & dark slides);
+     floating toolbar for inline text formatting and colors. Uses the
+     contenteditable HTML global attribute and execCommand. Edits
+     persist to localStorage; export downloads a JSON of overrides.
+     ───────────────────────────────────────────────────────────── -->
+<style>
+  .edit-toggle{
+    position:fixed; right:18px; bottom:18px;
+    width:40px; height:40px; border-radius:999px;
+    background:rgba(140,140,140,0.18); color:#888;
+    border:1px solid rgba(140,140,140,0.45);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; z-index:2147483600;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    transition:color 120ms ease, background 120ms ease, border-color 120ms ease;
+  }
+  .edit-toggle:hover{
+    color:#bbb; background:rgba(140,140,140,0.30);
+    border-color:rgba(180,180,180,0.55);
+  }
+  .edit-toggle:focus{ outline:none; }
+  .edit-toggle:focus-visible{ outline:2px solid rgba(140,140,140,0.55); outline-offset:2px; }
+  .edit-toggle svg{ width:18px; height:18px; }
+  [data-deck-edit-mode="true"] .edit-toggle{
+    background:rgba(122,174,255,0.22); color:#7AAEFF;
+    border-color:rgba(122,174,255,0.55);
+  }
+  .edit-toolbar{
+    position:fixed; top:18px; left:50%; transform:translate(-50%, -8px);
+    display:none; align-items:center; gap:4px;
+    padding:6px 8px; border-radius:10px;
+    background:rgba(20,20,20,0.92); color:#CCCCCC;
+    border:1px solid rgba(255,255,255,0.10);
+    z-index:2147483600;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    font-family:'Open Sans', system-ui, sans-serif;
+    opacity:0; pointer-events:none;
+    transition:opacity 160ms ease, transform 160ms ease;
+  }
+  [data-deck-edit-mode="true"] .edit-toolbar{
+    display:flex; opacity:1; pointer-events:auto;
+    transform:translate(-50%, 0);
+  }
+  .edit-toolbar .group{
+    display:flex; align-items:center; gap:2px;
+    padding:0 6px; border-right:1px solid rgba(255,255,255,0.12);
+  }
+  .edit-toolbar .group:last-child{ border-right:0; }
+  .edit-toolbar .tb{
+    appearance:none; background:transparent; color:#CCCCCC;
+    border:1px solid transparent; padding:4px 8px; border-radius:6px;
+    font:inherit; font-size:11px; font-weight:600; cursor:pointer;
+    min-width:28px; display:inline-flex; align-items:center; justify-content:center;
+  }
+  .edit-toolbar .tb:hover{
+    background:rgba(255,255,255,0.08);
+    border-color:rgba(255,255,255,0.10); color:#fff;
+  }
+  .edit-toolbar input[type="color"]{
+    appearance:none; -webkit-appearance:none;
+    width:24px; height:22px; padding:0;
+    border:1px solid rgba(255,255,255,0.18); border-radius:6px;
+    background:transparent; cursor:pointer; overflow:hidden;
+  }
+  .edit-toolbar input[type="color"]::-webkit-color-swatch-wrapper{ padding:0; }
+  .edit-toolbar input[type="color"]::-webkit-color-swatch{ border:0; border-radius:5px; }
+  .edit-toolbar .swatch-label{
+    font-size:10px; color:#888; padding:0 2px;
+    font-weight:700; letter-spacing:0.04em;
+  }
+  [data-deck-edit-mode="true"] section[data-deck-active] [contenteditable="true"]{
+    border-radius:3px; outline-offset:2px;
+    transition:outline-color 120ms ease, background 120ms ease;
+  }
+  [data-deck-edit-mode="true"] section[data-deck-active] [contenteditable="true"]:hover{
+    outline:1px dashed rgba(140,140,140,0.55);
+  }
+  [data-deck-edit-mode="true"] section[data-deck-active] [contenteditable="true"]:focus{
+    outline:1px solid rgba(122,174,255,0.75);
+    background:rgba(122,174,255,0.06);
+  }
+  @media print{
+    .edit-toggle, .edit-toolbar{ display:none !important; }
+  }
+</style>
+
+<script>
+(() => {
+  const STORAGE_PREFIX = 'agentic-harness-deck:slide:';
+  const STAGE = document.querySelector('deck-stage');
+  if (!STAGE) return;
+  const sections = () => Array.from(STAGE.querySelectorAll(':scope > section'));
+
+  // Restore saved edits on load.
+  sections().forEach((sec, i) => {
+    try {
+      const stored = localStorage.getItem(STORAGE_PREFIX + i);
+      if (stored) sec.innerHTML = stored;
+    } catch {}
+  });
+
+  const EDITABLE_SELECTOR = [
+    '.slide-title', '.slide-lede', '.eyebrow', '.footer',
+    '.kicker', '.label', '.section-label', '.body-lede', '.cue-pill',
+    '.numeral', '.subtitle', '.tag-pill',
+    'h1','h2','h3','h4','h5','h6',
+    'p','li','figcaption','blockquote','cite',
+    '.desc','.topic','.dur','.time','.head h3','.head h4','.head h5',
+    '.mt-strap','.chain-strap',
+    '.ps-where','.h-comp','.chain-out','.h-tag',
+  ].join(',');
+
+  const isProtected = el =>
+    !!(el.closest('pre') || el.closest('svg') || el.closest('[contenteditable="true"]'));
+
+  const enableEditingOn = sec => {
+    if (!sec) return;
+    sec.querySelectorAll(EDITABLE_SELECTOR).forEach(el => {
+      if (isProtected(el)) return;
+      el.setAttribute('contenteditable', 'true');
+      el.setAttribute('spellcheck', 'true');
+    });
+  };
+  const disableEditingOn = sec => {
+    if (!sec) return;
+    sec.querySelectorAll('[contenteditable]').forEach(el => {
+      el.removeAttribute('contenteditable');
+      el.removeAttribute('spellcheck');
+    });
+  };
+  const captureSlide = sec => {
+    const clone = sec.cloneNode(true);
+    clone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+    clone.querySelectorAll('[spellcheck]').forEach(el => el.removeAttribute('spellcheck'));
+    return clone.innerHTML;
+  };
+  const persistSlide = (i, sec) => {
+    try { localStorage.setItem(STORAGE_PREFIX + i, captureSlide(sec)); } catch {}
+  };
+  const clearSlide = i => {
+    try { localStorage.removeItem(STORAGE_PREFIX + i); } catch {}
+  };
+
+  let editMode = false;
+  const setEditMode = on => {
+    editMode = !!on;
+    document.documentElement.setAttribute('data-deck-edit-mode', editMode ? 'true' : 'false');
+    const all = sections();
+    if (editMode) {
+      enableEditingOn(all[STAGE.index ?? 0]);
+    } else {
+      all.forEach((sec, i) => {
+        if (sec.querySelector('[contenteditable]')) {
+          persistSlide(i, sec);
+          disableEditingOn(sec);
+        }
+      });
+    }
+    updateBtn();
+  };
+
+  STAGE.addEventListener('slidechange', e => {
+    if (!editMode) return;
+    const all = sections();
+    const prev = e.detail.previousIndex;
+    if (prev != null && prev >= 0 && all[prev]) {
+      persistSlide(prev, all[prev]);
+      disableEditingOn(all[prev]);
+    }
+    enableEditingOn(all[e.detail.index]);
+  });
+
+  const btn = document.createElement('button');
+  btn.className = 'edit-toggle';
+  btn.type = 'button';
+  btn.title = 'Edit slide (E)';
+  btn.setAttribute('aria-label', 'Toggle slide editing');
+  btn.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" data-icon="pencil">
+      <path d="M12 20h9"/>
+      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-icon="check" style="display:none">
+      <path d="M20 6 9 17l-5-5"/>
+    </svg>`;
+  btn.addEventListener('click', () => setEditMode(!editMode));
+  document.body.appendChild(btn);
+
+  function updateBtn(){
+    btn.title = editMode ? 'Save & exit (E)' : 'Edit slide (E)';
+    btn.querySelector('[data-icon="pencil"]').style.display = editMode ? 'none' : '';
+    btn.querySelector('[data-icon="check"]').style.display = editMode ? '' : 'none';
+  }
+
+  const tb = document.createElement('div');
+  tb.className = 'edit-toolbar';
+  tb.innerHTML = `
+    <div class="group">
+      <button class="tb" data-cmd="bold" title="Bold (⌘B)"><b>B</b></button>
+      <button class="tb" data-cmd="italic" title="Italic (⌘I)"><i>I</i></button>
+      <button class="tb" data-cmd="underline" title="Underline (⌘U)"><u>U</u></button>
+      <button class="tb" data-cmd="strikeThrough" title="Strike"><s>S</s></button>
+    </div>
+    <div class="group">
+      <span class="swatch-label">Aa</span>
+      <input type="color" data-cmd="foreColor" value="#000000" title="Text color">
+      <span class="swatch-label">Bg</span>
+      <input type="color" data-cmd="hiliteColor" value="#ffff00" title="Background color">
+    </div>
+    <div class="group">
+      <button class="tb" data-cmd="size-" title="Smaller">A−</button>
+      <button class="tb" data-cmd="size+" title="Larger">A+</button>
+    </div>
+    <div class="group">
+      <button class="tb" data-cmd="removeFormat" title="Clear formatting">⌫ fmt</button>
+      <button class="tb" data-cmd="resetSlide" title="Revert this slide to original">Revert</button>
+      <button class="tb" data-cmd="export" title="Export edits as JSON">Export</button>
+    </div>`;
+  document.body.appendChild(tb);
+
+  const stepFontSize = (delta) => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    const range = sel.getRangeAt(0);
+    const span = document.createElement('span');
+    span.style.fontSize = `${100 + delta}%`;
+    try { range.surroundContents(span); }
+    catch {
+      const frag = range.extractContents();
+      span.appendChild(frag);
+      range.insertNode(span);
+    }
+  };
+
+  tb.addEventListener('click', e => {
+    const b = e.target.closest('[data-cmd]');
+    if (!b || b.tagName === 'INPUT') return;
+    const c = b.dataset.cmd;
+    if (c === 'size+') return stepFontSize(15);
+    if (c === 'size-') return stepFontSize(-13);
+    if (c === 'resetSlide') {
+      const i = STAGE.index ?? 0;
+      if (!confirm('Revert this slide to its original content? Edits to this slide will be lost.')) return;
+      clearSlide(i);
+      location.reload();
+      return;
+    }
+    if (c === 'export') {
+      const overrides = {};
+      sections().forEach((_sec, i) => {
+        const stored = localStorage.getItem(STORAGE_PREFIX + i);
+        if (stored) overrides[i] = stored;
+      });
+      const blob = new Blob([JSON.stringify(overrides, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+      a.download = `slide-edits-${stamp}.json`;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      return;
+    }
+    document.execCommand(c, false, null);
+  });
+
+  tb.addEventListener('input', e => {
+    if (e.target.tagName !== 'INPUT' || !e.target.dataset.cmd) return;
+    document.execCommand(e.target.dataset.cmd, false, e.target.value);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(t.tagName))) {
+      if (e.key === 'Escape') setEditMode(false);
+      return;
+    }
+    if (e.key === 'e' || e.key === 'E') {
+      e.preventDefault();
+      setEditMode(!editMode);
+    }
+  });
+
+  window.addEventListener('beforeunload', () => {
+    if (editMode) setEditMode(false);
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden' && editMode) {
+      sections().forEach((sec, i) => {
+        if (sec.querySelector('[contenteditable]')) persistSlide(i, sec);
+      });
+    }
+  });
+})();
+</script>
+
+<!-- ─────────────────────────────────────────────────────────────
+     PRESENTER VIEW BRIDGE
+     Sync slide + speaker note to a detachable presenter window
+     via BroadcastChannel. Press 'p' on the deck to open it.
+     ───────────────────────────────────────────────────────────── -->
+<script>
+(() => {
+  const channel = ('BroadcastChannel' in window)
+    ? new BroadcastChannel('agentic-harness-deck')
+    : null;
+  if (!channel) return; // graceful no-op on ancient browsers
+
+  const stage = document.querySelector('deck-stage');
+  if (!stage) return;
+
+  const notesEl = document.getElementById('speaker-notes');
+  let notes = [];
+  try { notes = JSON.parse(notesEl?.textContent || '[]'); } catch (e) { notes = []; }
+
+  const slideAt = i => stage.querySelectorAll('section')[i] || null;
+  const labelOf = i => slideAt(i)?.getAttribute('data-label') || `Slide ${i + 1}`;
+  const titleOf = i => {
+    const s = slideAt(i);
+    if (!s) return '';
+    const el = s.querySelector('.slide-title')
+            || s.querySelector('.s-title h1')
+            || s.querySelector('.divider .body h2')
+            || s.querySelector('h2')
+            || s.querySelector('h1');
+    return (el?.textContent || '').trim().replace(/\s+/g, ' ');
+  };
+
+  const broadcast = (index, total) => {
+    const next = index + 1 < total ? index + 1 : null;
+    channel.postMessage({
+      type: 'sync',
+      index, total,
+      label: labelOf(index),
+      title: titleOf(index),
+      note: notes[index] || '',
+      nextLabel: next != null ? labelOf(next) : '',
+      nextTitle: next != null ? titleOf(next) : '',
+      nextNote: next != null ? (notes[next] || '') : '',
+    });
+  };
+
+  // Push state on every slide change.
+  stage.addEventListener('slidechange', e => {
+    broadcast(e.detail.index, e.detail.total);
+  });
+
+  // Receive nav requests from the presenter window.
+  channel.addEventListener('message', e => {
+    const msg = e.data;
+    if (!msg) return;
+    if (msg.type === 'nav') {
+      if (msg.dir === 'prev') stage.prev?.();
+      else if (msg.dir === 'next') stage.next?.();
+      else if (typeof msg.dir === 'number') stage.goTo?.(msg.dir);
+    } else if (msg.type === 'request-sync') {
+      const total = stage.length || stage.querySelectorAll('section').length;
+      const index = stage.index ?? 0;
+      broadcast(index, total);
+    } else if (msg.type === 'request-notes') {
+      channel.postMessage({ type: 'notes', notes });
+    }
+  });
+
+  // Hotkey 'p' opens (or refocuses) the presenter window.
+  let presenterWin = null;
+  const openPresenter = () => {
+    const url = new URL('presenter.html', location.href).href;
+    if (presenterWin && !presenterWin.closed) {
+      presenterWin.focus();
+      // Re-broadcast in case the window lost state on focus.
+      const total = stage.length || stage.querySelectorAll('section').length;
+      broadcast(stage.index ?? 0, total);
+      return;
+    }
+    presenterWin = window.open(
+      url,
+      'agentic-harness-presenter',
+      'popup,width=1080,height=760,menubar=no,toolbar=no,location=no'
+    );
+    if (!presenterWin) {
+      console.warn('[presenter] Popup blocked. Allow popups for this origin.');
+    }
+  };
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(t.tagName))) return;
+    if (e.key === 'p' || e.key === 'P') {
+      e.preventDefault();
+      openPresenter();
+    }
+  });
+  // Expose for manual triggers / a button if you want to add one.
+  window.openPresenter = openPresenter;
+})();
 </script>
 </body>
 </html>
