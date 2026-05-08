@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s \"http://localhost:8000/Agentic%20Harness%20Engineering.html\")",
+      "Bash(node -e \"require\\('fs'\\).readFileSync\\('/Users/kinglerbercy/Projects/agentic-harness-engineering/deck-stage.js','utf8'\\); new Function\\(require\\('fs'\\).readFileSync\\('/Users/kinglerbercy/Projects/agentic-harness-engineering/deck-stage.js','utf8'\\)\\)\")"
+    ]
+  }
+}
