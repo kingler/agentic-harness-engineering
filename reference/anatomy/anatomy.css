@@ -1,7 +1,7 @@
 /* Anatomy reference layout — full-page version of the deck's decompose
-   slides. Stacks the example prompt on the left and the section callouts
-   on the right; sticky callouts so they stay visible while scrolling
-   long prompts. Inherits tokens from ../../breakouts/styles.css. */
+   slides. Main prompt/code uses the full row width; callout cards share the
+   same grid cell and stick on the right as an overlay lane while scrolling.
+   Inherits tokens from ../../breakouts/styles.css. */
 
 /* Extra top padding for scroll targets (#sec-r*, hash links, scrollIntoView)
    so highlighted code blocks are not flush against the viewport edge. */
@@ -10,9 +10,13 @@ html {
   scroll-padding-bottom: 3rem;
 }
 
+/* Edge-to-edge shell: use full viewport width with consistent horizontal inset. */
 .page.page--wide {
-  max-width: 1280px;
-  padding: 56px 40px 96px;
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
 /* The "← Back to deck" button — bigger and more inviting than the
@@ -38,15 +42,26 @@ html {
   transform: translateY(-1px);
 }
 
+/* Single grid cell: main spans full width; callouts share the cell and stick to the
+   top-right so prose/code use the full row while bubbles float as a non-blocking lane. */
 .anatomy-split {
+  --callout-w: min(400px, 32vw);
+  --callout-gap: 24px;
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: 40px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto;
   margin-top: 32px;
   align-items: start;
+  position: relative;
 }
 
-.anatomy-main { min-width: 0; }
+.anatomy-main {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  min-width: 0;
+  /* Keeps long lines from running underneath the overlay column. */
+  padding-right: calc(var(--callout-w) + var(--callout-gap));
+}
 
 .anatomy-main .ex-kicker {
   font-family: 'JetBrains Mono', monospace;
@@ -138,14 +153,27 @@ html {
   color: #fff;
 }
 
-/* Right column — section callout cards. Sticky while the long prompt scrolls. */
+/* Callouts overlay the main column (same grid area); sticky keeps them in view while
+   scrolling long prompts. Cards remain clickable (scroll-spy unchanged). */
 .anatomy-callouts {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: end;
+  align-self: start;
+  width: var(--callout-w);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  align-self: start;
   position: sticky;
   top: 24px;
+  z-index: 5;
+  /* No chrome on the column wrapper — only the inner cards carry borders/shadows. */
+  border: 0;
+  outline: none;
+  border-radius: 12px;
+  padding: 16px;
 }
 
 .anatomy-card {
@@ -165,8 +193,9 @@ html {
 
 /* Active card state — the section it points to is currently in view. */
 .anatomy-card.is-active {
-  border-color: var(--accent);
-  box-shadow: 0 8px 28px rgba(45, 107, 255, 0.18);
+  /* Neutral stroke and shadow so the active card reads as “lifted,” not accent-outlined. */
+  border-color: var(--gray-300);
+  box-shadow: var(--card-shadow-hover);
   transform: translateX(-4px);
 }
 .anatomy-card.is-active .card-num {
@@ -291,12 +320,33 @@ html {
   visibility: hidden;
 }
 
-/* Responsive — collapse to a single column on narrow screens. */
+/* Responsive — stack callouts under the prompt so nothing overlaps on narrow viewports. */
 @media (max-width: 1080px) {
-  .anatomy-split { grid-template-columns: 1fr; }
-  .anatomy-callouts { position: static; }
+  .anatomy-split {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .anatomy-main {
+    grid-column: unset;
+    grid-row: unset;
+    padding-right: 0;
+  }
+  .anatomy-callouts {
+    grid-column: unset;
+    grid-row: unset;
+    justify-self: stretch;
+    align-self: stretch;
+    position: static;
+    width: 100%;
+    max-height: none;
+    overflow-y: visible;
+    z-index: auto;
+  }
 }
 @media (max-width: 720px) {
-  .page.page--wide { padding: 32px 20px 64px; }
+  .page.page--wide {
+    padding: 24px 40px 56px;
+  }
   .anatomy-pager { grid-template-columns: 1fr; }
 }
