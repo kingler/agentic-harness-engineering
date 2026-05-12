@@ -108,10 +108,10 @@ Think about:
 - How sensitive is the data it handles? (Low = fewer restrictions. High = tight sandboxing.)
 
 **The trust spectrum:**
-- **No sandbox:** Agent can access everything the user can (developer tools)
-- **Filesystem sandbox:** Agent limited to a specific directory (Cursor, Cline, RooCode, Copilot CLI)
-- **Browser sandbox:** Agent runs in an iframe, no system access (Artifacts, v0)
-- **Full cloud isolation:** Agent runs in a managed cloud environment (Bolt)
+- **No sandbox:** Agent can access everything the user can — rarely the right answer for a shipped product, but common in personal developer tools
+- **Editor / workspace sandbox:** Agent scoped to a workspace directory and an allowed shell (GitHub Copilot, Cline, RooCode in VS Code)
+- **Embedded host sandbox:** Agent lives inside a host app and inherits its trust boundary (Claude Financial Services inside Excel & PowerPoint; Granola capturing system audio on-device and processing remotely)
+- **Full cloud isolation, per-tenant:** Agent runs in a managed, audited cloud environment with strict tenant isolation (Harvey)
 
 **Our decision:**
 
