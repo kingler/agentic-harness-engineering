@@ -4315,13 +4315,16 @@ You are a research agent. Be terse. Cite sources.</pre>
 
   // Hotkey 'p' opens (or refocuses) the presenter window.
   let presenterWin = null;
+  const pushFullState = () => {
+    const total = stage.length || stage.querySelectorAll('section').length;
+    broadcast(stage.index ?? 0, total);
+    channel.postMessage({ type: 'notes', notes });
+  };
   const openPresenter = () => {
     const url = new URL('presenter.html', location.href).href;
     if (presenterWin && !presenterWin.closed) {
       presenterWin.focus();
-      // Re-broadcast in case the window lost state on focus.
-      const total = stage.length || stage.querySelectorAll('section').length;
-      broadcast(stage.index ?? 0, total);
+      pushFullState();
       return;
     }
     presenterWin = window.open(
@@ -4331,7 +4334,14 @@ You are a research agent. Be terse. Cite sources.</pre>
     );
     if (!presenterWin) {
       console.warn('[presenter] Popup blocked. Allow popups for this origin.');
+      return;
     }
+    // The presenter window's CDN-imported module may be slow or blocked.
+    // Push state on a short retry burst so the bridge survives a stalled
+    // request-sync from the popup.
+    [250, 500, 1000, 2000, 4000].forEach(ms => setTimeout(() => {
+      if (presenterWin && !presenterWin.closed) pushFullState();
+    }, ms));
   };
   document.addEventListener('keydown', e => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;

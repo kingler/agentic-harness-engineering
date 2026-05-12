@@ -159,6 +159,12 @@
     content:attr(data-placeholder);
     color:var(--muted); float:left; pointer-events:none; height:0;
   }
+  /* Plain-text fallback rendered by the early bootstrap when Tiptap isn't
+     ready (or never loads). The module replaces it once the editor mounts. */
+  .editor-host .fallback-note{
+    margin:0; white-space:pre-wrap; font-family:inherit;
+    font-size:var(--note-size); line-height:1.55; color:var(--text);
+  }
 
   /* ── Up next panel ─────────────────────────────────────────── */
   .next{
@@ -251,6 +257,61 @@
   </section>
 </div>
 
+<!-- ── Early-bind bootstrap ──────────────────────────────────────────
+     Runs before the Tiptap module. Owns the BroadcastChannel, requests
+     state from the deck immediately, and renders a plain-text fallback
+     so notes show even if the Tiptap CDN imports fail or stall. The
+     module below upgrades to the rich editor once it loads. -->
+<script>
+  (() => {
+    if (!('BroadcastChannel' in window)) return;
+    const channel = new BroadcastChannel('agentic-harness-deck');
+    const state = { lastSync: null, notes: [] };
+    window.__presenterBoot = { channel, state };
+
+    const $ = id => document.getElementById(id);
+    const setText = (id, text) => { const el = $(id); if (el) el.textContent = text; };
+
+    const renderFallback = (msg) => {
+      // Once the module signals it has the editor, stop touching the host.
+      if (window.__presenterBoot.tiptapReady) return;
+      setText('num', msg.index + 1);
+      setText('total', msg.total);
+      setText('curLabel', msg.label || '');
+      setText('curTitle', msg.title || '(no title)');
+      setText('nxtTitle', msg.nextTitle || msg.nextLabel || '— end of deck —');
+      setText('nxtNote', msg.nextNote || (msg.nextLabel ? '' : "You've reached the last slide."));
+      const host = $('editorHost');
+      if (host) {
+        let pre = host.querySelector('.fallback-note');
+        if (!pre) {
+          host.innerHTML = '';
+          pre = document.createElement('pre');
+          pre.className = 'fallback-note';
+          host.appendChild(pre);
+        }
+        pre.textContent = msg.note || '';
+      }
+      const status = $('status');
+      if (status) status.innerHTML = '';
+    };
+
+    channel.addEventListener('message', (e) => {
+      const msg = e.data;
+      if (!msg) return;
+      if (msg.type === 'sync') {
+        state.lastSync = msg;
+        renderFallback(msg);
+      } else if (msg.type === 'notes') {
+        state.notes = Array.isArray(msg.notes) ? msg.notes.slice() : [];
+      }
+    });
+
+    // Kick the deck for state immediately — no module imports gating this.
+    channel.postMessage({ type: 'request-sync' });
+    channel.postMessage({ type: 'request-notes' });
+  })();
+</script>
 <script type="module">
   import { Editor } from 'https://esm.sh/@tiptap/core@2.10.3';
   import StarterKit from 'https://esm.sh/@tiptap/starter-kit@2.10.3';
@@ -269,14 +330,21 @@
   let blurredOnce = false;
 
   // ── Cross-tab channel ───────────────────────────────────────────
-  const channel = ('BroadcastChannel' in window)
-    ? new BroadcastChannel('agentic-harness-deck')
-    : null;
+  // Prefer the bootstrap's channel so we don't drop messages that arrived
+  // before the module finished loading. Fall back to a fresh one if the
+  // bootstrap didn't run (very old browser, CSP, etc.).
+  const boot = window.__presenterBoot || null;
+  const channel = boot?.channel
+    || (('BroadcastChannel' in window) ? new BroadcastChannel('agentic-harness-deck') : null);
   if (!channel) {
     $('status').innerHTML = '<span class="status warn">No BroadcastChannel</span>';
   }
+  if (boot?.state?.notes?.length) originalNotes = boot.state.notes.slice();
 
   // ── Tiptap editor ───────────────────────────────────────────────
+  // The bootstrap may have left a plain-text fallback inside #editorHost.
+  // Clear it so Tiptap mounts into a clean container.
+  $('editorHost').innerHTML = '';
   const editor = new Editor({
     element: $('editorHost'),
     extensions: [
@@ -299,6 +367,8 @@
     onSelectionUpdate(){ refreshToolbar(); },
     onTransaction(){ refreshToolbar(); },
   });
+  // Tell the bootstrap to stop overwriting the host with plain text.
+  if (boot) boot.tiptapReady = true;
 
   // ── Storage helpers ─────────────────────────────────────────────
   const keyFor = i => STORAGE_PREFIX + i;
@@ -517,6 +587,9 @@
   $('resetTimer').addEventListener('click', resetTimer);
 
   // ── Connect ───────────────────────────────────────────────────
+  // Replay anything the bootstrap captured while Tiptap was loading,
+  // then ask the deck for a fresh sync as a belt-and-suspenders nudge.
+  if (boot?.state?.lastSync) apply(boot.state.lastSync);
   channel?.postMessage({ type: 'request-sync' });
   channel?.postMessage({ type: 'request-notes' });
 
