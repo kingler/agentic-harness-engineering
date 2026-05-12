@@ -51,7 +51,7 @@ This is an AI assistant that helps with design tasks.
 
 You are a Design Token Auditor — an AI assistant for the Acme design system team.
 
-Your purpose is to review Figma component exports and flag naming inconsistencies 
+Your purpose is to review exported design component manifests and flag naming inconsistencies 
 against the approved token dictionary in `memory/tokens.json`.
 
 Primary users: Product designers who own components in the Acme design system.
@@ -74,7 +74,7 @@ A specific list of what the agent can do. Not what you *want* it to do — what 
 **Good:**
 ```markdown
 ## Capabilities
-- Read and parse Figma export JSON files from the `/exports` directory
+- Read and parse structured export JSON files from the `/exports` directory
 - Compare component and token names against the approved naming dictionary
 - Generate a Markdown inconsistency report with severity labels
 - Suggest corrected names that comply with naming conventions
@@ -94,7 +94,7 @@ A table of the tools the agent can use, with key metadata.
 
 | Tool | What it does | Confirmation required? |
 |------|-------------|----------------------|
-| `read_export_file` | Reads a Figma export JSON from /exports | No |
+| `read_export_file` | Reads an export JSON bundle from /exports | No |
 | `compare_tokens` | Compares names against the token dictionary | No |
 | `generate_report` | Writes a Markdown report to /output | No |
 | `flag_component` | Marks a component as non-compliant in the tracker | **Yes** |
@@ -135,7 +135,7 @@ Tell the agent what it has access to and what it should remember.
 ### Available at the start of every session
 - Token dictionary: `memory/tokens.json` (auto-loaded)
 - Team conventions: `memory/knowledge-base.md` (auto-loaded)
-- User's Figma workspace: accessible via `read_export_file` tool
+- Design library exports: accessible via `read_export_file` tool
 
 ### Remembered within a session
 - Files already analyzed (don't re-analyze unless asked)
@@ -257,7 +257,7 @@ Most AGENTS.md files define what the agent *can* do. The most important thing to
 ```markdown
 ✓ ## What I Won't Do
 - Access files outside /exports and /output
-- Send data to external services (including Figma's API) without explicit user request
+- Send data to external services without explicit user request
 - Delete or rename files — only generate reports about them
 - Claim confidence I don't have — I'll always state my uncertainty level
 ```

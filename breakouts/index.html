@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Breakouts · Agentic Harness Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span class="crumb">Workshop · Breakouts</span>
+    <a href="../index.html" class="back">← Back to deck</a>
+  </div>
+
+  <p class="eyebrow">Day 1 · Component breakouts</p>
+  <h1>Build your harness, one component at a time</h1>
+  <p class="lede">
+    Five short breakouts. One template package across all of them. Pick the app you're reverse-engineering (Harvey, Claude for Financial Services, or Granola), then let Copilot or RooCode walk you through generating each component in your own repo.
+  </p>
+
+  <section class="prereqs" aria-label="Prerequisites">
+    <h2>Before you start</h2>
+    <ul>
+      <li><b>VS Code</b> installed (or a compatible editor).</li>
+      <li><b>GitHub Copilot</b> extension enabled — Pro / Business / Enterprise plan.</li>
+      <li><b>RooCode</b> extension installed and signed in.</li>
+      <li>A repo open in VS Code — your team's, or a sandbox is fine.</li>
+      <li><code class="inline">jq</code> on your <code class="inline">$PATH</code> for the Rules &amp; Hooks breakout.</li>
+    </ul>
+  </section>
+
+  <h2>Download the template (once)</h2>
+  <p>Same zip covers all five breakouts. The slash commands live inside it under <code class="inline">.github/prompts/</code> (Copilot) and <code class="inline">.claude/commands/</code> (Claude Code / RooCode-compatible).</p>
+  <p>
+    <a class="cta" href="harness-templates.zip" download>
+      Download harness-templates.zip
+      <span class="size">~45&nbsp;KB</span>
+    </a>
+  </p>
+
+  <h2>The five breakouts</h2>
+  <div class="hub-grid">
+    <a class="hub-card" href="component-1-system-prompt.html">
+      <span class="chip">01</span><h3>System prompt</h3>
+      <p>Draft <code>AGENTS.md</code> using the five-section anatomy: identity, scope, hard rules, tool roster, failure modes. Slash command: <code>/draft-system-prompt</code>.</p>
+    </a>
+    <a class="hub-card" href="component-2-skills.html">
+      <span class="chip">02</span><h3>Skills</h3>
+      <p>Author a <code>SKILL.md</code> directory with frontmatter trigger + body + bundled <code>scripts/ · references/ · assets/</code>. Slash command: <code>/draft-skill</code>.</p>
+    </a>
+    <a class="hub-card" href="component-3-tools.html">
+      <span class="chip">03</span><h3>Tools</h3>
+      <p>Write a script-as-tool descriptor with WHAT / WHEN / WHEN-NOT, plus an input schema and an executable stub. Slash command: <code>/draft-tool</code>.</p>
+    </a>
+    <a class="hub-card" href="component-4-rules-hooks.html">
+      <span class="chip">04</span><h3>Rules &amp; Hooks</h3>
+      <p>Pair <code>settings.json</code> allow / deny / ask with a <code>pre-tool-use.sh</code> hook that enforces it. Slash command: <code>/draft-rules-hooks</code>.</p>
+    </a>
+    <a class="hub-card" href="component-5-knowledge-memory.html">
+      <span class="chip">05</span><h3>Knowledge &amp; Memory</h3>
+      <p>Write one durable knowledge file plus a session memory scaffold — and learn what stays where. Slash command: <code>/draft-knowledge</code>.</p>
+    </a>
+  </div>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Workshop breakouts</span>
+    <a href="../index.html">Back to deck</a>
+  </footer>
+</main>
+</body>
+</html>

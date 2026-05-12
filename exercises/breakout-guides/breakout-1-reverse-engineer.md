@@ -16,17 +16,15 @@ You're not guessing randomly. You're reasoning from observable behaviors to unde
 
 ## Step 0 — Choose Your App (5 min)
 
-If your group hasn't already chosen an app, pick one from the 5 profiles in `exercises/ai-apps/`:
+If your group hasn't already chosen an app, pick one from the three profiles in `exercises/ai-apps/`:
 
 | Option | App | Best for |
 |--------|-----|----------|
-| A | **Cursor** — AI code editor | Groups who use Cursor or VS Code heavily |
-| B | **v0 by Vercel** — AI UI generator | Groups interested in design-to-code workflows |
-| C | **Bolt.new** — full-stack app builder | Groups interested in orchestration + infrastructure |
-| D | **Figma AI** — design assistant | Groups who want to stay close to their daily work |
-| E | **Claude Artifacts** — interactive content | Groups interested in sandboxing + content generation |
+| A | **Harvey** — legal AI platform | Rich vertical harness — privilege, citations, multi-agent workflows |
+| B | **Claude for Financial Services** | Regulated vertical — verification-first outputs, Excel/PPT surfaces |
+| C | **Granola** — AI meeting notepad | Smallest surface area — fast map of all six components |
 
-**Tip:** Pick the app your group uses most. Your first-hand experience makes the reverse-engineering faster and richer.
+**Tip:** Pick the column you can observe most clearly as a user. You will copy **domain language** into your local **template harness project**, not proprietary vendor prompts.
 
 ---
 
@@ -198,5 +196,5 @@ At the end of this session, your group should have:
 - Cursor's `.cursorrules` → system prompt pattern
 - v0's output constraint to one tech stack → system prompt as product definition
 - Bolt's WebContainer → sandbox as product-defining infrastructure decision
-- Figma AI's accept/dismiss → explicit vs. implicit feedback
+- GitHub Copilot's instruction layers (repo vs. org vs. personal) → where the real harness lives
 - Claude Artifacts' auto-detection → judgment encoded as harness heuristic

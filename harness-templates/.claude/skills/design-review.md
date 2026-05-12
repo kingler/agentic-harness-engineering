@@ -1,6 +1,6 @@
 ---
 name: design-review
-description: Review a UI change against our design system and accessibility rules. Loads when the user mentions "design review", "a11y check", or pastes a Figma link.
+description: Review a UI change against our design system and accessibility rules. Loads when the user mentions "design review", "a11y check", or asks for a UI pass on specific files.
 ---
 
 # Design Review Skill

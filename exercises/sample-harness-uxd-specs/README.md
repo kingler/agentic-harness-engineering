@@ -16,7 +16,7 @@ per spec, with YAML frontmatter. Specs move through five states:
 draft → in-review → approved → implemented → archived
 ```
 
-Each spec has a stable ID (`SPEC-YYYY-NNN`), an owner, links to Figma frames,
+Each spec has a stable ID (`SPEC-YYYY-NNN`), an owner, optional `design_reference` links,
 links to related specs, and a fixed set of required sections. The spec library
 is the single source of truth for what the team is building.
 
@@ -73,8 +73,8 @@ harness reading either file gets a consistent picture.
 
 ## Out of scope on purpose
 
-- No real Figma/Linear API calls — MCP entries point to public servers but the
-  scripts mock the data.
+- No live Jira API calls — MCP entries point to public servers but the
+  workshop scripts mock most side effects.
 - No model wiring (`config.json`, model selection) — covered in the main
   template.
 - No evals — covered in `harness-templates/evals/`.

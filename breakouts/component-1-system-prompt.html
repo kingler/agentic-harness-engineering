@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component 1 · System prompt — Breakout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span class="crumb">Breakout · Component 01 / 05</span>
+    <a href="index.html" class="back">← All breakouts</a>
+  </div>
+
+  <p class="eyebrow">Component 01 · System prompt</p>
+  <h1>Draft your AGENTS.md</h1>
+  <p class="lede">
+    Walk through the five-section system prompt anatomy — identity, scope, hard rules, tool roster, failure modes — with Copilot or RooCode coaching you, scoped to the app you picked to reverse-engineer.
+  </p>
+
+  <section class="prereqs" aria-label="Prerequisites">
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>VS Code installed (or your team's compatible editor).</li>
+      <li>GitHub Copilot extension enabled (Pro / Business / Enterprise).</li>
+      <li>RooCode extension installed and signed in.</li>
+      <li>A repo open in VS Code — your team's, or a sandbox is fine.</li>
+    </ul>
+  </section>
+
+  <h2><span class="step-num">1</span>Download the template</h2>
+  <p>One zip covers all five breakouts. You unzip it once at the start of Day 1.</p>
+  <p>
+    <a class="cta" href="harness-templates.zip" download>
+      Download harness-templates.zip
+      <span class="size">~45&nbsp;KB</span>
+    </a>
+  </p>
+
+  <h2><span class="step-num">2</span>Drop it into your repo</h2>
+<pre class="code"><span class="cmt"># from your repo root</span>
+unzip ~/Downloads/harness-templates.zip -d .
+cp -r harness-templates/.claude harness-templates/.github .
+cp harness-templates/AGENTS.md harness-templates/mcp.json .</pre>
+  <p>You should now see <code class="inline">.claude/</code>, <code class="inline">.github/</code>, and <code class="inline">AGENTS.md</code> at the repo root.</p>
+
+  <h2><span class="step-num">3</span>Pick the app you're reverse-engineering</h2>
+  <p>The slash command is the same. The <em>context</em> you give it is what makes the output feel real.</p>
+  <div class="apps" role="tablist">
+    <button role="tab" aria-selected="true" data-app="harvey">Harvey</button>
+    <button role="tab" aria-selected="false" data-app="claudefs">Claude Financial Services</button>
+    <button role="tab" aria-selected="false" data-app="granola">Granola</button>
+  </div>
+
+  <div class="app-panel" data-app="harvey" data-active="true">
+    <h3>Harvey · legal AI for law firms</h3>
+    <p>The agent helps lawyers run discovery, review contracts, and trace citation chains. Hard rules are about privilege, source attribution, and the malpractice cost of a hallucinated cite.</p>
+    <p><b>Hint:</b> when the slash command asks for hard rules, try:</p>
+    <ul>
+      <li>"Every claim about a document must include a pin-cite to a page span."</li>
+      <li>"Never invent case law — if a cite isn't in the loaded corpus, say so."</li>
+      <li>"Privileged matter never leaves the matter's workspace."</li>
+    </ul>
+  </div>
+
+  <div class="app-panel" data-app="claudefs">
+    <h3>Claude for Financial Services · workbook-native copilot</h3>
+    <p>The agent operates inside research workbooks. It pulls filings, builds models, and writes regulatory disclosures. Hard rules are about audit trail, numeric lineage, and SOC 2 / FedRAMP boundaries.</p>
+    <p><b>Hint:</b> when the slash command asks for hard rules, try:</p>
+    <ul>
+      <li>"Every number in a deliverable must trace back to a cited source row."</li>
+      <li>"Never modify a published workbook without a tracked-change branch."</li>
+      <li>"PII or non-public material info never leaves the firm boundary."</li>
+    </ul>
+  </div>
+
+  <div class="app-panel" data-app="granola">
+    <h3>Granola · meeting-native productivity</h3>
+    <p>The agent listens during meetings, builds notes that don't interrupt the conversation, and ships action items. Hard rules are about consent, attendee privacy, and the discipline of not summarizing what wasn't said.</p>
+    <p><b>Hint:</b> when the slash command asks for hard rules, try:</p>
+    <ul>
+      <li>"Surface a visible recording indicator any time audio is captured."</li>
+      <li>"Action items only — never invent commitments no attendee made."</li>
+      <li>"Drop transcripts on session end; persist only the curated note."</li>
+    </ul>
+  </div>
+
+  <h2><span class="step-num">4</span>Run the slash command</h2>
+  <p>Open Copilot Chat or RooCode chat. Type:</p>
+<pre class="code">/draft-system-prompt</pre>
+  <p>The agent walks you through five questions — one at a time. Don't paste the whole template; let it lead you. Answer in your own words.</p>
+
+  <div class="callout">
+    <b>What you'll get back.</b> A draft <code>AGENTS.md</code> at the repo root with sections for Identity · Scope · Hard rules · Tools · When stuck. Under 200 lines. If <code>AGENTS.md</code> already exists, the agent writes <code>AGENTS.draft.md</code> for you to diff.
+  </div>
+
+  <h2><span class="step-num">5</span>Pressure-test the draft</h2>
+  <p>Before you ship it, read the draft as if you were the model trying to argue your way past every rule. Tighten any vague tool name. Re-run <code class="inline">/draft-system-prompt</code> with the corrections — it's idempotent.</p>
+
+  <h2>What's next</h2>
+  <p>When you're happy with <code>AGENTS.md</code>, commit it. Then head back to the deck for Component 2 (Skills) or open the next breakout page directly.</p>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Component 01 · System prompt</span>
+    <a href="component-2-skills.html">Component 2 · Skills →</a>
+  </footer>
+</main>
+
+<script>
+  // Lightweight tab toggling for the "pick your app" section.
+  document.querySelectorAll('.apps button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const app = btn.dataset.app;
+      document.querySelectorAll('.apps button').forEach(b => {
+        b.setAttribute('aria-selected', b.dataset.app === app ? 'true' : 'false');
+      });
+      document.querySelectorAll('.app-panel').forEach(p => {
+        p.setAttribute('data-active', p.dataset.app === app ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -79,13 +79,6 @@ while read -r ref; do
   fi
 done < <(grep -oE "SPEC-[0-9]{4}-[0-9]{3}" "$file" | grep -v "^${spec_id}$" | sort -u)
 
-# Figma URLs must look like a Figma file/proto/design URL.
-while read -r url; do
-  if [[ ! "$url" =~ ^https://(www\.)?figma\.com/(file|proto|design)/ ]]; then
-    warnings+=("{\"rule\":\"link.figma\",\"line\":0,\"message\":\"suspect Figma URL: ${url}\"}")
-  fi
-done < <(grep -oE "https://[^[:space:])]*figma\\.com[^[:space:])]*" "$file" || true)
-
 # Design system component names — must match the index exactly.
 if [[ -f "$DS_INDEX" ]]; then
   known=$(grep -oE "^- \`[A-Z][A-Za-z0-9]+\`" "$DS_INDEX" | tr -d '`' | sed 's/^- //' || true)

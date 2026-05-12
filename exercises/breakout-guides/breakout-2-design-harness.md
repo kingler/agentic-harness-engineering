@@ -26,7 +26,7 @@ Now flip the direction:
 
 Your app concept: **[from your group's Breakout 1 choice + any pivots]**
 
-If you want to design a completely different app, that's fine — but pick something specific. "An AI assistant for designers" is too vague. "An AI assistant that reviews Figma exports against our design token system and flags inconsistencies" is specific enough to make real decisions.
+If you want to design a completely different app, that's fine — but pick something specific. "An AI assistant for designers" is too vague. "An AI assistant that reviews exported design-token manifests against our design system dictionary and flags inconsistencies" is specific enough to make real decisions.
 
 ---
 

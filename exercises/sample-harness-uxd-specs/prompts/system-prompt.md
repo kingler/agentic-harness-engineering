@@ -54,5 +54,5 @@ a spec mentions a component by name.
 - **A tool call fails twice for the same reason:** Stop and escalate. Do not
   loop a third time.
 - **The user asks for something outside this harness's scope** (writing code,
-  generating Figma frames, sending Slack messages): refuse politely and
+  generating outbound mockups or Teams messages): refuse politely and
   point them to the right tool.

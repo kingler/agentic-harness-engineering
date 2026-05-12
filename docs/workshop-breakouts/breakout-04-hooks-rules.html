@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Breakout 4 · Hooks & rules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="workshop-breakout.css" />
+</head>
+<body>
+  <div class="wrap">
+    <a class="nav-back" href="index.html">← All breakouts</a>
+    <header>
+      <p class="eyebrow">Breakout 4 · ~12 min</p>
+      <h1>Hooks &amp; rules</h1>
+      <p class="lede">Pair numbered rules (already in your system prompt) with deterministic enforcement — typically <code>hooks/pre-tool-use.sh</code> exiting non-zero with a reason the model must respect.</p>
+    </header>
+
+    <section>
+      <h2>Goal</h2>
+      <ul>
+        <li>Three rules labeled <code>R-01…</code> in markdown if not already present.</li>
+        <li>One hook that blocks at least one dangerous tool/path/state tied to your top “never.”</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Tips</h2>
+      <ul>
+        <li>Copy shell structure from <code>exercises/sample-harness-uxd-specs/hooks/pre-tool-use.sh</code>.</li>
+        <li>Log to stderr for humans; stdout/json may feed the agent depending on harness.</li>
+        <li>Keep guards narrow — blocking everything creates noisy false positives.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <strong>Soft vs hard</strong>
+      Rules in prose remind the model; hooks and allow/deny lists make violations impossible. Design both — presenters called this component “Hooks &amp; Rules” on purpose.
+    </section>
+
+    <section>
+      <h2>Copy-paste · implement pre-tool-use</h2>
+<pre>Implement hooks/pre-tool-use.sh for my workspace.
+
+Never rule to enforce: {{{RULE_TEXT}}}
+Allowed write roots: {{{PATHS}}}
+Tools to intercept: {{{TOOL_NAMES}}}
+
+Use bash. On violation exit 2 with one-line JSON {"blocked":true,"reason":"..."}.
+On success exit 0.</pre>
+    </section>
+
+    <footer>Agentic Harness Engineering Workshop</footer>
+  </div>
+</body>
+</html>

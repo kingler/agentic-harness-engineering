@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component 2 · Skills — Breakout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span class="crumb">Breakout · Component 02 / 05</span>
+    <a href="index.html" class="back">← All breakouts</a>
+  </div>
+
+  <p class="eyebrow">Component 02 · Skills</p>
+  <h1>Author a SKILL.md</h1>
+  <p class="lede">
+    A skill is a <em>directory</em>, not a single file. Walk through the canonical anatomy — frontmatter trigger, body, bundled <code class="inline">scripts/</code> · <code class="inline">references/</code> · <code class="inline">assets/</code> — for the app you picked.
+  </p>
+
+  <section class="prereqs" aria-label="Prerequisites">
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>VS Code installed.</li>
+      <li>GitHub Copilot extension enabled (Pro / Business / Enterprise).</li>
+      <li>RooCode extension installed and signed in.</li>
+      <li>You've completed Component 1 — <code class="inline">AGENTS.md</code> exists at the repo root.</li>
+    </ul>
+  </section>
+
+  <h2><span class="step-num">1</span>Download the template (if you haven't)</h2>
+  <p>Same zip across all five breakouts.</p>
+  <p>
+    <a class="cta" href="harness-templates.zip" download>
+      Download harness-templates.zip
+      <span class="size">~45&nbsp;KB</span>
+    </a>
+  </p>
+
+  <h2><span class="step-num">2</span>Skill anatomy — the canonical shape</h2>
+  <p>From the <a href="https://agentskills.io" target="_blank" rel="noopener">Agent Skills spec</a>:</p>
+<pre class="code">.claude/skills/<span class="accent">{skill-name}/</span>
+├── <span class="accent">SKILL.md</span>          <span class="cmt"># required entrypoint</span>
+├── scripts/         <span class="cmt"># executable code — RUN, not read</span>
+├── references/      <span class="cmt"># docs loaded on demand</span>
+└── assets/          <span class="cmt"># files used in output (templates, etc.)</span></pre>
+  <p>Only <code class="inline">SKILL.md</code> is required. Everything else is progressive disclosure — loaded only when the body links to it.</p>
+
+  <h2><span class="step-num">3</span>Pick the app + the specialized job</h2>
+  <div class="apps" role="tablist">
+    <button role="tab" aria-selected="true" data-app="harvey">Harvey</button>
+    <button role="tab" aria-selected="false" data-app="claudefs">Claude Financial Services</button>
+    <button role="tab" aria-selected="false" data-app="granola">Granola</button>
+  </div>
+
+  <div class="app-panel" data-app="harvey" data-active="true">
+    <h3>Harvey · candidate skills</h3>
+    <ul>
+      <li><code class="inline">review-disclosure</code> — flag missing disclosures in an MA filing draft.</li>
+      <li><code class="inline">cite-check</code> — verify every legal citation against the loaded corpus.</li>
+      <li><code class="inline">discovery-tag</code> — apply privilege / responsiveness tags to a doc dump.</li>
+    </ul>
+    <p><b>Trigger example:</b> "Use when the user asks to review, audit, or check disclosure completeness on a filing draft."</p>
+  </div>
+
+  <div class="app-panel" data-app="claudefs">
+    <h3>Claude Financial Services · candidate skills</h3>
+    <ul>
+      <li><code class="inline">trace-numeric-lineage</code> — pin every number in a deliverable back to a source row.</li>
+      <li><code class="inline">draft-disclosure</code> — produce a Reg-FD-aware disclosure from research notes.</li>
+      <li><code class="inline">scenario-build</code> — construct a sensitivity table from a single base case.</li>
+    </ul>
+    <p><b>Trigger example:</b> "Use when the user asks to trace, audit, or verify the source of any number in a workbook."</p>
+  </div>
+
+  <div class="app-panel" data-app="granola">
+    <h3>Granola · candidate skills</h3>
+    <ul>
+      <li><code class="inline">summarize-meeting</code> — turn a transcript into a 5-bullet recap.</li>
+      <li><code class="inline">extract-actions</code> — pull only explicit commitments, with owner and due date.</li>
+      <li><code class="inline">followup-draft</code> — write the post-meeting email in the host's voice.</li>
+    </ul>
+    <p><b>Trigger example:</b> "Use when the user asks to summarize, recap, or extract action items from a meeting."</p>
+  </div>
+
+  <h2><span class="step-num">4</span>Run the slash command</h2>
+<pre class="code">/draft-skill</pre>
+  <p>The agent will walk you through three sections in order:</p>
+  <ol>
+    <li><b>Description (the trigger).</b> 1–2 lines that finish "Use when the user asks to…". This is what the loader reads to decide whether to invoke. Treat it like UX copy for the loader.</li>
+    <li><b>When-to-use + steps.</b> Three bullets + numbered, mechanical steps.</li>
+    <li><b>Bundled resources.</b> Will this skill need a script, a reference doc, or an output template?</li>
+  </ol>
+
+  <div class="callout">
+    <b>The corrected definition.</b> Older docs sometimes describe a skill as a single <code>.md</code> file. The current spec is a <em>directory</em> with <code>SKILL.md</code> required + optional <code>scripts/ · references/ · assets/</code>. Keep <code>SKILL.md</code> under 500 lines; push detail into <code>references/</code>.
+  </div>
+
+  <h2><span class="step-num">5</span>Pressure-test the description</h2>
+  <p>Show the description (without the body) to a colleague. Can they predict when Claude should load it? If they can't, the loader can't either. Tighten and re-run.</p>
+
+  <h2>What's next</h2>
+  <p>Commit the new skill directory. Then move on to Component 3 (Tools) or jump back to the deck.</p>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Component 02 · Skills</span>
+    <span>
+      <a href="component-1-system-prompt.html">← Component 1</a>
+      &nbsp;·&nbsp;
+      <a href="component-3-tools.html">Component 3 →</a>
+    </span>
+  </footer>
+</main>
+
+<script>
+  document.querySelectorAll('.apps button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const app = btn.dataset.app;
+      document.querySelectorAll('.apps button').forEach(b => {
+        b.setAttribute('aria-selected', b.dataset.app === app ? 'true' : 'false');
+      });
+      document.querySelectorAll('.app-panel').forEach(p => {
+        p.setAttribute('data-active', p.dataset.app === app ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+</body>
+</html>

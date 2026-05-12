@@ -8,7 +8,7 @@ created: {{TODAY}}
 updated: {{TODAY}}
 version: 0.1.0
 designers: []
-figma:
+design_reference:
 linked_specs: []
 linked_components: []
 {{REVISES}}
@@ -37,7 +37,7 @@ first session" beats "users". -->
 
 ## Flow
 
-<!-- Step-by-step user journey. Reference Figma frames by URL. Reference
+<!-- Step-by-step user journey. Tie steps to `design_reference` when useful. Reference
 design system components in `Backticks`. -->
 
 1.
