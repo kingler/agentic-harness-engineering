@@ -193,8 +193,9 @@ At the end of this session, your group should have:
 **When time is called:** Don't cut off mid-thought. Give a 2-minute warning and ask groups to finish their current component.
 
 **Common answers worth surfacing:**
-- Cursor's `.cursorrules` → system prompt pattern
-- v0's output constraint to one tech stack → system prompt as product definition
-- Bolt's WebContainer → sandbox as product-defining infrastructure decision
-- GitHub Copilot's instruction layers (repo vs. org vs. personal) → where the real harness lives
-- Claude Artifacts' auto-detection → judgment encoded as harness heuristic
+- Harvey's privilege protection & citation requirements → hard rules enforced as hooks, not system-prompt instructions
+- Harvey's workflow agents (litigation, transactional, in-house) → orchestration as the unit of value, not chat
+- Claude Financial Services living inside Excel and PowerPoint → tool surface as the product decision (don't build a chat tab)
+- Claude FS's "no number without lineage" → verification gate enforced as middleware
+- Granola's choice *not* to join meetings as a bot → sandbox / capture surface as a deliberate trust boundary
+- Granola's fixed output schema (summary · decisions · actions) → schema enforcement as a post-generation hook
