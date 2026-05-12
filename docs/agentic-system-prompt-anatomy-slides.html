@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Agentic system prompts — anatomy & Claude system prompt (harness view)</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css" id="theme" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+
+    <style>
+      /*
+       * Reveal positions `.slides > section` as `position:absolute` with width:100% but NO height.
+       * Sections then grow to content height and get clipped by the viewport — overflow never scrolls.
+       * Fix: pin section to the slide canvas (`top:0; height:100%`), flex layout, scroll inside `.slide-scroll`
+       * with `flex:1; min-height:0` (classic flex scroll trap).
+       */
+      .deck-agentic-prompt.reveal .slides > section {
+        top: 0 !important;
+        left: 0 !important;
+        height: 100% !important;
+        box-sizing: border-box !important;
+      }
+      .deck-agentic-prompt.reveal .slides > section:not(.title-slide) {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        overflow: hidden !important;
+        padding: 0.45rem 4% 0.55rem !important;
+      }
+      .deck-agentic-prompt .slide-scroll {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+        overflow-y: auto !important;
+        overflow-x: hidden;
+        width: 100%;
+        margin: 0;
+        padding: 0 0.35rem 0.5rem 0;
+        box-sizing: border-box;
+        scrollbar-gutter: stable;
+        text-align: left;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.08);
+      }
+      .deck-agentic-prompt .slide-scroll::-webkit-scrollbar {
+        width: 11px;
+      }
+      .deck-agentic-prompt .slide-scroll::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 6px;
+      }
+      .deck-agentic-prompt .slide-scroll::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.28);
+        border-radius: 6px;
+      }
+      /* Title / end slides stay visually centered (no `.slide-scroll`). */
+      .deck-agentic-prompt.reveal .slides > section.title-slide {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+        padding: 0.75rem 5% !important;
+      }
+      .reveal section.title-slide h1 {
+        font-size: 2em;
+        margin-bottom: 0.35em;
+        text-transform: none;
+      }
+      .reveal section.title-slide .subtitle {
+        font-size: 0.95em;
+        opacity: 0.82;
+        max-width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.45;
+      }
+      /* Slide titles inside scroll panels: fixed px + bold (Reveal root em was oversized). */
+      .deck-agentic-prompt .slide-scroll > h2 {
+        font-size: 32px;
+        font-weight: 700;
+        text-transform: none;
+        line-height: 1.2;
+        margin: 0 0 0.35em;
+      }
+      /* Fixed px so intro copy stays readable without dominating the slide (Reveal scales em from root). */
+      .deck-agentic-prompt .lede {
+        font-size: 16px;
+        opacity: 0.88;
+        max-width: 92%;
+        margin: 0 auto 0.5em;
+        text-align: left;
+        line-height: 1.35;
+      }
+      .reveal .footnote {
+        font-size: 0.42em;
+        opacity: 0.58;
+        margin-top: 0.85em;
+        text-align: left;
+      }
+      .reveal .footnote code {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 0 0.35em;
+        border-radius: 3px;
+      }
+      /* --- Anatomy blocks: readable monospace slabs (-20% vs prior 0.38em for denser fit) --- */
+      .deck-agentic-prompt .prompt-bits {
+        text-align: left;
+        font-size: 0.304em;
+        line-height: 1.35;
+        padding-right: 0.35em;
+        margin-top: 0.35em;
+      }
+      .deck-agentic-prompt .prompt-bits h3 {
+        font-size: 1.05em;
+        margin: 0.65em 0 0.25em;
+        color: #fff;
+        font-weight: 600;
+        text-transform: none;
+      }
+      .deck-agentic-prompt .prompt-bits pre {
+        margin: 0.15em 0 0.4em;
+        width: 100%;
+        box-shadow: none;
+        font-size: 0.98em;
+      }
+      /* --- Inline callouts over excerpt text --- */
+      .reveal .excerpt-wrap {
+        text-align: left;
+        font-size: 0.44em;
+        line-height: 1.42;
+        padding: 0.4em 0.65em;
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      /* Harness ↔ Claude mapping table */
+      .reveal .map-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.42em;
+        text-align: left;
+        margin-top: 0.35em;
+      }
+      .reveal .map-table th,
+      .reveal .map-table td {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 0.35em 0.45em;
+        vertical-align: top;
+      }
+      .reveal .map-table th {
+        background: rgba(255, 255, 255, 0.06);
+        color: #a6e22e;
+        font-weight: 600;
+      }
+      /* Semantic highlights mapped to anatomy sections */
+      .callout-id {
+        background: rgba(174, 129, 255, 0.35);
+        padding: 0 0.12em;
+        border-radius: 2px;
+      }
+      .callout-products {
+        background: rgba(253, 151, 31, 0.38);
+        padding: 0 0.12em;
+        border-radius: 2px;
+      }
+      .callout-meta-prompt {
+        background: rgba(166, 226, 46, 0.35);
+        padding: 0 0.12em;
+        border-radius: 2px;
+      }
+      .callout-safety {
+        background: rgba(249, 38, 114, 0.42);
+        padding: 0 0.12em;
+        border-radius: 2px;
+      }
+      .callout-temporal {
+        background: rgba(102, 217, 239, 0.38);
+        padding: 0 0.12em;
+        border-radius: 2px;
+      }
+      .reveal .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem 0.85rem;
+        justify-content: center;
+        font-size: 0.38em;
+        margin-top: 0.45em;
+        margin-bottom: 0.35em;
+        padding-bottom: 0.25em;
+        opacity: 0.95;
+      }
+      .reveal .legend span {
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal deck-agentic-prompt">
+      <div class="slides">
+
+        <section class="title-slide">
+          <h1>Agentic system prompts</h1>
+          <p class="subtitle">
+            How to layer a harness-style system prompt — then read Anthropic’s Claude consumer/API prompt as the same
+            structure (identity, routing, tools-time policy, safety, tone).
+          </p>
+          <p class="footnote">
+            Companion breakdown:
+            <code>docs/claude-opus4-system-prompt-comprehensive-analysis.md</code>.
+            Annotated excerpt below is representative Claude wording (opening stack through cutoff&nbsp;/ retrieval behavior).
+          </p>
+        </section>
+
+        <!-- Anatomy: slide A -->
+        <section>
+          <div class="slide-scroll">
+          <h2>Anatomy (agentic harness)<span style="opacity:0.55;font-size:0.55em">&nbsp;— part 1</span></h2>
+          <p class="lede">
+            Think “compression artifact”: isolate concerns so tools, safety, and tone cannot bleed into each other. Tags or markdown headings both work;
+            below uses fenced markdown snippets as reusable wording templates.
+          </p>
+          <div class="prompt-bits">
+            <h3>1 · Role &amp; mission</h3>
+            <pre><code class="language-markdown">
+You are **{{ROLE_NAME}}** for **{{PRODUCT_OR_REPO}}**.
+
+**Mission:** {{ONE_SENTENCE_OUTCOME}}.
+**Non-goals:** {{WHAT_YOU_REFUSE_OR_ESCALATE}}.
+
+Operate inside {{SCOPE}}; escalate when {{TRIGGER_CONDITIONS}}.
+</code></pre>
+
+            <h3>2 · Temporal &amp; environment grounding</h3>
+            <pre><code class="language-markdown">
+Assume today is **{{ISO_DATE}}** (timezone {{TZ}}).
+Treat repo paths relative to **{{WORKSPACE_ROOT}}**.
+Stale facts after {{KNOWLEDGE_CUTOFF}} → {{FETCH_POLICY}} (internal KB | web | abstain).
+</code></pre>
+
+            <h3>3 · Tool / MCP policy (capabilities boundary)</h3>
+            <pre><code class="language-markdown">
+Call tools only when {{WHEN_TO_USE_TOOLS}}.
+
+Preferred order:
+1) {{READ_ONLY_TOOLS_FIRST}}
+2) {{SIDE_EFFECT_TOOLS_AFTER_APPROVAL}}
+
+If a tool errors twice → {{BACKOFF_PLAN}}.
+Never invoke {{FORBIDDEN_TOOLS}} without explicit human approval.
+</code></pre>
+
+            <h3>4 · Agent loop &amp; stop conditions</h3>
+            <pre><code class="language-markdown">
+Each cycle: **plan → act → observe → summarize deltas**.
+
+Stop when:
+- acceptance criteria {{TESTS_OR_CHECKS}} pass, OR
+- blocked after {{MAX_ATTEMPTS}} documented tries.
+
+Always surface blockers with **repro steps**, **last command**, **next smallest experiment**.
+</code></pre>
+          </div>
+          </div>
+        </section>
+
+        <!-- Anatomy: slide B -->
+        <section>
+          <div class="slide-scroll">
+          <h2>Anatomy (agentic harness)<span style="opacity:0.55;font-size:0.55em">&nbsp;— part 2</span></h2>
+          <div class="prompt-bits">
+            <h3>5 · Memory, logs &amp; artifacts</h3>
+            <pre><code class="language-markdown">
+Persist durable notes to {{MEMORY_FILES_OR_STORE}}.
+Transient scratch → {{SCRATCHPAD_RULE}}.
+
+Every substantive tool call: append one line to {{RUN_LOG}}
+`(intent, command/resource id, outcome snippet)`.
+</code></pre>
+
+            <h3>6 · Verification &amp; quality gates</h3>
+            <pre><code class="language-markdown">
+Before claiming done:
+- run {{TEST_COMMAND_OR_LINTER}}
+- cite evidence paths (`{{FILE}}:{{LINE_RANGE}}`)
+
+If failing tests → prefer minimal fix; never silence assertions without rationale.
+</code></pre>
+
+            <h3>7 · Safety, privacy &amp; misuse resistance</h3>
+            <pre><code class="language-markdown">
+Decline {{HIGH_RISK_BUCKETS}} even when framed as educational.
+
+If inputs imply harm toward {{VULNERABLE_GROUPS}} → brief refusal; no speculative workarounds.
+
+Never exfiltrate secrets; redact {{PII_MARKERS}} from logs.
+</code></pre>
+
+            <h3>8 · Voice, formatting &amp; negative examples</h3>
+            <pre><code class="language-markdown">
+Default tone: {{QUALITIES}}.
+
+_lists:_ {{LIST_POLICY}}
+
+Anti-patterns (do **not** mirror user mistakes):
+```bad
+{{BAD_SNIPPET}}
+```
+Correct handling:
+```good
+{{GOOD_SNIPPET}}
+```
+</code></pre>
+          </div>
+          </div>
+        </section>
+
+        <!-- Claude prompt ↔ harness mapping -->
+        <section>
+          <div class="slide-scroll">
+          <h2>Claude system prompt ↔ harness layers</h2>
+          <p class="lede">
+            Anthropic’s consumer/API Claude prompt stacks the same concerns you split in <code>AGENTS.md</code>,
+            rules, tools/MCP, and hooks — only the enforcement boundary shifts (prompt-only vs IDE/runtime policy).
+          </p>
+          <table class="map-table">
+            <thead>
+              <tr>
+                <th>Harness slice</th>
+                <th>Claude prompt carries…</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Role &amp; scope anchor</strong></td>
+                <td>Creator line, model family sentence, what Claude may admit about itself.</td>
+              </tr>
+              <tr>
+                <td><strong>Temporal grounding</strong></td>
+                <td>Injected “current date”, knowledge cutoff, post-cutoff retrieval rule.</td>
+              </tr>
+              <tr>
+                <td><strong>Capability routing</strong></td>
+                <td>Where users go for billing/API/support; Claude Code called out as agentic delegation surface.</td>
+              </tr>
+              <tr>
+                <td><strong>Tool-time behavior</strong></td>
+                <td>When search runs without asking; how post-cutoff facts are handled.</td>
+              </tr>
+              <tr>
+                <td><strong>Safety &amp; refusal tier</strong></td>
+                <td>MUST-refuse malware/file edges; minors; weapons — mirrors harness deny lists.</td>
+              </tr>
+              <tr>
+                <td><strong>Output contract</strong></td>
+                <td>Lists vs prose, markdown rules, refusal tone (“don’t preach”).</td>
+              </tr>
+              <tr>
+                <td><strong>Meta-instructions</strong></td>
+                <td>Teaching users to prompt (XML tags, examples, length) — optional section for power users.</td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+        </section>
+
+        <!-- Annotated Claude excerpt (single column, harness-oriented) -->
+        <section>
+          <div class="slide-scroll">
+          <h2>Representative Claude wording (annotated)</h2>
+          <p class="lede">
+            Highlight colors tie phrases back to the harness slices above. Your repo harness fills in tools (bash,
+            MCP), filesystem roots, and CI hooks; Claude’s shipped prompt shows how far semantics alone can go.
+          </p>
+
+          <div class="excerpt-wrap">
+            The assistant is Claude, created by Anthropic. The current date is Thursday, May 22, 2025. Here is some information about Claude and Anthropic's products in case the person asks:<br /><br />
+            <span class="callout-id">This iteration of Claude is Claude Sonnet 4 from the Claude 4 model family. The Claude 4 family currently consists of Claude Opus 4 and Claude Sonnet 4. Claude Sonnet 4 is a smart, efficient model for everyday use.</span><br /><br />
+            If the person asks, Claude can tell them about the following products which allow them to access Claude. Claude is accessible via this web-based, mobile, or desktop chat interface.<br />
+            <span class="callout-products">Claude is accessible via an API. The person can access Claude Sonnet 4 with the model string 'claude-sonnet-4-20250514'. Claude is accessible via 'Claude Code', which is an agentic command line tool available in research preview. 'Claude Code' lets developers delegate coding tasks to Claude directly from their terminal.</span><br /><br />
+            <span class="callout-meta-prompt">When relevant, Claude can provide guidance on effective prompting techniques for getting Claude to be most helpful. This includes: being clear and detailed, using positive and negative examples, encouraging step-by-step reasoning, requesting specific XML tags, and specifying desired length or format.</span><br /><br />
+            <span class="callout-safety">When working on files, if they seem related to improving, explaining, or interacting with malware or any malicious code Claude MUST refuse.</span><br /><br />
+            <span class="callout-temporal">Claude's reliable knowledge cutoff date… is the end of January 2025… If asked or told about events or news that occurred after this cutoff date, Claude uses the web search tool to find more info. If asked about current news or events, such as the current status of elected officials, Claude uses the search tool without asking for permission.</span>
+          </div>
+
+          <div class="legend">
+            <span><span class="callout-id">&nbsp;&nbsp;</span> Role &amp; scope anchor</span>
+            <span><span class="callout-products">&nbsp;&nbsp;</span> Capability routing (API, agentic CLI)</span>
+            <span><span class="callout-meta-prompt">&nbsp;&nbsp;</span> Meta-instructions</span>
+            <span><span class="callout-safety">&nbsp;&nbsp;</span> Safety / MUST-refuse</span>
+            <span><span class="callout-temporal">&nbsp;&nbsp;</span> Temporal &amp; tool-time retrieval</span>
+          </div>
+
+          <p class="footnote">
+            Excerpt from <code>docs/claude-opus4-system-prompt-comprehensive-analysis.md</code> (Claude&nbsp;4 consumer-style opening stack).
+          </p>
+          </div>
+        </section>
+
+        <section class="title-slide">
+          <h2 style="font-size:1.35em">End</h2>
+          <p class="subtitle">Open this file in a browser; advance with <kbd>→</kbd>. Dense slides scroll inside the slide area (wheel / trackpad). Export via print-to-PDF if you need static slides.</p>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        slideNumber: 'c/t',
+        controls: true,
+        progress: true,
+        transition: 'slide',
+        plugins: [RevealHighlight, RevealMarkdown],
+      });
+    </script>
+  </body>
+</html>

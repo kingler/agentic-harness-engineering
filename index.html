@@ -204,7 +204,7 @@ flowchart LR
           </p>
           <pre class="mermaid">
 flowchart LR
-    Agent <-->|MCP protocol| Server["MCP server<br/>(github, figma, ...)"]
+    Agent <-->|MCP protocol| Server["MCP server<br/>(github, browser, ...)"]
     Server <-->|native API + auth| External[("External system")]
           </pre>
           <p class="footnote">File: <code>mcp.json</code></p>
@@ -400,7 +400,6 @@ flowchart TB
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/markdown/markdown.js"></script>
     <script type="module">
@@ -428,7 +427,7 @@ flowchart TB
         controls: true,
         progress: true,
         transition: 'slide',
-        plugins: [RevealHighlight, RevealNotes, RevealMarkdown],
+        plugins: [RevealHighlight, RevealMarkdown],
       });
     </script>
   </body>

@@ -862,6 +862,58 @@ section.slide-rings .slide-title{ margin-bottom:20px; }
   line-height:1.55;
 }
 
+/* Solo stage — example fills the row when there are no callouts (e.g. 10a full AGENTS.md). */
+.decompose-stage.decompose-stage--solo{
+  grid-template-columns:1fr;
+}
+.example-prompt .ex-code.ex-code--scroll{
+  overflow:auto;
+  white-space:pre;
+  padding-right:8px;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,0.2) transparent;
+  font-size:calc(11px * 1.2);
+  line-height:1.55;
+}
+.example-prompt .ex-code.ex-code--scroll::-webkit-scrollbar{ width:8px; height:8px; }
+.example-prompt .ex-code.ex-code--scroll::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,0.18); border-radius:4px;
+}
+.example-prompt .ex-code.ex-code--scroll::-webkit-scrollbar-thumb:hover{
+  background:rgba(255,255,255,0.28);
+}
+
+/* ─── Component-anatomy expand button ───────────────────────────────
+   Lives in the top-right of every .example-prompt on the decompose slides
+   (10a–10f). Clicking opens the matching reference/anatomy/*.html in a new
+   tab so the audience sees the full prompt + section callouts on one page. */
+.md-expand-btn{
+  position:absolute;
+  top:18px; right:20px;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:6px 12px;
+  font-family:'Open Sans',sans-serif;
+  font-size:calc(11px * 1.1); font-weight:600;
+  letter-spacing:0.02em;
+  background:rgba(255,255,255,0.08);
+  color:#E8E8E8;
+  border:1px solid rgba(255,255,255,0.20);
+  border-radius:999px;
+  cursor:pointer;
+  transition:background 180ms ease, border-color 180ms ease, color 180ms ease;
+  z-index:2;
+}
+.md-expand-btn:hover{
+  background:rgba(255,255,255,0.16);
+  border-color:rgba(255,255,255,0.38);
+  color:#fff;
+}
+.md-expand-btn:focus-visible{
+  outline:2px solid var(--spectrum-blue-300);
+  outline-offset:2px;
+}
+.md-expand-btn svg{ width:14px; height:14px; }
+
 /* Callout column (right of the example) */
 .callouts{
   display:flex; flex-direction:column;
@@ -2734,9 +2786,10 @@ section[data-deck-active].bonus-wf-guards pre.mermaid{ animation: ah-rise 520ms 
 }
 
 /* =========================================================
-   Print-with-notes — one slide + its speaker note per page.
+   Print deck as PDF — one slide per letter page (no notes strip).
    Activated by setting body[data-print-with-notes] before
-   window.print(); cleared on afterprint.
+   window.print(); cleared on afterprint. Attribute name is
+   historical; content is slides only.
    ========================================================= */
 #pdf-with-notes{ display:none; }
 
@@ -2776,7 +2829,7 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
   position:relative;
   overflow:hidden;
   border:1px solid #d6d6d6;
-  margin-bottom:0.32in;
+  margin-bottom:0;
   background:#fff;
 }
 .pdf-slide-wrap > section{
@@ -2793,19 +2846,6 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
   animation:none !important;
 }
 .pdf-slide-wrap > section *{ animation:none !important; }
-
-.pdf-notes-head{
-  font-size:9pt; font-weight:700;
-  letter-spacing:0.10em; text-transform:uppercase;
-  color:#6b6b6b;
-  margin:0 0 6pt;
-}
-.pdf-notes-body{
-  font-size:10.5pt; line-height:1.55;
-  color:#1a1a1a;
-  white-space:pre-wrap;
-}
-.pdf-notes-body.is-empty{ color:#9a9a9a; font-style:italic; }
 </style>
 </head>
 
@@ -3269,6 +3309,7 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
   <div class="frame">
     <div class="eyebrow">Anatomy</div>
     <h2 class="slide-title">Six core harness components</h2>
+    <p class="slide-lede"><strong>Slides 14–21</strong> walk you through the harness <strong>project template</strong>—the same files and folders available in each breakout session, one component per step.</p>
 
     <div class="grid-6">
       <div class="card">
@@ -3308,12 +3349,14 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
 </section>
 
 <!-- ============================================================
-     SLIDE 10a–10f — Decompose · component anatomy
-     Six new slides, one per component. The 6 cards from slide 10
-     morph into a 300px left-rail on slide 10a; the rail persists
-     across 10b–10f with the active item changing (order: system prompt,
-     skills, tools, rules+hooks, knowledge, memory). Right pane is the
-     example prompt with text-bubble callouts pointing at anchors.
+     SLIDE 10a–10f — Decompose · component anatomy (deck slides 15–21;
+     with slide 14 “Six core components”, slides 14–21 tour the template.)
+     Purpose: show the harness project template files used in each breakout.
+     Six slides, one per component. The 6 cards from slide 10 morph into
+     a 300px left-rail on slide 10a; the rail persists across 10b–10f with
+     the active item changing (order: system prompt, skills, tools,
+     rules+hooks, knowledge, memory). Right pane is the example prompt with
+     text-bubble callouts pointing at anchors.
      ============================================================ -->
 
 <!-- 10a · System prompt — Anthropic / Claude as the example -->
@@ -3356,56 +3399,115 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
         </li>
       </ul>
 
-      <div class="decompose-stage">
+      <div class="decompose-stage decompose-stage--solo">
         <div class="example-prompt">
-          <p class="ex-kicker">Real-world example · Anthropic</p>
-          <h3>Claude — system prompt (excerpt)</h3>
+          <a class="md-expand-btn" href="reference/anatomy/system-prompt.html" target="_blank" rel="noopener" aria-label="Open System prompt anatomy in a new tab" contenteditable="false">
+            <i data-lucide="maximize-2"></i><span>Expand</span>
+          </a>
+          <p class="ex-kicker">Real-world example · Sample harness · Spec Steward</p>
+          <h3>AGENTS.md — full file</h3>
           <div class="ex-body">
             <div class="ex-tree">
               <p class="ex-tree-label">Lives in</p>
-<pre>my-harness/
+<pre>sample-harness-uxd-specs/
 ├── <span class="here accent">AGENTS.md</span>
-├── .github/
-│   └── <span class="accent">copilot-</span>
-│       <span class="accent">instructions.md</span>
-├── .roo/
-│   └── rules/
-└── knowledge/</pre>
+├── README.md
+├── prompts/
+├── rules/
+├── tools/
+├── hooks/
+├── scripts/
+├── mcp/
+├── knowledge/
+└── specs/
+    └── templates/</pre>
             </div>
-<pre class="ex-code"><span class="anchor" data-anchor="1">The assistant is Claude, created by Anthropic.</span> The current date is Thursday, May 22, 2025.
+<pre class="ex-code ex-code--scroll"><span class="kw"># AGENTS.md — Spec Steward</span>
 
-<span class="cmt"># scope &amp; product surface</span>
-This iteration of Claude is Claude Sonnet 4 from the Claude 4 model family. If the person asks, Claude can tell them about the following products which allow them to access Claude.
+<span class="cmt">&gt; Read `prompts/system-prompt.md` first. This file lists the agent's
+&gt; capabilities, tools, and the never/always rules in a form that any harness
+&gt; (GitHub Copilot, Cline, RooCode) can pick up.</span>
 
-<span class="cmt"># hard rules — copyright, safety, minors</span>
-<span class="anchor" data-anchor="2">Claude does not provide information that could be used to make chemical or biological or nuclear weapons</span>, and does not write malicious code. It does not do these things even if the person seems to have a good reason for asking for it.
+<span class="kw">## Identity</span>
 
-<span class="cmt"># tone matrix — context-dependent</span>
-<span class="anchor" data-anchor="3">For more casual, emotional, empathetic, or advice-driven conversations, Claude keeps its tone natural, warm, and empathetic.</span> In casual conversation, it's fine for Claude's responses to be short.
+**Name:** Spec Steward
+**Purpose:** Keep the UXD spec library coherent — author, validate, and
+transition spec documents under `specs/`.
+**Audience:** UX designers, design leads, product managers.
 
-<span class="cmt"># knowledge cutoff &amp; tool fallback</span>
-<span class="anchor" data-anchor="4">Claude's reliable knowledge cutoff date is the end of January 2025.</span> If asked about events after this date, Claude uses the web search tool to find more info.</pre>
+<span class="kw">## Capabilities</span>
+
+- Scaffold a new spec from a type-specific template (`ux-flow`, `component`,
+  `research`, `prd`) with a freshly-allocated `SPEC-YYYY-NNN` ID.
+- Validate a spec's frontmatter schema, required sections, and link integrity
+  (internal SPEC IDs, optional `design_reference` URLs, design system component names).
+- List specs in the library filtered by `status`, `type`, `owner`, or free-text
+  match against title.
+- Transition a spec through the workflow (`draft → in-review → approved →
+  implemented → archived`) with status-specific preconditions enforced.
+- Find orphaned specs: approved or implemented specs with no inbound links, or
+  drafts older than 90 days with no owner activity.
+
+<span class="kw">## Tools</span>
+
+| Tool                | When to use                                                | When NOT to use                          |
+| ------------------- | ---------------------------------------------------------- | ---------------------------------------- |
+| `create_spec`       | User asks to start a new spec or revise an approved one    | User wants to edit an existing draft     |
+| `validate_spec`     | Before any status transition, before saving an in-review   | Casual reads — use `Read` instead        |
+| `list_specs`        | "What specs are in review?" / "Find specs owned by Jane"   | Looking up a known SPEC ID — use `Read`  |
+| `transition_status` | Moving a spec between workflow states                      | Editing content                          |
+| `find_orphans`      | Periodic library audit, weekly review prep                 | Looking for one specific spec            |
+
+Tool definitions live in `tools/*.json`. Backing implementations live in
+`scripts/*.sh`.
+
+<span class="kw">## Always do</span>
+
+- Run `validate_spec` before any `transition_status` call.
+- Update the `updated:` frontmatter field on every edit (the
+  `post-tool-use.sh` hook handles this automatically; do not write the
+  timestamp by hand).
+- Refer to design system components by their exact name from
+  `knowledge/design-system-index.md`.
+
+<span class="kw">## Never do</span>
+
+- Edit a spec with `status: approved` or `status: implemented` in place.
+  Create a revision via `create_spec --revise &lt;id&gt;`.
+- Write files outside `specs/`. The `pre-tool-use.sh` hook blocks this.
+- Reassign a `SPEC-YYYY-NNN` ID. IDs are immutable once allocated.
+- Send updates to Jira without explicit user confirmation, even
+  when the MCP server is connected.
+
+<span class="kw">## Context &amp; memory</span>
+
+- **Persistent context the agent always reads:**
+  `knowledge/spec-schema.md`, `knowledge/workflow.md`,
+  `knowledge/design-system-index.md`.
+- **Session notes** live in `notes/SESSION.md` (gitignored). Use for
+  cross-turn working memory only — never for secrets or PII.
+- **Spec data** is the filesystem under `specs/`. There is no separate
+  database.
+
+<span class="kw">## Escalation</span>
+
+Escalate to the user (stop and ask) when:
+
+- Two consecutive tool calls fail for the same reason.
+- A spec change would touch more than 3 other specs (cascading edits).
+- The user asks to delete a spec — archival is the supported path; deletion
+  requires explicit override.
+- Validation surfaces a conflict between two specs that disagree on shared
+  fields (e.g. both claim to own the same component).
+
+<span class="kw">## Out of scope (refuse politely)</span>
+
+- Writing production application code, producing raw UI mocks in other tools, or sending messages.
+- Touching files outside `specs/`, `knowledge/`, or `notes/`.
+- Estimating engineering effort or assigning tickets — link to Jira, don't
+  create.</pre>
           </div>
         </div>
-
-        <aside class="callouts">
-          <div class="callout">
-            <div class="callout-head"><span class="callout-num">1</span><span class="callout-label">Identity</span></div>
-            <p>Who the agent <em>is</em> — creator, model family, today's date. Sets persona before any task runs.</p>
-          </div>
-          <div class="callout">
-            <div class="callout-head"><span class="callout-num">2</span><span class="callout-label">Hard rules</span></div>
-            <p>Non-negotiable refusals. Stated positively so the model has no charitable interpretation to fall back to.</p>
-          </div>
-          <div class="callout">
-            <div class="callout-head"><span class="callout-num">3</span><span class="callout-label">Tone matrix</span></div>
-            <p>Context-dependent style. Prevents the bullet-point "AI voice" in casual or emotional turns.</p>
-          </div>
-          <div class="callout">
-            <div class="callout-head"><span class="callout-num">4</span><span class="callout-label">Cutoff &amp; fallback</span></div>
-            <p>Tells the model where its knowledge stops and which tool to reach for past that line.</p>
-          </div>
-        </aside>
       </div>
     </div>
 
@@ -3443,6 +3545,9 @@ This iteration of Claude is Claude Sonnet 4 from the Claude 4 model family. If t
 
       <div class="decompose-stage">
         <div class="example-prompt">
+          <a class="md-expand-btn" href="reference/anatomy/skills.html" target="_blank" rel="noopener" aria-label="Open Skills anatomy in a new tab" contenteditable="false">
+            <i data-lucide="maximize-2"></i><span>Expand</span>
+          </a>
           <p class="ex-kicker">Real-world example · Agent Skills spec</p>
           <h3>SKILL.md — directory, not a single file</h3>
           <div class="ex-body">
@@ -3541,6 +3646,9 @@ Run a structured critique against project tokens and a11y baseline.</span>
 
       <div class="decompose-stage">
         <div class="example-prompt">
+          <a class="md-expand-btn" href="reference/anatomy/tools.html" target="_blank" rel="noopener" aria-label="Open Tools anatomy in a new tab" contenteditable="false">
+            <i data-lucide="maximize-2"></i><span>Expand</span>
+          </a>
           <p class="ex-kicker">Real-world example · tool descriptor</p>
           <h3>validate_spec — tool descriptor</h3>
           <div class="ex-body">
@@ -3641,6 +3749,9 @@ Run a structured critique against project tokens and a11y baseline.</span>
 
       <div class="decompose-stage">
         <div class="example-prompt">
+          <a class="md-expand-btn" href="reference/anatomy/rules-hooks.html#rules" target="_blank" rel="noopener" aria-label="Open Rules anatomy in a new tab" contenteditable="false">
+            <i data-lucide="maximize-2"></i><span>Expand</span>
+          </a>
           <p class="ex-kicker">Real-world example · Claude Code policy</p>
           <h3>settings.json — allow / deny / ask</h3>
           <div class="ex-body">
@@ -3745,6 +3856,9 @@ Run a structured critique against project tokens and a11y baseline.</span>
 
       <div class="decompose-stage">
         <div class="example-prompt">
+          <a class="md-expand-btn" href="reference/anatomy/rules-hooks.html#hooks" target="_blank" rel="noopener" aria-label="Open Hooks anatomy in a new tab" contenteditable="false">
+            <i data-lucide="maximize-2"></i><span>Expand</span>
+          </a>
           <p class="ex-kicker">Real-world example · pre-tool-use hook</p>
           <h3>pre-tool-use.sh — block writes outside /specs</h3>
           <div class="ex-body">
@@ -3834,6 +3948,9 @@ fi</span>
 
       <div class="decompose-stage">
         <div class="example-prompt">
+          <a class="md-expand-btn" href="reference/anatomy/knowledge.html" target="_blank" rel="noopener" aria-label="Open Knowledge anatomy in a new tab" contenteditable="false">
+            <i data-lucide="maximize-2"></i><span>Expand</span>
+          </a>
           <p class="ex-kicker">Real-world example · spec schema</p>
           <h3>spec-schema.md — domain knowledge</h3>
           <div class="ex-body">
@@ -3931,6 +4048,9 @@ column.</span>
 
       <div class="decompose-stage">
         <div class="example-prompt">
+          <a class="md-expand-btn" href="reference/anatomy/memory.html" target="_blank" rel="noopener" aria-label="Open Memory anatomy in a new tab" contenteditable="false">
+            <i data-lucide="maximize-2"></i><span>Expand</span>
+          </a>
           <p class="ex-kicker">Real-world example · session scratchpad</p>
           <h3>memory/SESSION.md — volatile working tier</h3>
           <div class="ex-body">
@@ -4391,7 +4511,7 @@ column.</span>
         <h3>Human brief + backlog signal</h3>
         <div class="workflow-phase-role">People + Agent</div>
         <ul class="workflow-phase-list">
-          <li>PM uploads Notion excerpt + Slack thread excerpt.</li>
+          <li>PM uploads Notion excerpt + Teams thread excerpt.</li>
           <li><b>Skill</b> <code>intake-brief</code> normalizes bullets into <code>memory/SESSION.md</code>.</li>
           <li><b>Human gate:</b> PM confirms Problem statement before drafting starts.</li>
         </ul>
@@ -4504,7 +4624,7 @@ flowchart TD
     E -->|"rework"| B
     E -->|"yes"| F["AUTO · MCP<br/>evidence pull"]
     F --> G{"PreTool hook<br/>allows PR?"}
-    G -->|"block"| H["Escalate to<br/>human Slack"]
+    G -->|"block"| H["Escalate to<br/>human Teams"]
     H --> F
     G -->|"approve"| I["SHIP · PR<br/>merged"]
     I --> J["Promote playbook + queue<br/>eval cases"]
@@ -4841,7 +4961,7 @@ Review the component for design-token violations.
       <div class="resource">
         <div class="src">Protocol</div>
         <h5>Model Context Protocol (MCP)</h5>
-        <p>How to expose external tools — GitHub, Linear, your design-system API — to any harness.</p>
+        <p>How to expose external tools — GitHub, Jira, your design-system API — to any harness.</p>
         <div class="url">modelcontextprotocol.io</div>
       </div>
 
@@ -4904,61 +5024,9 @@ Review the component for design-token violations.
 
 </deck-stage>
 
-<!-- Speaker notes (rendered by host via postMessage contract in deck-stage) -->
+<!-- Deck JSON slot (empty): presenter/PDF flows read this; no bundled notes. -->
 <script type="application/json" id="speaker-notes">
-[
-  "Welcome to Agentic Harness Engineering for Product & UX Designers. This is a 2-day, 2-hour-per-day workshop. Quick show of hands — who's been using RooCode? Copilot? Both? Great. You already touch the harness every day — you just call it 'rules' or 'instructions'. Today and tomorrow we name what you're already doing, give it a real anatomy, and you build one from scratch by reverse-engineering an AI app you actually use. By the end of Day 2 you'll have a runnable harness folder you can drop into any project.",
-  "Workshop overview & takeaways (slide 1b). Give ~30 seconds per card: fluent anatomy vocabulary, reverse-engineer before raw prompting, leave with artifacts in the template repo. Tie each takeaway to today's five breakouts without opening the facilitator manual.",
-  "The role of design is shifting from crafting interfaces to orchestrating intelligent systems. CARD 1 — Paradigm shift: from static wireframes to dynamic orchestration rules. CARD 2 — Agent = Model + Harness. The model is the brain. The harness is the body, the workshop, and the rules of engagement. Designers shape the harness. CARD 3 — Design IS engineering. OpenAI shipped a million-line product where humans steered and Codex executed. The discipline is now in the scaffolding.",
-  "Still Two days, one productized app — here's Day 1 only (June 24 on screen): two columns share one day — walk left column top to bottom, then right column. You build the harness for the app they picked — six anatomy components in breakout blocks, each breakout followed by ten minutes show-and-tell / Q&A. Lunch-bell isn't on this agenda — they run eleven am to one pm EST straight through.",
-  "Same deck title carries over — Agenda Day 2 (June 25). Day 2 you write a short UX brief, then in one VS Code app project use GitHub Copilot or RooCode to refine the harness, generate the frontend from that brief, and wire agent + harness + prototype into a runnable flow before testing and demos. Read the timings: recap through takeaways fills the block. Maintain the rhythm you promised — sixty percent hands-on, forty percent with you.",
-  "We're not training models or running servers today. You'll author the harness and a frontend prototype, then let your editor's AI play the agent. GROUND RULES — read this slide carefully because it shapes everything. CRITICAL CONSTRAINT: API keys are only available INSIDE the RooCode and Copilot extensions today. You cannot build a standalone agent that calls a model directly. The extensions already have the key — you don't. So we don't pretend to ship a real backend. Instead, we work with what you DO have: VS Code + RooCode + Copilot. THE EDITOR IS THE RUNTIME. You author two things: (1) the harness — markdown, JSON, scripts in a folder — and (2) a frontend prototype built with Copilot or RooCode from your UX brief. Then you load both into VS Code and let the extension's AI play the harnessed agent. Your CLAUDE.md is its system prompt. Your hooks fire on real tool calls. Your prototype is what a user clicks. This is exactly what Day 2's wire-up exercise asks you to do. One sentence to remember: 'harness + frontend = product; the editor's AI is the runtime.'",
-  "[Pause.] Foundations: name what sits between user and model—then we'll mirror it into files and products.",
-  "A model is a brilliant mind with no body. The harness is the tack that lets it carry weight, take direction, and do useful work. — Plant the metaphor. The model is the horse — fast, strong, but it has no reins, no seat, no destination. The saddle isn't the power; it's the leverage. Three pieces map across: model = horse (raw capability), harness = saddle (tools, rules, memory, hooks — the tack that makes the horse ridable), user = rider (gives direction). This is the working metaphor for the rest of Day 1: every component you build is a piece of saddle. If a model alone could do it, you wouldn't be here.",
-  "Most important idea in the workshop. Agent = Model + Harness. Vivek Trivedy at LangChain: 'If you're not the model, you're the harness.' The AGENT is what the user experiences. The MODEL takes text and images and emits text — that's all. The HARNESS is everything else: code, config, files, tools, constraints. Designers don't train models — they absolutely design harnesses.",
-  "Three concentric levels. Prompt — what the model sees this turn. Context — what the model sees and when across turns. Harness — the entire system. We touch all three but harness is where product decisions live.",
-  "Every limitation is solved by a harness feature. This is where your design decisions live. — Six things models can't do alone. Each one solved by a harness feature. Memory · tool execution · web · coordination · self-verification · enforcement. Every row is a design decision your team will make.",
-  "SECTION divider · The Anatomy\n\n[Pause.]\n\nWe're opening section two. Reordered: file tree first, then the six-slot grid, then component-by-component drill-downs.\n\nFoundations ended with what models can't do alone—and how harness pieces answer each gap.\n\nNow everyone gets the same map before we go deep: shared vocabulary first, then the marathon teach-and-dive runs.\n\nFirst (next slide): the file-tree slide—where the components land as real folders. This is the WHERE.\n\nThen: the six-slot overview—the WHAT (system prompt, skills, tools, rules, hooks, knowledge).\n\nThen: 10a–10f decompose drilldowns—the INSIDE of each slot, with examples and callouts.\n\nLast in this block: two shipped demos (Harvey, Claude Financial Services, Granola) and your breakout app pick.\n\nClose with this line: the slow, component-by-component pass starts right after you've committed to that pick.",
-  "ANATOMY IN FILES (moved up — opens the anatomy block). Hold the tree open while you walk it. The six components live as concrete files: AGENTS.md, .github/copilot-instructions.md, .github/instructions/, .github/prompts/, .github/agents/, .github/hooks/, mcp.json, plus the RooCode/Cline shape under .roo/rules/. Highest-leverage files: AGENTS.md (the system prompt you own), tool descriptions inside prompt files (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You're going to author every one of these in Day 1's breakouts.' Then advance to the six-slot grid — it's the same tree, rolled up into a card per slot.",
-  "Six cards mirror Day 1 agenda breakouts after anatomy—not abstract buckets: system prompt, rules, skills, tools, hooks, knowledge base. Prompt-structure framing folds into card 01; memory is teach-only later (see agenda). Say explicitly each chip maps to a breakout you'll run.",
-  "DECOMPOSE · System prompt (10a). Left rail order is locked for the sprint: System prompt · Skills · Tools · Rules & hooks · Knowledge · Memory. The cards from the prior slide collapse into this rail — 'all six stay visible while we spotlight one slice.' Same four anchors on the Anthropic excerpt: identity, hard rules, tone matrix, cutoff + fallback. Tie to Breakout 1.",
-  "DECOMPOSE · Skills (10b). CORRECTION from earlier framing: a skill is a DIRECTORY, not a single markdown file. The required entrypoint is SKILL.md; everything else is optional and loads only when referenced. (1) YAML frontmatter between --- markers — description is the retrieval trigger Claude reads to decide when to invoke; name is optional and defaults to the directory name; allowed-tools pre-approves bash/read patterns while the skill is active. (2) Body — once SKILL.md is loaded it stays in context for the whole session, so keep it under ~500 lines and push detail into separate files. (3) scripts/ — executable code Claude RUNS, doesn't read into context; deterministic work belongs here, not in prose. (4) Progressive disclosure: references/ (loaded on demand) and assets/ (used in output) keep the skill cheap until needed. Spec: agentskills.io, repo: github.com/anthropics/skills. Tie line: 'Authors write SKILL.md like UX copy for the loader; the loader is the new user.'",
-  "DECOMPOSE · Tools (10c). JSON/MCP-facing descriptors. Teach the triumvirate: WHAT / WHEN / WHEN-NOT inside the prose description — the refusal clause prevents most bogus invocations. (1) Verb-led stable name the router reads first. (2) Dense description carries policy; model can't improvise what's missing here. (3) Per-field schema blurbs clarify argument shaping. (4) Exec/MCP wiring shows there is always a runnable body hiding behind declarative polish.",
-  "DECOMPOSE · Rules (10d). First half of the Rules & hooks branch — the rail expands a submenu so we can isolate each view. Walk the permissions triad: (1) ALLOW is the explicit yes-list — anything off-list defaults to ask, narrowing the blast radius. (2) DENY names tools and paths verbatim so the model can't argue around them. (3) ASK gates destructive or irreversible work behind a human nod. (4) The hooks stanza is the bridge to the next view — declarative lists hand off to code that actually runs. Drill: 'strong vs weak' — make them spot one weak vendor copy in their breakout app and rewrite it as a deny/ask line.",
-  "DECOMPOSE · Hooks (10d2). Second half of the Rules & hooks branch — same submenu, Hooks view active. Hooks are deterministic — they always run. (1) Event payload arrives as JSON on stdin; read what you need. (2) Predicate is the actual gate; keep it mechanical, push nuance back into rules. (3) Decision JSON: <code>block</code> stops the tool, <code>approve</code> lets it through. (4) Exit semantics: zero = decision honored, non-zero = hook failed and default policy applies — be loud on failure or you'll silently lose enforcement. Use a hook when EVERY TIME matters and the cost of the model forgetting is real.",
-  "DECOMPOSE · Knowledge (10e). Slow tier for durable facts surfaced on retrieval. Cover frontmatter cues, citation literalism vs paraphrase, and the carve-out list sending volatile stuff to memory/SESSION or AGENTS/. Mental model — facts that deserve quarterly review survive here.",
-  "DECOMPOSE · Memory (10f). Fast volatile tier mirrored in SESSION.md-ish scratch files. Explain working-set bullets, tentative decisions, compaction discipline, promotions into knowledge/, and NEVER SECRETS. Last anatomy slide — next widen to runtime interplay across tiers.",
-  "Harvey AFTER the scaffolding on purpose — each bullet NAMES a slot learners just saw on the grid + filesystem + editor columns. Tie line: polished vendor harness vs bare repo they'll assemble for their OWN app.",
-  "Claude Financial Services pairing — SAME six-bullet mapping in regulated finance (verification posture, workbook-native tools + agent templates, traceable numeric lineage, AML-style multi-agent stories, SOC 2/FedRAMP cues, MCP-like data integrations). Explicit ask: naming pattern should feel boringly familiar now.",
-  "Granola harness slide (08d). Meeting-native productivity — emphasize how a minimal UI still maps to all six slots, especially orchestration / skill chains. Optional energy line: 'Notes without stopping the meeting' is a harness problem, not a prettier textarea.",
-  "ON-SCREEN (was slide lede — read aloud while they study the matrix): You just traced the same six slots through Harvey (legal platform) and Claude for Financial Services. Now commit to one product you'll unpack: three options on the matrix below — same anatomy exercise, scoped to software your group knows.\n\nADDITIONAL FACILITATOR NOTES: You can also say we walked Granola on the previous slide using the same six labels. Commit to one column for reverse-engineering — then implement each breakout inside your downloaded template harness project (sample-harness-uxd-specs / harness-templates), swapping persona and domain language to match that product. PICK slide timing: ~5 minutes; diversify groups across A/B/C so they don't all pile on Harvey. Energy line option: 'Pick the harness you'd hate to embarrass users with.'",
-  "SECTION divider · Component deep dive. Anatomy orient + demos + breakout choice are anchored — reset expectations: ninety minutes drilling each harness slot ON their chosen reverse-engineered app. Depth beats another overview.",
-  "BREAKOUT HUB (18b). On-screen the room sees the five breakout pages laid out as link cards — one per component. Read the URL aloud: 'On your laptop, open /breakouts/. Same template zip for all five breakouts; you download it once.' Call out prerequisites verbally (no strip on-slide): VS Code, Copilot, RooCode, jq. Anyone missing one of those four has 90 seconds to install. Tell them: each card has a slash command — that's what they'll type into Copilot or RooCode chat. The command lives in the zip at .github/prompts/ and .claude/commands/. Reinforce: the slash command is the same regardless of which app they picked — Harvey, Claude Financial Services, or Granola. The app context is what THEY supply in the chat, and each breakout page has app-specific hints ready. Tell them this slide will be visible at the top of every breakout if they need to come back. Next on deck after this hub are the workflows bonus strips (skill chains, meta vs template prompts) — system prompt / skills / tools overview slides were folded into the earlier Anatomy Decompose rails.",
-  "Script-as-tool: JSON declares the interface, the script does the work. The agent reads stdout. This is how you wrap existing CLI tools into the harness without writing new code — your validate.sh becomes a tool by adding a JSON descriptor next to it. Minimal commitment, big leverage. Use this when the capability already exists in your team's tooling.",
-  "BONUS · Workflows trio (Slides 39→39c). (1) OVERVIEW — anchor the four primitives: meta persists, skills swap per stage, hooks enforce, knowledge + memory hold artefacts. (2) SPEC PIPELINE — walk the five cards left-to-right; stress human gates (PM, UX, Legal) and how the same agent reloads different SKILL files per lap. (3) SWIMLANES + MERMAID — read each row as who owns hand-offs; narrate the rendered control graph: validation loop, design gate, MCP evidence, PreTool gate, ship. If Mermaid fails offline, the swimlane row still carries the story.",
-  "MCP is how you mount someone else's tools. Register a server in mcp.json — the agent gets every tool that server exposes. Issue trackers, GitHub PRs, internal gateways — no integration code from you. Designer-relevant servers: GitHub, browser automation, ticketing, your design-system API. Caution: too many MCP servers make the agent dumb — too many tools to choose from. Start with one, add only when needed. The 'kitchen sink' is the failure mode here.",
-  "Hooks: deterministic gates around tool calls. PreToolUse fires BEFORE — you can block it. PostToolUse fires AFTER — you can react. The model can forget its rules. The hook can't. Use a hook when 'every time' matters: every time the agent writes a file, every time a tool returns an error, every time the session starts. Hooks > hoping. Designers don't usually write the shell — but you decide WHICH rules deserve a hook vs. a soft prompt.",
-  "Knowledge base = the domain context the agent reads on demand. Files in knowledge/ are referenced by the system prompt and loaded by skills. Stable info — schemas, dictionaries, workflows, design system facts — goes here. Volatile info — current session, secrets, what the user just said — does NOT. Breakout 6: capture one domain file your agent always needs. 12 minutes — schema, dictionary, or workflow, whichever unblocks more behavior.",
-  "Memory is the working scratchpad. Different from the knowledge base (stable) and the system prompt (identity). Two types. SESSION — notes/SESSION.md cleared at session end. PERSISTENT — files reread on every SessionStart hook, survive restarts. The post-tool-use hook is often where memory gets WRITTEN. Memory is not a breakout — it's a concept to keep in your head while you build. The hook IS often where memory lives.",
-  "Two prompt shapes you'll see everywhere in the harness. META = persistent — the agent's frame. Lives in AGENTS.md / CLAUDE.md / system prompt. Loaded once per session, prepended every turn. Sets identity, scope, hard rules, tool roster. TEMPLATE = parameterized — the agent's task slot. Lives in skill bodies, slash commands, tool inputs, hook outputs. Filled in at runtime with task-specific values. Renders per-turn from a fixed shape. Drill the room: every harness component you build is one or the other — or both layered. The system prompt is meta. A skill body is template. A tool description is template. A hook injection is template referenced from a meta. Get them to call out which is which from their own breakout work. ON-SCREEN: both Meta and Template bonus slides now show only the headline + two-column cards (no grey lede, no bottom strap). When you land TEMPLATE (title: Template prompts · the agent's turn), open with this former slide lede — not visible: a template prompt is a shape with holes; it is filled at runtime with this task's values, rendered, and sent; same shape, infinite turns — that is how a chain reuses one skill across many stages. Close the beat with the former strap line — template is the turn; meta and template layer: a skill body is a template referenced from a meta; a tool description is a template the meta tells the agent when to call.",
-  "This is how subagents and workflows work — without spending time on mechanics. A subagent is just a stage with its own meta + template, returning a result. A workflow is the chain. Each stage's output becomes the next stage's input. The black band across the top is the META — same identity and rules persist across all three stages. The three stage cards are TEMPLATES — each has its own input variables and produces a typed output. The chain isn't code, it's prompts. The harness's job is to route outputs to inputs. When someone asks 'how do I build a multi-step workflow?', point at this slide. You write three small templates, you let the meta carry across. We won't write orchestration today — but you'll recognize this shape when you read RooCode workflows or LangGraph chains.",
-  "Reference card. Every component is a shaped prompt. Same four ingredients — identity, rules, inputs, outputs — different surface, different lifecycle. AGENT (META, navy tag) is the long-lived shape in CLAUDE.md / AGENTS.md. SKILL (TEMPLATE, blue tag) is loaded on trigger from .claude/skills/*.md. TOOL (TEMPLATE, blue tag) is invoked when the agent picks it from tools/*.json. HOOK (CONTEXT, amber tag) injects fresh content before/after a step from .claude/hooks/*.sh. Use this slide as a mental cheat-sheet during the breakouts. When someone asks 'where does this rule go?' — the answer is on this card. Pin it open in a second tab if you can.",
-  "DAY 1 CLOSE. Agenda uses 10 min show-and-tell or Q&A after every breakout — rotate speakers so each table lands one crisp artifact or question. The old Skill chains / end-of-day show-and-tell / homework rows are off the agenda slide — still say homework aloud: jot UX notes for your harness UI, skim Copilot or RooCode docs, push branch, save 2 transcripts where the harness misbehaved, bring 1 question. Skill chains framing is in the workflows bonus trio (slides 39→39c).",
-  "DAY 2 OPENER. 'Yesterday you built the bones. Today you wire it into a real editor, watch it fail, and harden it.' Quick recap — anyone bring back a transcript that surprised them? Get 1-2 stories from the room before moving on.",
-  "Section divider — Agentic UX Patterns. Bridge from the morning recap to the lens shift designers need.",
-  "Journey mapping → Intent-system mapping. Wireframes → Orchestration rules. Usability testing → Real system testing. Visual design → State modeling. Feature requests → Capability boundaries. The verb of design has changed. Read the row, give one example each.",
-  "Past / Present / Future of agent input architecture. PAST: prefs, history — what should it remember and for how long? PRESENT: current state, signals. FUTURE: proactive suggestions — when helpful, when intrusive? Designers influence all three.",
-  "HOOKS DEEP DIVE. Lifecycle: SessionStart, UserPromptSubmit, PreToolUse, PostToolUse, Stop / SessionEnd. Use a hook when: the rule must hold every time, the failure has hard cost, the check is mechanical, you want a human gate. DON'T use a hook when: the check needs nuance, only matters 1 in 100 turns, the model's verdict IS the logic, or you're flagging style.",
-  "SUBAGENTS & MCP. Subagents = isolated context, different rules, returns a result. Use when work has a clean input→output contract. MCP = external tool servers your harness mounts. Designer-relevant servers: GitHub, Browser, ticketing, your design-system API. The minute they grok MCP, the question 'how does this reach my issue tracker?' has an answer.",
-  "EVALS & HILL-CLIMBING. Capture failures → save as evals → replay after every harness change → score → keep what improves the set. For designers: each transcript is a usability test. Read 5 sessions before changing one tool description.",
-  "LIVE WIRE-UP — 25 minutes. Same groups as Day 1. Reminder: the editor IS the runtime — RooCode and Copilot already have the API key, your harness configures HOW they behave. Drop the harness/ folder into a workspace, open it in VS Code, and let the extension's AI play the agent. Run a real task — preferably the one they reverse-engineered. The frontend prototype they built in Breakout 3 should be what they click while the agent works. Watch where the behavior diverges from the original product. Make ONE high-leverage change. Re-run. Capture before.txt, after.txt, diff.md, and the tradeoff. They'll demo this in the next session.",
-  "DEMO SESSION DIVIDER. 5 minutes per group, 1 minute Q&A each. Live in their editor. Set the tone: 'We're not judging finish — we're judging the tradeoff you can defend.' Advance once — the next slide is the two checklists: demo flow and what we're listening for.",
-  "DEMO CHECKLISTS. Left card: 5-minute flow — app + intent + failure mode, file tree, live task, before/after diff, name the tradeoff. Right card: listening criteria — tool copy as UX, hooks doing real work, tight tool list, honest failure mode, defendable tradeoff. Leave this up while groups present.",
-  "DEMO RUBRIC — score table only. Five categories, 5 points each. Score yourselves first, then we score each other. Next slide: best practices on the left, anti-patterns on the right — leave it up during debrief.",
-  "DEMO DO'S AND DON'TS. Left column: best practices — intent-first, cap tools at ~7, hooks for every-time rules, small files, evals. Right column: anti-patterns we call out in discussion — MCP sprawl, prompt doing hook work, no success signal, no user scoping, rehearsed-only demos.",
-  "TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping. 05 Most agent failures are input failures. Thank the room. Keep the energy up — they earned it.",
-  "RESOURCES. Three rows of links. TOP ROW — source material: LangChain's anatomy essay, arXiv 2603.20075, and the MCP spec. SECOND ROW (Copilot — orange stripe) is the priority for most of this room: VS Code custom instructions, the GitHub Docs reference for repo instructions, prompt files, custom agents, and the Customize-AI overview. Walk the room through these explicitly — these are the docs they'll re-open Monday morning. THIRD ROW — RooCode and Cline docs for the rest of the audience. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
-]
+[]
 </script>
 
 <script src="deck-stage.js"></script>
@@ -5450,7 +5518,7 @@ Review the component for design-token violations.
 
 <!-- ─────────────────────────────────────────────────────────────
      PRESENTER VIEW BRIDGE
-     Sync slide + speaker note to a detachable presenter window
+     Sync slide title + index to a detachable presenter window
      via BroadcastChannel. Press 'p' on the deck to open it.
      ───────────────────────────────────────────────────────────── -->
 <script>
@@ -5551,11 +5619,11 @@ Review the component for design-token violations.
 </script>
 
 <!-- ─────────────────────────────────────────────────────────────
-     DOWNLOAD PDF WITH SPEAKER NOTES
+     DOWNLOAD PDF (slides only)
      Floating button (bottom-right, sits left of the edit toggle)
      and Shift+P hotkey. Builds a print-only container with one
-     page per slide: thumbnail on top, speaker note below. Triggers
-     window.print(); the user picks "Save as PDF" in the dialog.
+     page per slide (thumbnail only). Triggers window.print();
+     the user picks "Save as PDF" in the dialog.
      ───────────────────────────────────────────────────────────── -->
 <style>
   .pdf-download{
@@ -5584,36 +5652,14 @@ Review the component for design-token violations.
 (() => {
   const STAGE = document.querySelector('deck-stage');
   if (!STAGE) return;
-  const SLIDE_OVERRIDE_PREFIX = 'agentic-harness-deck:slide:';
-  const NOTE_OVERRIDE_PREFIX  = 'agentic-harness-presenter:note:';
 
   const escapeHTML = s => String(s)
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')
     .replaceAll('>', '&gt;');
 
-  const loadNotes = () => {
-    const tag = document.getElementById('speaker-notes');
-    if (!tag) return [];
-    try {
-      const parsed = JSON.parse(tag.textContent || '[]');
-      return Array.isArray(parsed) ? parsed : [];
-    } catch { return []; }
-  };
-
-  const noteFor = (i, base) => {
-    try {
-      const raw = localStorage.getItem(NOTE_OVERRIDE_PREFIX + i);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (typeof parsed?.text === 'string') return parsed.text;
-      }
-    } catch {}
-    return base || '';
-  };
-
   /** Swap the deck-stage @page rule (1920×1080, no margin) for
-   *  letter portrait while we're printing-with-notes. The original
+   *  letter portrait while printing the PDF snapshot. The original
    *  is restored on cleanup so the stock Cmd+P flow still works. */
   const swapPageRule = () => {
     const tag = document.getElementById('deck-stage-print-page');
@@ -5631,7 +5677,6 @@ Review the component for design-token violations.
     const container = document.getElementById('pdf-with-notes');
     container.textContent = '';
     const sections = Array.from(STAGE.querySelectorAll(':scope > section'));
-    const notes = loadNotes();
     const total = sections.length;
 
     sections.forEach((sec, i) => {
@@ -5649,8 +5694,8 @@ Review the component for design-token violations.
         '<span class="pdf-label">' + escapeHTML(label) + '</span>';
 
       // Slide thumbnail. Clone the live <section> so any in-slide
-      // edits the user has made (saved under SLIDE_OVERRIDE_PREFIX
-      // and already applied to the live DOM on load) come through.
+      // edits the user has made (persisted under agentic-harness-deck:slide:* in
+      // localStorage and already applied to the live DOM on load) come through.
       const slideWrap = document.createElement('div');
       slideWrap.className = 'pdf-slide-wrap';
       const cloned = sec.cloneNode(true);
@@ -5662,16 +5707,7 @@ Review the component for design-token violations.
       });
       slideWrap.appendChild(cloned);
 
-      // Speaker note. Prefer the user's local edit if present.
-      const text = noteFor(i, notes[i]).trim();
-      const head = document.createElement('div');
-      head.className = 'pdf-notes-head';
-      head.textContent = 'Speaker notes';
-      const body = document.createElement('div');
-      body.className = 'pdf-notes-body' + (text ? '' : ' is-empty');
-      body.textContent = text || 'No notes for this slide.';
-
-      page.append(meta, slideWrap, head, body);
+      page.append(meta, slideWrap);
       container.appendChild(page);
     });
   };
@@ -5709,8 +5745,8 @@ Review the component for design-token violations.
   const btn = document.createElement('button');
   btn.className = 'pdf-download';
   btn.type = 'button';
-  btn.title = 'Download PDF with speaker notes (Shift+P)';
-  btn.setAttribute('aria-label', 'Download PDF with speaker notes');
+  btn.title = 'Download PDF (slides only) (Shift+P)';
+  btn.setAttribute('aria-label', 'Download PDF (slides only)');
   btn.innerHTML =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
     'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
@@ -5726,7 +5762,7 @@ Review the component for design-token violations.
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     const t = e.target;
     if (t && (t.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(t.tagName))) return;
-    // Shift+P → download with notes (plain 'p' is taken by presenter view)
+    // Shift+P → print slides PDF (plain 'p' opens presenter view)
     if (e.shiftKey && (e.key === 'P' || e.key === 'p')) {
       e.preventDefault();
       downloadPdf();
@@ -5734,6 +5770,7 @@ Review the component for design-token violations.
   });
 
   window.downloadPdfWithNotes = downloadPdf;
+  window.downloadPdfSlides = downloadPdf;
 })();
 </script>
 </body>
