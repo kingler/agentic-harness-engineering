@@ -1,2 +1,5 @@
 # Large screen captures — keep locally for GIF encoding; do not version.
 assets/*.mov
+
+# Per-agent worktrees — local-only, never tracked.
+.claude/worktrees/
