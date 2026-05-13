@@ -108,9 +108,10 @@ What you can design:
 - The sandbox boundary (what can the agent access?)
 
 **In practice:**
-- Local agents (Cursor, Cline, RooCode, Copilot CLI): filesystem access scoped to the workspace
-- Browser-based agents (Bolt.new): WebContainer or cloud sandbox
-- Plugin-based agents (Figma AI): Plugin API sandbox with restricted permissions
+- Local coding agents (Cline, RooCode, Copilot CLI): filesystem access scoped to the workspace
+- Cloud, per-tenant agents (Harvey, Claude for Financial Services): data plane isolated per customer / matter / firm
+- Workflow agents (Granola): native OS access for the one thing they need (mic, calendar) and nothing else
+- Plugin-based agents inside host apps: limited to a permissioned API surface
 - The sandbox is the primary safety mechanism for autonomous agents
 
 **Designer leverage: MEDIUM**
@@ -198,7 +199,7 @@ What you can design:
 - LangChain's "hill-climbing" model: run evals → identify failures → improve the harness → repeat
 - Anthropic calls evals "the training data for harness engineering"
 - Most agent failures are reproducible — a good trace lets you find and fix the root cause
-- Simple feedback: accept/reject diffs (Cursor), accept/dismiss suggestions (Figma AI), share (Claude Artifacts)
+- Simple feedback: accept/edit/reject on AI drafts (Harvey's redlines, Granola's enhanced notes), thumbs and "report" buttons on chat answers, copy/export as an implicit success signal
 
 **Designer leverage: MEDIUM**
 

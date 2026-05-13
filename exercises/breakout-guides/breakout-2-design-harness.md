@@ -108,10 +108,11 @@ Think about:
 - How sensitive is the data it handles? (Low = fewer restrictions. High = tight sandboxing.)
 
 **The trust spectrum:**
-- **No sandbox:** Agent can access everything the user can (developer tools)
-- **Filesystem sandbox:** Agent limited to a specific directory (Cursor, Cline, RooCode, Copilot CLI)
-- **Browser sandbox:** Agent runs in an iframe, no system access (Artifacts, v0)
-- **Full cloud isolation:** Agent runs in a managed cloud environment (Bolt)
+- **No sandbox:** Agent can access everything the user can (developer tools running locally)
+- **Filesystem sandbox:** Agent limited to a specific directory (Cline, RooCode, Copilot CLI)
+- **Plugin / API sandbox:** Agent runs inside a host app's permissioned API surface (in-product AI features)
+- **Tenant / data-plane sandbox:** Agent runs cloud-side but can only see one customer's data (Harvey per-matter, Claude Financial Services per-firm)
+- **Full cloud isolation:** Agent runs in a managed cloud environment with whitelisted egress only
 
 **Our decision:**
 

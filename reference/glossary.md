@@ -122,7 +122,7 @@ Microsoft/GitHub's AI code assistant. Available as a VS Code extension. Reads `A
 A VS Code extension for autonomous AI coding agents. Reads `AGENTS.md` and `.clinerules` for persistent instructions. Supports MCP servers for external tools. Sibling to RooCode in scope and shape.
 
 ### Figma
-A collaborative design tool widely used for UI/UX design. Relevant to this workshop as ambient context: most participants use Figma daily, and Figma AI is a useful reference point when discussing surface-scoped, undo-friendly AI features — even though it's no longer one of the reverse-engineering targets.
+A collaborative design tool widely used for UI/UX design. Relevant to this workshop as ambient context — most participants use Figma daily — but not one of the reverse-engineering targets.
 
 ---
 
