@@ -13,8 +13,9 @@ Workshop redesign + harness templates merge (`a064931`):
 - Restructured the workshop into a 2-day, 3-breakout format.
 - Added the harness-templates scaffold mirrored across Claude Code,
   GitHub Copilot, and RooCode.
-- Swapped the reverse-engineering targets to non-coding AI products
-  (Harvey, Spellbook, Pilot, Notion AI, Granola).
+- Swapped the reverse-engineering targets to three non-coding AI
+  products (Harvey, Claude for Financial Services, Granola), aligned
+  with the shipped-harness slides in the deck.
 
 ## Active work
 

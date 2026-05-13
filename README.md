@@ -26,8 +26,8 @@ agent and make it useful for a specific job.
 ## Workshop structure
 
 Day 1 covers the anatomy of a harness (persona, scope, rules, tools,
-hooks, MCP). Day 2 is hands-on: groups reverse-engineer one of five
-non-coding AI products (Harvey, Spellbook, Pilot, Notion AI, Granola)
+hooks, MCP). Day 2 is hands-on: groups reverse-engineer one of three
+non-coding AI products (Harvey, Claude for Financial Services, Granola)
 and rebuild its harness using the templates here.
 
 The same harness shape works across GitHub Copilot and
