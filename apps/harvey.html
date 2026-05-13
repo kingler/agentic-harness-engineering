@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Harvey — Reverse-engineered harness · Agentic Harness Engineering</title>
+  <meta name="description" content="A reverse-engineered look at Harvey's agentic harness: the agents, skills, tools, hooks, knowledge, and memory that turn an LLM into a domain-specific legal product." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-detail.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <div class="topbar">
+      <a class="back" href="../Agentic%20Harness%20Engineering.html" aria-label="Back to deck">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        Back to deck
+      </a>
+      <span class="workshop-tag">Agentic Harness Engineering · Reverse-engineer</span>
+    </div>
+
+    <div class="hero-media">
+      <img src="../assets/harness-demo.gif"
+           alt="Animated screen recording — Harvey-style harness walkthrough"
+           decoding="async" loading="eager" />
+      <div class="hero-overlay"></div>
+      <div class="hero-caption">
+        <div class="hero-eyebrow">App A · Legal · Enterprise</div>
+        <h1 class="hero-title">Harvey</h1>
+        <p class="hero-subtitle">A domain-specific legal AI platform — Vault, Workflows, and Knowledge Sources stitched into a single harness purpose-built for law firms and in-house teams.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <p class="lede">
+      Harvey is what an <b>agentic harness as product</b> looks like in a regulated, citation-driven domain.
+      The model is the same one anyone can call — what Harvey ships is the <b>scaffolding around it</b>:
+      a system prompt with privilege and jurisdiction rules, retrieval over a firm's vetted corpus, document tools
+      that read and produce DOCX/PDF artifacts, workflow agents per practice area, and deterministic governance
+      gates that keep outputs auditable. The lessons translate to any vertical where <b>accuracy, traceability,
+      and trust</b> outrank fluency.
+    </p>
+
+    <!-- WHAT IT IS ------------------------------------------------------- -->
+    <section class="section">
+      <span class="kicker">What it is</span>
+      <h2>A legal harness, not just a chatbot</h2>
+      <p>
+        Harvey is a domain-specific AI platform marketed to elite law firms, professional-services firms, and
+        corporate legal teams. End users see a chat interface, document drafting, document analysis, research
+        across legal/regulatory/tax sources, and "Workflow Agents" — long-running, multi-step routines that
+        carry out a real legal task (due diligence on an M&amp;A target, a privilege review pass, a contract
+        markup against a firm playbook).
+      </p>
+      <p>
+        Under the hood, the recipe is: a strong base model plus a layered harness that constrains, retrieves,
+        cites, and governs. The harness — not the model — is the moat. That's the lens this page uses.
+      </p>
+    </section>
+
+    <!-- THE HARNESS ------------------------------------------------------ -->
+    <section class="section">
+      <span class="kicker">Anatomy of the harness</span>
+      <h2>Six slots, mapped to a Harvey-style legal product</h2>
+      <p class="muted">
+        The same six slots you'd put in your own <code>harness/</code> folder appear here — just renamed in
+        legal vocabulary. If you're reverse-engineering Harvey, this is the table you copy into your repo.
+      </p>
+
+      <div class="components">
+
+        <article class="component">
+          <span class="tag">Agents · subagents</span>
+          <h3>Workflow Agents per practice area</h3>
+          <p>
+            A main orchestrating agent receives the user's intent, decomposes it, and dispatches to
+            specialist subagents — litigation, transactional, regulatory, in-house — each with its
+            own narrower toolset, system prompt, and output contract.
+          </p>
+          <ul>
+            <li><b>Diligence agent</b> — reads data-room docs, builds an issues list, cites back to source pages.</li>
+            <li><b>Drafting agent</b> — produces redlines against a firm template / playbook.</li>
+            <li><b>Research agent</b> — narrow tools for legal/regulatory/tax corpora; never freelances facts.</li>
+            <li><b>Reviewer / critic agent</b> — re-reads the draft for missed exceptions before it reaches the partner.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/agents/*.md</code> in your harness folder.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Skills</span>
+          <h3>On-demand prompts for legal moves</h3>
+          <p>
+            A skill is a prompt loaded only when its trigger fires — keeps base context small. In a legal
+            harness these are the repeatable "moves" attorneys do every day:
+          </p>
+          <ul>
+            <li><code>privilege-review</code> — scan a document for material protected by attorney-client privilege.</li>
+            <li><code>redline-against-playbook</code> — mark up a contract against the firm's standard positions.</li>
+            <li><code>extract-obligations</code> — produce a covenants / deadlines table from a stack of agreements.</li>
+            <li><code>cite-checker</code> — verify every citation in a brief resolves to a real, on-point authority.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/prompts/*.prompt.md</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Tools · scripts &amp; MCPs</span>
+          <h3>Vault, search, and document I/O</h3>
+          <p>
+            The agent does no work in the world directly — it calls tools. In Harvey-shape, the high-leverage
+            tools are:
+          </p>
+          <ul>
+            <li><b>Vault</b> — read/write into a firm-private document store with permissions enforced server-side.</li>
+            <li><b>Knowledge sources</b> — typed retrieval over curated legal/regulatory/tax corpora and the firm's own precedents.</li>
+            <li><b>DOCX / PDF tools</b> — load a Word file, produce a tracked-changes redline back out.</li>
+            <li><b>DMS / collaboration connectors</b> — iManage, NetDocuments, SharePoint, mobile capture, secure rooms.</li>
+            <li><b>Web/news search</b> — narrowly scoped, used as a fallback after firm sources, not as a default.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>scripts/*.sh</code> + <code>mcp.json</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Hooks · governance</span>
+          <h3>Deterministic gates the model can't bypass</h3>
+          <p>
+            Hooks bracket every tool call. They're not advice the model can ignore — they run regardless.
+            In Harvey-shape, the hooks enforce non-negotiable legal governance:
+          </p>
+          <ul>
+            <li><b>Privilege gate</b> — PreToolUse: refuse to send privileged material to any non-allowlisted endpoint.</li>
+            <li><b>Confidentiality scope</b> — PreToolUse: restrict retrieval to matters the user is staffed on.</li>
+            <li><b>Citation enforcement</b> — PostToolUse: every claim in an answer must resolve to a source token; strip anything that doesn't.</li>
+            <li><b>Audit log</b> — PostToolUse: append every tool call, doc touched, citation produced, with user + matter ID.</li>
+            <li><b>PII / out-of-jurisdiction redaction</b> — PreToolUse on outbound web calls.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/hooks/{pre,post}-tool-use.sh</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Knowledge</span>
+          <h3>Source-grounded, cited every time</h3>
+          <p>
+            Harvey doesn't "know" the law — it retrieves it and cites it. Knowledge is structured into layers
+            so retrieval picks the right authority for the question:
+          </p>
+          <ul>
+            <li><b>Public authorities</b> — statutes, regulations, case law, treatises, tax codes; jurisdictionally scoped.</li>
+            <li><b>Firm precedents</b> — past deals, briefs, memos — the firm's institutional knowledge.</li>
+            <li><b>Matter context</b> — the documents in the current Vault project the user is working on.</li>
+            <li><b>Playbooks</b> — firm-standard positions on contract clauses, structured for retrieval not prose.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>knowledge/*</code> + retrieval over a typed index.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Memory</span>
+          <h3>State that survives the session</h3>
+          <p>
+            Two flavors, kept separate so they can be governed differently:
+          </p>
+          <ul>
+            <li><b>Matter memory</b> — facts the agent has already established about <em>this</em> deal/case: parties, key dates, counter-party positions, decisions already made. Persists across the matter's life.</li>
+            <li><b>User memory</b> — the attorney's preferences: writing voice, drafting conventions, "always cite Bluebook," "default to NY law." Persists across matters.</li>
+            <li><b>Conversation state</b> — what's been said in the current thread; small, evictable, doesn't outlive the matter.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>memory/SESSION.md</code> + per-matter store.</div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- HOW THEY COMPOSE ------------------------------------------------- -->
+    <section class="section">
+      <span class="kicker">How they compose on one turn</span>
+      <h2>From "draft a markup" to a defensible artifact</h2>
+      <p>
+        A partner types: <em>"Mark up this NDA against our standard playbook; flag anything that looks
+        non-standard and tell me what we usually accept."</em> Here is the path that turn takes through
+        the harness:
+      </p>
+      <ol>
+        <li><b>System prompt &amp; rules</b> load — Harvey persona, privilege rules, citation requirement, "never fabricate a clause."</li>
+        <li><b>Skill match</b> — the request triggers <code>redline-against-playbook</code>; its prompt is loaded.</li>
+        <li><b>Memory read</b> — pulls the user's preferred writing voice + the playbook version they're on.</li>
+        <li><b>Knowledge retrieval</b> — fetches the firm's playbook for NDAs and any matter context already in Vault.</li>
+        <li><b>Subagent delegation</b> — drafting agent produces the redline; reviewer agent re-reads it independently.</li>
+        <li><b>Tool calls</b> — DOCX tool emits a tracked-changes Word file back into Vault.</li>
+        <li><b>Hooks run</b> — citation hook verifies every "we usually accept X" is grounded in a playbook entry; audit log appended.</li>
+        <li><b>Memory write</b> — counter-party name + matter facts appended to matter memory for the next turn.</li>
+      </ol>
+    </section>
+
+    <!-- WHY / WHERE IT BREAKS -------------------------------------------- -->
+    <section class="section">
+      <span class="kicker">Trade-offs</span>
+      <h2>Why this works, and where it breaks</h2>
+      <div class="split-2">
+        <div class="note-card">
+          <h4>Why this works</h4>
+          <p>
+            Trust in legal output is non-negotiable: a hallucinated case kills a brief. The harness pushes
+            every accuracy guarantee out of the model and into deterministic infrastructure — retrieval,
+            citation, hooks, audit — so the model only has to be <em>fluent</em>, not <em>correct</em>
+            about the world. That's a tractable contract.
+          </p>
+        </div>
+        <div class="note-card">
+          <h4>Where it breaks</h4>
+          <p>
+            When the knowledge layer is thin (a niche jurisdiction, a new statute, an unusual deal type), the
+            agent has nothing real to cite and may stall or over-hedge. Workflow agents also brittle-fail at
+            seams between practice areas (a deal with tax + regulatory + IP angles) when no orchestrator
+            owns the cross-cutting view.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVERSE-ENGINEER CHECKLIST --------------------------------------- -->
+    <section class="section">
+      <span class="kicker">For your breakout</span>
+      <h2>If you picked Harvey — reverse-engineer this</h2>
+      <ul class="checklist">
+        <li><b>System prompt:</b> write the 1-page <code>AGENTS.md</code> that bakes in jurisdiction, privilege, and "cite every claim."</li>
+        <li><b>Skills:</b> name three legal skills and write the trigger phrase + 5-step body for one of them.</li>
+        <li><b>Tools:</b> list the four tools you'd allow. For each, write the single line of stdout it returns.</li>
+        <li><b>Hooks:</b> draft the PreToolUse rule that refuses to send privileged content to a non-allowlisted endpoint.</li>
+        <li><b>Knowledge:</b> sketch the four layers (public · firm · matter · playbook) and the one rule for which gets searched first.</li>
+        <li><b>Memory:</b> decide what goes in <em>matter</em> memory vs <em>user</em> memory vs ephemeral conversation state.</li>
+      </ul>
+    </section>
+
+    <div class="footer-bar">
+      <span>Agentic Harness Engineering Workshop · App A · Harvey</span>
+      <a href="../Agentic%20Harness%20Engineering.html">← Back to the deck</a>
+    </div>
+
+  </main>
+
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Granola — Reverse-engineered harness · Agentic Harness Engineering</title>
+  <meta name="description" content="A reverse-engineered look at Granola, the AI notepad for meetings: the agents, skills, tools, hooks, knowledge, and memory behind a smallest-surface-area, sharpest-job product." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-detail.css" />
+  <style>
+    /* Granola-specific hero — no GIF in /assets, so use the illustrated fallback
+       with a stylised "transcript → notes" motif that telegraphs the product. */
+    .granola-motif{
+      max-width:var(--max-w);
+      margin:0 auto;
+      padding:96px 32px 56px;
+      display:grid; grid-template-columns: 1fr 1fr; gap:32px;
+      align-items:center;
+      position:relative; z-index:1;
+    }
+    .granola-motif .col{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.10);
+      border-radius:10px;
+      padding:18px 20px;
+      color:rgba(255,255,255,0.85);
+      font-size:13px; line-height:1.55;
+      backdrop-filter: blur(4px);
+    }
+    .granola-motif .col h5{
+      margin:0 0 10px 0;
+      font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase;
+      color:rgba(255,255,255,0.55);
+    }
+    .granola-motif .col p{ margin:0 0 8px 0; }
+    .granola-motif .col p:last-child{ margin-bottom:0; }
+    .granola-motif .col.notes p{
+      color:#fff; font-weight:600;
+    }
+    .granola-motif .col.notes p::before{
+      content:"•  "; color:rgba(255,255,255,0.45); font-weight:400;
+    }
+    .granola-hero-caption{
+      max-width:var(--max-w);
+      margin:0 auto;
+      padding:0 32px 40px;
+      color:#fff;
+      position:relative; z-index:1;
+    }
+    @media (max-width: 820px){
+      .granola-motif{ grid-template-columns:1fr; padding:80px 20px 32px; }
+      .granola-hero-caption{ padding:0 20px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero hero-illustrated">
+    <div class="topbar">
+      <a class="back" href="../Agentic%20Harness%20Engineering.html" aria-label="Back to deck">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        Back to deck
+      </a>
+      <span class="workshop-tag">Agentic Harness Engineering · Reverse-engineer</span>
+    </div>
+
+    <!-- No screen recording shipped for Granola; an illustrated motif stands in
+         for the GIF hero used on the Harvey / Claude FS pages. -->
+    <div class="granola-motif" aria-hidden="true">
+      <div class="col">
+        <h5>Raw transcript · 47:12</h5>
+        <p>uh, so basically the launch is — yeah, the launch is end of Q3, but we, um, we need legal to sign off on the disclosures by, like…</p>
+        <p>(crosstalk) — sorry — by mid-September latest, and Maya said she'd own the EU copy review…</p>
+        <p>okay so action item, can we — Sam, can you get the disclosures draft to legal by next Tues?</p>
+      </div>
+      <div class="col notes">
+        <h5>Granola notes</h5>
+        <p>Launch target: end of Q3</p>
+        <p>Disclosures draft to Legal by Tues (owner: Sam)</p>
+        <p>EU copy review owner: Maya</p>
+        <p>Risk: legal sign-off lag could push GA</p>
+      </div>
+    </div>
+
+    <div class="granola-hero-caption">
+      <div class="hero-eyebrow">App C · Productivity · Meetings</div>
+      <h1 class="hero-title">Granola</h1>
+      <p class="hero-subtitle">The AI notepad for back-to-back meetings — listens, drafts notes, extracts actions, syncs to your tools. The smallest harness surface in the matrix, and the easiest to map end-to-end.</p>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <p class="lede">
+      Granola is the cleanest reverse-engineering target in the matrix because <b>the job is small and sharp</b>:
+      sit in a meeting, listen, produce notes worth keeping. Everything in the harness exists in service of that
+      one outcome. Whatever you can ship in 25 minutes for Granola becomes the template for the bigger ones —
+      same six slots, just more boxes to fill in Harvey or Claude FS.
+    </p>
+
+    <section class="section">
+      <span class="kicker">What it is</span>
+      <h2>An AI notepad for meetings — not a meeting bot</h2>
+      <p>
+        Granola listens to a meeting on your machine, transcribes locally, and turns the messy spoken stream into
+        the notes you would have wished you wrote. The user-visible surface is a notepad: you can type your own
+        bullets while the meeting happens, and Granola enriches them with what was actually said, the decisions
+        reached, and the action items, and syncs the result to the tools you already use (Notion, Slack, calendars,
+        CRMs).
+      </p>
+      <p>
+        It deliberately does not join the call as a bot. That is a product decision with harness consequences:
+        capture happens on-device, the network surface is narrower, and the privacy story is easier to defend.
+      </p>
+    </section>
+
+    <section class="section">
+      <span class="kicker">Anatomy of the harness</span>
+      <h2>Six slots, mapped to a meeting product</h2>
+      <p class="muted">
+        Same six-slot anatomy as the other two examples — re-stated in the vocabulary of a meeting workflow.
+      </p>
+
+      <div class="components">
+
+        <article class="component">
+          <span class="tag">Agents · subagents</span>
+          <h3>One main note-taker, a few quiet specialists</h3>
+          <p>
+            Granola is small enough that the main loop is the agent — a transcribe → enrich → summarize pipeline.
+            But the high-value patterns become clearer when you split it into subagents:
+          </p>
+          <ul>
+            <li><b>Listener</b> — runs while the meeting is live; produces a rolling structured transcript and detects topic changes.</li>
+            <li><b>Note-merger</b> — combines the user's typed bullets with what was actually said; preserves the user's voice as the spine.</li>
+            <li><b>Action extractor</b> — identifies decisions, action items, and owners; structured output only.</li>
+            <li><b>Follow-up drafter</b> — proposes the email / Slack / Notion entry; never sends on its own.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/agents/*.md</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Skills</span>
+          <h3>On-demand prompts for meeting moves</h3>
+          <p>
+            A skill is a prompt loaded when its trigger fires. Granola's skills are the moves that turn raw
+            transcript into something usable:
+          </p>
+          <ul>
+            <li><code>summarize-meeting</code> — produce a 5-bullet recap framed for someone who wasn't there.</li>
+            <li><code>extract-decisions</code> — list every decision actually reached, with the alternatives discussed.</li>
+            <li><code>extract-actions</code> — produce owner / item / due-date triples; never invent owners.</li>
+            <li><code>draft-followup</code> — email or Slack-shaped draft from the decisions + actions.</li>
+            <li><code>find-prior-context</code> — pull what was said in the last meeting with these participants on this topic.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/prompts/*.prompt.md</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Tools · scripts &amp; MCPs</span>
+          <h3>Audio in, productivity surfaces out</h3>
+          <p>
+            The agent itself doesn't reach into the world — it asks tools to. In Granola-shape:
+          </p>
+          <ul>
+            <li><b>Capture tool</b> — on-device audio capture + diarization; never sends raw audio off-device unprompted.</li>
+            <li><b>Calendar MCP</b> — read today's meetings, participants, prior notes for the same series.</li>
+            <li><b>Notion / Docs / Drive MCP</b> — write the notes file into the workspace folder the user picks.</li>
+            <li><b>Slack / Email MCP</b> — post the recap; always requires a human confirm step.</li>
+            <li><b>CRM MCP</b> — log the meeting against the right account / opportunity for sales workflows.</li>
+            <li><b>Search</b> — scoped to the user's own past notes; not the public web.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>scripts/*.sh</code> + <code>mcp.json</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Hooks · governance</span>
+          <h3>Privacy boundary, enforced not promised</h3>
+          <p>
+            Hooks bracket every tool call. They run regardless of what the model decided, and they are where
+            Granola's "we don't send audio off your device" story is actually upheld:
+          </p>
+          <ul>
+            <li><b>On-device boundary</b> — PreToolUse: deny any outbound call that includes raw audio bytes.</li>
+            <li><b>Send-confirm gate</b> — PreToolUse: any post-to-Slack / email / Notion requires an explicit user confirmation token.</li>
+            <li><b>Participant-scope check</b> — PreToolUse: write to the meeting's calendar invitees' workspace only.</li>
+            <li><b>PII redaction</b> — PostToolUse: strip phone numbers / addresses / financial figures from drafts unless the user typed them.</li>
+            <li><b>Audit log</b> — PostToolUse: record what was synced, where, and on whose meeting.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/hooks/{pre,post}-tool-use.sh</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Knowledge</span>
+          <h3>Your meetings, your tools, lightweight</h3>
+          <p>
+            Granola's knowledge is mostly <em>your</em> stuff — there's no public corpus to retrieve over. The
+            layers are about helping the agent recognise the room:
+          </p>
+          <ul>
+            <li><b>Prior notes</b> — your past Granola outputs, indexed by participants &amp; topic.</li>
+            <li><b>Calendar context</b> — invitees, agenda lines, series title, the doc attached to the invite.</li>
+            <li><b>User glossary</b> — project codenames, customer aliases, acronyms unique to your team.</li>
+            <li><b>Tool schemas</b> — the shape of your Notion DB, your Slack channels, your CRM stages — so output lands in the right slot.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>knowledge/*</code> + a small typed index.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Memory</span>
+          <h3>Voice, names, and what's still open</h3>
+          <p>
+            Three flavours, each with a different lifespan:
+          </p>
+          <ul>
+            <li><b>Series memory</b> — facts about <em>this</em> recurring meeting: stable participants, ongoing threads, last week's open actions still pending.</li>
+            <li><b>User memory</b> — the user's writing voice, preferred bullet style, default destination ("always Notion, not Docs"), people they refer to by first name.</li>
+            <li><b>Conversation state</b> — what's been said in this single meeting; flushed at end-of-meeting except for what was promoted to series memory.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>memory/SESSION.md</code> + per-series store.</div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="kicker">How they compose on one turn</span>
+      <h2>From "meeting just ended" to a synced recap</h2>
+      <p>
+        A 30-minute product sync wraps. The user closes the laptop lid and walks to the next call. Here is the
+        path the harness takes in the background:
+      </p>
+      <ol>
+        <li><b>System prompt &amp; rules</b> load — Granola persona, on-device privacy stance, "preserve the user's voice."</li>
+        <li><b>Skill match</b> — meeting-end trigger loads <code>summarize-meeting</code>, <code>extract-decisions</code>, and <code>extract-actions</code>.</li>
+        <li><b>Memory read</b> — the user's writing voice + the series memory ("Sam usually owns disclosures").</li>
+        <li><b>Knowledge retrieval</b> — last meeting's notes for the same series; the user's glossary.</li>
+        <li><b>Subagent delegation</b> — listener already produced the transcript; note-merger combines it with the user's typed bullets; action extractor produces the owner/item/due triples.</li>
+        <li><b>Tool calls</b> — Notion MCP writes the page; CRM MCP logs the meeting against the right account.</li>
+        <li><b>Hooks run</b> — on-device boundary, PII redaction, send-confirm gate before the Slack post.</li>
+        <li><b>Memory write</b> — open actions append to series memory so they show up at the start of next week's call.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <span class="kicker">Trade-offs</span>
+      <h2>Why this works, and where it breaks</h2>
+      <div class="split-2">
+        <div class="note-card">
+          <h4>Why this works</h4>
+          <p>
+            The job is narrow and the user is in the loop. The harness can be small because the surface is small,
+            and the privacy story holds up because most of the heavy work happens before any tool call leaves the
+            machine. The result feels "magic" precisely because the agent is doing almost nothing the user couldn't
+            verify in five seconds.
+          </p>
+        </div>
+        <div class="note-card">
+          <h4>Where it breaks</h4>
+          <p>
+            When the meeting is genuinely <em>strategic</em> — heavy on subtext, code-switching, multi-party
+            disagreement — the action extractor either invents structure that wasn't really agreed, or hedges so
+            hard the notes are useless. The harness also can't recover from bad capture: a noisy room, an unmic'd
+            speaker on the far end, and the rest of the pipeline is downstream of garbage.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="kicker">For your breakout</span>
+      <h2>If you picked Granola — reverse-engineer this</h2>
+      <ul class="checklist">
+        <li><b>System prompt:</b> write the 1-page <code>AGENTS.md</code> that bakes in "preserve the user's voice" and the on-device privacy stance.</li>
+        <li><b>Skills:</b> name three meeting skills; write the 5-step body for <code>extract-actions</code> (and the rule for refusing to invent an owner).</li>
+        <li><b>Tools:</b> list the four tools you'd allow; for each, write the JSON shape it returns.</li>
+        <li><b>Hooks:</b> draft the PreToolUse rule that refuses to post to Slack without an explicit confirm token.</li>
+        <li><b>Knowledge:</b> sketch the four layers (prior notes · calendar · glossary · tool schemas) — and decide which is consulted first.</li>
+        <li><b>Memory:</b> decide what gets promoted from a single meeting into <em>series</em> memory vs left to die in conversation state.</li>
+      </ul>
+    </section>
+
+    <div class="footer-bar">
+      <span>Agentic Harness Engineering Workshop · App C · Granola</span>
+      <a href="../Agentic%20Harness%20Engineering.html">← Back to the deck</a>
+    </div>
+
+  </main>
+
+</body>
+</html>
