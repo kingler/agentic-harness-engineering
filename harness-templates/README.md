@@ -68,15 +68,21 @@ For a visual reference (one diagram per concept), see [`ANATOMY.md`](./ANATOMY.m
 
 ## How to use it in the workshop
 
-**Breakout 3 — Develop (20 min)**
+**Breakout 3 — Develop (25 min)**
 
-1. Copy this folder, rename it `harness/`, push to a branch.
-2. Rewrite `AGENTS.md` for your chosen app's persona, rules, and constraints.
-3. Edit one prompt file, one custom agent, and one hook so they reflect a
-   real workflow your harness will support.
-4. Update `.github/copilot-instructions.md` to scope what Copilot can do.
-5. Mirror the project-level rule into `.roo/rules/01-project.md` so the same
-   harness also works for participants using Cline / RooCode.
+1. Copy this folder, rename it `my-harness-<group>/`, branch it.
+2. **Run `/scaffold-harness`** in Copilot Chat (or open
+   `.github/prompts/scaffold-harness.prompt.md` in RooCode / Cline and
+   say "Run this prompt."). It asks 7 questions, then generates
+   `AGENTS.md`, the Copilot and RooCode mirrors, a first tool stub
+   under `scripts/`, and a smoke eval case under `evals/cases/` in
+   one pass.
+3. Read the five generated files — fix the persona sentence and the
+   one "never" rule by hand if they came out vague.
+4. Run the smoke prompt the command generated and check the response
+   against the five scoring questions in
+   `exercises/breakout-guides/breakout-3-build-harness.md` Step 3.
+5. Commit on `wkshp/<group>/scaffold`. Day 2 picks up from there.
 
 ## These templates work for non-coding domains too
 
