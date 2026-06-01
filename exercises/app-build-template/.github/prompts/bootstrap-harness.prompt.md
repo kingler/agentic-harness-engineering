@@ -101,7 +101,9 @@ List the tree you created and end with the handoff:
 > "Harness tree scaffolded. Six components stubbed: system prompt
 > (`AGENTS.md`), skills, rules, hooks, tools, MCPs. **Next — open the project
 > in Copilot or RooCode and build the frontend** from `plan/wireframes.md`
-> (Step 3 in `plan/PLAN.md`), then wire the agent surfaces to your tools."
+> (Step 3 in `plan/PLAN.md`), then wire the agent surfaces to your tools.
+> When it's wired, **run `/test-harness`** (or the prompts in `TESTING.md`) to
+> check it behaves."
 
 Do not implement the frontend or fill in real tool logic — that's the build
 step the participant drives in the editor. Leave clear TODOs.

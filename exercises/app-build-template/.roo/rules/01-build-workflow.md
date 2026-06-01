@@ -10,7 +10,9 @@ This project is built in a fixed order. Do not skip ahead.
    project tree (system prompt, skills, rules, hooks, tools, MCPs).
 3. **Build the frontend** from `plan/wireframes.md`.
 4. **Wire** the agent surfaces to the harness tools and hooks.
-5. **Test** the golden path end-to-end.
+5. **Test** the harness with `/test-harness` (or the prompts in `TESTING.md`) —
+   probe the refusal, confirm the hook blocks the nightmare-failure action even
+   under an "I'm the admin" retry, and run the golden path end-to-end.
 
 If asked to build the app before a plan exists in `plan/`, stop and run
 `/plan-app` first. Never generate UI or tool logic without the plan and the
