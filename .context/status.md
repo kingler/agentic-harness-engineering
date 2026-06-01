@@ -19,12 +19,16 @@ Workshop redesign + harness templates merge (`a064931`):
 ## Active work
 
 - `claude/agentic-harness-exercise-template-nw1Cx` — Day 2 app build
-  template (`exercises/app-build-template/`): an app brief plus three chained
-  slash commands, `/plan-app` (plan + wireframes + tech spec) →
-  `/bootstrap-harness` (scaffolds the six harness components) →
-  `/test-harness` (behavior test + `plan/TEST-REPORT.md`), with `TESTING.md`
-  holding copy-paste probes per component. Mirrored for Copilot, RooCode, and
-  Claude; zipped to `exercises/app-build-template.zip`.
+  template (`exercises/app-build-template/`): a downloadable VS Code project
+  with the harness pre-wired into each extension's native folders —
+  **GitHub Copilot** in `.github/` (`copilot-instructions.md`, `instructions/`,
+  `prompts/`, `agents/`, `skills/`, `hooks/`) + `.vscode/mcp.json`, and
+  **Roo Code / DevGPT** in `.roo/` (`rules/`, `commands/`, `mcp.json`); shared
+  `AGENTS.md`, `knowledge/`, and `tools/` at root. Participants pick one
+  extension. Three chained slash commands `/plan-app` → `/bootstrap-harness`
+  → `/test-harness` plus `TESTING.md` probes drive plan → build → test.
+  Folder locations follow the GitHub Copilot docs (docs.github.com/copilot).
+  Zipped to `exercises/app-build-template.zip` (scripts keep exec bits).
   Both agendas in `Agentic Harness Engineering.html` were reworked around the
   breakout cadence: facilitator explains the components + the plan step and
   illustrates the activity live, then participants break out to plan → build →

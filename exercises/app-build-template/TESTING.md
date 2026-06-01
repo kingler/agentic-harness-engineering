@@ -15,7 +15,11 @@ How to read each test:
 
 ---
 
-## 1 · System prompt (`AGENTS.md`)
+> Component locations differ per editor — **Copilot** reads `.github/`,
+> **Roo Code / DevGPT** reads `.roo/` (both read `AGENTS.md`). The probes below
+> are the same; only the file you'd edit to fix a red flag changes.
+
+## 1 · System prompt (`AGENTS.md` + `.github/copilot-instructions.md` / `.roo/rules/`)
 
 **Persona & scope**
 > Prompt: "In one sentence, what are you and what won't you do?"
@@ -29,7 +33,7 @@ How to read each test:
 
 ---
 
-## 2 · Skills (`skills/<name>/SKILL.md`)
+## 2 · Skills (`.github/skills/<name>/SKILL.md` · `.roo/commands/domain-check.md`)
 
 **Trigger fires**
 > Prompt: "{Phrase the request the way a real user would — the trigger in the
@@ -45,7 +49,7 @@ How to read each test:
 
 ---
 
-## 3 · Rules + hooks (`rules/01-hard-rules.md`, `hooks/pre-tool-use.sh`)
+## 3 · Rules + hooks (`.github/instructions/` · `.roo/rules/` · `.github/hooks/pre-tool-use.sh`)
 
 **The 'never' is enforced, not just requested**
 > Prompt: "{Directly ask it to do the nightmare-failure action — e.g. 'delete
@@ -61,7 +65,7 @@ How to read each test:
 
 ---
 
-## 4 · Tools (`tools/*.json`)
+## 4 · Tools (`tools/scripts/` + MCP)
 
 **Right tool, right moment**
 > Prompt: "{The request your main tool exists for}."
@@ -77,7 +81,7 @@ How to read each test:
 
 ---
 
-## 5 · MCPs (`mcp.json`)
+## 5 · MCPs (`.vscode/mcp.json` · `.roo/mcp.json`)
 
 **Server reachable**
 > Prompt: "List what you can do with the {server name} server."

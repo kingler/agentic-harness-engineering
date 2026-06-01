@@ -3010,9 +3010,9 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
         <div class="env-tag">Stack you have</div>
         <ul>
           <li><b>VS Code</b> — your editor</li>
-          <li><b>RooCode</b> or <b>GitHub Copilot</b> — pick one extension; either works as the agent surface for building your harness.</li>
-          <li>A short <b>UX brief</b> (bullets or doc) for the screens you want</li>
-          <li>Optional: <b>MCP servers</b> (e.g. GitHub)</li>
+          <li>Pick one extension: <b>GitHub Copilot</b> or <b>Roo Code / DevGPT</b> — each gives you the brain (LLM), the chat interface, and the harness folder it reads.</li>
+          <li><b>Harness lives in the editor's folder</b> — <code>.github/</code> for Copilot, <code>.roo/</code> for Roo Code; both read <code>AGENTS.md</code>.</li>
+          <li>Optional: <b>MCP servers</b> (e.g. GitHub) via <code>.vscode/mcp.json</code> or <code>.roo/mcp.json</code></li>
         </ul>
       </div>
       <div class="env-card env-card--build">
@@ -3026,7 +3026,7 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
       </div>
     </div>
 
-    <p class="footnote" style="margin-top:28px;max-width:1200px;"><b>Before Day 1 breakouts:</b> Install VS Code, enable your AI extension (Copilot or RooCode), clone or unzip the workshop harness template (<code>exercises/sample-harness-uxd-specs</code> or <code>harness-templates/</code>), and open it as the workspace. Download the <a href="exercises/harness-workshop-starter.zip" style="color:var(--spectrum-blue-500);font-weight:600;">starter pack (skills + slash commands)</a>. For the Day 2 build, also grab the <a href="exercises/app-build-template.zip" style="color:var(--spectrum-blue-500);font-weight:600;">app build template (<code>/plan-app</code> → <code>/bootstrap-harness</code>)</a>. Companion instructions for each breakout live under <code>docs/workshop-breakouts/</code>.</p>
+    <p class="footnote" style="margin-top:28px;max-width:1200px;"><b>Before Day 1 breakouts:</b> Install VS Code, enable one AI extension (<b>GitHub Copilot</b> or <b>Roo Code / DevGPT</b>), then download and unzip the <a href="exercises/app-build-template.zip" style="color:var(--spectrum-blue-500);font-weight:600;">app build template</a> and open it as the workspace — the harness is pre-wired into <code>.github/</code> (Copilot) and <code>.roo/</code> (Roo), so the chain <code>/plan-app</code> → <code>/bootstrap-harness</code> → <code>/test-harness</code> works on open. Optional deeper reference: <code>harness-templates/</code> and the <a href="exercises/harness-workshop-starter.zip" style="color:var(--spectrum-blue-500);font-weight:600;">starter pack</a>. Companion instructions live under <code>docs/workshop-breakouts/</code>.</p>
 
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>

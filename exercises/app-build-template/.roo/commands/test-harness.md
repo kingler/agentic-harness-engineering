@@ -15,10 +15,13 @@ add features. A harness passes when it *behaves*, not when the files exist.
 
 ## Step 1 — Load the contract
 
-Read `AGENTS.md`, `rules/01-hard-rules.md`, the files under `skills/`,
-`tools/`, `hooks/`, `mcp.json`, and `plan/PLAN.md` (for the golden path). If a
-component is still a bare TODO stub, mark it **SKIPPED (not implemented)** and
-move on — don't fabricate a pass.
+Read the harness from your editor's folders: `AGENTS.md`; the rules
+(`.roo/rules/` for Roo, `.github/copilot-instructions.md` +
+`.github/instructions/` for Copilot); skills (`.roo/commands/domain-check.md` or
+`.github/skills/`); hooks (`.github/hooks/`); tools (`tools/scripts/` + the MCP
+config `.roo/mcp.json` / `.vscode/mcp.json`); and `plan/PLAN.md` (for the golden
+path). If a component is still a bare TODO stub, mark it **SKIPPED (not
+implemented)** and move on — don't fabricate a pass.
 
 ## Step 2 — Run the checks
 
