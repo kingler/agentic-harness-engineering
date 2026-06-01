@@ -18,6 +18,14 @@ Workshop redesign + harness templates merge (`a064931`):
 
 ## Active work
 
+- `claude/agentic-harness-exercise-template-nw1Cx` — Day 2 app build
+  template (`exercises/app-build-template/`): an app brief plus two chained
+  slash commands, `/plan-app` (plan + wireframes + tech spec) →
+  `/bootstrap-harness` (scaffolds the six harness components). Mirrored for
+  Copilot, RooCode, and Claude; zipped to `exercises/app-build-template.zip`.
+  Day 2 agenda in `Agentic Harness Engineering.html` reordered so the first
+  build step is writing the plan from the app's core features, value
+  proposition, and the problem it solves.
 - `claude/context-prime-setup-ZbGZO` — root README, `.context/`
   directory, and pinned MCP package versions for the workshop.
 

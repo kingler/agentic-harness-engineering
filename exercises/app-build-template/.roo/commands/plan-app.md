@@ -1,0 +1,132 @@
+---
+description: STEP 1 of the build. Turn the app brief (core features, value proposition, the problem it solves) into a detailed plan, wireframes, and a technology + harness spec. Plan before you build. Chains to /bootstrap-harness.
+argument-hint: "[app name] (optional — otherwise read app-brief.md)"
+---
+
+# /plan-app — Step 1: Plan before you build
+
+> **RooCode command.** Type `/plan-app` in the RooCode chat (project commands
+> live in `.roo/commands/`). It writes to `plan/` in your workspace.
+
+You are the planning agent for the Agentic Harness Engineering build lab.
+**Nothing gets scaffolded or coded until this plan exists.** Turn the
+one-page app brief into three artifacts the build will run on:
+
+- `plan/PLAN.md` — the build plan
+- `plan/wireframes.md` — low-fi screen wireframes
+- `plan/tech-spec.md` — technology + harness component spec
+
+## Step 1 — Read the brief
+
+Read `app-brief.md` at the workspace root. If it is missing or still full of
+`{{placeholders}}`, do **not** invent the product. Ask the user for the three
+things the brief is built on, then continue:
+
+> "Before I plan, tell me about the app you're reverse-engineering:
+> **(1)** its core features, **(2)** its value proposition, and
+> **(3)** the problem it solves."
+
+Echo back a tight 3-bullet summary of features / value prop / problem and let
+the user correct it before you plan.
+
+## Step 2 — Write `plan/PLAN.md`
+
+Produce a one-page, skimmable plan with exactly these sections:
+
+```markdown
+# Build Plan — {App name}
+
+**Goal.** One sentence — what a working demo looks like.
+
+**Problem & value.** Two sentences pulled from the brief.
+
+**Golden path.** The 3–5 step interaction we will make work end-to-end.
+
+**Scope for the lab.** The ONE slice we build now. Everything else is "later".
+
+**Out of scope.** What we are deliberately not building.
+
+**Build order.** A numbered checklist:
+  1. Plan (this file)
+  2. Bootstrap the harness tree (/bootstrap-harness)
+  3. Frontend prototype from the wireframes
+  4. Wire agent ↔ harness ↔ frontend
+  5. Test the golden path
+
+**Risks.** Three things most likely to go wrong.
+
+**Done when.** A checklist a human can verify in under a minute.
+```
+
+## Step 3 — Write `plan/wireframes.md`
+
+Sketch the screens on the golden path as **ASCII wireframes** — no design
+tools, no images. One box per screen. For each screen note: the agent
+surface (where the model shows up), the primary action, and the empty/error
+state.
+
+```markdown
+# Wireframes — {App name}
+
+## Screen 1 — {name}
++--------------------------------------------------+
+| {top bar / nav}                                  |
++------------------+-------------------------------+
+| {sidebar / list} | {main work area}              |
+|                  |   [ agent surface lives here ]|
+|                  |                               |
++------------------+-------------------------------+
+| {primary action button}                          |
++--------------------------------------------------+
+- Agent surface: {chat panel / inline suggestion / generated doc}
+- Primary action: {what the main button does}
+- Empty state: {what shows before any data}
+- Error state: {what shows when the agent fails or refuses}
+
+## Screen 2 — {name}
+{…repeat for each golden-path screen, 2–4 screens total…}
+```
+
+## Step 4 — Write `plan/tech-spec.md`
+
+Specify the stack **and** map the six harness components onto files. This is
+the bridge into `/bootstrap-harness`.
+
+```markdown
+# Tech Spec — {App name}
+
+## Frontend
+- Framework: {React + Vite / Next.js / plain HTML — pick the lightest thing
+  that demos well}
+- Screens: {list from wireframes}
+- State: {where app state lives}
+
+## Data
+- Entities: {the 2–4 nouns the app is about}
+- Storage: {in-memory / localStorage / mock JSON — keep it demo-grade}
+
+## Agent surfaces
+- Where the model is invoked from the UI, and what it returns each time.
+
+## Harness component map
+| Component | This app's instance | File it will live in |
+|-----------|---------------------|----------------------|
+| System prompt | {persona + scope in one line} | `AGENTS.md` |
+| Skills | {1–2 named skills} | `skills/<name>/SKILL.md` |
+| Rules | {the hard "never" rules} | `rules/*.md` |
+| Hooks | {1 pre + 1 post, what they enforce} | `hooks/*.sh` |
+| Tools (functions) | {3–5 verb-named tools} | `tools/*.json` + `tools/scripts/` |
+| MCPs | {external servers, e.g. GitHub} | `mcp.json` |
+```
+
+## Step 5 — Hand off to bootstrap
+
+Save all three files under `plan/`. Then end with this exact handoff so the
+chain is obvious:
+
+> "Plan complete. Three files are in `plan/`. **Next step — run
+> `/bootstrap-harness`** and it will scaffold the project tree from this
+> tech spec (system prompt, skills, rules, hooks, tools, MCPs)."
+
+Do **not** start scaffolding or writing app code yourself. Stop here so the
+user can review the plan and trigger the next command.
