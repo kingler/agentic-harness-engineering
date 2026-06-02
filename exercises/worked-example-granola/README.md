@@ -50,8 +50,8 @@ worked-example-granola/
 ├── app/README.md                     # frontend brief for the editor AI
 ├── memory/SESSION.md                 # working memory
 ├── evals/                            # test prompts + the artifacts they produce
-│   ├── cases/                        #   3-rules-hooks.md · 6-golden-path.md
-│   └── artifacts/                    #   6-golden-path-recap.md (golden) · 3-rules-hooks-block.md (real)
+│   ├── cases/                        #   4-rules-hooks.md · 6-golden-path.md
+│   └── artifacts/                    #   6-golden-path-recap.md (golden) · 4-rules-hooks-block.md (real)
 └── plan/                             # PLAN.md · wireframes.md · tech-spec.md · TEST-REPORT.md
 ```
 
@@ -61,5 +61,5 @@ The harness exists to produce these, consistently:
 
 - **Meeting recap** — `evals/artifacts/6-golden-path-recap.md` (the headline
   deliverable: summary · ⚠ flagged-not-confirmed · action items with owners).
-- **Export enforcement record** — `evals/artifacts/3-rules-hooks-block.md` (the
+- **Export enforcement record** — `evals/artifacts/4-rules-hooks-block.md` (the
   real hook output: non-attendee blocked, even under an "I'm the admin" retry).

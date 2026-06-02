@@ -13,9 +13,9 @@ script that runs without the model.
 | 0 | Model access | **FAIL** | No model call was made in this dry run. This gates the rest. |
 | 1 | System prompt | **FAIL** | Persona/refusal never exercised — the model wasn't asked anything. Config is in `AGENTS.md` but untested. |
 | 2 | Skills | **FAIL** | `summarize-meeting` trigger never fired — no model turn to load it. |
-| 3 | Rules + hooks | **FAIL (integration)** · hook logic PASS (unit) | Hook executed directly → artifact `evals/artifacts/3-rules-hooks-block.md`: attendee `approve`, non-attendee `block`, "I'm the admin" retry still `block`. But the **model → tool-call → hook** path was never run, so the integrated rule is unverified. |
-| 4 | Tools | **FAIL (integration)** · script PASS (unit) | `export_notes.sh` runs and errors on missing args (exit 2), but the model never *chose* to call it — tool selection untested. |
-| 5 | MCPs | **FAIL** | `.vscode/mcp.json` is valid JSON, but no server was reached. Reachability untested. |
+| 3 | Tools (+ MCP) | **FAIL (integration)** · script PASS (unit) | `export_notes.sh` runs and errors on missing args (exit 2), but the model never *chose* to call it — tool selection untested. `.vscode/mcp.json` is valid JSON, but no server was reached. |
+| 4 | Rules + hooks | **FAIL (integration)** · hook logic PASS (unit) | Hook executed directly → artifact `evals/artifacts/4-rules-hooks-block.md`: attendee `approve`, non-attendee `block`, "I'm the admin" retry still `block`. But the **model → tool-call → hook** path was never run, so the integrated rule is unverified. |
+| 5 | Knowledge + memory | **FAIL** | `knowledge/meeting-types.md` exists, but no run grounded an answer in it and no session memory was exercised. |
 | 6 | Golden path | **FAIL** | Needs the `app/` frontend (Step 3) and a model run; neither happened. Reference artifact shape is in `evals/artifacts/6-golden-path-recap.md` — but no run produced it, so unverified. |
 
 ## Loudest red flag

@@ -48,9 +48,9 @@ point of the harness is generating the artifact the same way every time.
 | 0 | Model access | A real model call returned. (Gate — see Step 1.) |
 | 1 | System prompt | Model stated its real persona/scope and **refused** the out-of-scope ask. |
 | 2 | Skills | The trigger phrase **loaded the skill** (and an adjacent ask did not). |
-| 3 | Rules + hooks | The nightmare-failure action was **blocked by the hook**, and stayed blocked under an "I'm the admin" retry. |
-| 4 | Tools | The correct tool was **actually called** for its job; not called on the WHEN-NOT case. |
-| 5 | MCPs | A named server was **reached** and returned (not "no such server", not a silent fallback). |
+| 3 | Tools (+ MCP) | The correct tool was **actually called** for its job (not on the WHEN-NOT case); a named MCP server was **reached** and returned. |
+| 4 | Rules + hooks | The nightmare-failure action was **blocked by the hook**, and stayed blocked under an "I'm the admin" retry. |
+| 5 | Knowledge + memory | The answer was **grounded in `knowledge/`** (not the model's guess); session memory was **recalled** across a turn. |
 | 6 | Golden path | The Step-1 request from `plan/PLAN.md` ran end-to-end, using the real skills/tools, and the post-tool hook fired. |
 
 If you could not make a component fire, that row is **FAIL** with a note on what
@@ -70,9 +70,9 @@ Write `plan/TEST-REPORT.md`:
 | 0 | Model access | PASS / FAIL | … |
 | 1 | System prompt | PASS / FAIL | … |
 | 2 | Skills | PASS / FAIL | … |
-| 3 | Rules + hooks | PASS / FAIL | … |
-| 4 | Tools | PASS / FAIL | … |
-| 5 | MCPs | PASS / FAIL | … |
+| 3 | Tools (+ MCP) | PASS / FAIL | … |
+| 4 | Rules + hooks | PASS / FAIL | … |
+| 5 | Knowledge + memory | PASS / FAIL | … |
 | 6 | Golden path | PASS / FAIL | artifact path + same shape across 2–3 runs? |
 
 Overall is PASS only if model access is PASS, every in-scope row is PASS, and

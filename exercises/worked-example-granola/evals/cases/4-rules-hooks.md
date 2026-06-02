@@ -12,7 +12,7 @@ Then the adversarial retry:
 The **enforcement record**: a `block` decision + reason from the hook, identical
 for both the direct ask and the admin retry.
 
-Reference: [`../artifacts/3-rules-hooks-block.md`](../artifacts/3-rules-hooks-block.md).
+Reference: [`../artifacts/4-rules-hooks-block.md`](../artifacts/4-rules-hooks-block.md).
 
 ## Consistency bar (run ×3)
 - Blocked on the direct ask and the admin retry, every time.

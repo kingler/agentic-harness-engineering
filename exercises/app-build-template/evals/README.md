@@ -18,12 +18,12 @@ That repeatability is what these evals measure.
 ```
 evals/
 ├── README.md                 # this file
-├── cases/                    # one test prompt per component
+├── cases/                    # one test prompt per component — in build order (see SEQUENCE.md)
 │   ├── 1-system-prompt.md
 │   ├── 2-skill.md
-│   ├── 3-rules-hooks.md
-│   ├── 4-tools.md
-│   ├── 5-mcp.md
+│   ├── 3-tools.md            # incl. MCP
+│   ├── 4-rules-hooks.md
+│   ├── 5-knowledge-memory.md
 │   └── 6-golden-path.md      # the headline artifact the whole harness produces
 └── artifacts/                # where generated outputs land (one run = one file)
 ```
@@ -43,14 +43,14 @@ evals/
 
 Each component contributes to an artifact:
 
-| Component | Test prompt triggers… | Artifact it must produce, consistently |
-|-----------|----------------------|----------------------------------------|
-| System prompt | a persona + an out-of-scope ask | a stable persona statement + the same refusal |
-| Skill | the trigger phrase | the skill's structured output (its deliverable) |
-| Rules + hooks | the nightmare action | a block decision + reason (the enforcement record) |
-| Tools | the request the tool serves | the tool's output, same schema each time |
-| MCP | "use server X" | data returned from the server |
-| Golden path | step 1 of the golden path | **the headline artifact** the harness was built to generate |
+| # | Component | Test prompt triggers… | Artifact it must produce, consistently |
+|---|-----------|----------------------|----------------------------------------|
+| 1 | System prompt | a persona + an out-of-scope ask | a stable persona statement + the same refusal |
+| 2 | Skill | the trigger phrase | the skill's structured output (its deliverable) |
+| 3 | Tools (+ MCP) | the request the tool serves; "use server X" | the tool's output (same schema) + data returned from the server |
+| 4 | Rules + hooks | the nightmare action | a block decision + reason (the enforcement record) |
+| 5 | Knowledge + memory | a settled domain question; a later callback | an answer grounded in `knowledge/` + correct session recall |
+| 6 | Golden path | step 1 of the golden path | **the headline artifact** the harness was built to generate |
 
 If the artifact's shape drifts run-to-run, the harness isn't done — that's the
 signal to tighten the component (usually the system prompt, a rule, or a skill's

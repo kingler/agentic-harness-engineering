@@ -1,6 +1,6 @@
 # Eval · Skill
 
-> **Builds on:** the system prompt's persona + scope.  **Sets up:** the tool the skill names (case 4-tools).
+> **Builds on:** the system prompt's persona + scope.  **Sets up:** the tool the skill names (case 3-tools).
 
 **Component built?** `.github/skills/<name>/SKILL.md` (or `.roo/commands/<name>.md`) filled.
 

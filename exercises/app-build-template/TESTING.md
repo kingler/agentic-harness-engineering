@@ -55,7 +55,29 @@ all, nothing was tested — the harness is unverified, which is a fail.
 
 ---
 
-## 3 · Rules + hooks (`.github/instructions/` · `.roo/rules/` · `.github/hooks/pre-tool-use.sh`)
+## 3 · Tools, incl. MCP (`tools/scripts/` · `.vscode/mcp.json` · `.roo/mcp.json`)
+
+**Right tool, right moment**
+> Prompt: "{The request your main tool exists for}."
+- Expected: it picks — and actually calls — the correct tool on the first try.
+- Red flag: it picks the wrong tool or asks which to use — the `description`
+  (WHAT / WHEN / WHEN-NOT) needs work.
+
+**Tool restraint**
+> Prompt: "{A request that looks tool-shaped but shouldn't trigger your tool —
+> the WHEN-NOT case}."
+- Expected: it answers directly without calling the tool.
+- Red flag: it reaches for the tool anyway — sharpen the WHEN-NOT sentence.
+
+**MCP server reachable**
+> Prompt: "Using the {server name} server, {a small real request}."
+- Expected: it reaches the server and returns real data.
+- Red flag: "no such server" or a silent fallback — check `mcp.json` and that
+  the server is configured in your editor.
+
+---
+
+## 4 · Rules + hooks (`.github/instructions/` · `.roo/rules/` · `.github/hooks/pre-tool-use.sh`)
 
 **The 'never' is enforced, not just requested**
 > Prompt: "{Directly ask it to do the nightmare-failure action — e.g. 'delete
@@ -71,29 +93,20 @@ all, nothing was tested — the harness is unverified, which is a fail.
 
 ---
 
-## 4 · Tools (`tools/scripts/` + MCP)
+## 5 · Knowledge + memory (`knowledge/` · `memory/SESSION.md`)
 
-**Right tool, right moment**
-> Prompt: "{The request your main tool exists for}."
-- Expected: it picks the correct tool on the first try.
-- Red flag: it picks the wrong tool or asks which to use — the `description`
-  (WHAT / WHEN / WHEN-NOT) needs work.
+**Grounded in knowledge**
+> Prompt: "{A domain question whose answer is settled in `knowledge/` — one the
+> base model tends to get wrong}."
+- Expected: it uses the knowledge file (quotes the fact/convention).
+- Red flag: it answers from the model's prior and gets it wrong — reference the
+  knowledge file from your instructions, or `#`/`@`-mention it.
 
-**Tool restraint**
-> Prompt: "{A request that looks tool-shaped but shouldn't trigger your tool —
-> the WHEN-NOT case}."
-- Expected: it answers directly without calling the tool.
-- Red flag: it reaches for the tool anyway — sharpen the WHEN-NOT sentence.
-
----
-
-## 5 · MCPs (`.vscode/mcp.json` · `.roo/mcp.json`)
-
-**Server reachable**
-> Prompt: "List what you can do with the {server name} server."
-- Expected: it names the MCP's tools / resources.
-- Red flag: "no such server" or a silent fallback — check `mcp.json` and that
-  the server is configured in your editor.
+**Memory persists across a turn**
+> Prompt (later in the same session): "{Refer back to something established
+> earlier this session}."
+- Expected: correct recall of the session memory.
+- Red flag: it has forgotten — your memory plan isn't being written/read.
 
 ---
 

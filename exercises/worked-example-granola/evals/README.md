@@ -11,4 +11,4 @@ every run must match.
 | Case | Prompt triggers | Artifact (reference) |
 |------|-----------------|----------------------|
 | `cases/6-golden-path.md` | "Recap the Acme <> Northstar sales call" | `artifacts/6-golden-path-recap.md` |
-| `cases/3-rules-hooks.md` | export to a non-attendee | `artifacts/3-rules-hooks-block.md` |
+| `cases/4-rules-hooks.md` | export to a non-attendee | `artifacts/4-rules-hooks-block.md` |
