@@ -6,6 +6,10 @@
 
 ---
 
+> **Exercise chain.** This is the start. **Sets up →** Breakout 2, where you
+> design *your* harness from what you learn here — and ultimately the Day 2 app
+> build. Keep your notes; the next exercise consumes them.
+
 ## Your Goal
 
 By the end of this session, your group will have a **harness map** — a structured breakdown of how your chosen AI application works under the hood, organized around the 6 harness components.

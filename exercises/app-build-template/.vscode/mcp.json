@@ -1,0 +1,18 @@
+{
+  "// note": "MCP servers for GitHub Copilot in VS Code. VS Code reads .vscode/mcp.json and uses the top-level 'servers' key. Versions are illustrative — verify each package before running. Secrets come from 'inputs' so they are never committed.",
+  "inputs": [
+    {
+      "id": "github_token",
+      "type": "promptString",
+      "description": "GitHub personal access token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github@2025.4.8"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}" }
+    }
+  }
+}

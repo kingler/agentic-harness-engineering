@@ -6,6 +6,9 @@
 
 ---
 
+> **Exercise chain.** **Builds on ←** Breakout 1's harness map. **Sets up →**
+> Breakout 3, where these decisions become real files in the template.
+
 ## Your Goal
 
 Take what you learned reverse-engineering someone else's harness and apply it to your own. By the end of this session, your group will have a **harness blueprint** — a set of deliberate design decisions for each of the 6 components, tailored to your chosen app concept.
