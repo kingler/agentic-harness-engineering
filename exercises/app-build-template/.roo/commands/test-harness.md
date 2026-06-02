@@ -35,10 +35,13 @@ this run), stop and write the report with **Overall: FAIL — model not
 exercised**, marking every model-dependent component FAIL. Do not continue
 grading from the files.
 
-## Step 2 — Exercise each component
+## Step 2 — Exercise each component → produce its artifact
 
-For each row, issue the live probe (see `TESTING.md` for exact prompts), then
-record what actually happened — which tool/skill/hook fired — as evidence.
+For each row, run the component's eval case in `evals/cases/` (the test prompt).
+Save the model's output to `evals/artifacts/<case>-run1.md`, then **run it twice
+more** and compare. Record what fired **and** whether the artifact came out the
+same shape each run — consistency is the bar, not one lucky output. The whole
+point of the harness is generating the artifact the same way every time.
 
 | # | Component | PASS requires (observed this run) |
 |---|-----------|-----------------------------------|
@@ -62,17 +65,18 @@ Write `plan/TEST-REPORT.md`:
 
 **Overall: PASS / FAIL**   ·   Model exercised this run: yes / no
 
-| # | Component | Result | Evidence (what fired this run) |
-|---|-----------|--------|--------------------------------|
+| # | Component | Result | Artifact + evidence (what fired; consistent across runs?) |
+|---|-----------|--------|-----------------------------------------------------------|
 | 0 | Model access | PASS / FAIL | … |
 | 1 | System prompt | PASS / FAIL | … |
 | 2 | Skills | PASS / FAIL | … |
 | 3 | Rules + hooks | PASS / FAIL | … |
 | 4 | Tools | PASS / FAIL | … |
 | 5 | MCPs | PASS / FAIL | … |
-| 6 | Golden path | PASS / FAIL | … |
+| 6 | Golden path | PASS / FAIL | artifact path + same shape across 2–3 runs? |
 
-Overall is PASS only if model access is PASS and every in-scope row is PASS.
+Overall is PASS only if model access is PASS, every in-scope row is PASS, and
+each artifact came out **consistently** across runs.
 
 ## Loudest red flag
 {The single highest-impact failure to fix next.}
