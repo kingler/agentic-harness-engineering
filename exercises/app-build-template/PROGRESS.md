@@ -18,7 +18,7 @@ stubs.
 - [ ] **Lab 5 — Knowledge + memory** (`labs/05-knowledge-memory.md`) → grounded answer + recall across a turn.
 
 ## Day 2 — assemble, build, prove (slash-command chain; README Steps 1–4)
-- [ ] **Plan** — `/plan-app` → `plan/PLAN.md` + wireframes + tech-spec.
+- [ ] **Plan** — `/plan-app` → `plan/domain-research.md` + `plan/PLAN.md` + wireframes + tech-spec.
 - [ ] **Bootstrap** — `/bootstrap-harness` (fills your Day-1 components into the chosen editor; **augments, doesn't overwrite**).
 - [ ] **Build frontend** — generated from `plan/wireframes.md` into `app/`.
 - [ ] **Test** — `/test-harness`; each component's test prompt emits its artifact, consistently.

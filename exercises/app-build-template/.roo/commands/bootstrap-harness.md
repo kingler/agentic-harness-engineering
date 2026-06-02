@@ -15,9 +15,9 @@ You fill in structure and honest TODOs; you do **not** write the full app.
 
 ## Step 1 — Require the plan
 
-Read `plan/tech-spec.md` and `plan/PLAN.md`. If `plan/tech-spec.md` is missing,
-stop: *"No tech spec found. Run `/plan-app` first — bootstrap builds from the
-plan."*
+Read `plan/tech-spec.md`, `plan/PLAN.md`, and `plan/domain-research.md`. If
+`plan/tech-spec.md` is missing, stop: *"No tech spec found. Run `/plan-app`
+first — bootstrap builds from the plan."*
 
 ## Step 2 — Confirm the editor
 
@@ -36,7 +36,7 @@ plan's real values. Touch these files:
 **Shared (both editors):**
 - `AGENTS.md` — persona, scope, the hard rules (rule #1 = your nightmare-failure
   guard), tool names from the tech spec.
-- `knowledge/domain-notes.md` — the domain vocab and policies from the brief.
+- `knowledge/domain-notes.md` — the domain vocab and policies from `plan/domain-research.md` (terms, real workflow, trust/compliance constraints).
 - `tools/scripts/sample-tool.sh` → rename to your first verb-named tool; describe
   it (WHAT / WHEN / WHEN-NOT) in `AGENTS.md`.
 
