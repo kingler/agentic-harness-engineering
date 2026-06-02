@@ -155,8 +155,9 @@ off in [`PROGRESS.md`](./PROGRESS.md) so your group always knows where it is.
 
 Fill in [`app-brief.md`](./app-brief.md) — your app's **core features**, **value
 proposition**, and the **problem it solves** — then run `/plan-app`
-(Copilot: in chat; Roo: in chat). It writes `plan/PLAN.md`,
-`plan/wireframes.md`, and `plan/tech-spec.md`. Review before moving on.
+(Copilot: in chat; Roo: in chat). It researches the app's domain, then writes
+`plan/domain-research.md`, `plan/PLAN.md`, `plan/wireframes.md`, and
+`plan/tech-spec.md`. Review before moving on.
 
 ### Step 2 — Bootstrap (`/bootstrap-harness`)
 

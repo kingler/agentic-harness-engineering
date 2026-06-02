@@ -64,4 +64,5 @@ refusals, confirmations, things that always happen, things it never does.
 ---
 
 **Next:** run `/plan-app` in Copilot or RooCode. It reads this brief and
-produces `plan/PLAN.md`, `plan/wireframes.md`, and `plan/tech-spec.md`.
+produces `plan/domain-research.md`, `plan/PLAN.md`, `plan/wireframes.md`, and
+`plan/tech-spec.md`.
