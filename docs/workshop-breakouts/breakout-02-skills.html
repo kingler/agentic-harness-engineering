@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Breakout 2 · Skills</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="workshop-breakout.css" />
+</head>
+<body>
+  <div class="wrap">
+    <a class="nav-back" href="index.html">← All breakouts</a>
+    <header>
+      <p class="eyebrow">Breakout 2 · ~12–15 min</p>
+      <h1>Skills</h1>
+      <p class="lede">Skills are specialist prompts loaded on demand — smaller base context, sharper behavior when a trigger matches (keyword, slash command, or semantic routing depending on harness).</p>
+      <div class="dl-grid">
+        <a class="btn btn--primary" href="../../exercises/harness-workshop-starter.zip">Download starter pack (includes skill-creator)</a>
+        <a class="btn" href="../../exercises/skill-creator/SKILL.md">View skill-creator/SKILL.md (repo)</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Goal</h2>
+      <p>One new skill file: frontmatter (<code>name</code>, rich <code>description</code> with triggers + anti-triggers) + numbered body the agent follows.</p>
+    </section>
+
+    <section>
+      <h2>How agents use skills</h2>
+      <ul>
+        <li>The <strong>description</strong> field is UX copy for routing — write “Use when… / Do NOT use when…”.</li>
+        <li>The <strong>body</strong> is the checklist executed once the skill loads.</li>
+        <li>Skills chain naturally: stage 1 skill outputs structured JSON → stage 2 skill consumes it (human or orchestrator passes context).</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <strong>skill-creator</strong>
+      After unzipping the starter pack, copy <code>skill-creator/</code> into your skills directory (or reference it). Invoke it when you want the agent to propose YAML frontmatter, progressive-disclosure sections, and trigger wording — follow <code>SKILL.md</code> inside that folder.
+    </section>
+
+    <section>
+      <h2>Example placement</h2>
+      <ul>
+        <li>Claude Code style: <code>.claude/skills/&lt;name&gt;.md</code></li>
+        <li>Template sample: mirror <code>harness-templates/.claude/skills/design-review.md</code></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Copy-paste · draft a skill</h2>
+<pre>Create SKILL.md for {{{APP_NAME}}}.
+
+Requirements:
+- YAML frontmatter: name, description (explicit triggers + when NOT to load).
+- Body: 4–7 numbered steps; last step defines structured output keys.
+- Reference knowledge files by path, don't paste them whole.
+
+Pick one scenario: post-meeting recap · compliance checklist · UI review against tokens · legal cite-first draft — whichever matches our breakout app.</pre>
+    </section>
+
+    <footer>Agentic Harness Engineering Workshop</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component 3 · Tools — Breakout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span class="crumb">Breakout · Component 03 / 05</span>
+    <a href="index.html" class="back">← All breakouts</a>
+  </div>
+
+  <p class="eyebrow">Component 03 · Tools</p>
+  <h1>Write a tool the agent can pick</h1>
+  <p class="lede">
+    The model only sees what's in your descriptor. Walk through the three-sentence WHAT / WHEN / WHEN-NOT pattern, define one input schema, stub the executable body, and ship a tool the agent can actually choose.
+  </p>
+
+  <section class="prereqs" aria-label="Prerequisites">
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>VS Code installed.</li>
+      <li>GitHub Copilot extension enabled.</li>
+      <li>RooCode extension installed and signed in.</li>
+      <li>You've completed Component 1 (AGENTS.md) — recommended but not required.</li>
+    </ul>
+  </section>
+
+  <h2><span class="step-num">1</span>Download the template</h2>
+  <p>
+    <a class="cta" href="harness-templates.zip" download>
+      Download harness-templates.zip
+      <span class="size">~45&nbsp;KB</span>
+    </a>
+  </p>
+
+  <h2><span class="step-num">2</span>The three flavors of tool</h2>
+  <ul>
+    <li><b>Function.</b> Code in the agent's own process. Pick when the capability is a library you already have.</li>
+    <li><b>Script.</b> Anything you can run from a shell. Pick when the capability is a CLI you already trust.</li>
+    <li><b>MCP.</b> Borrow someone else's toolset over a protocol. Pick when you don't want to wrap an API yourself.</li>
+  </ul>
+  <p>This breakout focuses on the <b>script-as-tool</b> pattern — JSON descriptor on top, executable body underneath.</p>
+
+  <h2><span class="step-num">3</span>Pick the app + the action</h2>
+  <div class="apps" role="tablist">
+    <button role="tab" aria-selected="true" data-app="harvey">Harvey</button>
+    <button role="tab" aria-selected="false" data-app="claudefs">Claude Financial Services</button>
+    <button role="tab" aria-selected="false" data-app="granola">Granola</button>
+  </div>
+
+  <div class="app-panel" data-app="harvey" data-active="true">
+    <h3>Harvey · candidate tools</h3>
+    <ul>
+      <li><code class="inline">fetch_filing</code> — pull an SEC filing by accession number.</li>
+      <li><code class="inline">load_matter</code> — bring a matter's documents into context.</li>
+      <li><code class="inline">cite_lookup</code> — resolve a Bluebook cite against the loaded corpus.</li>
+    </ul>
+    <p><b>WHEN-NOT hint:</b> "Do not use <code class="inline">fetch_filing</code> for non-public matter — the corpus is privileged."</p>
+  </div>
+
+  <div class="app-panel" data-app="claudefs">
+    <h3>Claude Financial Services · candidate tools</h3>
+    <ul>
+      <li><code class="inline">query_workbook</code> — read a named range from the active workbook.</li>
+      <li><code class="inline">fetch_filing</code> — get a 10-K / 10-Q from EDGAR.</li>
+      <li><code class="inline">compute_scenario</code> — run a sensitivity table from a base case.</li>
+    </ul>
+    <p><b>WHEN-NOT hint:</b> "Do not use <code class="inline">compute_scenario</code> to modify a published workbook — branch first."</p>
+  </div>
+
+  <div class="app-panel" data-app="granola">
+    <h3>Granola · candidate tools</h3>
+    <ul>
+      <li><code class="inline">transcribe_segment</code> — convert one audio segment to text.</li>
+      <li><code class="inline">extract_actions</code> — pull action items from a transcript window.</li>
+      <li><code class="inline">send_followup</code> — draft a post-meeting email.</li>
+    </ul>
+    <p><b>WHEN-NOT hint:</b> "Do not use <code class="inline">send_followup</code> automatically — always present the draft for review."</p>
+  </div>
+
+  <h2><span class="step-num">4</span>Run the slash command</h2>
+<pre class="code">/draft-tool</pre>
+  <p>The agent walks you through six prompts:</p>
+  <ol>
+    <li>Verb-led name (<code class="inline">fetch_filing</code>, not <code class="inline">filings</code>).</li>
+    <li><b>What</b> — one sentence. Plain language.</li>
+    <li><b>When</b> — the trigger pattern in user words.</li>
+    <li><b>When NOT</b> — the tempting-but-wrong use. <em>This is the line that saves you most failures.</em></li>
+    <li>Input schema — start with one argument.</li>
+    <li>Stub the script.</li>
+  </ol>
+
+  <div class="callout">
+    <b>The teaching point.</b> Bad tool descriptions are the #1 cause of wrong tool picks. Tool descriptions are UX copy for the model — write them the way you'd write a button label.
+  </div>
+
+<pre class="code">{
+  "name": "fetch_filing",
+  "description": "Pull an SEC filing by accession number into context. Use when the user asks for a specific 10-K, 10-Q, or 8-K by date or accession. <span class="accent">Do not use for non-public corporate matter or for filings older than 1996.</span>",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "accession_number": { "type": "string" }
+    },
+    "required": ["accession_number"]
+  },
+  "exec": "scripts/fetch_filing.sh ${accession_number}"
+}</pre>
+
+  <h2><span class="step-num">5</span>Pressure-test the pick</h2>
+  <p>Read all your tool descriptions side by side. If the model had to choose between two without context, could it? If not, the descriptions overlap — tighten the WHEN-NOT lines.</p>
+
+  <h2>What's next</h2>
+  <p>Commit the descriptor and the stub. Then move on to Component 4 (Rules &amp; Hooks) — those are what keep the tool from being misused.</p>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Component 03 · Tools</span>
+    <span>
+      <a href="component-2-skills.html">← Component 2</a>
+      &nbsp;·&nbsp;
+      <a href="component-4-rules-hooks.html">Component 4 →</a>
+    </span>
+  </footer>
+</main>
+
+<script>
+  document.querySelectorAll('.apps button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const app = btn.dataset.app;
+      document.querySelectorAll('.apps button').forEach(b => {
+        b.setAttribute('aria-selected', b.dataset.app === app ? 'true' : 'false');
+      });
+      document.querySelectorAll('.app-panel').forEach(p => {
+        p.setAttribute('data-active', p.dataset.app === app ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+</body>
+</html>

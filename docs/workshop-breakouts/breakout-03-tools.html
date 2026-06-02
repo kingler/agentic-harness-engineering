@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Breakout 3 · Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="workshop-breakout.css" />
+</head>
+<body>
+  <div class="wrap">
+    <a class="nav-back" href="index.html">← All breakouts</a>
+    <header>
+      <p class="eyebrow">Breakout 3 · ~12 min</p>
+      <h1>Tools (function · script · MCP)</h1>
+      <p class="lede">Define exactly one tool your agent would plausibly call for the app you reverse-engineered. JSON declares the contract; a script or MCP server performs work.</p>
+      <div class="dl-grid">
+        <a class="btn btn--primary" href="../../exercises/harness-workshop-starter.zip">Starter pack (example JSON + commands)</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Goal</h2>
+      <p><code>tools/&lt;name&gt;.json</code> with name, parameters, and a three-sentence description (what / when / when not). If script-backed, stub <code>scripts/&lt;name&gt;.sh</code> that prints JSON to stdout.</p>
+    </section>
+
+    <section>
+      <h2>Tips</h2>
+      <ul>
+        <li>Fewer tools beats many vague ones — each extra tool taxes context every turn.</li>
+        <li>Reuse patterns from <code>exercises/sample-harness-uxd-specs/tools/validate_spec.json</code>.</li>
+        <li>MCP is optional — declare only if you already have a server handy.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Copy-paste · tool JSON helper</h2>
+<pre>Write tools/export_notes.json for my harness.
+
+Tool purpose: {{{ONE_SENTENCE_PURPOSE}}}
+Parameters: {{{PARAM_LIST}}}
+Description must include:
+1) What it does
+2) Exact trigger phrases / situations
+3) When NOT to call it (anti-patterns)
+
+Also sketch bash outline for scripts/export_notes.sh echoing JSON ok/err to stdout.</pre>
+    </section>
+
+    <footer>Agentic Harness Engineering Workshop</footer>
+  </div>
+</body>
+</html>

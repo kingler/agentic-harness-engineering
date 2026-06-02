@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component 5 · Knowledge &amp; Memory — Breakout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span class="crumb">Breakout · Component 05 / 05</span>
+    <a href="index.html" class="back">← All breakouts</a>
+  </div>
+
+  <p class="eyebrow">Component 05 · Knowledge &amp; Memory</p>
+  <h1>Two tiers of what the agent remembers</h1>
+  <p class="lede">
+    <code class="inline">knowledge/</code> is the slow tier — facts that change quarterly. <code class="inline">memory/</code> is the fast tier — state that changes per session. Draft one of each and learn what stays where.
+  </p>
+
+  <section class="prereqs" aria-label="Prerequisites">
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>VS Code installed.</li>
+      <li>GitHub Copilot extension enabled.</li>
+      <li>RooCode extension installed and signed in.</li>
+      <li><code class="inline">memory/</code> added to <code class="inline">.gitignore</code> if your team's policy is "session memory never lands in git."</li>
+    </ul>
+  </section>
+
+  <h2><span class="step-num">1</span>Download the template</h2>
+  <p>
+    <a class="cta" href="harness-templates.zip" download>
+      Download harness-templates.zip
+      <span class="size">~45&nbsp;KB</span>
+    </a>
+  </p>
+
+  <h2><span class="step-num">2</span>The two tiers</h2>
+  <ul>
+    <li><b><code class="inline">knowledge/</code></b> — durable facts the agent retrieves on demand. Schemas, dictionaries, workflows. <em>Changes quarterly.</em></li>
+    <li><b><code class="inline">memory/</code></b> — volatile working state. The current session's working set, scratch decisions, what the user just said. <em>Changes per turn.</em></li>
+  </ul>
+  <p>Conflating them is the #1 anti-pattern. Volatile state in <code class="inline">knowledge/</code> ages badly; durable facts in <code class="inline">memory/</code> get truncated away.</p>
+
+  <h2><span class="step-num">3</span>Pick the app + the durable fact</h2>
+  <div class="apps" role="tablist">
+    <button role="tab" aria-selected="true" data-app="harvey">Harvey</button>
+    <button role="tab" aria-selected="false" data-app="claudefs">Claude Financial Services</button>
+    <button role="tab" aria-selected="false" data-app="granola">Granola</button>
+  </div>
+
+  <div class="app-panel" data-app="harvey" data-active="true">
+    <h3>Harvey · candidate knowledge files</h3>
+    <ul>
+      <li><code class="inline">knowledge/citation-format.md</code> — Bluebook citation schema, with verbatim rules for pin-cites.</li>
+      <li><code class="inline">knowledge/privilege-log.md</code> — the firm's privilege-log column schema.</li>
+      <li><code class="inline">knowledge/matter-glossary.md</code> — internal abbreviations the model doesn't know.</li>
+    </ul>
+    <p><b>Belongs in memory, not knowledge:</b> "the matter we're working on right now," "the deposition coming up Thursday."</p>
+  </div>
+
+  <div class="app-panel" data-app="claudefs">
+    <h3>Claude Financial Services · candidate knowledge files</h3>
+    <ul>
+      <li><code class="inline">knowledge/disclosure-schema.md</code> — required sections for a Reg-FD compliant disclosure.</li>
+      <li><code class="inline">knowledge/lineage-rules.md</code> — how a numeric must trace back to a source row.</li>
+      <li><code class="inline">knowledge/workbook-conventions.md</code> — named-range conventions used across decks.</li>
+    </ul>
+    <p><b>Belongs in memory, not knowledge:</b> "this quarter's revenue assumption," "the analyst asked for sensitivity on EBITDA margin."</p>
+  </div>
+
+  <div class="app-panel" data-app="granola">
+    <h3>Granola · candidate knowledge files</h3>
+    <ul>
+      <li><code class="inline">knowledge/meeting-types.md</code> — taxonomy of recurring meeting shapes (1:1, standup, review).</li>
+      <li><code class="inline">knowledge/action-item-format.md</code> — required fields for any extracted action (owner, due, source line).</li>
+      <li><code class="inline">knowledge/customer-glossary.md</code> — product names, internal codenames the model doesn't know.</li>
+    </ul>
+    <p><b>Belongs in memory, not knowledge:</b> "who's on this call," "what the host wants us to focus on this hour."</p>
+  </div>
+
+  <h2><span class="step-num">4</span>Run the slash command</h2>
+<pre class="code">/draft-knowledge</pre>
+  <p>The agent walks you through both files in one pass:</p>
+  <ol>
+    <li>Pick the app and name the durable fact.</li>
+    <li>Knowledge frontmatter — <code class="inline">applies_to</code> path glob + <code class="inline">last_reviewed</code> date.</li>
+    <li>Citation rule — verbatim for contracts, paraphrase for prose.</li>
+    <li>Write <code class="inline">knowledge/{topic}.md</code>.</li>
+    <li>Switch to the fast tier — write <code class="inline">memory/SESSION.md</code> with working-set bullets.</li>
+    <li>The carve-out — name one thing you were tempted to put on the wrong side.</li>
+  </ol>
+
+  <div class="callout">
+    <b>The mental model.</b> "If a bullet survives multiple releases, promote it from <code>memory/</code> to <code>knowledge/</code>." Run that test on anything you write in <code>memory/SESSION.md</code> at the end of the session.
+  </div>
+
+  <h2><span class="step-num">5</span>Pressure-test the carve-out</h2>
+  <p>Open both files side by side. For every bullet, ask: does this change quarterly or per-session? If quarterly, it belongs in <code>knowledge/</code>. If per-session, <code>memory/</code>. Move anything that's in the wrong file.</p>
+
+  <h2>What's next</h2>
+  <p>Commit <code>knowledge/{topic}.md</code>. Decide whether <code>memory/</code> is gitignored. Head back to the deck for the wire-up exercise.</p>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Component 05 · Knowledge &amp; Memory</span>
+    <span>
+      <a href="component-4-rules-hooks.html">← Component 4</a>
+      &nbsp;·&nbsp;
+      <a href="index.html">All breakouts</a>
+    </span>
+  </footer>
+</main>
+
+<script>
+  document.querySelectorAll('.apps button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const app = btn.dataset.app;
+      document.querySelectorAll('.apps button').forEach(b => {
+        b.setAttribute('aria-selected', b.dataset.app === app ? 'true' : 'false');
+      });
+      document.querySelectorAll('.app-panel').forEach(p => {
+        p.setAttribute('data-active', p.dataset.app === app ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+</body>
+</html>

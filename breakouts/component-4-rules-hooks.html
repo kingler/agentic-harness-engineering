@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Component 4 · Rules &amp; Hooks — Breakout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span class="crumb">Breakout · Component 04 / 05</span>
+    <a href="index.html" class="back">← All breakouts</a>
+  </div>
+
+  <p class="eyebrow">Component 04 · Rules &amp; Hooks</p>
+  <h1>Wire policy to enforcement</h1>
+  <p class="lede">
+    Rules say what's allowed. Hooks make sure it actually holds. Walk through the allow / deny / ask triad in <code class="inline">settings.json</code>, then pair it with a pre-tool-use hook that fires every time.
+  </p>
+
+  <section class="prereqs" aria-label="Prerequisites">
+    <h2>Prerequisites</h2>
+    <ul>
+      <li>VS Code installed.</li>
+      <li>GitHub Copilot extension enabled.</li>
+      <li>RooCode extension installed and signed in.</li>
+      <li><code class="inline">jq</code> on your <code class="inline">$PATH</code> — the hook script uses it.</li>
+    </ul>
+  </section>
+
+  <h2><span class="step-num">1</span>Download the template</h2>
+  <p>
+    <a class="cta" href="harness-templates.zip" download>
+      Download harness-templates.zip
+      <span class="size">~45&nbsp;KB</span>
+    </a>
+  </p>
+
+  <h2><span class="step-num">2</span>The triad — strong vs weak rules</h2>
+  <p><b>Weak:</b> "Be careful with secrets." The model can't check that.</p>
+  <p><b>Strong:</b> <code class="inline">"deny": ["Read(./.env*)"]</code>. The harness checks it.</p>
+  <p>Three lists do the work:</p>
+  <ul>
+    <li><b>allow</b> — explicit yes-list. Anything not listed defaults to <em>ask</em>.</li>
+    <li><b>deny</b> — hard refusals the harness enforces. The model can't argue past these.</li>
+    <li><b>ask</b> — gated actions that require a human nod.</li>
+  </ul>
+
+  <h2><span class="step-num">3</span>Pick the app + the risky surface</h2>
+  <div class="apps" role="tablist">
+    <button role="tab" aria-selected="true" data-app="harvey">Harvey</button>
+    <button role="tab" aria-selected="false" data-app="claudefs">Claude Financial Services</button>
+    <button role="tab" aria-selected="false" data-app="granola">Granola</button>
+  </div>
+
+  <div class="app-panel" data-app="harvey" data-active="true">
+    <h3>Harvey · candidate rules</h3>
+<pre class="code">"allow": [
+  "Read(./matters/<span class="accent">{matter_id}</span>/**)",
+  "Bash(grep -r:*)"
+],
+"deny": [
+  "Read(./matters/<span class="accent">!{matter_id}</span>/**)",
+  "Bash(rm -rf:*)"
+],
+"ask": [
+  "Write(./deliverables/**)"
+]</pre>
+    <p><b>Hook predicate:</b> block any read of a matter folder other than the active matter — privilege boundary.</p>
+  </div>
+
+  <div class="app-panel" data-app="claudefs">
+    <h3>Claude Financial Services · candidate rules</h3>
+<pre class="code">"allow": [
+  "Read(./workbooks/**)",
+  "Bash(python3 ./scripts/recompute.py:*)"
+],
+"deny": [
+  "Write(./workbooks/published/**)",
+  "Read(./.env*)"
+],
+"ask": [
+  "Write(./workbooks/draft/**)"
+]</pre>
+    <p><b>Hook predicate:</b> any <code class="inline">Write</code> to a published workbook must be redirected to <code class="inline">workbooks/draft/</code> first — tracked-change discipline.</p>
+  </div>
+
+  <div class="app-panel" data-app="granola">
+    <h3>Granola · candidate rules</h3>
+<pre class="code">"allow": [
+  "Read(./transcripts/**)",
+  "Bash(./scripts/summarize.sh:*)"
+],
+"deny": [
+  "Write(./transcripts/**)",
+  "Bash(./scripts/send_email.sh:*)"
+],
+"ask": [
+  "Write(./notes/**)"
+]</pre>
+    <p><b>Hook predicate:</b> any tool that touches outgoing email must trigger an explicit ask — consent gate.</p>
+  </div>
+
+  <h2><span class="step-num">4</span>Run the slash command</h2>
+<pre class="code">/draft-rules-hooks</pre>
+  <p>The agent will:</p>
+  <ol>
+    <li>Walk you through naming 2–3 patterns for each of allow / deny / ask.</li>
+    <li>Write <code class="inline">.claude/settings.json</code> with the triad + a <code class="inline">hooks.PreToolUse</code> pointer.</li>
+    <li>Ask you for one mechanical check the hook should enforce.</li>
+    <li>Write <code class="inline">.claude/hooks/pre-tool-use.sh</code> with that check + emit structured <code class="inline">block</code> / <code class="inline">approve</code> JSON on stdout.</li>
+    <li><code class="inline">chmod +x</code> the hook so the harness can actually run it.</li>
+  </ol>
+
+  <div class="callout">
+    <b>Hook decision contract.</b> Stdout JSON of the form <code>{"decision":"block","reason":"…"}</code> or <code>{"decision":"approve"}</code>. Exit code 0 means the decision is honored; non-zero means the hook itself failed and the harness applies its default. <b>Be loud on failure</b> — silent hook errors silently lose enforcement.
+  </div>
+
+  <h2><span class="step-num">5</span>Pressure-test as the model</h2>
+  <p>Read your deny list as if you were the model trying to argue your way past. Where's the wiggle room? Tighten the pattern, then re-run.</p>
+
+  <h2>What's next</h2>
+  <p>Commit <code>settings.json</code> and the hook. Then move on to Component 5 (Knowledge &amp; Memory) — the slow tier vs the fast tier of what the agent remembers.</p>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Component 04 · Rules &amp; Hooks</span>
+    <span>
+      <a href="component-3-tools.html">← Component 3</a>
+      &nbsp;·&nbsp;
+      <a href="component-5-knowledge-memory.html">Component 5 →</a>
+    </span>
+  </footer>
+</main>
+
+<script>
+  document.querySelectorAll('.apps button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const app = btn.dataset.app;
+      document.querySelectorAll('.apps button').forEach(b => {
+        b.setAttribute('aria-selected', b.dataset.app === app ? 'true' : 'false');
+      });
+      document.querySelectorAll('.app-panel').forEach(p => {
+        p.setAttribute('data-active', p.dataset.app === app ? 'true' : 'false');
+      });
+    });
+  });
+</script>
+</body>
+</html>

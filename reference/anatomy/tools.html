@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tools anatomy · Agentic Harness Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../breakouts/styles.css" />
+<link rel="stylesheet" href="anatomy.css" />
+<script defer src="scrollspy.js"></script>
+</head>
+<body>
+<main class="page page--wide">
+
+  <div class="topbar">
+    <span class="crumb">Anatomy · Decompose 03 / 06</span>
+    <a href="../../Agentic%20Harness%20Engineering.html" class="back cta-back">← Back to deck</a>
+  </div>
+
+  <p class="eyebrow">Component 03 · Tools</p>
+  <h1>What's inside a tool description</h1>
+  <p class="lede">
+    JSON the model reads to decide whether to call your tool. Three sentences in <em>description</em> — what / when / when-not — prevent most bogus invocations. The schema is the contract; the exec line is the runnable body.
+  </p>
+
+  <div class="anatomy-split">
+    <div class="anatomy-main">
+      <p class="ex-kicker">Real-world example · validate_spec tool</p>
+      <h2 class="anatomy-h">tools/validate_spec.json — full file</h2>
+
+      <div class="anatomy-tree">
+        <p class="tree-label">Lives in</p>
+<pre>sample-harness-uxd-specs/
+├── tools/
+│   ├── <span class="here accent">validate_spec.json</span>
+│   ├── <span class="dim">create_spec.json</span>
+│   ├── <span class="dim">list_specs.json</span>
+│   ├── <span class="dim">transition_status.json</span>
+│   └── <span class="dim">find_orphans.json</span>
+├── scripts/
+│   └── <span class="accent">validate_spec.sh</span>
+└── <span class="accent">mcp/mcp.json</span>      <span class="comment"># MCP servers</span></pre>
+      </div>
+
+<pre class="anatomy-code">{
+  <span class="anchor" data-section-id="1" id="sec-1">"name": "validate_spec",</span>
+  <span class="anchor" data-section-id="2" id="sec-2">"description": "Validates a spec against the schema in
+    knowledge/spec-schema.md: required frontmatter fields,
+    required sections in order, internal SPEC ID links
+    resolve, design system component names match
+    knowledge/design-system-index.md exactly. Use before any
+    status transition, before saving an in-review spec, and
+    whenever the user asks 'is this spec ready'. Do NOT use
+    as a general read — use Read for that. Returns a
+    structured list of violations; does not modify the file.",</span>
+  <span class="anchor" data-section-id="3" id="sec-3">"parameters": {
+    "type": "object",
+    "properties": {
+      "spec_id": {
+        "type": "string",
+        "description": "SPEC-YYYY-NNN ID to validate.",
+        "pattern": "^SPEC-\\d{4}-\\d{3}$"
+      },
+      "strict": {
+        "type": "boolean",
+        "description": "If true, treat warnings as errors.
+          Use when validating before transition to in-review
+          or approved.",
+        "default": false
+      }
+    },
+    "required": ["spec_id"]
+  },</span>
+  "returns": {
+    "type": "object",
+    "properties": {
+      "ok": { "type": "boolean" },
+      "errors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "rule":    { "type": "string" },
+            "line":    { "type": "integer" },
+            "message": { "type": "string" }
+          }
+        }
+      },
+      "warnings": { "type": "array" }
+    }
+  },
+  <span class="anchor" data-section-id="4" id="sec-4">"implementation": "scripts/validate_spec.sh"</span>
+}</pre>
+    </div>
+
+    <aside class="anatomy-callouts" aria-label="Anatomy callouts">
+      <div class="anatomy-card" data-target-section="1">
+        <div class="card-head"><span class="card-num">1</span><span class="card-label">Name</span></div>
+        <p>Short, verb-led, unambiguous. The model reads this first when picking a tool from the roster.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="2">
+        <div class="card-head"><span class="card-num">2</span><span class="card-label">Description</span></div>
+        <p>UX copy for the model. Three beats: <em>what</em>, <em>when</em>, <em>when not</em>. The "when not" line saves the most failures.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="3">
+        <div class="card-head"><span class="card-num">3</span><span class="card-label">Input schema</span></div>
+        <p>The argument contract. Each field has its own description — that's how the model knows what to pass and what each value means.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="4">
+        <div class="card-head"><span class="card-num">4</span><span class="card-label">Implementation binding</span></div>
+        <p>The harness wires the descriptor to a real command. Tools = JSON face + executable body, glued by the harness loader.</p>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="anatomy-pager" aria-label="Anatomy navigation">
+    <a class="pager-prev" href="skills.html">
+      <p class="pager-label">← Prev · 02 / 06</p>
+      <span class="pager-title">Skills</span>
+    </a>
+    <a class="pager-next" href="rules-hooks.html">
+      <p class="pager-label">Next · 04 / 06</p>
+      <span class="pager-title">Rules &amp; hooks →</span>
+    </a>
+  </nav>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Anatomy reference</span>
+    <a href="../../Agentic%20Harness%20Engineering.html">Back to deck</a>
+  </footer>
+</main>
+</body>
+</html>

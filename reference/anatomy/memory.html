@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Memory anatomy · Agentic Harness Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../breakouts/styles.css" />
+<link rel="stylesheet" href="anatomy.css" />
+<script defer src="scrollspy.js"></script>
+</head>
+<body>
+<main class="page page--wide">
+
+  <div class="topbar">
+    <span class="crumb">Anatomy · Decompose 06 / 06</span>
+    <a href="../../Agentic%20Harness%20Engineering.html" class="back cta-back">← Back to deck</a>
+  </div>
+
+  <p class="eyebrow">Component 06 · Memory</p>
+  <h1>What's inside a session memory file</h1>
+  <p class="lede">
+    The fast tier. Session decisions, working-set bullets, scratch judgements the agent should remember mid-task but not canonize. Cleared per session by policy; promote durable facts to knowledge before they decay.
+  </p>
+
+  <div class="anatomy-split">
+    <div class="anatomy-main">
+      <p class="ex-kicker">Real-world example · session scratchpad template</p>
+      <h2 class="anatomy-h">memory/SESSION.md — full file</h2>
+
+      <div class="anatomy-tree">
+        <p class="tree-label">Lives in</p>
+<pre>harness-templates/
+├── memory/
+│   ├── <span class="here accent">SESSION.md</span>
+│   └── <span class="dim">ARCHIVE/</span>
+├── knowledge/   <span class="comment"># slow tier</span>
+└── .env         <span class="comment"># secrets — never in memory</span></pre>
+      </div>
+
+<pre class="anatomy-code"><span class="anchor" data-section-id="1" id="sec-1"><span class="kw"># Session memory</span>
+
+The agent reads this file at the start of every session and may append
+to it during the session. It survives between sessions; system prompts
+do not.</span>
+
+<span class="anchor" data-section-id="2" id="sec-2"><span class="kw">## What belongs here</span>
+
+- Decisions made during a session that shouldn't be re-litigated next time.
+- Names, IDs, paths, and conventions specific to this user's workspace.
+- Open questions that need a human reply before the agent continues.</span>
+
+<span class="anchor" data-section-id="3" id="sec-3"><span class="kw">## What does NOT belong here</span>
+
+- Secrets, tokens, API keys, PII.
+- Long verbatim transcripts — summarise.
+- Per-task scratch (use the conversation, not memory).</span>
+
+<span class="anchor" data-section-id="4" id="sec-4"><span class="kw">## Conventions</span>
+
+- Newest entries at the top.
+- Each entry: one-line header, optional bullets underneath.
+- Date entries `YYYY-MM-DD`.
+- Hard-cap this file at 200 lines. When it grows past that, the agent
+  should summarise the oldest section and drop the originals.
+
+<span class="kw">## Entries</span>
+
+<span class="cmt">&lt;!-- Example. Replace with real entries. --&gt;</span>
+<span class="kw">### 2026-04-29 — Workshop kickoff</span>
+- Stack: TypeScript + Vitest + Tailwind.
+- Design tokens live in `design/tokens.json`; do not hard-code colour.
+- Open question for user: which subagent runs the design-review step?</span></pre>
+    </div>
+
+    <aside class="anatomy-callouts" aria-label="Anatomy callouts">
+      <div class="anatomy-card" data-target-section="1">
+        <div class="card-head"><span class="card-num">1</span><span class="card-label">Session scope</span></div>
+        <p>One short paragraph naming the volatility contract: read at session start, append during session, survives between sessions, not the same as the system prompt.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="2">
+        <div class="card-head"><span class="card-num">2</span><span class="card-label">What belongs here</span></div>
+        <p>The positive list. Three categories that justify the storage cost — decisions, workspace conventions, open questions.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="3">
+        <div class="card-head"><span class="card-num">3</span><span class="card-label">What does NOT belong here</span></div>
+        <p>The negative list. Three categories you'd be tempted to put here but shouldn't — secrets, long transcripts, per-task scratch.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="4">
+        <div class="card-head"><span class="card-num">4</span><span class="card-label">Conventions &amp; entries</span></div>
+        <p>The format contract (LIFO, dated, capped) plus an example entry to imitate. The bottom of the file is the working surface — the agent writes here.</p>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="anatomy-pager" aria-label="Anatomy navigation">
+    <a class="pager-prev" href="knowledge.html">
+      <p class="pager-label">← Prev · 05 / 06</p>
+      <span class="pager-title">Knowledge</span>
+    </a>
+    <span class="pager-next pager-disabled"></span>
+  </nav>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Anatomy reference</span>
+    <a href="../../Agentic%20Harness%20Engineering.html">Back to deck</a>
+  </footer>
+</main>
+</body>
+</html>

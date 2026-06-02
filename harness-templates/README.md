@@ -95,7 +95,7 @@ Concrete examples of what to put in each file by domain:
 | Subagent | `case-law-researcher` | `anomaly-investigator` | `followup-drafter` |
 | Hook (PreToolUse) | Block writes to other matters' folders | Block postings to closed accounting periods | Redact PII before any external send |
 | Hook (PostToolUse) | Append matter ID to every saved file | Log every ledger change with user ID | Tag every note with attendee list |
-| MCP server | iManage / NetDocuments | QuickBooks / Xero / Plaid | Google Calendar / Slack / Linear |
+| MCP server | iManage / NetDocuments | QuickBooks / Xero / Plaid | Google Calendar / Teams / Jira |
 
 The included `design-review.md` skill and shell hooks are illustrative — keep
 the structure, replace the body with your domain's logic.

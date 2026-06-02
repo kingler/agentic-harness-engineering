@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Skills anatomy · Agentic Harness Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../breakouts/styles.css" />
+<link rel="stylesheet" href="anatomy.css" />
+<script defer src="scrollspy.js"></script>
+</head>
+<body>
+<main class="page page--wide">
+
+  <div class="topbar">
+    <span class="crumb">Anatomy · Decompose 02 / 06</span>
+    <a href="../../Agentic%20Harness%20Engineering.html" class="back cta-back">← Back to deck</a>
+  </div>
+
+  <p class="eyebrow">Component 02 · Skills</p>
+  <h1>What's inside a skill</h1>
+  <p class="lede">
+    A skill is a <em>directory</em>, not a file. The required entrypoint is <code class="inline">SKILL.md</code>; everything else is optional and loads only when referenced. Scroll through the file; the matching callout on the right lights up.
+  </p>
+
+  <div class="anatomy-split">
+    <div class="anatomy-main">
+      <p class="ex-kicker">Real-world example · harness-templates skill</p>
+      <h2 class="anatomy-h">design-review/SKILL.md — full file</h2>
+
+      <div class="anatomy-tree">
+        <p class="tree-label">Lives in</p>
+<pre>harness-templates/
+└── .claude/
+    └── skills/
+        └── <span class="accent">design-review/</span>
+            ├── <span class="here accent">SKILL.md</span>
+            ├── <span class="dim">scripts/</span>      <span class="comment"># optional</span>
+            ├── <span class="dim">references/</span>   <span class="comment"># load on demand</span>
+            └── <span class="dim">assets/</span>       <span class="comment"># used in output</span></pre>
+      </div>
+
+<pre class="anatomy-code"><span class="anchor" data-section-id="1" id="sec-1"><span class="cmt">---</span>
+<span class="kw">name:</span> design-review
+<span class="kw">description:</span> Review a UI change against our design system and accessibility rules. Loads when the user mentions "design review", "a11y check", or asks for a UI pass on specific files.
+<span class="cmt">---</span></span>
+
+<span class="anchor" data-section-id="2" id="sec-2"><span class="kw"># Design Review Skill</span>
+
+You are reviewing a UI change. Be specific. No generic advice.</span>
+
+<span class="anchor" data-section-id="3" id="sec-3"><span class="kw">## Steps</span>
+
+1. Identify what changed — components, tokens, layout, copy.
+2. Check the design system:
+   - Are tokens used (no hard-coded hex / px values where a token exists)?
+   - Are components from our library (no one-off divs that duplicate a Card)?
+   - Does the layout obey our 8-pt spacing grid?
+3. Check accessibility:
+   - Color contrast ≥ 4.5:1 for body, 3:1 for large text.
+   - Keyboard reachable, focus visible.
+   - Hit targets ≥ 40×40 px on touch.
+4. Check copy:
+   - Sentence case, oxford-comma off, no "please" before instructions.
+   - Error states tell the user what to do next, not just what failed.
+5. Output as a markdown checklist with file:line references where you can.</span>
+
+<span class="anchor" data-section-id="4" id="sec-4"><span class="kw">## What to skip</span>
+
+- Don't suggest cosmetic changes that aren't in the spec.
+- Don't comment on code style — that's the linter's job.
+- Don't ask the user for screenshots if you can already read the file.</span></pre>
+    </div>
+
+    <aside class="anatomy-callouts" aria-label="Anatomy callouts">
+      <div class="anatomy-card" data-target-section="1">
+        <div class="card-head"><span class="card-num">1</span><span class="card-label">Frontmatter</span></div>
+        <p>YAML between <code>---</code> markers. <em>Description</em> is the retrieval trigger — write it like deterministic UX microcopy.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="2">
+        <div class="card-head"><span class="card-num">2</span><span class="card-label">Body — keep it short</span></div>
+        <p>The H1 title + a one-line stance. Once invoked, <code>SKILL.md</code> stays in context for the whole session — aim for &lt;500 lines.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="3">
+        <div class="card-head"><span class="card-num">3</span><span class="card-label">Steps — the procedure</span></div>
+        <p>Numbered, observable, ordered. Each step is one mental movement the model should make before emitting output.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="4">
+        <div class="card-head"><span class="card-num">4</span><span class="card-label">What to skip</span></div>
+        <p>The negative space. Listing what NOT to do is often higher-leverage than another positive instruction — the model's default is to say more, not less.</p>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="anatomy-pager" aria-label="Anatomy navigation">
+    <a class="pager-prev" href="system-prompt.html">
+      <p class="pager-label">← Prev · 01 / 06</p>
+      <span class="pager-title">System prompt</span>
+    </a>
+    <a class="pager-next" href="tools.html">
+      <p class="pager-label">Next · 03 / 06</p>
+      <span class="pager-title">Tools →</span>
+    </a>
+  </nav>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Anatomy reference</span>
+    <a href="../../Agentic%20Harness%20Engineering.html">Back to deck</a>
+  </footer>
+</main>
+</body>
+</html>

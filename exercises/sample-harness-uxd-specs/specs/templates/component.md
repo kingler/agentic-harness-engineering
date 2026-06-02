@@ -8,7 +8,7 @@ created: {{TODAY}}
 updated: {{TODAY}}
 version: 0.1.0
 designers: []
-figma:
+design_reference:
 linked_specs: []
 linked_components: []
 {{REVISES}}

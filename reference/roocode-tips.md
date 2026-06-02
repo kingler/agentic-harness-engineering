@@ -80,7 +80,7 @@ In RooCode settings (`.roo/config.json` in your workspace):
     {
       "slug": "design-auditor",
       "name": "Design Auditor",
-      "roleDefinition": "You are a design token auditor. Your job is to review Figma exports and flag naming inconsistencies.",
+      "roleDefinition": "You are a design token auditor. Your job is to review exported design manifests and flag naming inconsistencies.",
       "customInstructions": "Always load memory/knowledge-base.md at session start. Generate reports in /output directory only.",
       "tools": ["read_file", "write_file", "list_files"],
       "restrictedTools": ["run_command"]

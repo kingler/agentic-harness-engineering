@@ -30,7 +30,7 @@ Optional fields:
 | Field             | Type     | Notes                                            |
 | ----------------- | -------- | ------------------------------------------------ |
 | `designers`       | list     | Collaborators beyond `owner`.                    |
-| `figma`           | url      | Frame or file URL on figma.com.                  |
+| `design_reference` | url      | Optional link to sketches, PRD, wiki, or in-repo UX notes. |
 | `linked_specs`    | list     | SPEC IDs of related specs.                       |
 | `linked_components` | list   | Names from `design-system-index.md`.             |
 | `revises`         | string   | Previous SPEC ID this revision supersedes.       |
@@ -55,7 +55,6 @@ All eight sections must be present, in this order:
 - **section.required** (error) — required section missing.
 - **section.order** (error) — required section out of order.
 - **link.spec_id** (error) — internal SPEC ID does not resolve.
-- **link.figma** (warning) — Figma URL doesn't match the expected pattern.
 - **design_system.unknown_component** (warning) — backticked CapitalCase
   identifier not in the design system index.
 - **frontmatter.field_order** (warning) — fields present but out of canonical

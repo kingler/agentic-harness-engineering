@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rules &amp; hooks anatomy · Agentic Harness Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../breakouts/styles.css" />
+<link rel="stylesheet" href="anatomy.css" />
+<script defer src="scrollspy.js"></script>
+</head>
+<body>
+<main class="page page--wide">
+
+  <div class="topbar">
+    <span class="crumb">Anatomy · Decompose 04 / 06</span>
+    <a href="../../Agentic%20Harness%20Engineering.html" class="back cta-back">← Back to deck</a>
+  </div>
+
+  <p class="eyebrow">Component 04 · Rules &amp; hooks</p>
+  <h1>What's inside the policy layer</h1>
+  <p class="lede">
+    Two halves of the same idea. <em>Rules</em> declare what's allowed, denied, or gated — the policy. <em>Hooks</em> run the rule — deterministic shell scripts that fire before or after every tool call. Scroll either section; the matching callout lights up.
+  </p>
+
+  <!-- ─────────────────────────── Section A · Rules ─────────────────────────── -->
+  <section class="anatomy-section" id="rules" aria-labelledby="rules-h">
+    <p class="section-eyebrow">04a · Rules</p>
+    <h2 class="section-h" id="rules-h">What's inside a rules file</h2>
+    <p class="section-lede">
+      Permissions live in <code class="inline">.claude/settings.json</code>. Allow / deny narrows the blast radius before a single tool fires; the hooks block wires deterministic enforcement on top.
+    </p>
+
+    <div class="anatomy-split">
+      <div class="anatomy-main">
+        <p class="ex-kicker">Real-world example · Claude Code policy</p>
+        <h2 class="anatomy-h">.claude/settings.json — full file</h2>
+
+        <div class="anatomy-tree">
+          <p class="tree-label">Lives in</p>
+<pre>harness-templates/
+├── .claude/
+│   ├── <span class="here accent">settings.json</span>
+│   └── hooks/
+│       ├── pre-tool-use.sh
+│       └── post-tool-use.sh
+├── <span class="accent">AGENTS.md</span>     <span class="comment"># soft rules</span>
+└── .roo/
+    └── rules/
+        └── 01-rules.md</pre>
+        </div>
+
+<pre class="anatomy-code">{
+  "permissions": {
+    <span class="anchor" data-section-id="r1" id="sec-r1">"allow": [
+      "Read",
+      "Edit",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(npm test:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pytest:*)",
+      "Bash(scripts/run-eval.sh:*)"
+    ],</span>
+    <span class="anchor" data-section-id="r2" id="sec-r2">"deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]</span>
+  },
+  "env": {
+    "WORKSHOP_HARNESS": "v0.1"
+  },
+  "hooks": {
+    <span class="anchor" data-section-id="r3" id="sec-r3">"PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/post-tool-use.sh" }
+        ]
+      }
+    ],</span>
+    <span class="anchor" data-section-id="r4" id="sec-r4">"PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command",
+            "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/pre-tool-use.sh" }
+        ]
+      }
+    ]</span>
+  }
+}</pre>
+      </div>
+
+      <aside class="anatomy-callouts" aria-label="Rules callouts">
+        <div class="anatomy-card" data-target-section="r1">
+          <div class="card-head"><span class="card-num">1</span><span class="card-label">Allow</span></div>
+          <p>Explicit yes-list. Anything not listed defaults to <em>ask</em> — fewer surprises, smaller blast radius.</p>
+        </div>
+
+        <div class="anatomy-card" data-target-section="r2">
+          <div class="card-head"><span class="card-num">2</span><span class="card-label">Deny</span></div>
+          <p>Hard refusals the harness enforces. The model can't argue its way past these — and shouldn't be able to.</p>
+        </div>
+
+        <div class="anatomy-card" data-target-section="r3">
+          <div class="card-head"><span class="card-num">3</span><span class="card-label">PostToolUse hooks</span></div>
+          <p>Run AFTER a matching tool finishes. Use for side effects the harness should always perform — bump timestamps, run validators, log telemetry.</p>
+        </div>
+
+        <div class="anatomy-card" data-target-section="r4">
+          <div class="card-head"><span class="card-num">4</span><span class="card-label">PreToolUse hooks</span></div>
+          <p>Run BEFORE a matching tool. Returns block/approve. Defence in depth on top of the deny list, for combinations a glob can't express.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ─────────────────────────── Section B · Hooks ─────────────────────────── -->
+  <section class="anatomy-section" id="hooks" aria-labelledby="hooks-h">
+    <p class="section-eyebrow">04b · Hooks</p>
+    <h2 class="section-h" id="hooks-h">What's inside a hook</h2>
+    <p class="section-lede">
+      Shell scripts the harness fires before or after every tool call. The event payload arrives as JSON on stdin; the script's exit code (and optional stdout decision JSON) tells the harness whether to proceed.
+    </p>
+
+    <div class="anatomy-split">
+      <div class="anatomy-main">
+        <p class="ex-kicker">Real-world example · pre-tool-use hook</p>
+        <h2 class="anatomy-h">pre-tool-use.sh — full file</h2>
+
+        <div class="anatomy-tree">
+          <p class="tree-label">Lives in</p>
+<pre>harness-templates/
+└── .claude/
+    └── hooks/
+        ├── <span class="here accent">pre-tool-use.sh</span>
+        ├── <span class="dim">post-tool-use.sh</span>
+        └── <span class="dim">session-start.sh</span></pre>
+        </div>
+
+<pre class="anatomy-code"><span class="kw">#!/usr/bin/env</span> bash
+<span class="cmt"># PreToolUse hook — runs before every Bash tool call.
+# Bound in .claude/settings.json under "PreToolUse" matcher "Bash".
+#
+# Goal: refuse a small set of obviously-destructive commands even if
+# the user (or the model) asked for them. The deny list in
+# settings.json catches the common ones; this hook adds a defense-in-
+# depth layer for combinations.</span>
+
+set -euo pipefail
+
+<span class="anchor" data-section-id="h1" id="sec-h1"><span class="cmt"># Hook input arrives as JSON on stdin</span>
+payload="$(cat || true)"
+cmd="$(printf '%s' "$payload" | jq -r '.tool_input.command // empty' 2&gt;/dev/null || true)"
+
+if [[ -z "$cmd" ]]; then
+  exit 0
+fi</span>
+
+<span class="anchor" data-section-id="h2" id="sec-h2">deny_patterns=(
+  'rm[[:space:]]+-rf[[:space:]]+/'
+  'rm[[:space:]]+-rf[[:space:]]+\$HOME'
+  'mkfs\.'
+  ':(){[[:space:]]*:|:&amp;[[:space:]]*};:'
+  'curl[[:space:]]+.*\|[[:space:]]*sh'
+  'wget[[:space:]]+.*\|[[:space:]]*sh'
+)</span>
+
+<span class="anchor" data-section-id="h3" id="sec-h3">for p in "${deny_patterns[@]}"; do
+  if printf '%s' "$cmd" | grep -Eq "$p"; then
+    echo "pre-tool-use: refused dangerous command pattern: $p" &gt;&amp;2
+    exit 2
+  fi
+done</span>
+
+<span class="anchor" data-section-id="h4" id="sec-h4">exit 0
+<span class="cmt"># Exit 0 = decision honored. Non-zero exit = hook error,
+# the harness logs and falls back to default policy.</span></span></pre>
+      </div>
+
+      <aside class="anatomy-callouts" aria-label="Hooks callouts">
+        <div class="anatomy-card" data-target-section="h1">
+          <div class="card-head"><span class="card-num">1</span><span class="card-label">Event payload</span></div>
+          <p>The harness pipes JSON in on stdin: tool name, args, session id. The script reads what it needs and ignores the rest.</p>
+        </div>
+
+        <div class="anatomy-card" data-target-section="h2">
+          <div class="card-head"><span class="card-num">2</span><span class="card-label">Deny patterns</span></div>
+          <p>An array of ERE regex patterns. Anything matching is refused. The list is short by design — six patterns covers most catastrophic shapes.</p>
+        </div>
+
+        <div class="anatomy-card" data-target-section="h3">
+          <div class="card-head"><span class="card-num">3</span><span class="card-label">Match loop</span></div>
+          <p>The predicate. Iterate, regex, refuse. Keep it mechanical — if a check needs nuance, it belongs in a rule, not a hook.</p>
+        </div>
+
+        <div class="anatomy-card" data-target-section="h4">
+          <div class="card-head"><span class="card-num">4</span><span class="card-label">Exit semantics</span></div>
+          <p>Zero = decision honored (approve). Non-zero with stderr = block with reason. Be loud on failure — silent hooks are worse than no hook.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <nav class="anatomy-pager" aria-label="Anatomy navigation">
+    <a class="pager-prev" href="tools.html">
+      <p class="pager-label">← Prev · 03 / 06</p>
+      <span class="pager-title">Tools</span>
+    </a>
+    <a class="pager-next" href="knowledge.html">
+      <p class="pager-label">Next · 05 / 06</p>
+      <span class="pager-title">Knowledge →</span>
+    </a>
+  </nav>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Anatomy reference</span>
+    <a href="../../Agentic%20Harness%20Engineering.html">Back to deck</a>
+  </footer>
+</main>
+</body>
+</html>

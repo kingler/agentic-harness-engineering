@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anatomy reference · Agentic Harness Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<main class="page">
+
+  <div class="topbar">
+    <span class="crumb">Reference · Component anatomy</span>
+    <a href="../../Agentic%20Harness%20Engineering.html" class="back">← Back to deck</a>
+  </div>
+
+  <p class="eyebrow">Anatomy reference</p>
+  <h1>The six harness components, expanded</h1>
+  <p class="lede">
+    Each card opens a full-page view of the slide's anatomy callout: the real example file on the left, the section callouts on the right. Use these while you build — they're the same examples the deck shows, with room to read.
+  </p>
+
+  <section class="prereqs" aria-label="Where this lives">
+    <h2>How this fits</h2>
+    <ul>
+      <li>The deck (slides 10a–10f) has an <b>Expand</b> button on each component slide.</li>
+      <li>Each Expand opens the reference page in a new tab.</li>
+      <li>The reference pages live under <code class="inline">reference/anatomy/</code> in the repo; this hub is a discovery layer.</li>
+    </ul>
+  </section>
+
+  <h2>The six components</h2>
+  <div class="hub-grid">
+    <a class="hub-card" href="../../reference/anatomy/system-prompt.html">
+      <span class="chip">01</span><h3>System prompt</h3>
+      <p>The persistent frame the agent reads every turn. Walks the full <code>AGENTS.md</code> from the sample harness — identity, capabilities, tool roster, never/always rules, escalation.</p>
+    </a>
+    <a class="hub-card" href="../../reference/anatomy/skills.html">
+      <span class="chip">02</span><h3>Skills</h3>
+      <p>A skill is a <em>directory</em>, not a file. Walks <code>SKILL.md</code> — frontmatter as retrieval trigger, body kept short, progressive disclosure via <code>references/</code>.</p>
+    </a>
+    <a class="hub-card" href="../../reference/anatomy/tools.html">
+      <span class="chip">03</span><h3>Tools</h3>
+      <p>The JSON face + executable body. Walks <code>validate_spec.json</code> — name, description (what / when / when-not), input schema, implementation binding.</p>
+    </a>
+    <a class="hub-card" href="../../reference/anatomy/rules-hooks.html">
+      <span class="chip">04</span><h3>Rules &amp; hooks</h3>
+      <p>Policy on top, enforcement underneath. Combined page: <code>settings.json</code> (allow / deny / ask) and <code>pre-tool-use.sh</code> (event payload → decision JSON).</p>
+    </a>
+    <a class="hub-card" href="../../reference/anatomy/knowledge.html">
+      <span class="chip">05</span><h3>Knowledge</h3>
+      <p>The slow tier. Walks <code>spec-schema.md</code> — domain facts the agent reads on demand. Quarterly-stable, not per-turn.</p>
+    </a>
+    <a class="hub-card" href="../../reference/anatomy/memory.html">
+      <span class="chip">06</span><h3>Memory</h3>
+      <p>The fast tier. Walks <code>SESSION.md</code> — working-set bullets, scratch decisions, promotion guardrails. Never secrets.</p>
+    </a>
+  </div>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Anatomy reference</span>
+    <a href="../../Agentic%20Harness%20Engineering.html">Back to deck</a>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Knowledge anatomy · Agentic Harness Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../../breakouts/styles.css" />
+<link rel="stylesheet" href="anatomy.css" />
+<script defer src="scrollspy.js"></script>
+</head>
+<body>
+<main class="page page--wide">
+
+  <div class="topbar">
+    <span class="crumb">Anatomy · Decompose 05 / 06</span>
+    <a href="../../Agentic%20Harness%20Engineering.html" class="back cta-back">← Back to deck</a>
+  </div>
+
+  <p class="eyebrow">Component 05 · Knowledge</p>
+  <h1>What's inside a knowledge file</h1>
+  <p class="lede">
+    The slow tier. Schemas, dictionaries, workflows, design-system facts — domain context the agent reads on demand. Things that change quarterly, not per-turn. Scroll through it; the matching callout on the right lights up.
+  </p>
+
+  <div class="anatomy-split">
+    <div class="anatomy-main">
+      <p class="ex-kicker">Real-world example · sample harness knowledge</p>
+      <h2 class="anatomy-h">knowledge/spec-schema.md — full file</h2>
+
+      <div class="anatomy-tree">
+        <p class="tree-label">Lives in</p>
+<pre>sample-harness-uxd-specs/
+├── knowledge/
+│   ├── <span class="here accent">spec-schema.md</span>
+│   ├── <span class="dim">workflow.md</span>
+│   └── <span class="dim">design-system-index.md</span>
+└── specs/
+    └── SPEC-2026-001.md</pre>
+      </div>
+
+<pre class="anatomy-code"><span class="kw"># Spec Schema</span>
+
+Every file under `specs/` (except `templates/`) follows this schema. The
+validator (`scripts/validate_spec.sh`) reports violations as either errors
+(must fix) or warnings (should fix).
+
+<span class="anchor" data-section-id="1" id="sec-1"><span class="kw">## Filename</span>
+
+`SPEC-YYYY-NNN.md` — year is the year the spec was created, NNN is a
+zero-padded sequence allocated by `create_spec.sh`. Example:
+`SPEC-2026-007.md`.</span>
+
+<span class="anchor" data-section-id="2" id="sec-2"><span class="kw">## Frontmatter (YAML)</span>
+
+Required fields, in this order:
+
+| Field      | Type    | Notes                                                     |
+| ---------- | ------- | --------------------------------------------------------- |
+| `id`       | string  | Must equal the filename stem.                             |
+| `title`    | string  | Human-readable. Becomes the H1.                           |
+| `type`     | enum    | `ux-flow`, `component`, `research`, `prd`.                |
+| `status`   | enum    | `draft`, `in-review`, `approved`, `implemented`, `archived`. |
+| `owner`    | string  | Single username, e.g. `jane.doe`.                         |
+| `created`  | date    | ISO 8601 (`YYYY-MM-DD`).                                  |
+| `updated`  | date    | ISO 8601. Set by the post-tool-use hook on every edit.    |
+| `version`  | semver  | `MAJOR.MINOR.PATCH`. Patch auto-bumps on edits.           |
+
+Optional fields:
+
+| Field                | Type   | Notes                                                  |
+| -------------------- | ------ | ------------------------------------------------------ |
+| `designers`          | list   | Collaborators beyond `owner`.                          |
+| `design_reference`   | url    | Optional link to sketches, PRD, wiki, or UX notes.     |
+| `linked_specs`       | list   | SPEC IDs of related specs.                             |
+| `linked_components`  | list   | Names from `design-system-index.md`.                   |
+| `revises`            | string | Previous SPEC ID this revision supersedes.             |
+| `tags`               | list   | Free-form labels.                                      |</span>
+
+<span class="anchor" data-section-id="3" id="sec-3"><span class="kw">## Required sections</span>
+
+All eight sections must be present, in this order:
+
+1. `# &lt;Title&gt;` — H1, must match `title:` frontmatter.
+2. `## Problem` — what's broken or missing.
+3. `## Users` — who feels this.
+4. `## Goals &amp; Non-goals` — explicit scope.
+5. `## Flow` — the proposed solution as a sequence.
+6. `## Acceptance criteria` — testable bullets.
+7. `## Accessibility` — WCAG-relevant considerations.
+8. `## Open questions` — known unknowns. May be empty but must exist.</span>
+
+<span class="anchor" data-section-id="4" id="sec-4"><span class="kw">## Validation rules</span>
+
+- **frontmatter.required** (error) — required field missing.
+- **section.required** (error) — required section missing.
+- **section.order** (error) — required section out of order.
+- **link.spec_id** (error) — internal SPEC ID does not resolve.
+- **design_system.unknown_component** (warning) — backticked CapitalCase
+  identifier not in the design system index.
+- **frontmatter.field_order** (warning) — fields present but out of canonical
+  order.
+
+`--strict` promotes all warnings to errors. The transition script uses
+strict mode before moving a spec to `in-review` or `approved`.</span></pre>
+    </div>
+
+    <aside class="anatomy-callouts" aria-label="Anatomy callouts">
+      <div class="anatomy-card" data-target-section="1">
+        <div class="card-head"><span class="card-num">1</span><span class="card-label">Filename convention</span></div>
+        <p>A naming pattern with a worked example. The first thing the model checks when a user names a spec.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="2">
+        <div class="card-head"><span class="card-num">2</span><span class="card-label">Frontmatter (YAML schema)</span></div>
+        <p>The data contract — every field, its type, its semantics. Two tables: required (must exist) and optional (may exist).</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="3">
+        <div class="card-head"><span class="card-num">3</span><span class="card-label">Required sections</span></div>
+        <p>An ordered list of section headings every spec must contain. The model copies this into a scaffold; the validator enforces it on save.</p>
+      </div>
+
+      <div class="anatomy-card" data-target-section="4">
+        <div class="card-head"><span class="card-num">4</span><span class="card-label">Validation rules</span></div>
+        <p>The catalog of errors and warnings the validator emits. Bold rule IDs make each violation citeable by name from anywhere in the system.</p>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="anatomy-pager" aria-label="Anatomy navigation">
+    <a class="pager-prev" href="rules-hooks.html">
+      <p class="pager-label">← Prev · 04 / 06</p>
+      <span class="pager-title">Rules &amp; hooks</span>
+    </a>
+    <a class="pager-next" href="memory.html">
+      <p class="pager-label">Next · 06 / 06</p>
+      <span class="pager-title">Memory →</span>
+    </a>
+  </nav>
+
+  <hr />
+  <footer class="site">
+    <span>Agentic Harness Engineering · Anatomy reference</span>
+    <a href="../../Agentic%20Harness%20Engineering.html">Back to deck</a>
+  </footer>
+</main>
+</body>
+</html>

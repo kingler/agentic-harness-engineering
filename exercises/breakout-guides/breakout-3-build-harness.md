@@ -6,6 +6,10 @@
 
 ---
 
+> **Exercise chain.** **Builds on ←** Breakout 2's blueprint. **Sets up →** the
+> Day 2 build lab (`exercises/app-build-template/`), where the harness becomes a
+> running app and each component test emits its artifact.
+
 ## Your Goal
 
 Translate your Breakout 2 blueprint into actual harness files. By the end of this session, you'll have a working starter harness: real files that RooCode and GitHub Copilot can read, with your actual design decisions in them — not just template placeholders.
@@ -21,29 +25,18 @@ You need:
 - [ ] A copy of the harness template in your own folder
 - [ ] VS Code open with the folder in the workspace
 
-**Copy the template now:**
+**Copy the template now (pick one):**
+
 ```bash
-cp -r exercises/harness-template/ my-harness-[group-name]/
+# Option A — UXD spec harness (fully worked example)
+cp -r exercises/sample-harness-uxd-specs/ my-harness-[group-name]/
+
+# Option B — slimmer template folder in repo root
+cp -r harness-templates/ my-harness-[group-name]/
 cd my-harness-[group-name]/
 ```
 
-Open the folder in VS Code. You should see this structure:
-```
-my-harness-[group-name]/
-├── AGENTS.md
-├── config.json
-├── tools/
-│   └── sample-tool.json
-├── scripts/
-│   ├── build.sh
-│   └── test.sh
-├── prompts/
-│   └── system-prompt.md
-├── hooks/
-│   └── pre-tool.sh
-└── memory/
-    └── knowledge-base.md
-```
+Use the structure you see in that folder (see `README.md` inside the template). If you used **sample-harness-uxd-specs**, you already have `prompts/`, `tools/`, `hooks/`, and `knowledge/`.
 
 ---
 
@@ -83,7 +76,7 @@ This is the most important file. Open `AGENTS.md` and fill in every section. Rep
 
 **Writing tip for capabilities:**  
 - Bad: "Can analyze design files"  
-- Good: "Can read Figma export JSON files and compare token names against our naming convention dictionary"
+- Good: "Can read design-token manifest JSON files and compare token names against our naming convention dictionary"
 
 ---
 
@@ -140,7 +133,7 @@ The most important field is **`description`** — this is what the model reads w
 ```json
 {
   "name": "compare_token_names",
-  "description": "Compares component names in a Figma export file against the approved design token dictionary. Use this when the user asks to audit, review, or validate design file naming. Do NOT use for general file reading — only for naming convention comparisons.",
+  "description": "Compares component names in a design-token export file against the approved design token dictionary. Use this when the user asks to audit, review, or validate design file naming. Do NOT use for general file reading — only for naming convention comparisons.",
   ...
 }
 ```

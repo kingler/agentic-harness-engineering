@@ -40,7 +40,7 @@ A specific action an agent can take that has side effects in the world: reading 
 The text that explains to the model what a tool does, when to use it, and when not to use it. Treated as "UX copy for AI agents" — the quality of tool descriptions directly affects how reliably the agent chooses and uses its tools correctly. Bad descriptions → wrong tool choices.
 
 ### MCP (Model Context Protocol)
-An open standard (developed by Anthropic) for connecting AI models to external tools, data sources, and systems. MCP servers expose tools that models can use. RooCode supports MCP, allowing you to connect your harness to Figma, GitHub, Slack, databases, and more.
+An open standard (developed by Anthropic) for connecting AI models to external tools, data sources, and systems. MCP servers expose tools that models can use. RooCode supports MCP, allowing you to connect your harness to GitHub, Teams, browsers, databases, and internal APIs.
 
 ### Hook
 A piece of deterministic code that runs automatically at a specific point in the agent's lifecycle — before a tool call, after a tool call, when the context window fills, or when an error occurs. Hooks enforce non-negotiable behaviors that the model cannot override or forget. Key principle: hooks > hoping.
@@ -120,9 +120,6 @@ Microsoft/GitHub's AI code assistant. Available as a VS Code extension. Reads `A
 
 ### Cline
 A VS Code extension for autonomous AI coding agents. Reads `AGENTS.md` and `.clinerules` for persistent instructions. Supports MCP servers for external tools. Sibling to RooCode in scope and shape.
-
-### Figma
-A collaborative design tool widely used for UI/UX design. Relevant to this workshop because: (a) Figma AI is one of the 5 apps we reverse-engineer, and (b) participants use Figma as their primary design tool, making the Figma AI case study immediately relatable.
 
 ---
 

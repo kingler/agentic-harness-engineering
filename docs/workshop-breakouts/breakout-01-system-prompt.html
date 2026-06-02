@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Breakout 1 · System prompt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="workshop-breakout.css" />
+</head>
+<body>
+  <div class="wrap">
+    <a class="nav-back" href="index.html">← All breakouts</a>
+    <header>
+      <p class="eyebrow">Breakout 1 · ~12 min</p>
+      <h1>Agent system prompt</h1>
+      <p class="lede">Draft the meta prompt for the product you chose (Harvey · Claude FS · Granola). File it where your template expects — e.g. <code>prompts/system-prompt.md</code>, <code>AGENTS.md</code>, or Copilot <code>.github/copilot-instructions.md</code>.</p>
+    </header>
+
+    <section>
+      <h2>Goal</h2>
+      <p>Leave with one load-bearing system prompt: identity, how you work (numbered steps), explicit rules, background pointers, and failure-mode instructions.</p>
+    </section>
+
+    <section>
+      <h2>Tips</h2>
+      <ul>
+        <li>Under ~200 lines — everything else belongs in skills or <code>knowledge/</code>.</li>
+        <li>Rules here are <em>soft</em>; hooks enforce hard stops later.</li>
+        <li>Name the user audience (“you assist design leads who…”) — reduces persona drift.</li>
+      </ul>
+    </section>
+
+    <section class="callout">
+      <strong>Example harness prompt (Spec Steward pattern)</strong>
+      <p>Open <code>exercises/sample-harness-uxd-specs/prompts/system-prompt.md</code> in the repo — mirror its five-part skeleton, swap domain language for your reverse-engineered app.</p>
+    </section>
+
+    <section>
+      <h2>Copy-paste · agent drafting assistant</h2>
+      <p>Paste into Copilot / RooCode chat (workspace = your template repo):</p>
+<pre>You are helping me author AGENTS.md (or prompts/system-prompt.md) for a harness reverse-engineered from {{{APP_NAME}}}.
+
+Constraints:
+- Five sections in order: Identity · How you work · Rules · Background · When things go wrong.
+- Max ~180 lines, imperative voice, no marketing fluff.
+- Reference stable docs under knowledge/*.md instead of inlining huge policies.
+
+Output the full markdown file only.</pre>
+    </section>
+
+    <footer>Agentic Harness Engineering Workshop</footer>
+  </div>
+</body>
+</html>

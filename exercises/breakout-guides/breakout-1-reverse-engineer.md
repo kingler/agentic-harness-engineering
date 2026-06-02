@@ -6,6 +6,10 @@
 
 ---
 
+> **Exercise chain.** This is the start. **Sets up →** Breakout 2, where you
+> design *your* harness from what you learn here — and ultimately the Day 2 app
+> build. Keep your notes; the next exercise consumes them.
+
 ## Your Goal
 
 By the end of this session, your group will have a **harness map** — a structured breakdown of how your chosen AI application works under the hood, organized around the 6 harness components.
@@ -16,17 +20,15 @@ You're not guessing randomly. You're reasoning from observable behaviors to unde
 
 ## Step 0 — Choose Your App (5 min)
 
-If your group hasn't already chosen an app, pick one from the 5 profiles in `exercises/ai-apps/`:
+If your group hasn't already chosen an app, pick one from the three profiles in `exercises/ai-apps/`:
 
 | Option | App | Best for |
 |--------|-----|----------|
-| A | **Cursor** — AI code editor | Groups who use Cursor or VS Code heavily |
-| B | **v0 by Vercel** — AI UI generator | Groups interested in design-to-code workflows |
-| C | **Bolt.new** — full-stack app builder | Groups interested in orchestration + infrastructure |
-| D | **Figma AI** — design assistant | Groups who want to stay close to their daily work |
-| E | **Claude Artifacts** — interactive content | Groups interested in sandboxing + content generation |
+| A | **Harvey** — legal AI platform | Rich vertical harness — privilege, citations, multi-agent workflows |
+| B | **Claude for Financial Services** | Regulated vertical — verification-first outputs, Excel/PPT surfaces |
+| C | **Granola** — AI meeting notepad | Smallest surface area — fast map of all six components |
 
-**Tip:** Pick the app your group uses most. Your first-hand experience makes the reverse-engineering faster and richer.
+**Tip:** Pick the column you can observe most clearly as a user. You will copy **domain language** into your local **template harness project**, not proprietary vendor prompts.
 
 ---
 
@@ -195,8 +197,9 @@ At the end of this session, your group should have:
 **When time is called:** Don't cut off mid-thought. Give a 2-minute warning and ask groups to finish their current component.
 
 **Common answers worth surfacing:**
-- Cursor's `.cursorrules` → system prompt pattern
-- v0's output constraint to one tech stack → system prompt as product definition
-- Bolt's WebContainer → sandbox as product-defining infrastructure decision
-- Figma AI's accept/dismiss → explicit vs. implicit feedback
-- Claude Artifacts' auto-detection → judgment encoded as harness heuristic
+- Harvey's privilege protection & citation requirements → hard rules enforced as hooks, not system-prompt instructions
+- Harvey's workflow agents (litigation, transactional, in-house) → orchestration as the unit of value, not chat
+- Claude Financial Services living inside Excel and PowerPoint → tool surface as the product decision (don't build a chat tab)
+- Claude FS's "no number without lineage" → verification gate enforced as middleware
+- Granola's choice *not* to join meetings as a bot → sandbox / capture surface as a deliberate trust boundary
+- Granola's fixed output schema (summary · decisions · actions) → schema enforcement as a post-generation hook

@@ -57,11 +57,13 @@ enforces it — do not rely on the model to remember.
 
 ## External integrations
 
-- **R-40.** Calls to the Linear MCP server that mutate state
+- **R-40.** Calls to the Jira MCP server that mutate state
   (`save_issue`, `save_comment`, `create_attachment`) require explicit user
   confirmation in the same turn. The agent does not auto-link tickets.
-- **R-41.** The Figma MCP server is read-only from this harness. No mutating
-  Figma endpoints are called, ever.
+- **R-41.** Third-party MCP integrations are read-only in this harness unless
+  the user explicitly runs a gated workflow (e.g. `/publish-spec`). Never
+  mutate external systems without same-turn confirmation.
+
 - **R-42.** The GitHub MCP server is enabled only when the user invokes
   `/publish-spec`. Do not call it otherwise.
 
@@ -70,8 +72,9 @@ enforces it — do not rely on the model to remember.
 - **R-50.** End every turn with one sentence: what changed and what's next.
 - **R-51.** If a tool call fails twice for the same reason, stop. Surface
   the failure to the user with the failing rule and ask before retrying.
-- **R-52.** Refuse politely when asked to write code, generate Figma
-  frames, or send messages — point the user to the right tool.
+- **R-52.** Refuse politely when asked to write production application code,
+  generate raw UI mockups in external tools on the user's behalf, or send
+  messages — point the user to the right tool.
 
 ## Memory
 

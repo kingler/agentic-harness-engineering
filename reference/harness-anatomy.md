@@ -72,7 +72,7 @@ What you can design:
 
 **What it includes:**
 - File operations (read, write, create, delete)
-- API calls (Figma API, GitHub API, Slack API, etc.)
+- API calls (GitHub API, Teams API, internal HTTP services, browser automation, etc.)
 - Code execution
 - Web search and browsing
 - Data retrieval and search
@@ -110,7 +110,7 @@ What you can design:
 **In practice:**
 - Local agents (Cursor, Cline, RooCode, Copilot CLI): filesystem access scoped to the workspace
 - Browser-based agents (Bolt.new): WebContainer or cloud sandbox
-- Plugin-based agents (Figma AI): Plugin API sandbox with restricted permissions
+- Plugin-based agents (editor extensions, third-party plugins): host-controlled sandbox with restricted permissions
 - The sandbox is the primary safety mechanism for autonomous agents
 
 **Designer leverage: MEDIUM**
@@ -198,7 +198,7 @@ What you can design:
 - LangChain's "hill-climbing" model: run evals → identify failures → improve the harness → repeat
 - Anthropic calls evals "the training data for harness engineering"
 - Most agent failures are reproducible — a good trace lets you find and fix the root cause
-- Simple feedback: accept/reject diffs (Cursor), accept/dismiss suggestions (Figma AI), share (Claude Artifacts)
+- Simple feedback: accept/reject diffs (Cursor), accept/reject inline suggestions (GitHub Copilot), share (Claude Artifacts)
 
 **Designer leverage: MEDIUM**
 

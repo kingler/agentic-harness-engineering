@@ -113,7 +113,7 @@ handles auth, rate limits, and the system's actual API.
 
 ```mermaid
 flowchart LR
-    Agent <-->|MCP protocol<br/>list_tools / call_tool| Server[MCP server<br/>e.g. github, figma]
+    Agent <-->|MCP protocol<br/>list_tools / call_tool| Server[MCP server<br/>e.g. github, browser]
     Server <-->|native API + auth| External[(External system)]
 ```
 

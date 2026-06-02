@@ -1,0 +1,19 @@
+{
+  "// note": "MCP servers for Granola in GitHub Copilot (VS Code). 'calendar' supplies the attendee list and schedule; 'tasks' syncs action items. Versions illustrative — verify before running. Secrets via inputs.",
+  "inputs": [
+    { "id": "gcal_token", "type": "promptString", "description": "Google Calendar token", "password": true },
+    { "id": "tasks_token", "type": "promptString", "description": "Task system token", "password": true }
+  ],
+  "servers": {
+    "calendar": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-google-calendar@2025.4.8"],
+      "env": { "GOOGLE_CALENDAR_TOKEN": "${input:gcal_token}" }
+    },
+    "tasks": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github@2025.4.8"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:tasks_token}" }
+    }
+  }
+}

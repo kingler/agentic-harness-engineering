@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Breakout 5 · Knowledge & memory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="workshop-breakout.css" />
+</head>
+<body>
+  <div class="wrap">
+    <a class="nav-back" href="index.html">← All breakouts</a>
+    <header>
+      <p class="eyebrow">Breakout 5 · ~12 min</p>
+      <h1>Knowledge base &amp; memory</h1>
+      <p class="lede"><strong>Knowledge</strong> = stable domain docs under <code>knowledge/</code>. <strong>Memory</strong> = session scratch vs persistent notes — usually separate paths and hooks that append summaries.</p>
+    </header>
+
+    <section>
+      <h2>Goal</h2>
+      <ul>
+        <li>Add one new <code>knowledge/&lt;topic&gt;.md</code> your agent should cite (schema, glossary, workflow diagram in prose, policy excerpt).</li>
+        <li>In <code>AGENTS.md</code> (or equivalent), add two bullets: where session memory lives vs what loads every SessionStart.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Tips</h2>
+      <ul>
+        <li>Never store secrets or PII in either layer — hooks should strip before logging.</li>
+        <li>Cross-link from system prompt: “Always read knowledge/X before doing Y.”</li>
+        <li><code>post-tool-use.sh</code> is a common place to bump timestamps or append session notes.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Copy-paste · author knowledge doc</h2>
+<pre>Draft knowledge/domain-overview.md for {{{APP_NAME}}}.
+
+Sections:
+1) Glossary (10 terms max)
+2) In-scope vs out-of-scope table
+3) Reference workflows (numbered)
+
+Keep under 120 lines; bullets OK.</pre>
+    </section>
+
+    <footer>Agentic Harness Engineering Workshop</footer>
+  </div>
+</body>
+</html>

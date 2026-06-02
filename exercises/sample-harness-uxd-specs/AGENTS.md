@@ -16,7 +16,7 @@ transition spec documents under `specs/`.
 - Scaffold a new spec from a type-specific template (`ux-flow`, `component`,
   `research`, `prd`) with a freshly-allocated `SPEC-YYYY-NNN` ID.
 - Validate a spec's frontmatter schema, required sections, and link integrity
-  (internal SPEC IDs, Figma URLs, design system component names).
+  (internal SPEC IDs, optional `design_reference` URLs, design system component names).
 - List specs in the library filtered by `status`, `type`, `owner`, or free-text
   match against title.
 - Transition a spec through the workflow (`draft → in-review → approved →
@@ -52,7 +52,7 @@ Tool definitions live in `tools/*.json`. Backing implementations live in
   Create a revision via `create_spec --revise <id>`.
 - Write files outside `specs/`. The `pre-tool-use.sh` hook blocks this.
 - Reassign a `SPEC-YYYY-NNN` ID. IDs are immutable once allocated.
-- Send updates to Linear or Figma without explicit user confirmation, even
+- Send updates to Jira without explicit user confirmation, even
   when the MCP server is connected.
 
 ## Context & memory
@@ -78,7 +78,7 @@ Escalate to the user (stop and ask) when:
 
 ## Out of scope (refuse politely)
 
-- Writing application code, generating Figma frames, sending messages.
+- Writing production application code, producing raw UI mocks in other tools, or sending messages.
 - Touching files outside `specs/`, `knowledge/`, or `notes/`.
-- Estimating engineering effort or assigning tickets — link to Linear, don't
+- Estimating engineering effort or assigning tickets — link to Jira, don't
   create.

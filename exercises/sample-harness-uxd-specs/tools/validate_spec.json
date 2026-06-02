@@ -1,6 +1,6 @@
 {
   "name": "validate_spec",
-  "description": "Validates a spec against the schema in knowledge/spec-schema.md: required frontmatter fields, required sections in order, internal SPEC ID links resolve, Figma URLs are well-formed, design system component names match knowledge/design-system-index.md exactly. Use before any status transition, before saving an in-review spec, and whenever the user asks 'is this spec ready'. Do NOT use as a general read — use Read for that. Returns a structured list of violations; does not modify the file.",
+  "description": "Validates a spec against the schema in knowledge/spec-schema.md: required frontmatter fields, required sections in order, internal SPEC ID links resolve, design system component names match knowledge/design-system-index.md exactly. Use before any status transition, before saving an in-review spec, and whenever the user asks 'is this spec ready'. Do NOT use as a general read — use Read for that. Returns a structured list of violations; does not modify the file.",
   "parameters": {
     "type": "object",
     "properties": {

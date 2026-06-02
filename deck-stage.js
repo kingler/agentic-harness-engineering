@@ -2,8 +2,9 @@
  * <deck-stage> — reusable web component for HTML decks.
  *
  * Handles:
- *  (a) speaker notes — reads <script type="application/json" id="speaker-notes">
- *      and posts {slideIndexChanged: N} to the parent window on nav.
+ *  (a) optional slide meta — reads <script type="application/json" id="speaker-notes">
+ *      (may be []); used by the presenter window bridge. Posts {slideIndexChanged: N}
+ *      to the parent window on nav when embedded.
  *  (b) keyboard navigation — ←/→, PgUp/PgDn, Space, Home/End, number keys.
  *  (c) press R to reset to slide 0 (with a tasteful keyboard hint).
  *  (d) bottom-center overlay showing slide count + hints, fades out on idle.

@@ -6,6 +6,9 @@
 
 ---
 
+> **Exercise chain.** **Builds on ←** Breakout 1's harness map. **Sets up →**
+> Breakout 3, where these decisions become real files in the template.
+
 ## Your Goal
 
 Take what you learned reverse-engineering someone else's harness and apply it to your own. By the end of this session, your group will have a **harness blueprint** — a set of deliberate design decisions for each of the 6 components, tailored to your chosen app concept.
@@ -26,7 +29,7 @@ Now flip the direction:
 
 Your app concept: **[from your group's Breakout 1 choice + any pivots]**
 
-If you want to design a completely different app, that's fine — but pick something specific. "An AI assistant for designers" is too vague. "An AI assistant that reviews Figma exports against our design token system and flags inconsistencies" is specific enough to make real decisions.
+If you want to design a completely different app, that's fine — but pick something specific. "An AI assistant for designers" is too vague. "An AI assistant that reviews exported design-token manifests against our design system dictionary and flags inconsistencies" is specific enough to make real decisions.
 
 ---
 
@@ -108,10 +111,10 @@ Think about:
 - How sensitive is the data it handles? (Low = fewer restrictions. High = tight sandboxing.)
 
 **The trust spectrum:**
-- **No sandbox:** Agent can access everything the user can (developer tools)
-- **Filesystem sandbox:** Agent limited to a specific directory (Cursor, Cline, RooCode, Copilot CLI)
-- **Browser sandbox:** Agent runs in an iframe, no system access (Artifacts, v0)
-- **Full cloud isolation:** Agent runs in a managed cloud environment (Bolt)
+- **No sandbox:** Agent can access everything the user can — rarely the right answer for a shipped product, but common in personal developer tools
+- **Editor / workspace sandbox:** Agent scoped to a workspace directory and an allowed shell (GitHub Copilot, Cline, RooCode in VS Code)
+- **Embedded host sandbox:** Agent lives inside a host app and inherits its trust boundary (Claude Financial Services inside Excel & PowerPoint; Granola capturing system audio on-device and processing remotely)
+- **Full cloud isolation, per-tenant:** Agent runs in a managed, audited cloud environment with strict tenant isolation (Harvey)
 
 **Our decision:**
 

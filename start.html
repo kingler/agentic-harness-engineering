@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agentic Harness Engineering — Start here</title>
+  <style>
+    :root{
+      --navy:#0a1f44; --navy-900:#0a1f44; --blue:#2563eb; --gray-600:#4b5563;
+      --gray-300:#d1d5db; --bg:#f7f8fa; --card:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg); color:var(--navy-900); line-height:1.5;
+      display:flex; min-height:100vh; align-items:center; justify-content:center; padding:32px;
+    }
+    .wrap{max-width:880px; width:100%}
+    .eyebrow{font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin:0 0 8px}
+    h1{font-size:34px; line-height:1.15; letter-spacing:-.02em; margin:0 0 6px}
+    .sub{font-size:17px; color:var(--gray-600); margin:0 0 28px}
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} h1{font-size:27px} }
+    a.card{
+      display:block; text-decoration:none; color:inherit; background:var(--card);
+      border:1px solid var(--gray-300); border-radius:14px; padding:20px 22px;
+      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    a.card:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(10,31,68,.10); border-color:var(--blue) }
+    .card .tag{font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--blue)}
+    .card h2{font-size:19px; margin:6px 0 4px; letter-spacing:-.01em}
+    .card p{font-size:14px; color:var(--gray-600); margin:0}
+    .card.primary{border-color:var(--blue); box-shadow:0 6px 18px rgba(37,99,235,.12)}
+    .span2{grid-column:1 / -1}
+    .foot{margin-top:26px; font-size:13px; color:var(--gray-600)}
+    .foot code{background:#eef0f3; padding:1px 6px; border-radius:5px}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="eyebrow">Agentic Harness Engineering</p>
+    <h1>Start here</h1>
+    <p class="sub">Reverse-engineer the scaffolding that makes an AI agent useful — then build your own.</p>
+
+    <div class="grid">
+      <a class="card primary span2" href="./Agentic%20Harness%20Engineering.html">
+        <span class="tag">Current deck</span>
+        <h2>Workshop slides →</h2>
+        <p>The 2-day course: anatomy of a harness, then hands-on build. Start here if you're attending.</p>
+      </a>
+
+      <a class="card" href="./exercises/app-build-template.zip">
+        <span class="tag">Hands-on</span>
+        <h2>App build template (.zip) →</h2>
+        <p>Download &amp; unzip, open in VS Code. Pre-wired for Copilot and Roo Code / DevGPT.</p>
+      </a>
+
+      <a class="card" href="./exercises/app-build-template/SETUP.md">
+        <span class="tag">Do this first</span>
+        <h2>Setup &amp; smoke test →</h2>
+        <p>Install + a one-prompt model-access check. The tests fail by design if the model never runs.</p>
+      </a>
+
+      <a class="card" href="./presenter.html">
+        <span class="tag">Facilitator</span>
+        <h2>Presenter view →</h2>
+        <p>Speaker notes and presentation controls.</p>
+      </a>
+
+      <a class="card" href="./index.html">
+        <span class="tag">Reference</span>
+        <h2>Anatomy deck →</h2>
+        <p>The earlier slide deck on harness anatomy — kept for reference.</p>
+      </a>
+    </div>
+
+    <p class="foot">Self-contained static site. The repo lives on GitHub; the hands-on material is under <code>exercises/app-build-template/</code>.</p>
+  </main>
+</body>
+</html>
