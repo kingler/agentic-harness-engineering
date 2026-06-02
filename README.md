@@ -8,16 +8,18 @@ agent and make it useful for a specific job.
 
 ```
 .
-├── index.html                       # reveal.js scaffold (deck shell)
+├── start.html                       # landing page — links to the decks + hands-on materials
+├── Agentic Harness Engineering.html # current workshop deck (the 2-day course)
+├── index.html                       # earlier "Anatomy" deck (kept for reference)
 ├── deck-stage.js                    # presenter staging script
-├── Agentic Harness Engineering.html # rendered deck (export)
+├── exercises/                       # setup, lab cards, app build template, worked example
 ├── harness-templates/               # starter scaffold attendees copy & edit
 └── .context/                        # project status notes for agents
 ```
 
-- **Presentation** — `index.html` is the live reveal.js deck. The
-  `Agentic Harness Engineering.html` file is a self-contained export for
-  sharing offline.
+- **Presentation** — open `start.html` for the landing page. The current
+  workshop deck is `Agentic Harness Engineering.html`; `index.html` is an
+  earlier deck on harness anatomy, kept for reference.
 - **`harness-templates/`** — copy this directory into a new repo, rename
   to `harness/`, and edit every file. See
   [`harness-templates/README.md`](./harness-templates/README.md) for the
@@ -36,7 +38,8 @@ attendees can see the contract is portable.
 
 ## Quick start
 
-Open `index.html` in a browser to view the deck locally, or copy
+Open `start.html` in a browser for the landing page (or
+`Agentic Harness Engineering.html` directly for the current deck), or copy
 `harness-templates/` into a fresh repo to start a new harness:
 
 ```sh

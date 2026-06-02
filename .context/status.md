@@ -46,11 +46,12 @@ model-access smoke test), `PROGRESS.md` (whole-journey checklist),
 roles). `/bootstrap-harness` now augments Day-1 work instead of overwriting it.
 Deck env slide points at the smoke test, labs, and PROGRESS.
 
-**Open decision — deck entry point.** `index.html` is itself a ~20-section
-reveal.js "Anatomy" deck (NOT an empty placeholder, despite the note below).
-The current workshop deck is `Agentic Harness Engineering.html` (filename has
-spaces). Making the site root serve the current deck needs a user call — do not
-overwrite `index.html` without confirming, or that older deck is lost.
+**Deck entry point (resolved).** `index.html` is itself a ~20-section reveal.js
+"Anatomy" deck (NOT an empty placeholder). Rather than overwrite it, added a
+non-destructive landing page `start.html` linking to the current deck
+(`Agentic Harness Engineering.html`), the Anatomy deck, presenter view, and the
+hands-on materials. Root `README.md` updated to match. (Site root is still
+`index.html` per vercel; point people at `/start` for the menu.)
 
 ## Known rough edges
 
