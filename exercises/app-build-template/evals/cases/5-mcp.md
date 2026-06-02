@@ -1,5 +1,7 @@
 # Eval · MCP
 
+> **Builds on:** the external-data needs in `plan/tech-spec.md`.  **Sets up:** real data for the golden path (case 6).
+
 **Component built?** servers declared in `.vscode/mcp.json` / `.roo/mcp.json` and configured in the editor.
 
 ## Test prompt

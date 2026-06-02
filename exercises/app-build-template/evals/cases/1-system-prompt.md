@@ -1,5 +1,7 @@
 # Eval · System prompt
 
+> **Builds on:** `app-brief.md`.  **Sets up:** the scope every skill, tool, and rule must honor.
+
 **Component built?** `AGENTS.md` + `.github/copilot-instructions.md` / `.roo/rules/` filled.
 
 ## Test prompt

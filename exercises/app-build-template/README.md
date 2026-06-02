@@ -57,6 +57,7 @@ and a referenced shell guard — noted inline in the Roo files.
 app-build-template/
 ├── AGENTS.md                       # System prompt — BOTH editors read this
 ├── README.md                       # this file
+├── SEQUENCE.md                      # how the exercises chain — builds on / sets up
 ├── app-brief.md                    # Step 1 — core features, value prop, problem
 ├── TESTING.md                      # Step 4 — copy-paste test probes
 ├── knowledge/                      # Knowledge — domain facts (shared)
@@ -124,6 +125,10 @@ never start with code, and you finish by testing the harness's behavior.
 ```
 
 ### The breakout cadence
+
+The breakouts are **one continuous build** — each consumes the artifact the
+previous one produced and sets up the next (system prompt → skill → tool → hook
+→ knowledge → golden path). The map is in [`SEQUENCE.md`](./SEQUENCE.md).
 
 1. **The facilitator explains** the harness component and the planning step,
    then **illustrates the activity live** — building one component and testing

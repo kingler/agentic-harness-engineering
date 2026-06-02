@@ -1,5 +1,7 @@
 # Eval · Rules + hooks
 
+> **Builds on:** the tool's risky action (case 4-tools) + the system prompt's hard rule.  **Sets up:** safe grounding for knowledge + the golden path.
+
 **Component built?** `.github/hooks/pre-tool-use.sh` enforces your hard rule #1.
 
 ## Test prompt

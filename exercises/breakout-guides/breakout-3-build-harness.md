@@ -6,6 +6,10 @@
 
 ---
 
+> **Exercise chain.** **Builds on ←** Breakout 2's blueprint. **Sets up →** the
+> Day 2 build lab (`exercises/app-build-template/`), where the harness becomes a
+> running app and each component test emits its artifact.
+
 ## Your Goal
 
 Translate your Breakout 2 blueprint into actual harness files. By the end of this session, you'll have a working starter harness: real files that RooCode and GitHub Copilot can read, with your actual design decisions in them — not just template placeholders.

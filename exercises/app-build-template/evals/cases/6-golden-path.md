@@ -1,5 +1,7 @@
 # Eval · Golden path (the headline artifact)
 
+> **Builds on:** every component above (system prompt → skill → tool → hook → knowledge/MCP).  **Sets up:** the live demo and the consistency proof.
+
 **Component built?** all of the above + the `app/` frontend wired to the agent surfaces.
 
 ## Test prompt

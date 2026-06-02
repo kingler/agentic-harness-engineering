@@ -1,5 +1,7 @@
 # Eval · Tools
 
+> **Builds on:** the tool the skill named (case 2-skill).  **Sets up:** the risky action a hook must gate (case 3-rules-hooks).
+
 **Component built?** at least one tool described in `AGENTS.md` + its script in `tools/scripts/`.
 
 ## Test prompt
