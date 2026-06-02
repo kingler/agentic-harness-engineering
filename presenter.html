@@ -20,6 +20,7 @@
     --hot:#F5B942;
     --border:rgba(255,255,255,0.10);
     --border-strong:rgba(255,255,255,0.18);
+    --note-size:24px;
   }
   *{ box-sizing:border-box; }
   html,body{
@@ -29,13 +30,12 @@
     -webkit-font-smoothing:antialiased;
   }
   ::selection{ background:rgba(122,174,255,0.30); color:var(--text-strong); }
-  /** One row: top bar, main (current slide), “up next” — no speaker-note editor. */
   .app{
-    display:grid; grid-template-rows:auto 1fr auto;
+    display:grid; grid-template-rows:auto auto 1fr auto;
     height:100vh;
   }
 
-  /* Top bar */
+  /* ── Top bar ────────────────────────────────────────────────── */
   .topbar{
     display:flex; align-items:center; gap:10px; flex-wrap:wrap;
     padding:12px 22px; background:var(--surface);
@@ -64,6 +64,8 @@
   .btn:active{ background:#222; }
   .btn.primary{ background:var(--accent); color:#000; border-color:var(--accent); }
   .btn.primary:hover{ background:#9DC3FF; border-color:#9DC3FF; color:#000; }
+  .btn.icon{ padding:7px 10px; min-width:34px; display:inline-flex; align-items:center; justify-content:center; }
+  .btn[data-active="true"]{ background:#2a2a2a; border-color:var(--border-strong); color:var(--text-strong); }
   .spacer{ flex:1; }
   .controls{ display:flex; gap:6px; }
   .status{ font-size:11px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; }
@@ -78,9 +80,25 @@
     border:1px solid rgba(122,174,255,0.25);
   }
 
+  /* ── Editor toolbar ─────────────────────────────────────────── */
+  .toolbar{
+    display:flex; align-items:center; gap:6px; flex-wrap:wrap;
+    padding:8px 22px; background:var(--surface-2);
+    border-bottom:1px solid var(--border);
+  }
+  .toolbar .group{ display:flex; gap:4px; padding-right:8px; border-right:1px solid var(--border); }
+  .toolbar .group:last-child{ border-right:0; }
+  .toolbar .btn{ padding:5px 9px; font-size:11px; }
+  .toolbar .btn.icon{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+  .toolbar .label{ font-size:10px; font-weight:700; color:var(--muted); letter-spacing:0.16em; text-transform:uppercase; padding-right:8px; }
+  .save-state{ font-size:11px; color:var(--muted); margin-left:auto; min-height:14px; }
+  .save-state[data-state="saved"]{ color:var(--accent); }
+  .save-state[data-state="dirty"]{ color:var(--hot); }
+
+  /* ── Current slide note (editor host) ──────────────────────── */
   .current{
     padding:24px 32px 16px; overflow:auto;
-    display:flex; flex-direction:column; gap:12px; min-height:0;
+    display:flex; flex-direction:column; gap:10px; min-height:0;
     background:var(--bg);
   }
   .current .label{
@@ -92,10 +110,63 @@
     color:var(--text-strong); margin:0;
     letter-spacing:-0.01em;
   }
-  .current .hint{
-    margin:0; font-size:13px; color:var(--muted); line-height:1.45; max-width:60ch;
+  .editor-host{
+    flex:1; min-height:0; overflow:auto;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:18px 22px;
+    transition:border-color 120ms ease;
+  }
+  .editor-host:focus-within{
+    border-color:var(--border-strong);
+  }
+  .editor-host .ProseMirror{
+    outline:none; min-height:100%;
+    font-size:var(--note-size); line-height:1.55;
+    color:var(--text);
+  }
+  .editor-host .ProseMirror p{ margin:0 0 0.9em 0; }
+  .editor-host .ProseMirror p:last-child{ margin-bottom:0; }
+  .editor-host .ProseMirror h1,
+  .editor-host .ProseMirror h2,
+  .editor-host .ProseMirror h3{
+    color:var(--text-strong); margin:1em 0 0.4em; font-weight:700;
+  }
+  .editor-host .ProseMirror h1{ font-size:1.4em; }
+  .editor-host .ProseMirror h2{ font-size:1.2em; }
+  .editor-host .ProseMirror h3{ font-size:1.05em; }
+  .editor-host .ProseMirror strong{ color:var(--text-strong); }
+  .editor-host .ProseMirror em{ color:var(--text-strong); }
+  .editor-host .ProseMirror code{
+    font-family:'JetBrains Mono', ui-monospace, monospace; font-size:0.9em;
+    background:var(--surface-3); padding:1px 6px; border-radius:4px;
+    color:#E0C68C;
+  }
+  .editor-host .ProseMirror pre{
+    background:var(--surface-3); border:1px solid var(--border);
+    border-radius:6px; padding:12px 14px; overflow:auto;
+    font-family:'JetBrains Mono', ui-monospace, monospace; font-size:0.85em;
+  }
+  .editor-host .ProseMirror ul,
+  .editor-host .ProseMirror ol{ margin:0 0 0.9em 0; padding-left:1.4em; }
+  .editor-host .ProseMirror li{ margin-bottom:0.25em; }
+  .editor-host .ProseMirror blockquote{
+    border-left:3px solid var(--border-strong);
+    padding-left:14px; margin:0.6em 0; color:var(--muted);
+  }
+  .editor-host .ProseMirror p.is-editor-empty:first-child::before{
+    content:attr(data-placeholder);
+    color:var(--muted); float:left; pointer-events:none; height:0;
+  }
+  /* Plain-text fallback rendered by the early bootstrap when Tiptap isn't
+     ready (or never loads). The module replaces it once the editor mounts. */
+  .editor-host .fallback-note{
+    margin:0; white-space:pre-wrap; font-family:inherit;
+    font-size:var(--note-size); line-height:1.55; color:var(--text);
   }
 
+  /* ── Up next panel ─────────────────────────────────────────── */
   .next{
     padding:14px 32px 18px;
     background:var(--surface);
@@ -111,6 +182,10 @@
     font-size:16px; font-weight:600; color:var(--text-strong);
     margin:0;
   }
+  .next .note{
+    font-size:13px; color:var(--muted); line-height:1.5;
+    white-space:pre-wrap; margin:0;
+  }
 
   kbd{
     font-family:'JetBrains Mono', ui-monospace, monospace;
@@ -118,10 +193,12 @@
     background:var(--surface-3); border-radius:4px;
     border:1px solid var(--border-strong); color:var(--text-strong);
   }
+  .hint{ color:var(--muted); font-size:11px; }
 
   @media (max-width: 720px){
     .current{ padding:16px 18px; }
     .next{ padding:12px 18px; }
+    :root{ --note-size:18px; }
   }
 </style>
 </head>
@@ -130,49 +207,372 @@
   <header class="topbar">
     <div class="pill">Slide <span class="num" id="num">—</span> / <span id="total">—</span></div>
     <div class="pill timer" id="timer" title="Elapsed since first sync">00:00:00</div>
-    <button type="button" class="btn" id="resetTimer" title="Reset timer (R)">Reset</button>
+    <button class="btn" id="resetTimer" title="Reset timer (R)">Reset</button>
     <div class="spacer"></div>
     <span id="status"></span>
     <div class="controls">
-      <button type="button" class="btn" id="prev" title="Previous slide (←)">← Prev</button>
-      <button type="button" class="btn primary" id="next" title="Next slide (→ / Space)">Next →</button>
+      <button class="btn" id="prev" title="Previous slide (←)">← Prev</button>
+      <button class="btn primary" id="next" title="Next slide (→ / Space)">Next →</button>
+      <button class="btn icon" id="smaller" title="Smaller text (−)">A−</button>
+      <button class="btn icon" id="bigger" title="Larger text (+)">A+</button>
     </div>
   </header>
+
+  <nav class="toolbar" id="toolbar" aria-label="Note editor toolbar">
+    <span class="label">Edit note</span>
+    <div class="group">
+      <button class="btn icon" data-cmd="bold" title="Bold (⌘B)"><b>B</b></button>
+      <button class="btn icon" data-cmd="italic" title="Italic (⌘I)"><i>I</i></button>
+      <button class="btn icon" data-cmd="strike" title="Strike"><s>S</s></button>
+      <button class="btn icon" data-cmd="code" title="Inline code"><code>{ }</code></button>
+    </div>
+    <div class="group">
+      <button class="btn icon" data-cmd="h2" title="Heading">H2</button>
+      <button class="btn icon" data-cmd="bulletList" title="Bullet list">•</button>
+      <button class="btn icon" data-cmd="orderedList" title="Numbered list">1.</button>
+      <button class="btn icon" data-cmd="blockquote" title="Quote">"</button>
+      <button class="btn icon" data-cmd="codeBlock" title="Code block">⌘</button>
+    </div>
+    <div class="group">
+      <button class="btn icon" data-cmd="undo" title="Undo (⌘Z)">↶</button>
+      <button class="btn icon" data-cmd="redo" title="Redo (⌘⇧Z)">↷</button>
+    </div>
+    <div class="group">
+      <button class="btn" id="revert" title="Revert this slide's note to the deck's original">Revert</button>
+      <button class="btn" id="export" title="Download all notes (with edits) as JSON">Export</button>
+    </div>
+    <span class="save-state" id="saveState"></span>
+  </nav>
 
   <main class="current">
     <div class="label" id="curLabel">Waiting for deck…</div>
     <h1 class="title" id="curTitle">Open the deck and press <kbd>p</kbd> to link this presenter view.</h1>
-    <p class="hint" id="curHint">Slides only — this workshop deck does not bundle speaker notes.</p>
+    <div class="editor-host" id="editorHost"></div>
   </main>
 
-  <section class="next" aria-label="Up next">
+  <section class="next">
     <div class="header">Up next</div>
     <h2 class="title" id="nxtTitle"></h2>
+    <p class="note" id="nxtNote"></p>
   </section>
 </div>
 
+<!-- ── Early-bind bootstrap ──────────────────────────────────────────
+     Runs before the Tiptap module. Owns the BroadcastChannel, requests
+     state from the deck immediately, and renders a plain-text fallback
+     so notes show even if the Tiptap CDN imports fail or stall. The
+     module below upgrades to the rich editor once it loads. -->
 <script>
-(() => {
-  const $ = (id) => document.getElementById(id);
-  const channel = ('BroadcastChannel' in window)
-    ? new BroadcastChannel('agentic-harness-deck')
-    : null;
+  (() => {
+    if (!('BroadcastChannel' in window)) return;
+    const channel = new BroadcastChannel('agentic-harness-deck');
+    const state = { lastSync: null, notes: [] };
+    window.__presenterBoot = { channel, state };
+
+    const $ = id => document.getElementById(id);
+    const setText = (id, text) => { const el = $(id); if (el) el.textContent = text; };
+
+    const renderFallback = (msg) => {
+      // Once the module signals it has the editor, stop touching the host.
+      if (window.__presenterBoot.tiptapReady) return;
+      setText('num', msg.index + 1);
+      setText('total', msg.total);
+      setText('curLabel', msg.label || '');
+      setText('curTitle', msg.title || '(no title)');
+      setText('nxtTitle', msg.nextTitle || msg.nextLabel || '— end of deck —');
+      setText('nxtNote', msg.nextNote || (msg.nextLabel ? '' : "You've reached the last slide."));
+      const host = $('editorHost');
+      if (host) {
+        let pre = host.querySelector('.fallback-note');
+        if (!pre) {
+          host.innerHTML = '';
+          pre = document.createElement('pre');
+          pre.className = 'fallback-note';
+          host.appendChild(pre);
+        }
+        pre.textContent = msg.note || '';
+      }
+      const status = $('status');
+      if (status) status.innerHTML = '';
+    };
+
+    channel.addEventListener('message', (e) => {
+      const msg = e.data;
+      if (!msg) return;
+      if (msg.type === 'sync') {
+        state.lastSync = msg;
+        renderFallback(msg);
+      } else if (msg.type === 'notes') {
+        state.notes = Array.isArray(msg.notes) ? msg.notes.slice() : [];
+      }
+    });
+
+    // Kick the deck for state immediately — no module imports gating this.
+    channel.postMessage({ type: 'request-sync' });
+    channel.postMessage({ type: 'request-notes' });
+  })();
+</script>
+<script type="module">
+  import { Editor } from 'https://esm.sh/@tiptap/core@2.10.3';
+  import StarterKit from 'https://esm.sh/@tiptap/starter-kit@2.10.3';
+  import Placeholder from 'https://esm.sh/@tiptap/extension-placeholder@2.10.3';
+
+  const $ = id => document.getElementById(id);
+  const root = document.documentElement;
+  const STORAGE_PREFIX = 'agentic-harness-presenter:note:';
+  let noteSize = 24;
+  let lastSync = null;
+  let currentIndex = null;
+  let originalNotes = [];          // full notes array, fetched from deck on demand
+  let originalForCurrent = '';     // original text for the slide currently shown
+  let suppressUpdate = false;
+  let saveTimer = null;
+  let blurredOnce = false;
+
+  // ── Cross-tab channel ───────────────────────────────────────────
+  // Prefer the bootstrap's channel so we don't drop messages that arrived
+  // before the module finished loading. Fall back to a fresh one if the
+  // bootstrap didn't run (very old browser, CSP, etc.).
+  const boot = window.__presenterBoot || null;
+  const channel = boot?.channel
+    || (('BroadcastChannel' in window) ? new BroadcastChannel('agentic-harness-deck') : null);
   if (!channel) {
     $('status').innerHTML = '<span class="status warn">No BroadcastChannel</span>';
   }
+  if (boot?.state?.notes?.length) originalNotes = boot.state.notes.slice();
 
-  let lastSync = null;
-  let timerHandle = null;
+  // ── Tiptap editor ───────────────────────────────────────────────
+  // The bootstrap may have left a plain-text fallback inside #editorHost.
+  // Clear it so Tiptap mounts into a clean container.
+  $('editorHost').innerHTML = '';
+  const editor = new Editor({
+    element: $('editorHost'),
+    extensions: [
+      StarterKit.configure({
+        codeBlock: { HTMLAttributes: { class: 'code-block' } },
+      }),
+      Placeholder.configure({
+        placeholder: 'Type to edit this slide’s speaker note. Edits are saved locally to your browser.',
+      }),
+    ],
+    content: '<p></p>',
+    autofocus: false,
+    editable: true,
+    onUpdate({ editor }) {
+      if (suppressUpdate || currentIndex == null) return;
+      markDirty();
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => persist(currentIndex, editor), 350);
+    },
+    onSelectionUpdate(){ refreshToolbar(); },
+    onTransaction(){ refreshToolbar(); },
+  });
+  // Tell the bootstrap to stop overwriting the host with plain text.
+  if (boot) boot.tiptapReady = true;
+
+  // ── Storage helpers ─────────────────────────────────────────────
+  const keyFor = i => STORAGE_PREFIX + i;
+  const loadOverride = i => {
+    try {
+      const raw = localStorage.getItem(keyFor(i));
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  };
+  const saveOverride = (i, html, text) => {
+    try {
+      localStorage.setItem(keyFor(i), JSON.stringify({ html, text, savedAt: Date.now() }));
+    } catch {}
+  };
+  const clearOverride = i => {
+    try { localStorage.removeItem(keyFor(i)); } catch {}
+  };
+
+  // ── Convert plain text → simple HTML for editor ────────────────
+  const escapeHTML = s => String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;');
+  const noteToHTML = s => {
+    if (!s || !s.trim()) return '<p></p>';
+    return s.split(/\n\n+/).map(p =>
+      `<p>${escapeHTML(p).replace(/\n/g, '<br>')}</p>`
+    ).join('');
+  };
+
+  // ── Persist + dirty indicator ──────────────────────────────────
+  const markDirty = () => {
+    $('saveState').dataset.state = 'dirty';
+    $('saveState').textContent = 'Editing…';
+  };
+  const markSaved = () => {
+    $('saveState').dataset.state = 'saved';
+    $('saveState').textContent = 'Saved locally';
+    setTimeout(() => {
+      if ($('saveState').dataset.state === 'saved') $('saveState').textContent = '';
+    }, 1500);
+  };
+  const persist = (i, ed) => {
+    const html = ed.getHTML();
+    const text = ed.getText().trim();
+    const isOriginal = text === (originalForCurrent || '').trim();
+    if (isOriginal) clearOverride(i);
+    else saveOverride(i, html, text);
+    markSaved();
+  };
+
+  // ── Render a sync message ──────────────────────────────────────
+  const setNoteSize = n => {
+    noteSize = Math.max(12, Math.min(48, n));
+    root.style.setProperty('--note-size', noteSize + 'px');
+  };
+  $('bigger').addEventListener('click', () => setNoteSize(noteSize + 2));
+  $('smaller').addEventListener('click', () => setNoteSize(noteSize - 2));
+
+  const apply = msg => {
+    lastSync = msg;
+    currentIndex = msg.index;
+    originalForCurrent = msg.note || '';
+    $('num').textContent = msg.index + 1;
+    $('total').textContent = msg.total;
+    $('curLabel').textContent = msg.label || '';
+    $('curTitle').textContent = msg.title || '(no title)';
+
+    // Prefer locally-edited content if present.
+    const stored = loadOverride(msg.index);
+    const html = stored?.html ?? noteToHTML(msg.note);
+    suppressUpdate = true;
+    editor.commands.setContent(html, false);
+    suppressUpdate = false;
+
+    if (stored) {
+      $('saveState').dataset.state = 'saved';
+      $('saveState').textContent = 'Local edits applied';
+      setTimeout(() => { if ($('saveState').dataset.state === 'saved') $('saveState').textContent = ''; }, 1800);
+    } else {
+      $('saveState').textContent = '';
+      $('saveState').removeAttribute('data-state');
+    }
+
+    $('nxtTitle').textContent = msg.nextTitle || msg.nextLabel || '— end of deck —';
+    $('nxtNote').textContent = msg.nextNote || (msg.nextLabel ? '' : "You've reached the last slide.");
+    $('status').innerHTML = '';
+    startTimer();
+    refreshToolbar();
+  };
+
+  // ── Receive sync from deck ────────────────────────────────────
+  if (channel) {
+    channel.addEventListener('message', e => {
+      const msg = e.data;
+      if (!msg) return;
+      if (msg.type === 'sync') apply(msg);
+      else if (msg.type === 'notes') {
+        originalNotes = Array.isArray(msg.notes) ? msg.notes.slice() : [];
+      }
+    });
+  }
+
+  // ── Send nav back to deck ─────────────────────────────────────
+  const nav = dir => channel?.postMessage({ type: 'nav', dir });
+  $('prev').addEventListener('click', () => nav('prev'));
+  $('next').addEventListener('click', () => nav('next'));
+
+  // Don't hijack keys while user is typing in the editor.
+  const isInEditor = el => el && (el.classList?.contains('ProseMirror') || el.closest?.('.ProseMirror'));
+  document.addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey) return;
+    const t = e.target;
+    if (t && (t.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(t.tagName))) {
+      if (e.key === 'Escape') t.blur();
+      return;
+    }
+    let handled = true;
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') nav('prev');
+    else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') nav('next');
+    else if (e.key === '+' || e.key === '=') setNoteSize(noteSize + 2);
+    else if (e.key === '-' || e.key === '_') setNoteSize(noteSize - 2);
+    else if (e.key === 'r' || e.key === 'R') resetTimer();
+    else if (e.key === 'f' || e.key === 'F') {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen?.();
+    }
+    else handled = false;
+    if (handled) e.preventDefault();
+  });
+
+  // ── Toolbar wiring ────────────────────────────────────────────
+  const cmds = {
+    bold:        () => editor.chain().focus().toggleBold().run(),
+    italic:      () => editor.chain().focus().toggleItalic().run(),
+    strike:      () => editor.chain().focus().toggleStrike().run(),
+    code:        () => editor.chain().focus().toggleCode().run(),
+    h2:          () => editor.chain().focus().toggleHeading({ level: 2 }).run(),
+    bulletList:  () => editor.chain().focus().toggleBulletList().run(),
+    orderedList: () => editor.chain().focus().toggleOrderedList().run(),
+    blockquote:  () => editor.chain().focus().toggleBlockquote().run(),
+    codeBlock:   () => editor.chain().focus().toggleCodeBlock().run(),
+    undo:        () => editor.chain().focus().undo().run(),
+    redo:        () => editor.chain().focus().redo().run(),
+  };
+  document.querySelectorAll('[data-cmd]').forEach(b => {
+    b.addEventListener('click', () => cmds[b.dataset.cmd]?.());
+  });
+  const refreshToolbar = () => {
+    document.querySelectorAll('[data-cmd]').forEach(b => {
+      const c = b.dataset.cmd;
+      let active = false;
+      try {
+        if (c === 'h2') active = editor.isActive('heading', { level: 2 });
+        else active = editor.isActive(c);
+      } catch {}
+      b.dataset.active = active ? 'true' : 'false';
+    });
+  };
+
+  // ── Revert + Export ───────────────────────────────────────────
+  $('revert').addEventListener('click', () => {
+    if (currentIndex == null) return;
+    if (!confirm("Discard local edits to this slide's note and revert to the deck's original?")) return;
+    clearOverride(currentIndex);
+    suppressUpdate = true;
+    editor.commands.setContent(noteToHTML(originalForCurrent), false);
+    suppressUpdate = false;
+    $('saveState').dataset.state = 'saved';
+    $('saveState').textContent = 'Reverted';
+    setTimeout(() => { if ($('saveState').dataset.state === 'saved') $('saveState').textContent = ''; }, 1500);
+    refreshToolbar();
+  });
+
+  $('export').addEventListener('click', async () => {
+    // Ask deck for the latest full notes array, then merge local overrides.
+    if (channel) channel.postMessage({ type: 'request-notes' });
+    // Give the deck a beat to respond before reading.
+    await new Promise(r => setTimeout(r, 120));
+    const merged = (originalNotes.length ? originalNotes : Array.from({ length: lastSync?.total || 0 }, () => ''))
+      .map((orig, i) => {
+        const o = loadOverride(i);
+        return o?.text ?? orig;
+      });
+    const blob = new Blob([JSON.stringify(merged, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+    a.download = `speaker-notes-${stamp}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  // ── Timer ─────────────────────────────────────────────────────
   let startedAt = null;
-
-  const fmt = (s) => {
+  let timerHandle = null;
+  const fmt = s => {
     s = Math.max(0, Math.floor(s));
     const h = String(Math.floor(s / 3600)).padStart(2, '0');
     const m = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
     const sec = String(s % 60).padStart(2, '0');
     return `${h}:${m}:${sec}`;
   };
-
   const startTimer = () => {
     if (timerHandle) return;
     if (!startedAt) startedAt = Date.now();
@@ -180,59 +580,24 @@
       $('timer').textContent = fmt((Date.now() - startedAt) / 1000);
     }, 250);
   };
-
   const resetTimer = () => {
     startedAt = Date.now();
     $('timer').textContent = '00:00:00';
   };
-
-  const apply = (msg) => {
-    lastSync = msg;
-    $('num').textContent = msg.index + 1;
-    $('total').textContent = msg.total;
-    $('curLabel').textContent = msg.label || '';
-    $('curTitle').textContent = msg.title || '(no title)';
-    $('nxtTitle').textContent = msg.nextTitle || msg.nextLabel || '— end of deck —';
-    $('status').innerHTML = '';
-    startTimer();
-  };
-
-  if (channel) {
-    channel.addEventListener('message', (e) => {
-      const msg = e.data;
-      if (!msg) return;
-      if (msg.type === 'sync') apply(msg);
-    });
-  }
-
-  const nav = (dir) => channel?.postMessage({ type: 'nav', dir });
-  $('prev').addEventListener('click', () => nav('prev'));
-  $('next').addEventListener('click', () => nav('next'));
   $('resetTimer').addEventListener('click', resetTimer);
 
-  document.addEventListener('keydown', (e) => {
-    if (e.metaKey || e.ctrlKey) return;
-    const t = e.target;
-    if (t && /INPUT|TEXTAREA|SELECT/.test(t.tagName)) return;
-    let handled = true;
-    if (e.key === 'ArrowLeft' || e.key === 'PageUp') nav('prev');
-    else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') nav('next');
-    else if (e.key === 'r' || e.key === 'R') resetTimer();
-    else if (e.key === 'f' || e.key === 'F') {
-      if (document.fullscreenElement) document.exitFullscreen();
-      else document.documentElement.requestFullscreen?.();
-    } else handled = false;
-    if (handled) e.preventDefault();
-  });
-
+  // ── Connect ───────────────────────────────────────────────────
+  // Replay anything the bootstrap captured while Tiptap was loading,
+  // then ask the deck for a fresh sync as a belt-and-suspenders nudge.
+  if (boot?.state?.lastSync) apply(boot.state.lastSync);
   channel?.postMessage({ type: 'request-sync' });
+  channel?.postMessage({ type: 'request-notes' });
 
   setTimeout(() => {
     if (!lastSync) {
       $('status').innerHTML = '<span class="status warn">Waiting for deck</span>';
     }
   }, 1500);
-})();
 </script>
 </body>
 </html>
