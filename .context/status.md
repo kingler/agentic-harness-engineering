@@ -37,6 +37,21 @@ Workshop redesign + harness templates merge (`a064931`):
 - `claude/context-prime-setup-ZbGZO` — root README, `.context/`
   directory, and pinned MCP package versions for the workshop.
 
+## Participant-experience pass (app-build-template)
+
+Added to smooth the end-to-end journey: `SETUP.md` (install + a one-prompt
+model-access smoke test), `PROGRESS.md` (whole-journey checklist),
+`EDITOR-PARITY.md` (Copilot vs Roo matrix + the hooks fallback), and `labs/`
+(five consolidated component lab cards + a "which guide when" map and group
+roles). `/bootstrap-harness` now augments Day-1 work instead of overwriting it.
+Deck env slide points at the smoke test, labs, and PROGRESS.
+
+**Open decision — deck entry point.** `index.html` is itself a ~20-section
+reveal.js "Anatomy" deck (NOT an empty placeholder, despite the note below).
+The current workshop deck is `Agentic Harness Engineering.html` (filename has
+spaces). Making the site root serve the current deck needs a user call — do not
+overwrite `index.html` without confirming, or that older deck is lost.
+
 ## Known rough edges
 
 - `index.html` is still a generic reveal.js placeholder; the actual

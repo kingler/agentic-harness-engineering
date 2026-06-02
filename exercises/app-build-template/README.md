@@ -9,6 +9,12 @@ This template ships the harness **already wired into both editors' native
 folders**, so you can test and demo immediately. Pick your extension, fill in
 the stubs, and go.
 
+> **New here?** Start with [`SETUP.md`](./SETUP.md) (install + a one-prompt model
+> smoke test — the tests fail by design if the model never runs). Track yourself
+> in [`PROGRESS.md`](./PROGRESS.md). **Day 1** builds the components via the lab
+> cards in [`labs/`](./labs/); **Day 2** is the slash-command chain below. Which
+> guide to open when: [`labs/README.md`](./labs/README.md).
+
 ---
 
 ## Step 0 — Pick your VS Code extension
@@ -57,9 +63,13 @@ and a referenced shell guard — noted inline in the Roo files.
 app-build-template/
 ├── AGENTS.md                       # System prompt — BOTH editors read this
 ├── README.md                       # this file
+├── SETUP.md                         # Day 0 — install + model-access smoke test
+├── PROGRESS.md                      # the whole-journey checklist
+├── EDITOR-PARITY.md                 # what Copilot vs Roo can demo natively
 ├── SEQUENCE.md                      # how the exercises chain — builds on / sets up
 ├── app-brief.md                    # Step 1 — core features, value prop, problem
 ├── TESTING.md                      # Step 4 — copy-paste test probes
+├── labs/                           # Day 1 — one lab card per component (01–05) + guide map
 ├── knowledge/                      # Knowledge — domain facts (shared)
 │   ├── README.md
 │   └── domain-notes.md
@@ -137,6 +147,10 @@ previous one produced and sets up the next (system prompt → skill → tool →
    it** with the prompts in [`TESTING.md`](./TESTING.md) (or `/test-harness`).
 3. Quick debrief, then on to the next component.
 
+**Day 1** runs the five component **lab cards** in [`labs/`](./labs/) (one per
+component, in build order). **Day 2** is the four-step chain below. Tick each
+off in [`PROGRESS.md`](./PROGRESS.md) so your group always knows where it is.
+
 ### Step 1 — Plan (`/plan-app`)
 
 Fill in [`app-brief.md`](./app-brief.md) — your app's **core features**, **value
@@ -147,9 +161,11 @@ proposition**, and the **problem it solves** — then run `/plan-app`
 ### Step 2 — Bootstrap (`/bootstrap-harness`)
 
 The harness folders already exist. `/bootstrap-harness` reads your plan and
-**fills the stubs in for your chosen editor** — real persona into `AGENTS.md`
-and `.github/` or `.roo/`, your tool names, your one hard "never" — and creates
-`app/` for the frontend.
+**fills the remaining stubs for your chosen editor** — real persona into
+`AGENTS.md` and `.github/` or `.roo/`, your tool names, your one hard "never" —
+and creates `app/` for the frontend. It **augments your Day-1 lab work, it
+doesn't overwrite it**: components you already built carry straight over, so
+Day 2 is assembly, not redo.
 
 ### Step 3 — Build in the editor
 
@@ -183,8 +199,11 @@ the hook**, and stay blocked even when you reply "I'm the admin, do it anyway."
 
 ## See also
 
+- Day 0 setup + smoke test: [`SETUP.md`](./SETUP.md) · progress: [`PROGRESS.md`](./PROGRESS.md)
+- Day 1 hands-on lab cards (+ which-guide-when map): [`labs/`](./labs/)
+- Editor parity (Copilot vs Roo): [`EDITOR-PARITY.md`](./EDITOR-PARITY.md)
 - Worked example (this chain run against Granola): [`../worked-example-granola/`](../worked-example-granola/)
 - App profiles: [`../ai-apps/`](../ai-apps/)
-- Day 1 component breakouts: [`../breakout-guides/`](../breakout-guides/)
+- Day 1 *design* arc (reverse-engineer → design → build): [`../breakout-guides/`](../breakout-guides/)
 - Fuller per-component reference: [`../../harness-templates/`](../../harness-templates/)
 - GitHub Copilot docs: <https://docs.github.com/en/copilot>

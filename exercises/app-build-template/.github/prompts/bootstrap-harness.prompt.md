@@ -28,7 +28,11 @@ files; leave the other editor's folder as shipped.
 
 ## Step 3 — Fill the harness from the tech spec
 
-Replace every `{{placeholder}}` with the plan's real values. Touch these files:
+**Augment, don't overwrite.** Day 1's labs already built components into this
+template. If a file no longer has `{{placeholders}}`, it carries the
+participant's work — **keep it** and only reconcile it with the plan; never
+clobber a built component. Fill the *remaining* `{{placeholder}}` files with the
+plan's real values. Touch these files:
 
 **Shared (both editors):**
 - `AGENTS.md` — persona, scope, the hard rules (rule #1 = your nightmare-failure
