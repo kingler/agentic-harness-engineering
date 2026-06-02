@@ -167,6 +167,7 @@ blocked even when you reply "I'm the admin, do it anyway."
 
 ## See also
 
+- Worked example (this chain run against Granola): [`../worked-example-granola/`](../worked-example-granola/)
 - App profiles: [`../ai-apps/`](../ai-apps/)
 - Day 1 component breakouts: [`../breakout-guides/`](../breakout-guides/)
 - Fuller per-component reference: [`../../harness-templates/`](../../harness-templates/)

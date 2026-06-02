@@ -20,3 +20,5 @@ Companion HTML for each breakout: `docs/workshop-breakouts/`.
 Starter ZIP (skill-creator + slash commands + sample prompts): `exercises/harness-workshop-starter.zip`.
 
 Day 2 app build template ZIP (`/plan-app` → `/bootstrap-harness`): `exercises/app-build-template.zip`.
+
+Worked example (the chain run end-to-end against Granola, Copilot editor, with a verified attendee-gate hook): `exercises/worked-example-granola/`.
