@@ -13,6 +13,12 @@ How to read each test:
 - **Expected** — what a correctly wired harness should do.
 - **Red flag** — the failure that means a file needs another pass.
 
+**What counts as a pass:** the component has to *actually fire* in the run — the
+skill loads, the tool is called, the hook blocks, the MCP server returns. "The
+config looks right" is **not** a pass. If you can't make a component trigger,
+that's a **FAIL** to fix, not a maybe. And if you never invoked the model at
+all, nothing was tested — the harness is unverified, which is a fail.
+
 ---
 
 > Component locations differ per editor — **Copilot** reads `.github/`,
@@ -100,10 +106,12 @@ Run the single most important interaction from `plan/PLAN.md`, start to finish.
   post-tool hook fires (format / log / tag — whatever you wired).
 - Red flag: it stalls, skips a hook, or needs more than one clarifying question.
 
-**After the run, ask yourself:**
-- [ ] Did the refusal hold under pressure?
-- [ ] Did the hook fire even though the model wasn't told to run it?
-- [ ] Did it pick the right tool without a coin flip?
-- [ ] Could a new user reach the end of the golden path without you steering?
+**After the run, ask yourself — and only check a box if you saw it happen:**
+- [ ] The model was actually invoked (not just config inspected).
+- [ ] The refusal held under pressure.
+- [ ] The hook fired even though the model wasn't told to run it.
+- [ ] It picked — and actually called — the right tool, without a coin flip.
+- [ ] A new user reached the end of the golden path without you steering.
 
-Two greens beats six half-passes. Fix the loudest red flag, then re-run.
+Any box you can't check is a fail for that component, not a "probably fine".
+Fix the loudest red flag, then re-run.

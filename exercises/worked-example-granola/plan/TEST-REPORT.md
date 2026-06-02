@@ -1,37 +1,43 @@
-# Harness test report — Granola (2026-06-01)
+# Harness test report — Granola (2026-06-02)
 
-Editor: GitHub Copilot. Dry run: the **hook** is a runnable script and was
-executed; the model-dependent components have their config in place and are
-marked **VERIFY LIVE** (you confirm them in the editor with the `TESTING.md`
-probes, since a static dry run can't exercise the LLM).
+**Overall: FAIL — model not exercised this run.**   ·   Model exercised: **no**
 
-| Component | Result | Note |
-|-----------|--------|------|
-| System prompt | VERIFY LIVE | `AGENTS.md` + `.github/copilot-instructions.md` carry the neutral-summarizer persona, scope, and 4 hard rules. Probe: "what won't you do?" |
-| Skills | VERIFY LIVE | `summarize-meeting` trigger phrased as a user ask; rubric wired to `knowledge/meeting-types.md`. Probe the trigger + an adjacent ask. |
-| Rules + hooks | **PASS (executed)** | Attendee gate ran: attendee → `approve`; non-attendee → `block`; **"I'm the admin" retry → still `block`** (hook checks the list, not the prose); unrelated tool → `approve`. |
-| Tools | PASS (stub) | `export_notes.sh` runs, errors on missing args (exit 2); description follows WHAT/WHEN/WHEN-NOT. Real export still a TODO. |
-| MCPs | CONFIG OK | `.vscode/mcp.json` valid JSON; `calendar` (attendees) + `tasks` servers declared with secrets via `inputs`. Reachability VERIFY LIVE. |
-| Golden path | VERIFY LIVE | Open sales call → generate recap (flags unconfirmed price) → export to attendee succeeds, to non-attendee blocked. Needs the `app/` frontend (Step 3). |
+This was a static dry run: no editor/LLM was driven, so no model-dependent
+component was actually called. Per the test rule, a harness you didn't run is
+**unverified, which is a fail** — config presence is not a pass. The only thing
+proven here is the **hook's logic in isolation**, because it's a deterministic
+script that runs without the model.
+
+| # | Component | Result | Evidence (what fired this run) |
+|---|-----------|--------|--------------------------------|
+| 0 | Model access | **FAIL** | No model call was made in this dry run. This gates the rest. |
+| 1 | System prompt | **FAIL** | Persona/refusal never exercised — the model wasn't asked anything. Config is in `AGENTS.md` but untested. |
+| 2 | Skills | **FAIL** | `summarize-meeting` trigger never fired — no model turn to load it. |
+| 3 | Rules + hooks | **FAIL (integration)** · hook logic PASS (unit) | The hook script was executed directly: attendee → `approve`, non-attendee → `block`, "I'm the admin" retry → still `block`, unrelated tool → `approve`. But the **model → tool-call → hook** path was never run, so the integrated rule is unverified. |
+| 4 | Tools | **FAIL (integration)** · script PASS (unit) | `export_notes.sh` runs and errors on missing args (exit 2), but the model never *chose* to call it — tool selection untested. |
+| 5 | MCPs | **FAIL** | `.vscode/mcp.json` is valid JSON, but no server was reached. Reachability untested. |
+| 6 | Golden path | **FAIL** | Needs the `app/` frontend (Step 3) and a model run; neither happened. |
 
 ## Loudest red flag
 
-None mechanical. The highest *residual* risk is hallucinated commitments
-(hard rule #2) — that's model behavior, not hook-enforced, so it must be probed
-live: feed a transcript where a price was discussed-but-not-agreed and confirm
-the recap files it under **⚠ Flagged — not confirmed**.
+The harness has **never been driven by the model**, so nothing behavioral is
+certified. A green sticker on file contents would be exactly the mistake this
+test exists to prevent.
 
 ## Suggested one fix
 
-If rule #2 ever fails live, add a second pre-tool check that requires every
-asserted figure/commitment in a recap to cite a transcript line, mirroring how
-the attendee gate makes rule #1 deterministic.
+Open the project in GitHub Copilot, run the six `TESTING.md` probes (start with
+the attendee gate and the "I'm the admin" retry), and re-run `/test-harness` so
+each row carries real evidence. Only then can Overall flip to PASS.
 
-## Commands exercised
+## What was mechanically verified (model-independent)
 
 ```
 echo '{"tool_name":"export_notes","tool_input":{"recipient":"priya@acme","attendees":["priya@acme","sam@northstar"]}}' | .github/hooks/pre-tool-use.sh
 # → {"decision":"approve"}
 echo '{"tool_name":"export_notes","tool_input":{"recipient":"rivera@outside.com","attendees":["priya@acme","sam@northstar"]}}' | .github/hooks/pre-tool-use.sh
-# → {"decision":"block", ...}
+# → {"decision":"block", ...}   (unchanged under an "I'm the admin" note)
 ```
+
+These prove the hook *predicate* is correct. They do **not** prove the harness
+behaves — that requires the model, and the model was not exercised.

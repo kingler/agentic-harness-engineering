@@ -16,6 +16,13 @@
 | 2 | `/bootstrap-harness` (editor: Copilot) | filled `AGENTS.md`, `.github/**`, `.vscode/mcp.json`, `knowledge/`, `tools/`, `app/`, `memory/` |
 | 3 | `/test-harness` | `plan/TEST-REPORT.md` |
 
+> The `plan/TEST-REPORT.md` here comes back **FAIL on purpose.** This dry run
+> never invoked a model, and the test rule is strict: a harness you didn't
+> actually exercise is *unverified*, which is a fail — config presence is not a
+> pass. Only the deterministic hook logic was unit-proven (it runs without the
+> model). Open the project in Copilot, run the `TESTING.md` probes, and re-run
+> `/test-harness` to turn the rows green with real evidence.
+
 The Roo Code / DevGPT folder is left mostly as shipped — bootstrap fills one
 editor; only the mirrored rules (`.roo/rules/02-hard-rules.md`) were synced.
 
