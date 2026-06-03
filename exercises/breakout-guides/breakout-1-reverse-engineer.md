@@ -50,6 +50,9 @@ What does it do that you wouldn't have expected? These are often the most intere
 **What's frustrating or inconsistent?**  
 Failures often reveal the limits of the harness — where the designers ran out of control.
 
+**What does the app's *domain* demand?**  
+Your app is a **vertical** tool — its hardest harness decisions come from the domain, not the UI. Start from its profile in `exercises/ai-apps/`, and if you have a device, take ~2 minutes to look up the domain's real workflow and the trust / compliance constraints practitioners take for granted (legal → privilege & citations; finance → auditability & disclosure; meetings → recording consent). Mark what you **confirmed** vs. what you're **inferring** — you'll turn these into rules and hooks in Breakout 2.
+
 ---
 
 ## Step 2 — Map the 6 Harness Components (12 min)
