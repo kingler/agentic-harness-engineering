@@ -101,6 +101,55 @@
     <b>The mental model.</b> "If a bullet survives multiple releases, promote it from <code>memory/</code> to <code>knowledge/</code>." Run that test on anything you write in <code>memory/SESSION.md</code> at the end of the session.
   </div>
 
+  <section class="copilot-howto" aria-label="Do this in GitHub Copilot">
+    <h3><span class="gh-mark">⌘</span>Intro demo — do this in GitHub Copilot</h3>
+    <p class="sub">The slow tier is plain files you pull in on demand with <code>#</code>; the fast tier is a session scaffold. Copilot also has <b>Copilot Memory</b> (Pro / Pro+ / Max) — facts it works out about a repo and reuses, which the cloud agent picks up automatically.</p>
+
+    <ol class="gh-steps">
+      <li>Durable facts → a <span class="file-path">knowledge/</span> folder of markdown. Pull one into a turn by typing <code>#knowledge/&lt;file&gt;.md</code> (or the <kbd>➕ Add Context</kbd> button) — progressive disclosure, not always-on.</li>
+      <li>Session state → <span class="file-path">memory/SESSION.md</span>. Add it to <code>.gitignore</code> if your team's policy is "session memory never lands in git."</li>
+      <li>Enable <b>Copilot Memory</b> in settings so Copilot stores repo-specific facts it derives and reuses them next session.</li>
+      <li>The carve-out test: survives multiple releases → <code>knowledge/</code>; changes per session → <code>memory/</code>.</li>
+    </ol>
+
+    <figure class="vsc-shot">
+      <!-- SWAP-IN: replace the <div class="vsc">…</div> below with
+           <img src="../assets/copilot-knowledge-memory.png" alt="Referencing a knowledge file and Copilot Memory"> -->
+      <div class="vsc" role="img" aria-label="VS Code showing a knowledge file referenced with # in Copilot chat and a Copilot Memory note">
+        <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">meeting-types.md — granola-harness</span></div>
+        <div class="vsc-main">
+          <aside class="vsc-side">
+            <div class="grp">Explorer</div>
+            <div class="row dir">▾ knowledge</div>
+            <div class="row sel lvl2">meeting-types.md</div>
+            <div class="row lvl2">action-item-format.md</div>
+            <div class="row dir">▾ memory</div>
+            <div class="row lvl2">SESSION.md <span class="mut">· gitignored</span></div>
+          </aside>
+          <div class="vsc-edit">
+            <div class="ln h"># Meeting types</div>
+            <div class="ln g">Durable taxonomy — changes quarterly.</div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln"><span class="kw">## 1:1</span></div>
+            <div class="ln g">Recap shape: blockers, decisions,</div>
+            <div class="ln g">follow-ups. No attendee list needed.</div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln"><span class="kw">## Standup</span></div>
+            <div class="ln g">Recap shape: per-person status…</div>
+          </div>
+          <aside class="vsc-chat">
+            <div class="ttl"><span class="ci">✦</span> Copilot · Agent</div>
+            <div class="vsc-chip"># knowledge/meeting-types.md</div>
+            <div class="vsc-bubble me">Recap this standup using our rubric →</div>
+            <div class="vsc-tag">🧠 Copilot Memory · saved "team uses 1:1 + standup shapes"</div>
+            <div class="vsc-input"><span class="cmd">#</span> knowledge/…</div>
+          </aside>
+        </div>
+      </div>
+      <figcaption>Figure · A <b>knowledge/</b> file pulled into a turn with <code>#</code>, a gitignored <b>memory/SESSION.md</b>, and a <b>Copilot Memory</b> save. (Mockup — swap in a real capture in <code class="inline">assets/</code>.)</figcaption>
+    </figure>
+  </section>
+
   <h2><span class="step-num">5</span>Pressure-test the carve-out</h2>
   <p>Open both files side by side. For every bullet, ask: does this change quarterly or per-session? If quarterly, it belongs in <code>knowledge/</code>. If per-session, <code>memory/</code>. Move anything that's in the wrong file.</p>
 

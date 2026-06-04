@@ -99,6 +99,62 @@ cp harness-templates/AGENTS.md harness-templates/mcp.json .</pre>
     <b>What you'll get back.</b> A draft <code>AGENTS.md</code> at the repo root with sections for Identity · Scope · Hard rules · Tools · When stuck. Under 200 lines. If <code>AGENTS.md</code> already exists, the agent writes <code>AGENTS.draft.md</code> for you to diff.
   </div>
 
+  <section class="copilot-howto" aria-label="Do this in GitHub Copilot">
+    <h3><span class="gh-mark">⌘</span>Intro demo — do this in GitHub Copilot</h3>
+    <p class="sub">The persona + rules become a <b>custom agent</b> (a reusable Copilot teammate) backed by always-on <b>custom instructions</b>. The slash command writes the same files; this is the native UI your group will drive after the demo.</p>
+
+    <ol class="gh-steps">
+      <li>In the <b>Chat</b> view, click the <kbd>⚙ Configure Chat</kbd> gear → <b>Agents</b> → <b>New custom agent…</b> (or <kbd>⌘⇧P</kbd> → <code>Chat: New Agent File</code>).</li>
+      <li>Save it to the workspace path <span class="file-path">.github/agents/&lt;name&gt;.agent.md</span> so it ships with the repo.</li>
+      <li>Fill the YAML frontmatter — <code>description</code> (when to pick this agent), <code>tools</code>, and optional <code>model</code> / <code>handoffs</code>.</li>
+      <li>Write the body: your Identity · Scope · Hard rules from <code>AGENTS.md</code>. Reference a tool inline with <code>#tool:&lt;name&gt;</code>.</li>
+      <li>Pick it from the <b>agent dropdown</b> in the chat input to run the session as that persona. Always-on rules go in <span class="file-path">.github/copilot-instructions.md</span> (generate with <code>/init</code>).</li>
+    </ol>
+
+    <figure class="vsc-shot">
+      <!-- SWAP-IN: replace the <div class="vsc">…</div> below with
+           <img src="../assets/copilot-create-agent.png" alt="Creating a custom agent in GitHub Copilot"> -->
+      <div class="vsc" role="img" aria-label="VS Code with a Copilot custom agent file open and the agent picker showing the custom agent">
+        <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">reviewer.agent.md — harvey-harness</span></div>
+        <div class="vsc-main">
+          <aside class="vsc-side">
+            <div class="grp">Explorer</div>
+            <div class="row dir">▾ .github</div>
+            <div class="row dir lvl2">▾ agents</div>
+            <div class="row sel lvl3">reviewer.agent.md</div>
+            <div class="row lvl3">planner.agent.md</div>
+            <div class="row lvl2 mut">copilot-instructions.md</div>
+          </aside>
+          <div class="vsc-edit">
+            <div class="ln fm">---</div>
+            <div class="ln"><span class="k">description</span>: <span class="s">Read-only reviewer. Checks a</span></div>
+            <div class="ln"><span class="s">  change against the harness rules.</span></div>
+            <div class="ln"><span class="k">tools</span>: [<span class="s">codebase</span>, <span class="s">search</span>]</div>
+            <div class="ln"><span class="k">model</span>: <span class="s">Claude Sonnet 4.6</span></div>
+            <div class="ln fm">---</div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln h"># Reviewer (custom agent)</div>
+            <div class="ln g">You are a read-only reviewer. You do</div>
+            <div class="ln g">not edit files. Read the change, the</div>
+            <div class="ln g">rules, the plan → return a verdict.</div>
+          </div>
+          <aside class="vsc-chat">
+            <div class="ttl"><span class="ci">✦</span> Copilot · pick agent</div>
+            <div class="vsc-pick">
+              <div class="opt">Ask</div>
+              <div class="opt">Agent</div>
+              <div class="opt on">reviewer <span class="badge">CUSTOM</span></div>
+              <div class="opt">planner <span class="badge">CUSTOM</span></div>
+            </div>
+            <div class="vsc-bubble">Selected <b>reviewer</b> — read-only tools, Sonnet 4.6. Ready when you are.</div>
+            <div class="vsc-input"><span class="cmd">/create-agent</span> a read-only reviewer…</div>
+          </aside>
+        </div>
+      </div>
+      <figcaption>Figure · <b>.github/agents/&lt;name&gt;.agent.md</b> in the editor, with the new agent live in the Copilot agent picker. (Mockup — swap in a real capture in <code class="inline">assets/</code>.)</figcaption>
+    </figure>
+  </section>
+
   <h2><span class="step-num">5</span>Pressure-test the draft</h2>
   <p>Before you ship it, read the draft as if you were the model trying to argue your way past every rule. Tighten any vague tool name. Re-run <code class="inline">/draft-system-prompt</code> with the corrections — it's idempotent.</p>
 
