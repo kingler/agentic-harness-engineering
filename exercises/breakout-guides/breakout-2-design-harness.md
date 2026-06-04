@@ -51,6 +51,9 @@ Write one-sentence answers to each:
 **What's the nightmare failure mode?**  
 (What's the worst thing that could go wrong? This shapes your hooks and permissions.)
 
+**What does the domain require by default?**  
+Pull the domain constraints from your Breakout 1 notes (skim the app's profile in `exercises/ai-apps/` if you didn't capture them). These are the non-negotiables your domain assumes — legal → privilege & citations; finance → auditability & disclosure; meetings → recording consent. Treat each as a candidate **hard rule or hook** when you reach Decision 4.
+
 ---
 
 ## Step 2 — Make the 6 Harness Decisions (15 min)
