@@ -6,8 +6,12 @@ By the end you don't have six fragments — you have one harness that generates 
 headline artifact end to end.
 
 ```
-Day 1 — build the components, in order:
+Day 1 — PLANNING PHASE first (breakout-guides/), then build the components:
 
+ pick app ─▶ P1 Reverse-engineer ─▶ P2 Research the domain ─▶ P3 Design
+                harness map              domain map              blueprint
+                                                                     │
+                                                                     ▼
  B1 System prompt ─▶ B2 Skills ─▶ B3 Tools ─▶ B4 Rules+Hooks ─▶ B5 Knowledge+Memory
    AGENTS.md          SKILL.md     tool+script   pre-tool hook     knowledge/ + memory/
         │                │             │              │                    │
@@ -23,7 +27,10 @@ Day 2 — assemble & prove it:
 
 | # | Exercise | Builds on (input) | You produce | Sets up (for next) |
 |---|----------|-------------------|-------------|--------------------|
-| 0 | **App brief** | the app you picked | `app-brief.md` — core features, value prop, problem | the material every exercise draws on |
+| P1 | **Reverse-engineer** (planning) | the app you picked | a **harness map** of a real app's six components | P2 — the behaviors whose *domain* you'll investigate |
+| P2 | **Research the domain** (planning) | P1's map + the app's `ai-apps/` profile | a **domain map** — terms, real workflow, trust/compliance constraints | P3 — the non-negotiables your design must honor |
+| P3 | **Design** (planning) | P1 + P2 | a **harness blueprint** — one decision per component | the brief + every component breakout below |
+| 0 | **App brief** | the planning phase | `app-brief.md` — core features, value prop, problem | the material every exercise draws on |
 | B1 | **System prompt** | the brief | `AGENTS.md` — persona, scope, the one hard "never" | the voice + scope every later component must honor; names the **risky surface** B4 will guard |
 | B2 | **Skills** | B1's persona + scope | the core `SKILL.md` that makes the deliverable; it **names the tool it needs** | B3 — the tool the skill will call |
 | B3 | **Tools** | the tool B2 named | the tool descriptor (WHAT/WHEN/WHEN-NOT) + script | B4 — the **risky action** that needs a deterministic gate |

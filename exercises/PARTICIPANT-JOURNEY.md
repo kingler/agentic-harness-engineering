@@ -32,14 +32,19 @@ flowchart TD
     Start(["Designers arrive · groups of 3–4"]) --> Frame["Reframe: Agent = Model + Harness<br/>'you already do this — you just call it rules'"]
     Frame --> Teach["Foundations + anatomy<br/>the 6 harness components"]
 
-    subgraph DAY1["DAY 1 · from user → author"]
+    subgraph PLAN["DAY 1 · PLANNING PHASE (breakout-guides/)"]
       direction TB
-      Teach --> B1["B1 · Reverse-engineer · 25m<br/>pick Harvey / Claude FS / Granola<br/>output: harness map"]
-      B1 --> B2["B2 · Design · 25m<br/>decisions, not code<br/>output: harness blueprint"]
-      B2 --> B3["B3 · Build · 25m · at keyboards<br/>blueprint becomes real files<br/>output: running starter harness"]
+      Teach --> P1["P1 · Reverse-engineer<br/>pick Harvey / Claude FS / Granola<br/>output: harness map"]
+      P1 --> P2["P2 · Research the domain<br/>terms · workflow · trust/compliance<br/>output: domain map"]
+      P2 --> P3["P3 · Design<br/>decisions, not code<br/>output: harness blueprint"]
     end
 
-    B3 --> Bridge["The editor is the runtime<br/>AGENTS.md = system prompt · hooks fire on real tool calls"]
+    subgraph BUILD["DAY 1 · COMPONENT BUILD (deck Breakouts 1–5)"]
+      direction TB
+      P3 --> CB["B1 system prompt → B2 skills → B3 tools<br/>→ B4 hooks+rules → B5 knowledge+memory<br/>build &amp; test each · output: running harness"]
+    end
+
+    CB --> Bridge["The editor is the runtime<br/>AGENTS.md = system prompt · hooks fire on real tool calls"]
 
     subgraph DAY2["DAY 2 · make it real & prove it"]
       direction TB
@@ -58,34 +63,44 @@ flowchart TD
 ## Day 1 — from *"I use these apps"* to *"I built one"*
 
 After a foundations and anatomy teach (the six components: **system prompt,
-skills, tools, rules + hooks, knowledge + memory, evals**), the group runs three
-**25-minute breakouts that chain into one continuous build.**
+skills, tools, rules + hooks, knowledge + memory, evals**), Day 1 runs in two
+parts — a **planning phase** (three steps) and a **component build** (five
+breakouts, one per component) — chained into one continuous build.
 
-### Breakout 1 — Reverse-engineer
+### Planning phase · Step 1 — Reverse-engineer
 Groups pick a *real shipped product* — **Harvey** (legal), **Claude for Financial
 Services**, or **Granola** (meeting notes) — and reason backward from what they can
 observe *as users* to the architecture underneath. The deck's metaphor: a chef
-tasting a dish to infer the kitchen. The delight and frustration prompts teach
-that both surprises *and* failures reveal where the harness's control ends.
+tasting a dish to infer the kitchen. Delight and frustration both reveal where the
+harness's control ends.
 **Output:** a **harness map** across the six components.
 → [`breakout-guides/breakout-1-reverse-engineer.md`](./breakout-guides/breakout-1-reverse-engineer.md)
 
-### Breakout 2 — Design
+### Planning phase · Step 2 — Research the domain
+Once the app is picked, groups research what its **domain** demands — the
+non-negotiables a real practitioner assumes (legal → privilege & citations;
+finance → auditability & disclosure; meetings → recording consent). They start
+from the app's `ai-apps/` profile, optionally search public sources, and mark
+**confirmed vs. inferred**.
+**Output:** a **domain map** — terms, real workflow, trust/compliance constraints.
+→ [`breakout-guides/planning-domain-research.md`](./breakout-guides/planning-domain-research.md)
+
+### Planning phase · Step 3 — Design
 They flip direction: *"If WE built this, what decisions would we make?"* No code
-yet — this is the thinking hour. They lock a core intent, a **golden path**
-(X → Y → Z), and a **nightmare failure mode**, then record six decisions as
-**Decision → Rationale → Tradeoff accepted.**
+yet — the thinking step. They lock a core intent, a **golden path** (X → Y → Z),
+and a **nightmare failure mode**, then record six decisions as **Decision →
+Rationale → Tradeoff accepted** — each defensible against the domain map.
 **Output:** a **harness blueprint.**
 → [`breakout-guides/breakout-2-design-harness.md`](./breakout-guides/breakout-2-design-harness.md)
 
-### Breakout 3 — Build
-Now **at keyboards.** They copy a template, open it in VS Code, and turn the
-blueprint into real files that Copilot and RooCode actually read — `AGENTS.md` and
-the system prompt first. The explicit message: *you won't finish, and that's by
-design — "scope lock is a feature, not a limitation."*
-**Output:** a **running starter harness** — real decisions in real files, not a
-polished artifact.
-→ [`breakout-guides/breakout-3-build-harness.md`](./breakout-guides/breakout-3-build-harness.md)
+### Component build · Breakouts 1–5
+Now **at keyboards.** The build is **five component breakouts**, one per harness
+component — system prompt → skills → tools → hooks+rules → knowledge+memory —
+each *built and tested* so its output is the artifact the harness should generate.
+The blueprint becomes real files Copilot and RooCode read. The explicit message:
+*you won't finish everything, and that's by design — "scope lock is a feature."*
+**Output:** a **running harness**, component by component.
+→ on-ramp: [`breakout-guides/breakout-3-build-harness.md`](./breakout-guides/breakout-3-build-harness.md) · the five labs: [`app-build-template/labs/`](./app-build-template/labs/)
 
 > **The Day 1 payoff is a flip:** from *consumer* of these AI tools to *author* of
 > one.
@@ -117,7 +132,9 @@ participants to fix upstream first.
 
 ```mermaid
 flowchart LR
-    Brief["app-brief.md<br/>the app you picked"] --> B1A["B1 · System prompt<br/>AGENTS.md"]
+    P1["Planning · reverse-engineer<br/>harness map"] --> P2["Planning · research domain<br/>domain map"]
+    P2 --> P3["Planning · design<br/>blueprint"]
+    P3 --> B1A["B1 · System prompt<br/>AGENTS.md"]
     B1A --> B2A["B2 · Skills<br/>SKILL.md — names a tool"]
     B2A --> B3A["B3 · Tools<br/>descriptor + script"]
     B3A --> B4A["B4 · Rules + Hooks<br/>pre-tool-use gate"]
@@ -127,9 +144,10 @@ flowchart LR
 
 | Phase | Builds on (input) | Participant produces | The feeling |
 |---|---|---|---|
-| **B1 · Reverse-engineer** | the app they picked | harness map | curiosity — *"oh, that delight was a harness decision"* |
-| **B2 · Design** | B1's map | harness blueprint | ownership — decisions become *theirs* |
-| **B3 · Build** | B2's blueprint | running starter harness | momentum — *intuition becomes files* |
+| **Planning · Reverse-engineer** | the app they picked | harness map | curiosity — *"oh, that delight was a harness decision"* |
+| **Planning · Research the domain** | the map + the app's profile | domain map | grounding — *"this is what the domain actually demands"* |
+| **Planning · Design** | map + domain map | harness blueprint | ownership — decisions become *theirs* |
+| **Build · Breakouts 1–5** | the blueprint | running harness, component by component | momentum — *intuition becomes files* |
 | **Day 2 · Assemble** | every decision above | wired app + headline artifact | proof — *"it actually runs"* |
 | **Day 2 · Demo** | the working slice | a defended tradeoff | confidence — judged on judgment, not polish |
 

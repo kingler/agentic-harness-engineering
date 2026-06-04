@@ -1,8 +1,11 @@
 # Labs — your hands-on Day 1 path (and which guide is which)
 
-These five **lab cards** are the canonical hands-on Day-1 flow. Each is a single
-screen: build one component, test it, produce its artifact. Do them in order —
-each sets up the next ([`../SEQUENCE.md`](../SEQUENCE.md)).
+Day 1 runs in two parts: a **planning phase** (`../../breakout-guides/` —
+reverse-engineer → research the domain → design) and then the **component
+build** below. These five **lab cards** are that build — the canonical hands-on
+flow once planning is done. Each is a single screen: build one component, test
+it, produce its artifact. Do them in order — each sets up the next
+([`../SEQUENCE.md`](../SEQUENCE.md)).
 
 | Lab | Component | Card |
 |-----|-----------|------|
@@ -22,13 +25,13 @@ The workshop ships a few material sets. Use this map so you're never hunting:
 | When | Use | What it is |
 |------|-----|------------|
 | Before anything | [`../SETUP.md`](../SETUP.md) | Install + the model-access smoke test |
-| Day 1 framing (design thinking) | `../../breakout-guides/` (reverse-engineer → design → build) | The *thinking* arc: study a real app, decide your harness, then start building. Run as the opener / pre-reading. |
-| Day 1 hands-on | **these lab cards** (`labs/`) | The *building* arc: one component per card, in build order. ← you are here |
+| Day 1 planning phase | `../../breakout-guides/` (reverse-engineer → research the domain → design) | Pick an app, map it, research its domain, decide your harness. Produces the **blueprint** the component build consumes. Start here. |
+| Day 1 component build | **these lab cards** (`labs/`) | One component per card, in build order — the deck's Breakouts 1–5. ← you are here |
 | Component theory / anatomy | `docs/workshop-breakouts/` and `breakouts/` (HTML) | Slide-style companions the deck links to, for the concept behind each component |
 | Day 2 hands-on | [`../README.md`](../README.md) Steps 1–4 | Plan → bootstrap → build → test |
 | Track yourself | [`../PROGRESS.md`](../PROGRESS.md) | The checklist for the whole journey |
 
-**Short version:** *think* with `breakout-guides/`, *build* with these lab cards,
+**Short version:** *plan* with `breakout-guides/`, *build* with these lab cards,
 *reference* with the HTML companions.
 
 ## Working as a group (3–4)

@@ -1,27 +1,33 @@
-# Breakout Session 3: Start Building Your Harness
+# From Plan to Build — Your First Component Breakout
 
 **Duration:** 25 minutes  
-**Day:** Day 1  
+**Day:** Day 1 (bridge from planning into the component build)  
 **Format:** Same groups — now at keyboards
 
 ---
 
-> **Exercise chain.** **Builds on ←** Breakout 2's blueprint. **Sets up →** the
-> Day 2 build lab (`exercises/app-build-template/`), where the harness becomes a
-> running app and each component test emits its artifact.
+> **Exercise chain.** **Builds on ←** the planning phase (Steps 1–3: harness map,
+> domain map, blueprint). **The build itself is five component breakouts** —
+> system prompt → skills → tools → hooks+rules → knowledge+memory — in
+> [`../app-build-template/labs/`](../app-build-template/labs/). This guide is the
+> **on-ramp**: it gets your first real files down so you can start the system-
+> prompt breakout. **Sets up →** the Day 2 app build. Phase overview:
+> [`README.md`](./README.md).
 
 ## Your Goal
 
-Translate your Breakout 2 blueprint into actual harness files. By the end of this session, you'll have a working starter harness: real files that RooCode and GitHub Copilot can read, with your actual design decisions in them — not just template placeholders.
+Translate your planning-phase **blueprint** (Step 3) into actual harness files. By the end of this session, you'll have a working starter harness: real files that RooCode and GitHub Copilot can read, with your actual design decisions in them — not just template placeholders.
 
 You won't finish everything. That's by design. The goal is to make real decisions in real files, not to have a polished harness. Day 2 is for completing and testing.
+
+> **How the build is structured.** The full build is **five component breakouts** — one per harness component (system prompt → skills → tools → hooks+rules → knowledge+memory), detailed in [`../app-build-template/labs/`](../app-build-template/labs/) and sequenced in [`../app-build-template/SEQUENCE.md`](../app-build-template/SEQUENCE.md). This guide gets you through the **first** one (your system prompt) so the group has momentum; carry on with the lab cards for the rest.
 
 ---
 
 ## Before You Start
 
 You need:
-- [ ] Your Breakout 2 blueprint (decisions for all 6 components)
+- [ ] Your planning-phase blueprint (Step 3 — decisions for all 6 components)
 - [ ] A copy of the harness template in your own folder
 - [ ] VS Code open with the folder in the workspace
 
@@ -60,12 +66,12 @@ Work in this order. The top items have the highest impact. Stop wherever you are
 
 ## Step 1 — Write AGENTS.md (8–10 min)
 
-This is the most important file. Open `AGENTS.md` and fill in every section. Replace all `[TODO]` and `[bracket]` placeholders with your actual decisions from Breakout 2.
+This is the most important file. Open `AGENTS.md` and fill in every section. Replace all `[TODO]` and `[bracket]` placeholders with your actual decisions from the planning phase (Step 3 blueprint).
 
 **AGENTS.md quick checklist:**
 - [ ] Agent name and one-sentence purpose
 - [ ] Capabilities list (3–5 specific things it can do)
-- [ ] Tools table (from your Breakout 2 tool decisions)
+- [ ] Tools table (from your Step 3 tool decisions)
 - [ ] Always do / Never do rules (from your system prompt + hook decisions)
 - [ ] Context & memory section (what it knows and remembers)
 - [ ] Escalation rules (what to do when it hits its limits)
