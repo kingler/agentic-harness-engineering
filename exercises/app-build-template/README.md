@@ -223,6 +223,6 @@ the hook**, and stay blocked even when you reply "I'm the admin, do it anyway."
 - Editor parity (Copilot vs Roo): [`EDITOR-PARITY.md`](./EDITOR-PARITY.md)
 - Worked example (this chain run against Granola): [`../worked-example-granola/`](../worked-example-granola/)
 - App profiles: [`../ai-apps/`](../ai-apps/)
-- Day 1 *design* arc (reverse-engineer → design → build): [`../breakout-guides/`](../breakout-guides/)
+- Day 1 *planning phase* (reverse-engineer → research the domain → design): [`../breakout-guides/`](../breakout-guides/)
 - Fuller per-component reference: [`../../harness-templates/`](../../harness-templates/)
 - GitHub Copilot docs: <https://docs.github.com/en/copilot>

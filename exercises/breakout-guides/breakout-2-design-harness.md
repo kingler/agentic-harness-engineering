@@ -1,13 +1,15 @@
-# Breakout Session 2: Design Your Harness Architecture
+# Planning Phase · Step 3 — Design Your Harness Blueprint
 
 **Duration:** 25 minutes  
-**Day:** Day 1  
-**Format:** Same groups as Breakout 1
+**Day:** Day 1 (planning phase)  
+**Format:** Same groups as Steps 1–2
 
 ---
 
-> **Exercise chain.** **Builds on ←** Breakout 1's harness map. **Sets up →**
-> Breakout 3, where these decisions become real files in the template.
+> **Exercise chain.** **Builds on ←** Step 1's harness map and Step 2's domain
+> map. **Sets up →** the **component build** breakouts (system prompt → skills →
+> tools → hooks+rules → knowledge+memory), where these decisions become real
+> files. Phase overview: [`README.md`](./README.md).
 
 ## Your Goal
 
@@ -19,15 +21,17 @@ You're not building code yet. You're making decisions. The best 25 minutes you'l
 
 ## Before You Start
 
-From Breakout 1, you have:
-- A map of how an existing AI app works
+From Steps 1–2, you have:
+- A **harness map** of how an existing AI app works (Step 1)
+- A **domain map** — the terms, workflow, and trust/compliance constraints the
+  domain demands (Step 2)
 - The most interesting decision they made and why
 
 Now flip the direction:
 
 > "If we were building [a version of this app / a new app inspired by what we learned], what harness decisions would WE make?"
 
-Your app concept: **[from your group's Breakout 1 choice + any pivots]**
+Your app concept: **[from your group's Step 1 choice + any pivots]**
 
 If you want to design a completely different app, that's fine — but pick something specific. "An AI assistant for designers" is too vague. "An AI assistant that reviews exported design-token manifests against our design system dictionary and flags inconsistencies" is specific enough to make real decisions.
 
@@ -52,7 +56,7 @@ Write one-sentence answers to each:
 (What's the worst thing that could go wrong? This shapes your hooks and permissions.)
 
 **What does the domain require by default?**  
-Pull the domain constraints from your Breakout 1 notes (skim the app's profile in `exercises/ai-apps/` if you didn't capture them). These are the non-negotiables your domain assumes — legal → privilege & citations; finance → auditability & disclosure; meetings → recording consent. Treat each as a candidate **hard rule or hook** when you reach Decision 4.
+Pull the domain constraints straight from your **Step 2 domain map**. These are the non-negotiables your domain assumes — legal → privilege & citations; finance → auditability & disclosure; meetings → recording consent. Treat each as a candidate **hard rule or hook** when you reach Decision 4.
 
 ---
 
@@ -204,7 +208,7 @@ At the end of this session, your group should have:
 - [ ] Decisions filled in for all 6 components
 - [ ] A clearly stated key tradeoff
 
-Keep your notes — you'll use this blueprint directly in Breakout 3 to start building.
+Keep your notes — you'll use this blueprint directly when you start the component build (on-ramp: [`breakout-3-build-harness.md`](./breakout-3-build-harness.md)).
 
 ---
 
