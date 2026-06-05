@@ -1,0 +1,54 @@
+# Estimated chapter markers (derived from deck speaker notes, not the actual video)
+00:00 Title
+00:38 Workshop Overview & Takeaways
+00:54 Why This Workshop Matters
+01:28 Agenda
+02:16 Your Environment
+03:37 Section · Foundations
+03:44 Harness Concept · Saddle
+04:33 The Core Formula
+04:59 Three Levels Of Engineering
+05:15 What Models Can'T Do
+05:37 Section · The Anatomy
+06:38 Six Core Components
+06:55 System Prompt & Tools
+07:18 Infrastructure & Orchestration
+07:33 Hooks & Feedback Loops
+07:50 Where Designers Have Leverage
+08:01 Anatomy In Files
+08:30 Harness As Product · Harvey
+08:46 Harness As Product · Claude Financial Services
+09:03 Harness As Product · Granola
+09:19 Three Apps
+10:14 Section · Component Deep Dive
+10:28 System Prompt · Overview
+11:01 System Prompt · Anatomy
+11:33 Skills · What And When
+12:01 Skills · Anatomy
+12:32 Skills · Worked Example
+12:54 Tools · Three Flavors
+13:22 Tools · Description Craft
+13:52 Tools · Script As Tool
+14:22 Tools · Mcp Example
+14:47 Rules · Example
+15:19 Hooks · Overview
+15:53 Knowledge Base
+16:23 Memory
+16:52 Prompt Structures · Chains
+17:45 Prompt Structures · Meta Vs Template
+18:44 Prompt Structures · By Component
+19:28 Day 1 Wrap-Up
+19:50 Day 2 Opener
+20:08 Section · Agentic Ux Patterns
+20:15 How Our Work Is Changing
+20:32 Agent Time
+20:48 Hooks Deep Dive
+21:13 Subagents And Mcp
+21:37 Evals And Hill Climbing
+21:54 Live Wire-Up
+22:39 Section · Demo Session
+22:59 Demo Flow & Listening
+23:20 Demo Rubric
+23:36 Demo Practices & Anti-Patterns
+23:54 Takeaways
+24:12 Resources

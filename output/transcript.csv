@@ -1,0 +1,54 @@
+slide,code,title,est_start,est_end,est_duration_sec,words,screenshot
+1,01,TITLE,00:00,00:38,38,89,screenshots/slide-01.png
+2,01B,WORKSHOP OVERVIEW & TAKEAWAYS,00:38,00:54,16,38,screenshots/slide-02.png
+3,02,WHY THIS WORKSHOP MATTERS,00:54,01:28,33,78,screenshots/slide-03.png
+4,03,AGENDA,01:28,02:16,48,112,screenshots/slide-04.png
+5,3B,YOUR ENVIRONMENT,02:16,03:37,81,189,screenshots/slide-05.png
+6,04,SECTION · FOUNDATIONS,03:37,03:44,7,16,screenshots/slide-06.png
+7,05,HARNESS CONCEPT · SADDLE,03:44,04:33,49,114,screenshots/slide-07.png
+8,06,THE CORE FORMULA,04:33,04:59,26,61,screenshots/slide-08.png
+9,07,THREE LEVELS OF ENGINEERING,04:59,05:15,16,37,screenshots/slide-09.png
+10,08,WHAT MODELS CAN'T DO,05:15,05:37,22,52,screenshots/slide-10.png
+11,09,SECTION · THE ANATOMY,05:37,06:38,61,142,screenshots/slide-11.png
+12,10,SIX CORE COMPONENTS,06:38,06:55,18,41,screenshots/slide-12.png
+13,11,SYSTEM PROMPT & TOOLS,06:55,07:18,23,53,screenshots/slide-13.png
+14,12,INFRASTRUCTURE & ORCHESTRATION,07:18,07:33,15,36,screenshots/slide-14.png
+15,13,HOOKS & FEEDBACK LOOPS,07:33,07:50,16,38,screenshots/slide-15.png
+16,14,WHERE DESIGNERS HAVE LEVERAGE,07:50,08:01,11,26,screenshots/slide-16.png
+17,15,ANATOMY IN FILES,08:01,08:30,29,68,screenshots/slide-17.png
+18,08B,HARNESS AS PRODUCT · HARVEY,08:30,08:46,16,37,screenshots/slide-18.png
+19,08C,HARNESS AS PRODUCT · CLAUDE FINANCIAL SERVICES,08:46,09:03,17,39,screenshots/slide-19.png
+20,08D,HARNESS AS PRODUCT · GRANOLA,09:03,09:19,17,39,screenshots/slide-20.png
+21,17,THREE APPS,09:19,10:14,54,127,screenshots/slide-21.png
+22,18,SECTION · COMPONENT DEEP DIVE,10:14,10:28,14,33,screenshots/slide-22.png
+23,19,SYSTEM PROMPT · OVERVIEW,10:28,11:01,33,77,screenshots/slide-23.png
+24,20,SYSTEM PROMPT · ANATOMY,11:01,11:33,33,76,screenshots/slide-24.png
+25,22,SKILLS · WHAT AND WHEN,11:33,12:01,28,65,screenshots/slide-25.png
+26,23,SKILLS · ANATOMY,12:01,12:32,30,71,screenshots/slide-26.png
+27,24,SKILLS · WORKED EXAMPLE,12:32,12:54,23,53,screenshots/slide-27.png
+28,25,TOOLS · THREE FLAVORS,12:54,13:22,27,64,screenshots/slide-28.png
+29,26,TOOLS · DESCRIPTION CRAFT,13:22,13:52,30,70,screenshots/slide-29.png
+30,27,TOOLS · SCRIPT AS TOOL,13:52,14:22,30,71,screenshots/slide-30.png
+31,28,TOOLS · MCP EXAMPLE,14:22,14:47,25,58,screenshots/slide-31.png
+32,27B,RULES · EXAMPLE,14:47,15:19,32,75,screenshots/slide-32.png
+33,29,HOOKS · OVERVIEW,15:19,15:53,33,78,screenshots/slide-33.png
+34,30,KNOWLEDGE BASE,15:53,16:23,30,71,screenshots/slide-34.png
+35,31,MEMORY,16:23,16:52,29,68,screenshots/slide-35.png
+36,31C,PROMPT STRUCTURES · CHAINS,16:52,17:45,53,123,screenshots/slide-36.png
+37,31B,PROMPT STRUCTURES · META VS TEMPLATE,17:45,18:44,59,137,screenshots/slide-37.png
+38,31D,PROMPT STRUCTURES · BY COMPONENT,18:44,19:28,44,103,screenshots/slide-38.png
+39,32,DAY 1 WRAP-UP,19:28,19:50,22,52,screenshots/slide-39.png
+40,33,DAY 2 OPENER,19:50,20:08,18,42,screenshots/slide-40.png
+41,34,SECTION · AGENTIC UX PATTERNS,20:08,20:15,7,17,screenshots/slide-41.png
+42,35,HOW OUR WORK IS CHANGING,20:15,20:32,16,38,screenshots/slide-42.png
+43,36,AGENT TIME,20:32,20:48,16,37,screenshots/slide-43.png
+44,37,HOOKS DEEP DIVE,20:48,21:13,26,60,screenshots/slide-44.png
+45,38,SUBAGENTS AND MCP,21:13,21:37,24,55,screenshots/slide-45.png
+46,39,EVALS AND HILL CLIMBING,21:37,21:54,17,39,screenshots/slide-46.png
+47,40,LIVE WIRE-UP,21:54,22:39,45,106,screenshots/slide-47.png
+48,41,SECTION · DEMO SESSION,22:39,22:59,20,47,screenshots/slide-48.png
+49,41B,DEMO FLOW & LISTENING,22:59,23:20,21,49,screenshots/slide-49.png
+50,42,DEMO RUBRIC,23:20,23:36,15,36,screenshots/slide-50.png
+51,42B,DEMO PRACTICES & ANTI-PATTERNS,23:36,23:54,19,44,screenshots/slide-51.png
+52,43,TAKEAWAYS,23:54,24:12,18,41,screenshots/slide-52.png
+53,44,RESOURCES,24:12,24:56,44,103,screenshots/slide-53.png
