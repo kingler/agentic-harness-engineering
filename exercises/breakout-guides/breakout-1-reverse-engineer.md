@@ -1,14 +1,15 @@
-# Breakout Session 1: Reverse-Engineer an AI App
+# Planning Phase · Step 1 — Reverse-Engineer an AI App
 
 **Duration:** 25 minutes  
-**Day:** Day 1  
+**Day:** Day 1 (planning phase)  
 **Format:** Groups of 3–4
 
 ---
 
-> **Exercise chain.** This is the start. **Sets up →** Breakout 2, where you
-> design *your* harness from what you learn here — and ultimately the Day 2 app
-> build. Keep your notes; the next exercise consumes them.
+> **Exercise chain.** This is the start of the **planning phase**. **Sets up →**
+> Step 2 (research the domain) and Step 3 (design *your* harness) — which then
+> feed the component build breakouts and the Day 2 app build. Keep your notes;
+> the next steps consume them. Phase overview: [`README.md`](./README.md).
 
 ## Your Goal
 
@@ -51,7 +52,7 @@ What does it do that you wouldn't have expected? These are often the most intere
 Failures often reveal the limits of the harness — where the designers ran out of control.
 
 **What does the app's *domain* demand?**  
-Your app is a **vertical** tool — its hardest harness decisions come from the domain, not the UI. Start from its profile in `exercises/ai-apps/`, and if you have a device, take ~2 minutes to look up the domain's real workflow and the trust / compliance constraints practitioners take for granted (legal → privilege & citations; finance → auditability & disclosure; meetings → recording consent). Mark what you **confirmed** vs. what you're **inferring** — you'll turn these into rules and hooks in Breakout 2.
+Your app is a **vertical** tool — its hardest harness decisions come from the domain, not the UI. Jot first impressions now (legal → privilege & citations; finance → auditability & disclosure; meetings → recording consent); you'll dig in next in **Step 2 — Research the Domain** ([`planning-domain-research.md`](./planning-domain-research.md)), which turns these into rules, hooks, and knowledge.
 
 ---
 
