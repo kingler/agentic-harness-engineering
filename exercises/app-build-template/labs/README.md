@@ -1,16 +1,22 @@
 # Labs — your hands-on Day 1 path (and which guide is which)
 
-These five **lab cards** are the canonical hands-on Day-1 flow. Each is a single
+These five **lab cards** are the at-a-glance hands-on Day-1 flow. Each is a single
 screen: build one component, test it, produce its artifact. Do them in order —
 each sets up the next ([`../SEQUENCE.md`](../SEQUENCE.md)).
 
-| Lab | Component | Card |
+> **Prefer to be walked through it?** The `/breakout-*` slash commands
+> ([`../BREAKOUTS.md`](../BREAKOUTS.md)) cover the same five components
+> interactively — they introduce each one, ask the planning questions, and write
+> the file with you. Start with `/breakout-setup`; these cards are the matching
+> cheat sheet.
+
+| Lab | Component | Card | Slash command |
 |-----|-----------|------|
-| 1 | System prompt | [`01-system-prompt.md`](./01-system-prompt.md) |
-| 2 | Skill | [`02-skill.md`](./02-skill.md) |
-| 3 | Tools (+ MCP) | [`03-tools.md`](./03-tools.md) |
-| 4 | Rules + hooks | [`04-rules-hooks.md`](./04-rules-hooks.md) |
-| 5 | Knowledge + memory | [`05-knowledge-memory.md`](./05-knowledge-memory.md) |
+| 1 | System prompt | [`01-system-prompt.md`](./01-system-prompt.md) | `/breakout-1-system-prompt` |
+| 2 | Skill (+ subagent) | [`02-skill.md`](./02-skill.md) | `/breakout-2-skills-subagents` |
+| 3 | Tools (+ MCP) | [`03-tools.md`](./03-tools.md) | `/breakout-3-tools-mcp` |
+| 4 | Rules + hooks | [`04-rules-hooks.md`](./04-rules-hooks.md) | `/breakout-4-hooks-rules` |
+| 5 | Knowledge + memory | [`05-knowledge-memory.md`](./05-knowledge-memory.md) | `/breakout-5-knowledge-memory` |
 
 Then **Day 2** is the build chain in the top-level [`README.md`](../README.md)
 (Steps 1–4): `/plan-app` → `/bootstrap-harness` → build frontend → `/test-harness`.

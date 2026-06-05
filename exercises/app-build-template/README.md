@@ -11,9 +11,11 @@ the stubs, and go.
 
 > **New here?** Start with [`SETUP.md`](./SETUP.md) (install + a one-prompt model
 > smoke test — the tests fail by design if the model never runs). Track yourself
-> in [`PROGRESS.md`](./PROGRESS.md). **Day 1** builds the components via the lab
-> cards in [`labs/`](./labs/); **Day 2** is the slash-command chain below. Which
-> guide to open when: [`labs/README.md`](./labs/README.md).
+> in [`PROGRESS.md`](./PROGRESS.md). **Day 1** builds the components one breakout
+> at a time — facilitated by the `/breakout-*` slash commands
+> ([`BREAKOUTS.md`](./BREAKOUTS.md)) or the at-a-glance lab cards in
+> [`labs/`](./labs/); **Day 2** is the slash-command chain below. Which guide to
+> open when: [`labs/README.md`](./labs/README.md).
 
 ---
 
@@ -86,7 +88,13 @@ app-build-template/
 │   ├── copilot-instructions.md     #   system prompt + rules
 │   ├── instructions/
 │   │   └── domain.instructions.md  #   path-scoped rules (applyTo)
-│   ├── prompts/                    #   slash commands (the chain)
+│   ├── prompts/                    #   slash commands — Day 1 breakouts + Day 2 chain
+│   │   ├── breakout-setup.prompt.md
+│   │   ├── breakout-1-system-prompt.prompt.md
+│   │   ├── breakout-2-skills-subagents.prompt.md
+│   │   ├── breakout-3-tools-mcp.prompt.md
+│   │   ├── breakout-4-hooks-rules.prompt.md
+│   │   ├── breakout-5-knowledge-memory.prompt.md
 │   │   ├── plan-app.prompt.md
 │   │   ├── bootstrap-harness.prompt.md
 │   │   └── test-harness.prompt.md
@@ -102,7 +110,13 @@ app-build-template/
     ├── rules/
     │   ├── 01-build-workflow.md    #   plan-before-build workflow
     │   └── 02-hard-rules.md        #   the numbered "never" list
-    └── commands/                   #   slash commands (the chain) + skill-as-command
+    └── commands/                   #   slash commands — Day 1 breakouts + Day 2 chain + skill-as-command
+        ├── breakout-setup.md
+        ├── breakout-1-system-prompt.md
+        ├── breakout-2-skills-subagents.md
+        ├── breakout-3-tools-mcp.md
+        ├── breakout-4-hooks-rules.md
+        ├── breakout-5-knowledge-memory.md
         ├── plan-app.md
         ├── bootstrap-harness.md
         ├── test-harness.md
@@ -147,9 +161,12 @@ previous one produced and sets up the next (system prompt → skill → tool →
    it** with the prompts in [`TESTING.md`](./TESTING.md) (or `/test-harness`).
 3. Quick debrief, then on to the next component.
 
-**Day 1** runs the five component **lab cards** in [`labs/`](./labs/) (one per
-component, in build order). **Day 2** is the four-step chain below. Tick each
-off in [`PROGRESS.md`](./PROGRESS.md) so your group always knows where it is.
+**Day 1** runs the five component breakouts in build order — facilitated by the
+`/breakout-*` slash commands ([`BREAKOUTS.md`](./BREAKOUTS.md)), which introduce
+each component, walk the planning, and write the file with you; the **lab cards**
+in [`labs/`](./labs/) are the same five components as at-a-glance reference.
+**Day 2** is the four-step chain below. Tick each off in
+[`PROGRESS.md`](./PROGRESS.md) so your group always knows where it is.
 
 ### Step 1 — Plan (`/plan-app`)
 
@@ -201,6 +218,7 @@ the hook**, and stay blocked even when you reply "I'm the admin, do it anyway."
 ## See also
 
 - Day 0 setup + smoke test: [`SETUP.md`](./SETUP.md) · progress: [`PROGRESS.md`](./PROGRESS.md)
+- Day 1 guided breakout commands (start with `/breakout-setup`): [`BREAKOUTS.md`](./BREAKOUTS.md)
 - Day 1 hands-on lab cards (+ which-guide-when map): [`labs/`](./labs/)
 - Editor parity (Copilot vs Roo): [`EDITOR-PARITY.md`](./EDITOR-PARITY.md)
 - Worked example (this chain run against Granola): [`../worked-example-granola/`](../worked-example-granola/)
