@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claude Financial Services — Reverse-engineered harness · Agentic Harness Engineering</title>
+  <meta name="description" content="A reverse-engineered look at Claude for Financial Services: the agents, skills, tools, hooks, knowledge, and memory that turn an LLM into a verification-first, audit-ready vertical product." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./app-detail.css" />
+</head>
+<body>
+
+  <header class="hero">
+    <div class="topbar">
+      <a class="back" href="../Agentic%20Harness%20Engineering.html" aria-label="Back to deck">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        Back to deck
+      </a>
+      <span class="workshop-tag">Agentic Harness Engineering · Reverse-engineer</span>
+    </div>
+
+    <div class="hero-media">
+      <img src="../assets/claude-financial-services-intro.gif"
+           alt="Animated screen recording — Claude for Financial Services product walkthrough"
+           decoding="async" loading="eager" />
+      <div class="hero-overlay"></div>
+      <div class="hero-caption">
+        <div class="hero-eyebrow">App B · Financial services · Regulated</div>
+        <h1 class="hero-title">Claude for Financial Services</h1>
+        <p class="hero-subtitle">A verification-first vertical for banking, insurance, asset management, and fintech — native in Excel and PowerPoint, with agent templates that trace every number back to a source.</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <p class="lede">
+      Claude for Financial Services is Anthropic's <b>vertical harness</b> wrapped around Claude. It is the same
+      model anyone can call from the API — what makes it a <em>product</em> is the scaffolding: Excel / PowerPoint
+      add-ins, agent templates for modeling and reporting, deterministic governance for SOC&nbsp;2 and FedRAMP
+      postures, and pre-built MCP-style connectors to the market and identity data partners analysts already pay for.
+      Reverse-engineering it is a clean exercise because every concept in the workshop maps to a concrete file
+      you'd put in your own <code>harness/</code> folder.
+    </p>
+
+    <section class="section">
+      <span class="kicker">What it is</span>
+      <h2>Vertical Claude, built for the second-line review</h2>
+      <p>
+        Financial services products fail not on fluency but on <b>auditability</b>. A number in a credit memo,
+        a figure in a pitch deck, a covenant in a diligence summary — every one of these has to trace back to a
+        verifiable source the institution already trusts. Claude for Financial Services is built around that
+        constraint: it lives where analysts already work (spreadsheets, decks), it cites every number, and it
+        gives risk &amp; compliance a deterministic trail to follow.
+      </p>
+      <p>
+        The product surface is small. The harness behind it is the bulk of the value.
+      </p>
+    </section>
+
+    <section class="section">
+      <span class="kicker">Anatomy of the harness</span>
+      <h2>Six slots, mapped to a regulated vertical</h2>
+      <p class="muted">
+        Same six slots as every harness in the workshop — renamed in the vocabulary of a buy-side / sell-side /
+        carrier team.
+      </p>
+
+      <div class="components">
+
+        <article class="component">
+          <span class="tag">Agents · subagents</span>
+          <h3>End-to-end financial agents, with handoffs</h3>
+          <p>
+            A main agent receives the analyst's request and delegates to specialists that own a single workflow
+            end-to-end. Each has a narrower toolset and a structured output the next agent (or human) can
+            consume.
+          </p>
+          <ul>
+            <li><b>AML / investigations agent</b> — pulls KYC + transaction trails, drafts a SAR narrative, hands to compliance.</li>
+            <li><b>Credit decisioning agent</b> — assembles financial spreads, peer comps, covenant tests; produces a credit memo skeleton.</li>
+            <li><b>Fraud / payments agent</b> — explains an alert in plain English with the underlying signal as evidence.</li>
+            <li><b>Portfolio ops agent</b> — quarter-end roll-forward, exception list, variance commentary.</li>
+            <li><b>Reviewer / verifier agent</b> — independent re-read against the same sources; flags anything the drafter asserted without citation.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/agents/*.md</code> in your harness folder.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Skills</span>
+          <h3>On-demand prompts for finance moves</h3>
+          <p>
+            Skills are loaded only when their trigger fires — keeps base context lean even as the catalog grows.
+            In a financial harness these are the routine moves analysts do every week:
+          </p>
+          <ul>
+            <li><code>trace-this-number</code> — for any figure in a draft, surface the cell / table / filing it came from.</li>
+            <li><code>build-comp-set</code> — pull comparables for a target by sector / size / geography.</li>
+            <li><code>spread-financials</code> — normalize statements from a 10-K / 10-Q into the firm's template.</li>
+            <li><code>variance-commentary</code> — write Q-over-Q or Y-over-Y narrative bounded to verified deltas.</li>
+            <li><code>diligence-question-set</code> — generate a question list for a target from a CIM.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/prompts/*.prompt.md</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Tools · scripts &amp; MCPs</span>
+          <h3>Excel, PowerPoint, and the data partners</h3>
+          <p>
+            The product lives in the surfaces analysts already use, and reaches the data sources their risk
+            function has already vetted. The tools are the wire from the agent to those surfaces.
+          </p>
+          <ul>
+            <li><b>Excel add-in</b> — read a range, write a range, preserve formulas, attach source notes to cells.</li>
+            <li><b>PowerPoint add-in</b> — assemble slides from approved templates, lock the "data &amp; sources" footer.</li>
+            <li><b>Market &amp; identity MCPs</b> — LSEG, FactSet, S&amp;P Global, Morningstar, Moody's, Dun &amp; Bradstreet, and similar.</li>
+            <li><b>Filings &amp; news</b> — typed retrieval over EDGAR, sanctions lists, and industry feeds.</li>
+            <li><b>Internal systems</b> — risk warehouse, CRM, order management — all MCP-shaped, all auth'd server-side.</li>
+            <li><b>Python sandbox</b> — for ad-hoc spreads, never against production data.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>scripts/*.sh</code> + <code>mcp.json</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Hooks · governance</span>
+          <h3>Enterprise assurance, enforced not asked for</h3>
+          <p>
+            Hooks are deterministic — they run before/after every tool call regardless of what the model decided.
+            In a regulated vertical, they are the difference between a product the risk function will sign off on
+            and one it won't.
+          </p>
+          <ul>
+            <li><b>SOC&nbsp;2 / FedRAMP boundary</b> — PreToolUse: only let MCP calls leave to allowlisted endpoints.</li>
+            <li><b>Material non-public info gate</b> — PreToolUse: block outbound research on tickers the user is restricted on.</li>
+            <li><b>Source-attribution enforcement</b> — PostToolUse: every number in an output must carry a citation token; strip or refuse otherwise.</li>
+            <li><b>Audit log</b> — PostToolUse: append a tamper-evident record of every tool call, doc, citation, user, and ticker touched.</li>
+            <li><b>Capital-markets &amp; client-facing gate</b> — PreToolUse: any action that could leave the firm (file a doc, send a memo, hit an order surface) requires an explicit human approval token.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>.github/hooks/{pre,post}-tool-use.sh</code>.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Knowledge</span>
+          <h3>Auditable lineage from signal to narrative</h3>
+          <p>
+            Knowledge is layered so retrieval picks the right source for the question — and so every figure can
+            be walked back to its origin.
+          </p>
+          <ul>
+            <li><b>Market data</b> — prices, fundamentals, ratings; vendor-attributed.</li>
+            <li><b>Filings</b> — 10-K, 10-Q, 8-K, prospectuses; structured for retrieval, not just full-text.</li>
+            <li><b>Identity &amp; reference</b> — issuer / counterparty / beneficial-owner data.</li>
+            <li><b>Internal records</b> — your firm's positions, exposures, prior memos, client interactions.</li>
+            <li><b>House view</b> — research notes, model parameters, methodology docs — for tone &amp; framing.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>knowledge/*</code> + retrieval over a typed index.</div>
+        </article>
+
+        <article class="component">
+          <span class="tag">Memory</span>
+          <h3>What carries across, what doesn't</h3>
+          <p>
+            Three flavors, governed separately because their risk profile differs.
+          </p>
+          <ul>
+            <li><b>Mandate memory</b> — facts established about <em>this</em> deal, account, fund, or matter: parties, exposures, decisions taken, sign-offs received. Lives with the engagement.</li>
+            <li><b>User memory</b> — analyst preferences: default sector, comp methodology, writing voice, "always run a covenant headroom check." Lives with the user.</li>
+            <li><b>Conversation state</b> — short-lived; evicted on session close; never retained for regulated outputs.</li>
+          </ul>
+          <div class="footer-note">Maps to <code>memory/SESSION.md</code> + a per-mandate store.</div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="kicker">How they compose on one turn</span>
+      <h2>From "give me a credit memo skeleton" to an audited draft</h2>
+      <p>
+        An analyst types: <em>"Build a credit memo skeleton for Target Inc. Pull the last three years, peer set
+        from the sector add-in, and flag covenant headroom under our standard tests."</em> Here is the path that
+        turn takes through the harness:
+      </p>
+      <ol>
+        <li><b>System prompt &amp; rules</b> load — verification-first stance, "cite every number," restricted-list guard.</li>
+        <li><b>Skill match</b> — <code>spread-financials</code>, <code>build-comp-set</code>, and <code>variance-commentary</code> are loaded.</li>
+        <li><b>Memory read</b> — the analyst's preferred comp methodology + their firm's covenant template.</li>
+        <li><b>Knowledge retrieval</b> — last three filings via the filings index; peers via the market-data MCP.</li>
+        <li><b>Subagent delegation</b> — credit-decisioning agent drafts; verifier agent independently re-checks every figure.</li>
+        <li><b>Tool calls</b> — Excel add-in writes the spread sheet; PowerPoint add-in produces the memo with locked footers.</li>
+        <li><b>Hooks run</b> — SOC&nbsp;2 boundary check, restricted-list check, citation enforcement, audit-log append.</li>
+        <li><b>Memory write</b> — facts about Target Inc. (covenant terms, lead bank, deal stage) recorded against this mandate.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <span class="kicker">Trade-offs</span>
+      <h2>Why this works, and where it breaks</h2>
+      <div class="split-2">
+        <div class="note-card">
+          <h4>Why this works</h4>
+          <p>
+            Risk &amp; compliance can <em>see</em> the harness. Every number is cited, every tool call is logged,
+            every restricted-list breach is a hook-deny rather than a model judgement call. That is what makes
+            the product deployable into a regulated stack at all.
+          </p>
+        </div>
+        <div class="note-card">
+          <h4>Where it breaks</h4>
+          <p>
+            The harness is only as good as the data partnerships behind it. If the institution doesn't already
+            license LSEG / FactSet / S&amp;P / Moody's coverage of the asset class, retrieval falls back to
+            public filings and the analyst is doing the synthesis. The harness also can't help when the analyst's
+            question is fundamentally <em>judgement</em> ("is this a good deal?") rather than <em>retrieval</em>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <span class="kicker">For your breakout</span>
+      <h2>If you picked Claude Financial Services — reverse-engineer this</h2>
+      <ul class="checklist">
+        <li><b>System prompt:</b> write the 1-page <code>AGENTS.md</code> that bakes in verification, citation, and restricted-list awareness.</li>
+        <li><b>Skills:</b> name three finance skills; write the 5-step body for <code>trace-this-number</code>.</li>
+        <li><b>Tools:</b> list the four tools you'd allow; for each, write the JSON shape it returns.</li>
+        <li><b>Hooks:</b> draft the PreToolUse rule that refuses outbound research on a restricted ticker.</li>
+        <li><b>Knowledge:</b> sketch the five layers (market · filings · identity · internal · house view) and the rule for which is searched first.</li>
+        <li><b>Memory:</b> decide what goes in <em>mandate</em> memory vs <em>user</em> memory vs ephemeral state — and which one risk wants logged.</li>
+      </ul>
+    </section>
+
+    <div class="footer-bar">
+      <span>Agentic Harness Engineering Workshop · App B · Claude Financial Services</span>
+      <a href="../Agentic%20Harness%20Engineering.html">← Back to the deck</a>
+    </div>
+
+  </main>
+
+</body>
+</html>

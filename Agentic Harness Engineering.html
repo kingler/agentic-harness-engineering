@@ -1678,6 +1678,26 @@ pre.tree .comment{ color:var(--spectrum-gray-600); font-style:italic; }
 }
 .frame > .slide-lede:has(+ .apps-pick-matrix){ margin-bottom:0; }
 .frame > .slide-title:has(+ .apps-pick-matrix):not(:has(+ .slide-lede)){ margin-bottom:0; }
+/* Anchor-shaped cards: keep .app visuals, drop link defaults, add a subtle
+   "opens in new tab" affordance via the arrow glyph in the h4. */
+.grid-3 a.app-link{
+  text-decoration:none; color:inherit;
+  cursor:pointer;
+  position:relative;
+}
+.grid-3 a.app-link:focus-visible{
+  outline:2px solid var(--spectrum-navy-900);
+  outline-offset:3px;
+}
+.grid-3 a.app-link h4{ display:flex; align-items:baseline; gap:8px; }
+.grid-3 a.app-link .app-link-arrow{
+  font-size:14px; color:var(--spectrum-gray-600); font-weight:500;
+  transition:transform 180ms ease, color 180ms ease;
+}
+.grid-3 a.app-link:hover .app-link-arrow{
+  transform:translate(2px, -2px);
+  color:var(--spectrum-navy-900);
+}
 
 /* =========================================================
    BREAKOUT INSTRUCTIONS — multi-column with deliverable card
@@ -4345,36 +4365,36 @@ column.</span>
     <h2 class="slide-title">Pick one app to reverse-engineer</h2>
 
     <div class="grid-3 apps-pick-matrix">
-      <div class="app">
+      <a class="app app-link" href="apps/harvey.html" target="_blank" rel="noopener noreferrer" aria-label="Open Harvey reverse-engineered harness in a new tab">
         <div class="letter">A</div>
         <div class="role">Legal · Enterprise</div>
-        <h4>Harvey</h4>
+        <h4>Harvey <span class="app-link-arrow" aria-hidden="true">↗</span></h4>
         <p>Legal AI platform for law firms. Research, drafting, document analysis, conversational queries over a firm's knowledge.</p>
         <div class="app-thumb">
           <img src="assets/app-thumb-harvey.png" width="1200" height="700" alt="" loading="lazy" decoding="async">
         </div>
         <div class="why">Why pick: rich agentic harness — multi-step research, document tools, strict citation &amp; privilege rules.</div>
-      </div>
-      <div class="app">
+      </a>
+      <a class="app app-link" href="apps/claude-financial-services.html" target="_blank" rel="noopener noreferrer" aria-label="Open Claude Financial Services reverse-engineered harness in a new tab">
         <div class="letter">B</div>
         <div class="role">Financial services · Regulated</div>
-        <h4>Claude Financial Services</h4>
+        <h4>Claude Financial Services <span class="app-link-arrow" aria-hidden="true">↗</span></h4>
         <p>Vertical Claude for banking, insurance, asset management, and fintech — verification-first outputs, native in Excel and PowerPoint, agent templates for modeling and reporting workflows.</p>
         <div class="app-thumb">
           <img src="assets/app-thumb-claude-financial-services.png" width="960" height="540" alt="" loading="lazy" decoding="async">
         </div>
         <div class="why">Why pick: you already mapped this harness on the shipped demo — now reverse-engineer the full product story, tools, and governance layer, not just the landing page.</div>
-      </div>
-      <div class="app">
+      </a>
+      <a class="app app-link" href="apps/granola.html" target="_blank" rel="noopener noreferrer" aria-label="Open Granola reverse-engineered harness in a new tab">
         <div class="letter">C</div>
         <div class="role">Productivity · Meetings</div>
-        <h4>Granola</h4>
+        <h4>Granola <span class="app-link-arrow" aria-hidden="true">↗</span></h4>
         <p>AI notepad for back-to-back meetings. Listens, drafts notes, extracts actions, syncs to your tools.</p>
         <div class="app-thumb">
           <img src="assets/app-thumb-granola.png" width="2400" height="1260" alt="" loading="lazy" decoding="async">
         </div>
         <div class="why">Why pick: smallest surface area, sharpest job-to-be-done — easy to map all 6 components in 25 minutes.</div>
-      </div>
+      </a>
     </div>
 
     <div class="footer">Agentic Harness Engineering Workshop</div>
