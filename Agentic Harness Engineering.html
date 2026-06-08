@@ -3285,6 +3285,11 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
 ├── .roo/
 │   ├── rules/01-design.md    <span class="comment"># RooCode workspace rules</span>
 │   └── rules-{mode}/         <span class="comment"># per-mode rules</span>
+├── workflows/
+│   └── verify-claims/        <span class="comment"># a saved workflow = a shareable harness</span>
+│       ├── SKILL.md
+│       ├── verify-claims.workflow.js
+│       └── rubric.md
 └── <span class="accent">mcp.json</span>               <span class="comment"># external tool servers (MCP)</span>
 </pre>
 
@@ -3324,6 +3329,13 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
           </div>
           <h5>External tool servers</h5><p>GitHub, browser, Confluence (examples — setup required)</p>
         </div>
+        <div class="item">
+          <div class="file-callout-path">
+            <i class="file-callout-ico" data-lucide="workflow" width="28" height="28" aria-hidden="true"></i>
+            <code>workflows/*/</code>
+          </div>
+          <h5>A workflow = a harness built per task</h5><p>Saved with <code>/workflows</code>: a JS file + SKILL.md + rubric. Shareable like a skill.</p>
+        </div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -3337,7 +3349,7 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
   <div class="frame">
     <div class="eyebrow">Anatomy</div>
     <h2 class="slide-title">Six core harness components</h2>
-    <p class="slide-lede"><strong>Slides 14–21</strong> walk you through the harness <strong>project template</strong>—the same files and folders available in each breakout session, one component per step.</p>
+    <p class="slide-lede"><strong>Slides 14–21</strong> walk you through the harness <strong>project template</strong>—the same files and folders available in each breakout session, one component per step. A <strong>workflow</strong> (bonus section) is the seventh shape — the orchestration layer that sequences these six.</p>
 
     <div class="grid-6">
       <div class="card">
@@ -4493,7 +4505,8 @@ column.</span>
   <div class="frame">
     <div class="eyebrow">Bonus · Workflows</div>
     <h2 class="slide-title">Long-running agentic workflows</h2>
-    <p class="slide-lede">Multi-hour or multi-<b>day</b> outcomes are chained <b>stages</b> — never one giant prompt. The harness swaps skills, invokes tools, enforces hooks, persists working state, and waits on humans exactly where ambiguity is cheapest to resolve.</p>
+    <p class="slide-lede">A workflow is a <b>harness Claude builds on the fly</b> — a small machine for one task. Multi-hour or multi-<b>day</b> outcomes are chained <b>stages</b>, never one giant prompt: the harness swaps skills, invokes tools, enforces hooks, persists working state, and waits on humans where ambiguity is cheapest to resolve.</p>
+    <div class="workflow-meta-strip"><b>Why not one long prompt?</b> A single context window drifts — <b>agent laziness</b> (does 7 of 15 tasks), <b>self-preference</b> (grades its own work too kindly), <b>goal drift</b> (intent erodes through compactions). Each stage gets a fresh, isolated context instead.</div>
 
     <div class="wf-intro-grid">
       <div class="wf-intro-card">
@@ -4515,6 +4528,51 @@ column.</span>
         <span class="wf-chip">04 · Recall</span>
         <h3>Artifacts</h3>
         <p><code>knowledge/</code> for stable schemas; scratch + decisions in session memory files until promoted or discarded.</p>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 39a (BONUS) — Workflows · the six pattern catalog
+     ============================================================ -->
+<section data-label="39a Workflows · Six patterns">
+  <div class="frame">
+    <div class="eyebrow">Bonus · Workflows</div>
+    <h2 class="slide-title">Six workflow patterns</h2>
+    <p class="slide-lede">One vocabulary of shapes Claude composes into a task-specific harness — each is just a <b>wiring of the six components</b> you already build. Stack them with keywords (fan-out → verify → loop).</p>
+
+    <div class="grid-6">
+      <div class="card">
+        <div class="top"><span class="chip">01</span><i class="ico" data-lucide="split" width="60" height="60"></i></div>
+        <h4>Classify &amp; act</h4>
+        <p>Route items to the right handler. <b>Wires:</b> a classifier skill.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">02</span><i class="ico" data-lucide="share-2" width="60" height="60"></i></div>
+        <h4>Fan out &amp; synthesize</h4>
+        <p>Isolated subtasks → barrier merge. <b>Wires:</b> subagents + citations.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">03</span><i class="ico" data-lucide="shield-alert" width="60" height="60"></i></div>
+        <h4>Adversarial verify</h4>
+        <p>Skeptic vs rubric, kills self-preference. <b>Wires:</b> rubric + hooks.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">04</span><i class="ico" data-lucide="filter" width="60" height="60"></i></div>
+        <h4>Generate &amp; filter</h4>
+        <p>Over-generate, then a judge picks. <b>Wires:</b> generator vs judge.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">05</span><i class="ico" data-lucide="trophy" width="60" height="60"></i></div>
+        <h4>Tournament</h4>
+        <p>Pairwise brackets, fresh context each. <b>Wires:</b> loop + rubric.</p>
+      </div>
+      <div class="card">
+        <div class="top"><span class="chip">06</span><i class="ico" data-lucide="repeat" width="60" height="60"></i></div>
+        <h4>Loop until done</h4>
+        <p>Run until a stop predicate holds. <b>Wires:</b> a hook/loop (/goal).</p>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -4909,6 +4967,7 @@ Review the component for design-token violations.
           <li>Hooks for "every time"; prompts for "use judgment"</li>
           <li>One file does one job · AGENTS.md stays under 200 lines</li>
           <li>Capture transcripts as evals · hill-climb from real failures</li>
+          <li>Reach for a workflow only for large / multi-layer tasks · set a token budget</li>
         </ol>
       </div>
       <div class="tips">
@@ -4919,6 +4978,7 @@ Review the component for design-token violations.
           <li>No way to tell when the agent succeeded vs. gave up</li>
           <li>Same harness for every user — no scoping at all</li>
           <li>Demo runs only on the rehearsed task</li>
+          <li>A whole agent swarm to recolor a button — workflow overkill</li>
         </ul>
       </div>
     </div>
@@ -5047,6 +5107,18 @@ Review the component for design-token violations.
         <p>CityU HK + Microsoft Research Asia — agents improve their own harness from past runs, no answer key; SWE-Bench Pro 59% → 78%.</p>
         <div class="url">arxiv.org/abs/2606.05922</div>
       </div>
+      <div class="resource">
+        <div class="src">Anthropic blog</div>
+        <h5>A harness for every task: dynamic workflows</h5>
+        <p>Claude builds a task-specific harness on the fly — the six composable patterns and when to use them.</p>
+        <div class="url">claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code</div>
+      </div>
+      <div class="resource">
+        <div class="src">Anthropic blog</div>
+        <h5>Introducing dynamic workflows in Claude Code</h5>
+        <p>The feature announcement — what dynamic workflows are and how to run and share them.</p>
+        <div class="url">claude.com/blog/introducing-dynamic-workflows-in-claude-code</div>
+      </div>
 
       <!-- GitHub Copilot row -->
       <div class="resource resource--copilot">
@@ -5123,8 +5195,8 @@ Review the component for design-token violations.
   "Three concentric rings around the model core, walked outside-in on the slide. OUTER · Harness Engineering — the full system: tools, orchestration, hooks, infrastructure. MIDDLE · Context Engineering — what the model sees and when: memory, retrieval, compaction. INNER · Prompt Engineering — the instructions the model receives on each turn. CORE · the model — weights and architecture, capability without tools, memory, or agency until the harness (and editor) turns it into behavior. We touch all three rings but the outer ring is where product decisions live. Crisp split to give the room: change the WORDS the model reads = prompt work; change WHAT INFORMATION it receives = context work; change the INVISIBLE STRUCTURE around it — tools, checks, memory, permissions, recovery paths — = harness work. That outer ring is what this whole workshop is about.",
   "Every limitation is solved by a harness feature — this is where your design decisions live. A chatbot answers; an agent has to operate over time: open a terminal, search files, write and test code, call an API, recover from a failed command, decide whether an action is safe before it touches a live environment. Six gaps on screen — memory · tool execution · web · coordination · self-verification · enforcement — each solved by a harness feature. Every row is a design decision your team will make.",
   "SECTION divider · The Anatomy. Foundations closed on the gaps models can't plug alone; this stretch aligns vocabulary BEFORE the teach-and-build marathon. Order on screen: six-component overview → file tree → three shipped demos (Harvey, Claude FS, Granola) that relabel the SAME six slots → pick one breakout app from the Three Apps matrix. Section 3's component-by-component pass comes right after.",
-  "The harness is mostly files — walk the tree. The six components live as concrete files: AGENTS.md, .github/copilot-instructions.md, instructions/, prompts/, agents/, hooks/, mcp.json, plus the RooCode/Cline shape under .roo/rules/. Highest-leverage files: AGENTS.md (the system prompt you own — keep under 200 lines, survives compaction), tool descriptions (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You'll author every one of these in Day 1's breakouts.'",
-  "Six core components on one slide — orient, don't memorize: system prompt · skills · tools · rules & hooks · knowledge · memory. Slides 14–21 tour the project template one component per step — the same files you work in each breakout. Say it explicitly: 'every card maps to breakout work later.' UC Berkeley's 'scaling the harness' paper names these same six layers around the model and argues several are already saturating — the next gains come from the system, not the weights.",
+  "The harness is mostly files — walk the tree. The six components live as concrete files: AGENTS.md, .github/copilot-instructions.md, instructions/, prompts/, agents/, hooks/, mcp.json, plus the RooCode/Cline shape under .roo/rules/. Highest-leverage files: AGENTS.md (the system prompt you own — keep under 200 lines, survives compaction), tool descriptions (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You'll author every one of these in Day 1's breakouts.' Point at the workflows/ folder too: a saved workflow is itself a shareable harness — a JS file + SKILL.md + rubric, saved with /workflows and shipped like a skill.",
+  "Six core components on one slide — orient, don't memorize: system prompt · skills · tools · rules & hooks · knowledge · memory. Slides 14–21 tour the project template one component per step — the same files you work in each breakout. Say it explicitly: 'every card maps to breakout work later.' UC Berkeley's 'scaling the harness' paper names these same six layers around the model and argues several are already saturating — the next gains come from the system, not the weights. Name the seventh shape too: a WORKFLOW is the orchestration layer that sequences these six — and a packaged harness in its own right (bonus section).",
   "Decompose 01/06 — what's inside a system prompt. It's the agent's identity, prepended every turn, survives compaction — the most expensive real estate in the harness, so keep it short and load-bearing. Lives in CLAUDE.md, AGENTS.md, or .github/copilot-instructions.md. Five sections (the boxes in the diagram): 1 IDENTITY — who the agent is and who they serve. 2 HOW YOU WORK — the 3–5 step pattern. 3 RULES — 3–5 never/always constraints. 4 BACKGROUND — domain context it always reads. 5 WHEN THINGS GO WRONG — instructions per failure mode. If you can't name the failure mode a section prevents, cut it. The diagram IS the template — copy it in the breakout.",
   "Decompose 02/06 — what's inside a skill. A specialist instruction set the agent loads ONLY when triggered: progressive disclosure that keeps the base prompt small. It's just a markdown file with frontmatter — a `name` and a `description` whose 'Trigger: …' / 'Do NOT load for …' lines are the spec the harness matches on. The trigger is the most important field; vague triggers mean the skill never loads and the agent falls back to its base instinct. Walk the flow: 'review my homepage' → trigger 'review' → design-review skill loads → token violations with line numbers instead of a generic critique. Skills change behavior on the matching turn.",
   "Decompose 03/06 — what's inside a tool description. The description is UX copy for the model — it reads every one each turn before deciding what to call, so bad descriptions cause wrong picks more often than missing tools. Three sentences: WHAT it does, WHEN to use it, WHEN NOT to. The 'when not' line prevents most failures. Three ways to give hands: FUNCTIONS (in-process), SCRIPTS (anything shell — a JSON descriptor turns your validate.sh into a tool), MCP (mount someone else's tools via mcp.json — Figma, GitHub, browser). Caution: too many tools/MCP servers make the agent dumb. Start with one; the kitchen sink is the failure mode.",
@@ -5138,7 +5210,8 @@ Review the component for design-token violations.
   "PICK slide — IMMEDIATELY after the three shipped demos so the contrast is deliberate. They've watched vertical-specific polish map to IDENTICAL scaffolding terms; now OWN one breakout app. Diversify across Harvey / Claude FS / Granola so groups don't all pile on one card (a Harvey duplicate is fine if a group needs depth). ~5 minutes; energy line = 'Pick the harness you'd hate to embarrass users with.'",
   "SECTION divider · Component deep dive. Anatomy, demos, and app choice are anchored — reset expectations: the next stretch drills each harness slot ON their chosen reverse-engineered app, one component at a time. Depth beats another overview.",
   "The breakout hub — one page per component. Point them at the breakout page for each of the six components; each has the lab card, the file to edit, and the test prompt whose output is the artifact the harness should produce consistently. The rhythm every time: I teach & illustrate → you build the component → you run the test prompt. Config presence is not a pass — the component has to actually fire.",
-  "BONUS · Long-running agentic workflows. Multi-hour or multi-day outcomes are chained stages — never one giant prompt. Across stages the harness swaps skills, invokes tools, enforces hooks, persists working state, and waits on a human exactly where ambiguity is cheapest to resolve. Frame it as 'what your six components add up to once you sequence them.' We won't write orchestration today — but you'll recognize this shape in RooCode workflows or LangGraph chains.",
+  "BONUS · Long-running agentic workflows. Multi-hour or multi-day outcomes are chained stages — never one giant prompt. Across stages the harness swaps skills, invokes tools, enforces hooks, persists working state, and waits on a human exactly where ambiguity is cheapest to resolve. The WHY: one long context window drifts — agent laziness (does 7 of 15 tasks), self-preference (grades its own work too kindly), goal drift (intent erodes through compactions); a workflow is a harness Claude builds on the fly, giving each stage a fresh isolated context — Anthropic calls it 'a harness for every task.' Frame it as 'what your six components add up to once you sequence them.' We won't write orchestration today — but you'll recognize this shape in RooCode workflows or LangGraph chains.",
+  "BONUS · Six workflow patterns — the vocabulary. Walk the 2×3: 01 classify & act (router/triage), 02 fan out & synthesize (parallel + barrier merge), 03 adversarial verify (skeptic vs rubric — kills self-preference), 04 generate & filter (over-generate, judge keeps the best), 05 tournament (pairwise brackets, fresh context per match), 06 loop until done (run until a stop predicate, like /goal). Teaching point: each pattern is just a WIRING of the six components — skill, subagents, rubric (knowledge), hooks, loop — and you stack them with keywords, you don't hand-wire them. Two patterns answer gaps we already named: adversarial verify ↔ 'verify their own output' (slide 08); fan-out isolation ↔ context rot / goal drift.",
   "BONUS · A concrete example — SPEC-2026 from brief to merge. Walk the pipeline left to right: each stage is a small templated prompt, and the output of one becomes the input of the next. Point out where skills swap in, where tools run, and where a hook or a human gate sits. The chain isn't code — it's prompts the harness routes.",
   "BONUS · Under the hood — who's moving the state? Every long workflow is just lanes (who acts) stitched with hand-offs. Beneath the swimlanes, hooks evaluate JSON decisions so the orchestration stays auditable. This is the governance layer — logs, gates, and roll-back paths — the reason a self-driving workflow doesn't quietly go off the rails.",
   "BONUS · Meta prompts — the agent's frame. META = persistent: identity, scope, hard rules, tool roster. Lives in AGENTS.md / CLAUDE.md, loaded once per session and prepended every turn. It's the black band that carries across every stage of a workflow. The system prompt is meta.",
@@ -5147,10 +5220,10 @@ Review the component for design-token violations.
   "DEMO session divider. 5 minutes per group, 1 minute Q&A each, live in their editor. 'This is where it lands — you picked an app, planned, designed, developed, wired it up, watched it fail, changed one thing. Now show your work.' Set the tone: we're not judging finish — we're judging the tradeoff you can defend.",
   "Keep this slide up during demos. LEFT — the 5-minute flow presenters follow: app + intent + failure mode, file tree (15 sec), one task live, before/after diff, name the tradeoff. RIGHT — what everyone else listens for: tool copy as UX, hooks doing real work, a tight tool list (not the kitchen sink), an honest unsolved failure mode, a tradeoff defended in one sentence.",
   "DEMO RUBRIC — five categories, 5 points each: intent fidelity, tool design, determinism (a hook doing real work), failure design (named failure + before/after), tradeoff clarity. Score yourselves first, then we score each other. Next slide pairs best practices with anti-patterns — leave it up during debrief.",
-  "DEMO DO'S AND DON'TS. Left — best practices: intent-first, cap tools at ~7, hooks for every-time rules, small files, evals. Right — anti-patterns we call out in discussion: MCP sprawl, the prompt doing a hook's job, no success signal, no user scoping, rehearsed-only demos. Reference during demos and debrief.",
+  "DEMO DO'S AND DON'TS. Left — best practices: intent-first, cap tools at ~7, hooks for every-time rules, small files, evals. Right — anti-patterns we call out in discussion: MCP sprawl, the prompt doing a hook's job, no success signal, no user scoping, rehearsed-only demos, and workflow overkill (a swarm to recolor a button — workflows are token-heavy, so reserve them for large/multi-layer tasks and set a budget). Reference during demos and debrief.",
   "WHAT'S NEXT — self-improving harnesses, the closing beat before takeaways. The newest research closes our hill-climbing loop automatically. Stanford's Meta-Harness searches the harness CODE around a fixed model — proposes a change, tests it, keeps what works. RHO (Retrospective Harness Optimization) improves from the agent's own past trajectories with NO answer key — self-validation + self-consistency — lifting SWE-Bench Pro from 59% to 78% in a single round. The caveat designers own: a harness that rewrites itself can reinforce bad habits or unsafe shortcuts, so audit logs, human approval, and safety checks stay non-negotiable. Tie back: 'evals are the training data for the harness — soon the agent reads them too.'",
   "TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping — as Mitchell Hashimoto puts it, change the system so a whole class of mistake can't come back, instead of re-running the prompt and hoping. 05 Most agent failures are input failures — read 5 transcripts before changing one line. Thank the room; keep the energy up — they earned it.",
-  "RESOURCES. Source material first: Mitchell Hashimoto's 'My AI Adoption Journey' (the post that named the practice), LangChain's harness-anatomy essay, the Stanford Meta-Harness and UC Berkeley 'scaling the harness' papers, OpenAI's 'Harness engineering' essay, the RHO self-improvement paper, and the MCP spec. Then the docs for the editor they use — Copilot (custom instructions, prompt files, custom agents, the Customize-AI overview) is the priority for most of the room; RooCode/Cline docs for the rest. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
+  "RESOURCES. Source material first: Mitchell Hashimoto's 'My AI Adoption Journey' (the post that named the practice), LangChain's harness-anatomy essay, the Stanford Meta-Harness and UC Berkeley 'scaling the harness' papers, OpenAI's 'Harness engineering' essay, the RHO self-improvement paper, Anthropic's dynamic-workflows posts ('a harness for every task'), and the MCP spec. Then the docs for the editor they use — Copilot (custom instructions, prompt files, custom agents, the Customize-AI overview) is the priority for most of the room; RooCode/Cline docs for the rest. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
 ]
 </script>
 
