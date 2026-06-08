@@ -18,6 +18,16 @@ The six patterns — classify-and-act, fan-out-and-synthesize, adversarial
 verification, generate-and-filter, tournament, loop-until-done — are Anthropic's
 own composable set.
 
+> **Status (2026-06-08):** all six recommendations in §4 are **applied** to the
+> deck and rendered-checked in a headless browser (no overflow). Changes:
+> overview slide `39` reframed with the "harness on the fly" line + the three
+> failure modes; **new slide `39a` "Six workflow patterns"** (the catalog, each
+> card naming the components it wires); orchestration clause added to slide `10`;
+> workflow folder + `/workflows` callout added to the `9b` file tree; a
+> workflow-overkill anti-pattern + a matching best practice on `42b`; the two
+> Anthropic posts added to Resources. Speaker notes re-validated 42 = 42, 1:1.
+> All claims verified against Anthropic's own posts.
+
 ---
 
 ## 1. The reframe that makes this a *harness* topic
