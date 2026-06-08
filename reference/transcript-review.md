@@ -101,12 +101,32 @@ A quick web pass (deep-research skill is available) can clear most of these.
 
 ## 5. Recommended priority (highest leverage first)
 
-> **Status (2026-06-08):** Edits #1–#4 below are **applied** to the deck. The
-> two claims that now appear *on slides* — the 6× Stanford/Tsinghua figure and
-> the Hashimoto quote — were web-verified against multiple independent sources
-> before being added. #5–#8 remain proposed; the Resources-slide citations for
-> the new claims are still **to do** (holding until exact canonical source URLs
-> are locked, to avoid putting an unverified link on a slide).
+> **Status (2026-06-08):** Edits #1–#4 below are **applied** to the deck, plus
+> the Resources-slide citations and a full speaker-notes re-alignment. The two
+> claims now on slides — the 6× figure and the Hashimoto quote — were
+> web-verified before being added. Sources located and added to the Resources
+> slide: Hashimoto's *My AI Adoption Journey* (`mitchellh.com/writing/my-ai-adoption-journey`,
+> Feb 2026) and the Stanford **Meta-Harness** paper (`arxiv.org/abs/2603.28052`,
+> Stanford IRIS Lab, Yoonho Lee et al.).
+>
+> **Two accuracy adjustments made during verification:**
+> - The primary source is **Stanford** (IRIS Lab), so the on-slide attribution
+>   was changed from "Stanford / Tsinghua" to "Stanford research." The
+>   "Tsinghua" attribution in the video could not be substantiated.
+> - The exact **6×** multiplier comes from *secondary coverage* of the Stanford
+>   work, not the paper's abstract (which reports +7.7 pts / 4× fewer tokens /
+>   +4.7 pts). The figure is widely repeated and kept on-slide for impact, but a
+>   note in the slide-02 speaker note flags this so the presenter can soften it
+>   if challenged.
+>
+> **Speaker-notes alignment:** the notes array had drifted to 52 entries against
+> 39 slides (a pre-existing mismatch from an earlier deck restructure). It was
+> rebuilt to exactly 39 entries, one per slide, matched to each slide's current
+> content; orphaned notes for removed slides (Agentic UX Patterns, journey
+> mapping, evals/hill-climbing, day-1-close, etc.) were dropped, and useful
+> lines folded into the surviving component notes.
+>
+> #5–#8 remain proposed.
 
 
 1. **Add the 6× stat to slide 02 Card 02** (after verifying) — biggest single
