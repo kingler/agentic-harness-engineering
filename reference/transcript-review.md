@@ -101,6 +101,14 @@ A quick web pass (deep-research skill is available) can clear most of these.
 
 ## 5. Recommended priority (highest leverage first)
 
+> **Status (2026-06-08):** Edits #1–#4 below are **applied** to the deck. The
+> two claims that now appear *on slides* — the 6× Stanford/Tsinghua figure and
+> the Hashimoto quote — were web-verified against multiple independent sources
+> before being added. #5–#8 remain proposed; the Resources-slide citations for
+> the new claims are still **to do** (holding until exact canonical source URLs
+> are locked, to avoid putting an unverified link on a slide).
+
+
 1. **Add the 6× stat to slide 02 Card 02** (after verifying) — biggest single
    upgrade; quantifies the entire workshop's premise.
 2. **Add the Hashimoto quote to the Takeaways "Hooks > hoping" card** — best
