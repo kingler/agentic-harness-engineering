@@ -126,7 +126,27 @@ A quick web pass (deep-research skill is available) can clear most of these.
 > mapping, evals/hill-climbing, day-1-close, etc.) were dropped, and useful
 > lines folded into the surviving component notes.
 >
-> #5–#8 remain proposed.
+> **#5–#8 are now also applied (web-verified):**
+> - #5 OpenAI detail on slide 02 card 03 — ~1,500 PRs / 5 months / 3 engineers
+>   / zero hand-written code, from OpenAI's *Harness engineering: Codex in an
+>   agent-first world* (`openai.com/index/harness-engineering`).
+> - #6 New slide **02b "Why Now · Adoption Gap"** — Goldman's 7% / ~$7T GDP
+>   promise vs ~6% actual US adoption (late 2024). The video's 4% / 16% / 23%
+>   split could not be confirmed, so the slide uses Goldman's verified ~6%
+>   figure instead.
+> - #7 Speaker-note enrichments — UC Berkeley *From Model Scaling to System
+>   Scaling* (`arxiv.org/abs/2605.26112`, Shangding Gu) on the six-components
+>   note; the write-to-disk / short-preview context pattern on the knowledge
+>   note (stated as a general pattern, not the unverified "5-tier / 8 KB"
+>   specifics).
+> - #8 New closing slide **42c "What's Next · Self-Improving Harnesses"** —
+>   Stanford Meta-Harness + RHO (`arxiv.org/abs/2606.05922`, CityU HK +
+>   Microsoft Research Asia; SWE-Bench Pro 59→78%), with the audit-log / human-
+>   approval caveat.
+>
+> Resources slide now carries all new on-slide sources (OpenAI essay, Berkeley
+> and RHO papers added alongside Hashimoto and Meta-Harness). Speaker-notes
+> array re-validated at 41 entries = 41 slides, 1:1.
 
 
 1. **Add the 6× stat to slide 02 Card 02** (after verifying) — biggest single

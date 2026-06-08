@@ -2922,7 +2922,34 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
       <div class="card">
         <div class="kicker">03 · Design IS engineering</div>
         <h3>OpenAI built a million-line product where humans steer and agents execute.</h3>
-        <p>The discipline moved to the scaffolding.</p>
+        <p>~1,500 PRs in five months, three engineers, zero hand-written code (OpenAI's "Harness engineering" essay). The discipline moved to the scaffolding.</p>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<section data-label="02b Why Now · Adoption Gap">
+  <div class="frame">
+    <div class="eyebrow">Context · Why now</div>
+    <h2 class="slide-title">The promise is huge. The rollout isn't.</h2>
+    <p class="slide-lede">The gap isn't access to models — plenty of teams can call a strong one. What's missing is the system layer that turns capability into repeatable work.</p>
+
+    <div class="grid-3 grid-3--full">
+      <div class="card">
+        <div class="kicker">The promise</div>
+        <h3>+7% global GDP — nearly $7T over a decade.</h3>
+        <p>Goldman Sachs' macro estimate for generative AI (2023).</p>
+      </div>
+      <div class="card">
+        <div class="kicker">The reality</div>
+        <h3>~6% of US firms had actually adopted it.</h3>
+        <p>Goldman Sachs, late 2024 — even firms over 250 staff only ~10%.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">The missing layer</div>
+        <h3>The harness.</h3>
+        <p>Without it the model is fragile — one answer at a time, not a reliable workflow. You're here to build that layer.</p>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -4899,6 +4926,33 @@ Review the component for design-token violations.
   </div>
 </section>
 
+<section data-label="42c What's Next · Self-Improving Harnesses">
+  <div class="frame">
+    <div class="eyebrow">What's next</div>
+    <h2 class="slide-title">Harnesses that improve themselves</h2>
+    <p class="slide-lede">The newest research closes the loop: the agent hill-climbs its own harness from its own work history — but a human still owns the guardrails.</p>
+
+    <div class="grid-3 grid-3--full">
+      <div class="card">
+        <div class="kicker">Search the scaffold</div>
+        <h3>Meta-Harness</h3>
+        <p>Stanford — automatically searches the harness code around a fixed model, tests changes, and keeps what works.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Learn from the past</div>
+        <h3>Retrospective Harness Optimization</h3>
+        <p>Re-solves hard past tasks with no answer key; self-validation + self-consistency lift SWE-Bench Pro 59% → 78% in one round.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Keep the guardrails</div>
+        <h3>Still needs a human.</h3>
+        <p>A self-updating harness can reinforce bad habits — so audit logs, approval gates, and safety checks stay non-negotiable.</p>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
 <!-- ============================================================
      SLIDE 34 — Takeaways
      ============================================================ -->
@@ -4975,6 +5029,24 @@ Review the component for design-token violations.
         <p>Stanford IRIS Lab — searches harness code around a fixed model; the empirical case that the scaffold, not just the weights, drives results.</p>
         <div class="url">arxiv.org/abs/2603.28052</div>
       </div>
+      <div class="resource">
+        <div class="src">Industry essay</div>
+        <h5>Harness engineering: Codex in an agent-first world</h5>
+        <p>OpenAI — ~1M lines, ~1,500 PRs in five months, three engineers, zero hand-written code. Humans steer; agents execute.</p>
+        <div class="url">openai.com/index/harness-engineering</div>
+      </div>
+      <div class="resource">
+        <div class="src">Research paper</div>
+        <h5>From Model Scaling to System Scaling</h5>
+        <p>UC Berkeley (Shangding Gu) — why the next bottleneck in agentic AI is the harness, decomposed into the same six components.</p>
+        <div class="url">arxiv.org/abs/2605.26112</div>
+      </div>
+      <div class="resource">
+        <div class="src">Research paper</div>
+        <h5>Retrospective Harness Optimization (RHO)</h5>
+        <p>CityU HK + Microsoft Research Asia — agents improve their own harness from past runs, no answer key; SWE-Bench Pro 59% → 78%.</p>
+        <div class="url">arxiv.org/abs/2606.05922</div>
+      </div>
 
       <!-- GitHub Copilot row -->
       <div class="resource resource--copilot">
@@ -5041,6 +5113,7 @@ Review the component for design-token violations.
   "Welcome to Agentic Harness Engineering for Product & UX Designers. This is a 2-day, 2-hour-per-day workshop. Quick show of hands — who's been using RooCode? Copilot? Both? Great. You already touch the harness every day — you just call it 'rules' or 'instructions'. Today and tomorrow we name what you're already doing, give it a real anatomy, and you build one from scratch by reverse-engineering an AI app you actually use. By the end of Day 2 you'll have a runnable harness folder you can drop into any project.",
   "Set the destination before the journey — three takeaways frame the whole workshop. 01 Speak harness anatomy fluently: system prompt, skills, tools, rules, hooks, knowledge, memory — what each does and where it lives on disk. 02 Reverse-engineer before you prompt: trace Harvey, Claude for Financial Services, or Granola through the same six slots, then carry that lens into every AI surface you design. 03 Leave with a real folder: five breakouts → five artifacts in your template project. Two days of vocabulary plus hands-on files.",
   "Most important framing of the workshop — walk the three cards. CARD 1 Paradigm shift: from static wireframes to dynamic orchestration rules; designers shape how agents coordinate, not just how screens look. CARD 2 Agent = Model + Harness, and the payoff is measurable — Stanford's harness research (the Meta-Harness paper) shows the SAME model can swing up to ~6× in performance on the scaffold alone. That multiplier is the designer's leverage. CARD 3 Design IS engineering: OpenAI built a million-line product (~1,500 PRs in five months) where humans steer and agents execute. The discipline moved to the scaffolding. (The 6× is from secondary coverage of the Stanford work, not a verbatim figure in the paper abstract — see Resources.)",
+  "Why now — the adoption gap, the strongest framing for the whole workshop. THE PROMISE: Goldman Sachs estimated generative AI could add ~7% to global GDP — nearly $7 trillion over a decade. THE REALITY: by late 2024 Goldman found only ~6% of US firms had actually adopted it (even firms over 250 staff only ~10%). The gap isn't model access — plenty of teams can call a strong model. The missing piece is the system layer, the harness, that turns capability into repeatable work. Land it: 'you're here to build the missing layer.'",
   "Day 1 — build the harness for your chosen app. Six components, taught and worked in focused breakouts: foundations → anatomy + pick your app → plan-first cadence → I illustrate one component live → then five build-and-test breakouts (system prompt → skills → tools → hooks & rules → knowledge & memory). Each breakout chains into the next. I want you ~60% hands-on, 40% with me.",
   "Day 2 changes shape — productize. Recap what broke overnight, then I run the full chain live: /plan-app → /bootstrap-harness → a test prompt. Then breakouts: write the plan, bootstrap and fill the six components, build the frontend from your wireframes in Copilot/RooCode, test each component (the output artifact is the pass signal), then group demos. Two days, one product.",
   "Read this slide carefully — it shapes everything. We're not training models or running servers. KEY CONSTRAINT: API keys live only INSIDE the RooCode/Copilot extensions — you cannot build a standalone agent that calls a model directly. So THE EDITOR IS THE RUNTIME. You author two things: the harness (markdown, JSON, scripts) and a frontend prototype generated from your Figma, then let the extension's AI play the harnessed agent. Your CLAUDE.md / AGENTS.md is its system prompt; your hooks fire on real tool calls; your prototype is what a user clicks. Run the SETUP.md model-access smoke test first — the tests fail by design if the model never runs. One sentence: 'harness + frontend = product; the editor's AI is the runtime.'",
@@ -5051,13 +5124,13 @@ Review the component for design-token violations.
   "Every limitation is solved by a harness feature — this is where your design decisions live. A chatbot answers; an agent has to operate over time: open a terminal, search files, write and test code, call an API, recover from a failed command, decide whether an action is safe before it touches a live environment. Six gaps on screen — memory · tool execution · web · coordination · self-verification · enforcement — each solved by a harness feature. Every row is a design decision your team will make.",
   "SECTION divider · The Anatomy. Foundations closed on the gaps models can't plug alone; this stretch aligns vocabulary BEFORE the teach-and-build marathon. Order on screen: six-component overview → file tree → three shipped demos (Harvey, Claude FS, Granola) that relabel the SAME six slots → pick one breakout app from the Three Apps matrix. Section 3's component-by-component pass comes right after.",
   "The harness is mostly files — walk the tree. The six components live as concrete files: AGENTS.md, .github/copilot-instructions.md, instructions/, prompts/, agents/, hooks/, mcp.json, plus the RooCode/Cline shape under .roo/rules/. Highest-leverage files: AGENTS.md (the system prompt you own — keep under 200 lines, survives compaction), tool descriptions (UX copy for the model), and hooks (deterministic enforcement). Tell the room: 'You'll author every one of these in Day 1's breakouts.'",
-  "Six core components on one slide — orient, don't memorize: system prompt · skills · tools · rules & hooks · knowledge · memory. Slides 14–21 tour the project template one component per step — the same files you work in each breakout. Say it explicitly: 'every card maps to breakout work later.'",
+  "Six core components on one slide — orient, don't memorize: system prompt · skills · tools · rules & hooks · knowledge · memory. Slides 14–21 tour the project template one component per step — the same files you work in each breakout. Say it explicitly: 'every card maps to breakout work later.' UC Berkeley's 'scaling the harness' paper names these same six layers around the model and argues several are already saturating — the next gains come from the system, not the weights.",
   "Decompose 01/06 — what's inside a system prompt. It's the agent's identity, prepended every turn, survives compaction — the most expensive real estate in the harness, so keep it short and load-bearing. Lives in CLAUDE.md, AGENTS.md, or .github/copilot-instructions.md. Five sections (the boxes in the diagram): 1 IDENTITY — who the agent is and who they serve. 2 HOW YOU WORK — the 3–5 step pattern. 3 RULES — 3–5 never/always constraints. 4 BACKGROUND — domain context it always reads. 5 WHEN THINGS GO WRONG — instructions per failure mode. If you can't name the failure mode a section prevents, cut it. The diagram IS the template — copy it in the breakout.",
   "Decompose 02/06 — what's inside a skill. A specialist instruction set the agent loads ONLY when triggered: progressive disclosure that keeps the base prompt small. It's just a markdown file with frontmatter — a `name` and a `description` whose 'Trigger: …' / 'Do NOT load for …' lines are the spec the harness matches on. The trigger is the most important field; vague triggers mean the skill never loads and the agent falls back to its base instinct. Walk the flow: 'review my homepage' → trigger 'review' → design-review skill loads → token violations with line numbers instead of a generic critique. Skills change behavior on the matching turn.",
   "Decompose 03/06 — what's inside a tool description. The description is UX copy for the model — it reads every one each turn before deciding what to call, so bad descriptions cause wrong picks more often than missing tools. Three sentences: WHAT it does, WHEN to use it, WHEN NOT to. The 'when not' line prevents most failures. Three ways to give hands: FUNCTIONS (in-process), SCRIPTS (anything shell — a JSON descriptor turns your validate.sh into a tool), MCP (mount someone else's tools via mcp.json — Figma, GitHub, browser). Caution: too many tools/MCP servers make the agent dumb. Start with one; the kitchen sink is the failure mode.",
   "Decompose 04a/06 — what's inside a rules file. Strong vs weak, two cards on screen. Weak (red): 'Always be helpful and safe' — no predicate to check, no backstop. Strong (green): R-20 locks any spec with status approved or implemented and routes edits through create_spec --revise <id>, backed by hooks/pre-tool-use.sh that blocks the Edit call. Numbered, specific, paired with a hook — the model can't quietly violate it. Soft rules go in the system prompt (the model may forget); hard rules go in settings.json allow/deny lists or hooks (the harness enforces). Ask the room: which of YOUR rules are hard, which are soft?",
   "Decompose 04b/06 — what's inside a hook. Deterministic gates around tool calls. PreToolUse fires BEFORE — you can block it. PostToolUse fires AFTER — you can react. The model can forget its rules; the hook can't. Use one when 'every time' matters: every file write, every tool error, every session start. Hooks > hoping. Designers don't usually write the shell — but you decide WHICH rules deserve a hook vs. a soft prompt.",
-  "Decompose 05/06 — what's inside a knowledge file. The domain context the agent reads on demand — schemas, dictionaries, workflows, design-system facts — stable info referenced by the system prompt and loaded by skills. Volatile info (current session, secrets, what the user just said) does NOT go here. Watch for context rot: a huge window doesn't help if the signal is buried under stale notes — the goal is the RIGHT tokens, not more tokens. Breakout: capture one domain file your agent always needs — schema, dictionary, or workflow, whichever unblocks more behavior.",
+  "Decompose 05/06 — what's inside a knowledge file. The domain context the agent reads on demand — schemas, dictionaries, workflows, design-system facts — stable info referenced by the system prompt and loaded by skills. Volatile info (current session, secrets, what the user just said) does NOT go here. Watch for context rot: a huge window doesn't help if the signal is buried under stale notes — the goal is the RIGHT tokens, not more tokens. Breakout: capture one domain file your agent always needs — schema, dictionary, or workflow, whichever unblocks more behavior. Real harnesses fight context bloat directly: when a tool returns a giant output — say a server error log — the system writes the full file to disk and hands the model only a short preview first, so the agent skims, then digs only where needed.",
   "Decompose 06/06 — what's inside a session memory file. Memory is the working scratchpad — different from the knowledge base (stable) and the system prompt (identity). Two types: SESSION (notes/SESSION.md, cleared at session end) and PERSISTENT (reread on every SessionStart hook, survive restarts). Treat memory as a HINT, not a fact: the 'stale but confident' failure is when the agent trusts an old note — say, code that was refactored yesterday — and confidently applies the wrong fix. Before any risky action, verify the note against the live environment; some harnesses even clean memory in the background during idle time. The post-tool-use hook is often where memory gets written.",
   "Harvey AFTER the scaffolding on purpose — each bullet NAMES a slot learners just saw on the grid and file tree. Tie line: polished vendor harness vs the bare repo they'll assemble for their OWN app. When a harness becomes a product.",
   "Claude Financial Services — the SAME six-slot mapping in regulated finance: verification posture, workbook-native tools + agent templates, traceable numeric lineage, AML-style multi-agent stories, SOC 2 / FedRAMP cues, MCP-like data integrations. Explicit ask: the naming pattern should feel boringly familiar by now.",
@@ -5075,8 +5148,9 @@ Review the component for design-token violations.
   "Keep this slide up during demos. LEFT — the 5-minute flow presenters follow: app + intent + failure mode, file tree (15 sec), one task live, before/after diff, name the tradeoff. RIGHT — what everyone else listens for: tool copy as UX, hooks doing real work, a tight tool list (not the kitchen sink), an honest unsolved failure mode, a tradeoff defended in one sentence.",
   "DEMO RUBRIC — five categories, 5 points each: intent fidelity, tool design, determinism (a hook doing real work), failure design (named failure + before/after), tradeoff clarity. Score yourselves first, then we score each other. Next slide pairs best practices with anti-patterns — leave it up during debrief.",
   "DEMO DO'S AND DON'TS. Left — best practices: intent-first, cap tools at ~7, hooks for every-time rules, small files, evals. Right — anti-patterns we call out in discussion: MCP sprawl, the prompt doing a hook's job, no success signal, no user scoping, rehearsed-only demos. Reference during demos and debrief.",
+  "WHAT'S NEXT — self-improving harnesses, the closing beat before takeaways. The newest research closes our hill-climbing loop automatically. Stanford's Meta-Harness searches the harness CODE around a fixed model — proposes a change, tests it, keeps what works. RHO (Retrospective Harness Optimization) improves from the agent's own past trajectories with NO answer key — self-validation + self-consistency — lifting SWE-Bench Pro from 59% to 78% in a single round. The caveat designers own: a harness that rewrites itself can reinforce bad habits or unsafe shortcuts, so audit logs, human approval, and safety checks stay non-negotiable. Tie back: 'evals are the training data for the harness — soon the agent reads them too.'",
   "TAKEAWAYS. 01 Agent = Model + Harness. 02 The harness is mostly files. 03 Tool descriptions = UX copy. 04 Hooks > hoping — as Mitchell Hashimoto puts it, change the system so a whole class of mistake can't come back, instead of re-running the prompt and hoping. 05 Most agent failures are input failures — read 5 transcripts before changing one line. Thank the room; keep the energy up — they earned it.",
-  "RESOURCES. Source material first: Mitchell Hashimoto's 'My AI Adoption Journey' (the post that named the practice), LangChain's harness-anatomy essay, the Stanford Meta-Harness paper (the empirical case that the scaffold, not just the weights, drives results), and the MCP spec. Then the docs for the editor they use — Copilot (custom instructions, prompt files, custom agents, the Customize-AI overview) is the priority for most of the room; RooCode/Cline docs for the rest. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
+  "RESOURCES. Source material first: Mitchell Hashimoto's 'My AI Adoption Journey' (the post that named the practice), LangChain's harness-anatomy essay, the Stanford Meta-Harness and UC Berkeley 'scaling the harness' papers, OpenAI's 'Harness engineering' essay, the RHO self-improvement paper, and the MCP spec. Then the docs for the editor they use — Copilot (custom instructions, prompt files, custom agents, the Customize-AI overview) is the priority for most of the room; RooCode/Cline docs for the rest. Closing line: 'Keep editing your harness in the open. Push to a shared branch. The harness is a living artifact, not a deliverable.'"
 ]
 </script>
 
