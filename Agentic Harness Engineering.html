@@ -2851,6 +2851,64 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
 
 <body>
 
+<style id="viz-additions">
+/* ===== Text → visual conversions (black / white / gray) ===== */
+
+/* 1 · Promise vs. rollout — gap chart */
+.gap-viz{ flex:1; display:flex; gap:64px; align-items:center; margin-top:8px; }
+.gap-promise{ flex:0 0 430px; border-right:1px solid var(--spectrum-gray-300); padding-right:56px; }
+.gap-promise .lbl{ font-size:14px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--spectrum-gray-600); margin-bottom:16px; }
+.gap-promise .big{ font-size:104px; font-weight:800; line-height:.92; color:var(--spectrum-gray-900); letter-spacing:-.03em; }
+.gap-promise .big .unit{ font-size:40px; font-weight:700; color:var(--spectrum-gray-600); }
+.gap-promise .money{ font-size:34px; font-weight:700; color:var(--spectrum-gray-900); margin-top:18px; }
+.gap-promise .src{ font-size:17px; color:var(--spectrum-gray-600); margin-top:14px; }
+.gap-bars{ flex:1; }
+.gap-bars .reality-lbl{ font-size:14px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--spectrum-gray-600); margin-bottom:22px; }
+.gap-bar-row{ margin-bottom:26px; }
+.gap-bar-row .cap{ display:flex; justify-content:space-between; align-items:baseline; font-size:20px; color:var(--spectrum-gray-900); margin-bottom:9px; }
+.gap-bar-row .cap b{ font-weight:800; }
+.gap-track{ position:relative; height:42px; background:var(--spectrum-gray-100); border:1px solid var(--spectrum-gray-300); border-radius:8px; }
+.gap-fill{ position:absolute; top:-1px; bottom:-1px; left:-1px; background:var(--spectrum-gray-900); border-radius:8px 0 0 8px; }
+.gap-note{ display:flex; align-items:center; gap:16px; margin-top:8px; font-size:21px; color:var(--spectrum-gray-900); }
+.gap-note .pill{ background:var(--spectrum-navy-900); color:#fff; padding:9px 18px; border-radius:999px; font-weight:700; font-size:16px; white-space:nowrap; }
+.gap-note .arrow{ color:var(--spectrum-gray-600); font-size:26px; }
+
+/* 2 · Self-improving loop */
+.loop-figure{ flex:1; display:flex; flex-direction:column; justify-content:center; gap:30px; margin-top:8px; }
+.loop-figure svg{ width:100%; height:auto; max-height:440px; }
+.loop-sources{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.loop-src{ border:1px solid var(--spectrum-gray-300); border-radius:12px; padding:18px 22px; background:#fff; }
+.loop-src .k{ font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--spectrum-gray-600); margin-bottom:8px; }
+.loop-src h4{ font-size:21px; margin:0 0 8px; color:var(--spectrum-gray-900); }
+.loop-src p{ font-size:17px; line-height:1.45; color:var(--spectrum-gray-600); margin:0; }
+
+/* 3 · Do / Don't contrast grid */
+.dodont{ flex:1; display:grid; grid-template-rows:auto 1fr; margin-top:8px; }
+.dodont-head{ display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-bottom:14px; }
+.dodont-head .h{ display:flex; align-items:center; gap:12px; font-size:22px; font-weight:800; padding-bottom:12px; border-bottom:2px solid var(--spectrum-navy-900); }
+.dodont-head .h .badge{ width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; }
+.dodont-head .h.do .badge{ background:var(--spectrum-gray-900); }
+.dodont-head .h.dont .badge{ background:var(--spectrum-gray-600); }
+.dodont-rows{ display:grid; grid-template-columns:1fr 1fr; gap:0 40px; align-content:stretch; }
+.dd-cell{ display:flex; align-items:flex-start; gap:14px; padding:16px 0; font-size:21px; line-height:1.35; color:var(--spectrum-gray-900); border-bottom:1px solid var(--spectrum-gray-100); }
+.dd-cell .i{ flex:0 0 26px; margin-top:2px; }
+.dd-cell.do .i{ color:var(--spectrum-gray-900); }
+.dd-cell.dont .i{ color:var(--spectrum-gray-600); }
+.dd-cell.dont{ color:var(--spectrum-gray-600); }
+.dd-cell code{ background:var(--spectrum-gray-100); padding:1px 7px; border-radius:5px; font-size:.9em; }
+
+/* 4 · Setup pipeline */
+.setup-flow{ display:flex; align-items:stretch; gap:0; margin-top:26px; }
+.setup-step{ flex:1; background:#fff; border:1px solid var(--spectrum-gray-300); border-radius:14px; padding:20px 20px 22px; display:flex; flex-direction:column; }
+.setup-step .n{ width:38px; height:38px; border-radius:50%; background:var(--spectrum-navy-900); color:#fff; font-weight:800; font-size:18px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+.setup-step h4{ font-size:20px; margin:0 0 8px; color:var(--spectrum-gray-900); line-height:1.2; }
+.setup-step p{ font-size:15.5px; line-height:1.4; color:var(--spectrum-gray-600); margin:0; }
+.setup-step a{ color:var(--spectrum-blue-500); font-weight:600; }
+.setup-step code{ background:var(--spectrum-gray-100); padding:1px 6px; border-radius:5px; font-size:.88em; }
+.setup-arrow{ flex:0 0 36px; display:flex; align-items:center; justify-content:center; color:var(--spectrum-gray-300); font-size:30px; }
+</style>
+
+
 <deck-stage width="1920" height="1080">
 
 <!-- ============================================================
@@ -2935,21 +2993,31 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
     <h2 class="slide-title">The promise is huge. The rollout isn't.</h2>
     <p class="slide-lede">The gap isn't access to models — plenty of teams can call a strong one. What's missing is the system layer that turns capability into repeatable work.</p>
 
-    <div class="grid-3 grid-3--full">
-      <div class="card">
-        <div class="kicker">The promise</div>
-        <h3>+7% global GDP — nearly $7T over a decade.</h3>
-        <p>Goldman Sachs' macro estimate for generative AI (2023).</p>
+    <div class="gap-viz">
+      <div class="gap-promise">
+        <div class="lbl">The promise</div>
+        <div class="big">+7%<span class="unit"> GDP</span></div>
+        <div class="money">≈ $7T over a decade</div>
+        <div class="src">Goldman Sachs' macro estimate for generative AI (2023).</div>
       </div>
-      <div class="card">
-        <div class="kicker">The reality</div>
-        <h3>~6% of US firms had actually adopted it.</h3>
-        <p>Goldman Sachs, late 2024 — even firms over 250 staff only ~10%.</p>
-      </div>
-      <div class="card">
-        <div class="kicker">The missing layer</div>
-        <h3>The harness.</h3>
-        <p>Without it the model is fragile — one answer at a time, not a reliable workflow. You're here to build that layer.</p>
+
+      <div class="gap-bars">
+        <div class="reality-lbl">The reality · US firm adoption</div>
+
+        <div class="gap-bar-row">
+          <div class="cap"><span>All US firms</span><span><b>~6%</b></span></div>
+          <div class="gap-track"><div class="gap-fill" style="width:6%;"></div></div>
+        </div>
+        <div class="gap-bar-row">
+          <div class="cap"><span>Firms over 250 staff</span><span><b>~10%</b></span></div>
+          <div class="gap-track"><div class="gap-fill" style="width:10%;"></div></div>
+        </div>
+
+        <div class="gap-note">
+          <span class="arrow">←</span>
+          <span>That empty 90%+ is <b>the missing layer</b></span>
+          <span class="pill">the harness</span>
+        </div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -3032,7 +3100,7 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
     <div class="eyebrow">Setup</div>
     <h2 class="slide-title">Your environment &amp; ground rules</h2>
 
-    <div class="env-grid">
+    <div class="env-grid" style="flex:0 0 auto;">
       <div class="env-card">
         <div class="env-tag">Stack you have</div>
         <ul>
@@ -3053,7 +3121,39 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
       </div>
     </div>
 
-    <p class="footnote" style="margin-top:28px;max-width:1200px;"><b>Before Day 1 breakouts:</b> Install VS Code, enable one AI extension (<b>GitHub Copilot</b> or <b>Roo Code / DevGPT</b>), then download and unzip the <a href="exercises/app-build-template.zip" style="color:var(--spectrum-blue-500);font-weight:600;">app build template</a> and open it as the workspace. <b>Run the model-access smoke test in <code>SETUP.md</code> first</b> — the tests fail by design if the model never runs. The harness is pre-wired into <code>.github/</code> (Copilot) and <code>.roo/</code> (Roo); Day 1 follows the lab cards in <code>labs/</code>, Day 2 runs <code>/plan-app</code> → <code>/bootstrap-harness</code> → <code>/test-harness</code>, and <code>PROGRESS.md</code> tracks you. Optional deeper reference: <code>harness-templates/</code> and the <a href="exercises/harness-workshop-starter.zip" style="color:var(--spectrum-blue-500);font-weight:600;">starter pack</a>.</p>
+    <div style="margin-top:34px;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--spectrum-gray-600);">Before Day 1 breakouts</div>
+    <div class="setup-flow">
+      <div class="setup-step">
+        <div class="n">1</div>
+        <h4>Install VS Code</h4>
+        <p>Your editor for both days.</p>
+      </div>
+      <div class="setup-arrow">→</div>
+      <div class="setup-step">
+        <div class="n">2</div>
+        <h4>Enable one AI extension</h4>
+        <p><b>GitHub Copilot</b> or <b>Roo Code / DevGPT</b> — pick one.</p>
+      </div>
+      <div class="setup-arrow">→</div>
+      <div class="setup-step">
+        <div class="n">3</div>
+        <h4>Open the template</h4>
+        <p>Unzip the <a href="exercises/app-build-template.zip">app build template</a> and open it as the workspace. Harness pre-wired in <code>.github/</code> + <code>.roo/</code>.</p>
+      </div>
+      <div class="setup-arrow">→</div>
+      <div class="setup-step">
+        <div class="n">4</div>
+        <h4>Smoke-test access</h4>
+        <p>Run the model-access check in <code>SETUP.md</code> first — tests fail by design if the model never runs.</p>
+      </div>
+      <div class="setup-arrow">→</div>
+      <div class="setup-step">
+        <div class="n">5</div>
+        <h4>Build</h4>
+        <p>Day 1: <code>labs/</code>. Day 2: <code>/plan-app</code> → <code>/bootstrap-harness</code> → <code>/test-harness</code>. <code>PROGRESS.md</code> tracks you.</p>
+      </div>
+    </div>
+    <p class="footnote" style="margin-top:18px;">Optional deeper reference: <code>harness-templates/</code> and the <a href="exercises/harness-workshop-starter.zip" style="color:var(--spectrum-blue-500);font-weight:600;">starter pack</a>.</p>
 
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
@@ -3202,6 +3302,28 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
           <p>Weights and architecture — capability without tools, memory, or agency until the harness (and editor) turns it into behavior.</p>
         </div>
       </div>
+    </div>
+
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDE 7b — Harnesses all the way down (recursion diagram)
+     Caps Foundations: the meta-harness nesting + steering vs. vibe coding.
+     ============================================================ -->
+<section data-label="7b Harnesses All the Way Down">
+  <div class="frame">
+    <div class="eyebrow">Foundations</div>
+    <h2 class="slide-title">Harnesses all the way down</h2>
+    <p class="slide-lede">A meta-harness steers Copilot to build a harness that steers an LLM — not vibe-coding an algorithmic app.</p>
+
+    <div style="flex:1 1 auto; min-height:0; display:flex; align-items:center; justify-content:center; padding:8px 0 0;">
+      <img
+        src="assets/harness-recursion-diagram.svg"
+        alt="Three nested harnesses: the workshop codebase (meta-harness) wraps GitHub Copilot (base AI harness), which builds the domain app harness, which steers an LLM. A sequential pipeline of slash commands (/plan-app, /bootstrap-harness, /test-harness) drives the build. A contrast panel shows vibe coding — an AI assistant writes an algorithmic app with no LLM at runtime."
+        style="max-width:1180px; width:100%; max-height:100%; height:auto; object-fit:contain;"
+      />
     </div>
 
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -4958,28 +5080,29 @@ Review the component for design-token violations.
     <h2 class="slide-title">Best practices &amp; anti-patterns</h2>
     <p class="slide-lede">Reference during demos and debrief — what we reward vs. what we'll name in discussion.</p>
 
-    <div class="ex21-bottom" style="margin-top:24px;">
-      <div class="deliverables">
-        <h4>Best practices we want to see</h4>
-        <ol>
-          <li>Start with user intent · design the failure state first</li>
-          <li>Cap tools at ~7 · description = UX copy for the model</li>
-          <li>Hooks for "every time"; prompts for "use judgment"</li>
-          <li>One file does one job · AGENTS.md stays under 200 lines</li>
-          <li>Capture transcripts as evals · hill-climb from real failures</li>
-          <li>Reach for a workflow only for large / multi-layer tasks · set a token budget</li>
-        </ol>
+    <div class="dodont">
+      <div class="dodont-head">
+        <div class="h do"><span class="badge"><i data-lucide="check" width="20" height="20"></i></span>Do — what we reward</div>
+        <div class="h dont"><span class="badge"><i data-lucide="x" width="20" height="20"></i></span>Don't — what we'll name</div>
       </div>
-      <div class="tips">
-        <h4>Anti-patterns we'll call out</h4>
-        <ul>
-          <li>"And here are 23 MCP servers it can use" — too many tools</li>
-          <li>The system prompt is doing the hook's job</li>
-          <li>No way to tell when the agent succeeded vs. gave up</li>
-          <li>Same harness for every user — no scoping at all</li>
-          <li>Demo runs only on the rehearsed task</li>
-          <li>A whole agent swarm to recolor a button — workflow overkill</li>
-        </ul>
+      <div class="dodont-rows">
+        <div class="dd-cell do"><i class="i" data-lucide="check" width="24" height="24"></i><div>Start with user intent · design the failure state first</div></div>
+        <div class="dd-cell dont"><i class="i" data-lucide="x" width="24" height="24"></i><div>No way to tell when the agent succeeded vs. gave up</div></div>
+
+        <div class="dd-cell do"><i class="i" data-lucide="check" width="24" height="24"></i><div>Cap tools at ~7 · description = UX copy for the model</div></div>
+        <div class="dd-cell dont"><i class="i" data-lucide="x" width="24" height="24"></i><div>"And here are 23 MCP servers it can use" — too many tools</div></div>
+
+        <div class="dd-cell do"><i class="i" data-lucide="check" width="24" height="24"></i><div>Hooks for "every time"; prompts for "use judgment"</div></div>
+        <div class="dd-cell dont"><i class="i" data-lucide="x" width="24" height="24"></i><div>The system prompt is doing the hook's job</div></div>
+
+        <div class="dd-cell do"><i class="i" data-lucide="check" width="24" height="24"></i><div>One file does one job · <code>AGENTS.md</code> under 200 lines</div></div>
+        <div class="dd-cell dont"><i class="i" data-lucide="x" width="24" height="24"></i><div>Same harness for every user — no scoping at all</div></div>
+
+        <div class="dd-cell do"><i class="i" data-lucide="check" width="24" height="24"></i><div>Capture transcripts as evals · hill-climb from real failures</div></div>
+        <div class="dd-cell dont"><i class="i" data-lucide="x" width="24" height="24"></i><div>Demo runs only on the rehearsed task</div></div>
+
+        <div class="dd-cell do"><i class="i" data-lucide="check" width="24" height="24"></i><div>Workflow only for large / multi-layer tasks · token budget</div></div>
+        <div class="dd-cell dont"><i class="i" data-lucide="x" width="24" height="24"></i><div>A whole agent swarm to recolor a button — overkill</div></div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
@@ -4992,21 +5115,68 @@ Review the component for design-token violations.
     <h2 class="slide-title">Harnesses that improve themselves</h2>
     <p class="slide-lede">The newest research closes the loop: the agent hill-climbs its own harness from its own work history — but a human still owns the guardrails.</p>
 
-    <div class="grid-3 grid-3--full">
-      <div class="card">
-        <div class="kicker">Search the scaffold</div>
-        <h3>Meta-Harness</h3>
-        <p>Stanford — automatically searches the harness code around a fixed model, tests changes, and keeps what works.</p>
-      </div>
-      <div class="card">
-        <div class="kicker">Learn from the past</div>
-        <h3>Retrospective Harness Optimization</h3>
-        <p>Re-solves hard past tasks with no answer key; self-validation + self-consistency lift SWE-Bench Pro 59% → 78% in one round.</p>
-      </div>
-      <div class="card">
-        <div class="kicker">Keep the guardrails</div>
-        <h3>Still needs a human.</h3>
-        <p>A self-updating harness can reinforce bad habits — so audit logs, approval gates, and safety checks stay non-negotiable.</p>
+    <div class="loop-figure">
+      <svg viewBox="0 0 1760 360" role="img" aria-label="The self-improvement loop: work history feeds a proposed harness change, which is evaluated, passes a human guardrail gate, and produces an updated harness — then repeats every session.">
+        <defs>
+          <marker id="loopArrow" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto" markerUnits="strokeWidth">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#1A1A1A"/>
+          </marker>
+        </defs>
+
+        <!-- forward arrows -->
+        <g stroke="#1A1A1A" stroke-width="2.5" marker-end="url(#loopArrow)">
+          <line x1="318" y1="100" x2="372" y2="100"/>
+          <line x1="674" y1="100" x2="728" y2="100"/>
+          <line x1="1030" y1="100" x2="1084" y2="100"/>
+          <line x1="1386" y1="100" x2="1440" y2="100"/>
+        </g>
+
+        <!-- return path -->
+        <path d="M1592 162 V290 Q1592 300 1582 300 H178 Q168 300 168 290 V164"
+              fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#loopArrow)"/>
+        <text x="880" y="330" text-anchor="middle" font-size="18" font-weight="700" fill="#1A1A1A">every session · the harness hill-climbs on its own work history</text>
+
+        <!-- nodes -->
+        <g font-family="'Open Sans',sans-serif">
+          <!-- 1 -->
+          <rect x="18" y="40" width="300" height="120" rx="12" fill="#fff" stroke="#1A1A1A" stroke-width="2"/>
+          <text x="168" y="92" text-anchor="middle" font-size="23" font-weight="800" fill="#1A1A1A">Work history</text>
+          <text x="168" y="122" text-anchor="middle" font-size="16" fill="#6B6B6B">transcripts · past tasks</text>
+          <!-- 2 -->
+          <rect x="374" y="40" width="300" height="120" rx="12" fill="#fff" stroke="#1A1A1A" stroke-width="2"/>
+          <text x="524" y="92" text-anchor="middle" font-size="23" font-weight="800" fill="#1A1A1A">Propose change</text>
+          <text x="524" y="122" text-anchor="middle" font-size="16" fill="#6B6B6B">to scaffold &amp; prompts</text>
+          <!-- 3 -->
+          <rect x="730" y="40" width="300" height="120" rx="12" fill="#fff" stroke="#1A1A1A" stroke-width="2"/>
+          <text x="880" y="92" text-anchor="middle" font-size="23" font-weight="800" fill="#1A1A1A">Evaluate</text>
+          <text x="880" y="122" text-anchor="middle" font-size="16" fill="#6B6B6B">re-solve · self-validate</text>
+          <!-- 4 · human gate (highlighted) -->
+          <rect x="1086" y="40" width="300" height="120" rx="12" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2"/>
+          <text x="1236" y="86" text-anchor="middle" font-size="23" font-weight="800" fill="#fff">Human gate</text>
+          <text x="1236" y="116" text-anchor="middle" font-size="16" fill="#D6D6D6">approve · guardrails</text>
+          <!-- 5 -->
+          <rect x="1442" y="40" width="300" height="120" rx="12" fill="#fff" stroke="#1A1A1A" stroke-width="2"/>
+          <text x="1592" y="92" text-anchor="middle" font-size="23" font-weight="800" fill="#1A1A1A">Updated harness</text>
+          <text x="1592" y="122" text-anchor="middle" font-size="16" fill="#6B6B6B">keep what works</text>
+        </g>
+      </svg>
+
+      <div class="loop-sources">
+        <div class="loop-src">
+          <div class="k">Search the scaffold</div>
+          <h4>Meta-Harness</h4>
+          <p>Stanford — automatically searches the harness code around a fixed model, tests changes, keeps what works.</p>
+        </div>
+        <div class="loop-src">
+          <div class="k">Learn from the past</div>
+          <h4>Retrospective Optimization</h4>
+          <p>Re-solves hard past tasks with no answer key; self-validation + self-consistency lift SWE-Bench Pro 59% → 78% in one round.</p>
+        </div>
+        <div class="loop-src">
+          <div class="k">Keep the guardrails</div>
+          <h4>Still needs a human</h4>
+          <p>A self-updating harness can reinforce bad habits — so audit logs, approval gates, and safety checks stay non-negotiable.</p>
+        </div>
       </div>
     </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>

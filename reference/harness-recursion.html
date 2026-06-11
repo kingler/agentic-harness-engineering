@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harnesses all the way down — the meta-harness diagram</title>
+  <style>
+    :root{
+      --bg:#000; --panel:#0d0d0d; --border:#3f3f46;
+      --fg:#ffffff; --muted:#9ca3af; --chip:#1e1e1e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:'Open Sans',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+      line-height:1.55; padding:40px 24px 64px;
+    }
+    main{max-width:1100px; margin:0 auto}
+    .eyebrow{font-size:12px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 8px}
+    h1{font-size:30px; line-height:1.15; letter-spacing:-.02em; margin:0 0 8px}
+    .sub{font-size:16px; color:var(--muted); margin:0 0 28px; max-width:70ch}
+    .figure{
+      background:var(--panel); border:1px solid var(--border); border-radius:16px;
+      padding:18px; margin:0 0 28px;
+    }
+    .figure img{width:100%; height:auto; display:block}
+    .notes{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+    @media (max-width:720px){ .notes{grid-template-columns:1fr} h1{font-size:24px} }
+    .note{background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px 20px}
+    .note h2{font-size:15px; margin:0 0 8px; letter-spacing:.02em}
+    .note p{font-size:14px; color:var(--muted); margin:0 0 8px}
+    .note p:last-child{margin-bottom:0}
+    code{background:var(--chip); border:1px solid var(--border); border-radius:5px; padding:1px 6px; font-size:.92em}
+    .key{color:var(--fg); font-weight:700}
+    a{color:#cbd5e1}
+    .foot{margin-top:30px; font-size:13px; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main>
+    <p class="eyebrow">Agentic Harness Engineering · Reference</p>
+    <h1>Harnesses all the way down</h1>
+    <p class="sub">
+      One picture for three ideas: a <span class="key">meta-harness</span> that builds harnesses,
+      <span class="key">GitHub Copilot</span> as the base AI harness it runs inside, and the
+      <span class="key">domain app harness</span> you ship to steer an LLM — as distinct from
+      vibe-coding an algorithmic app where the model never ships inside the product.
+    </p>
+
+    <div class="figure">
+      <img src="../assets/harness-recursion-diagram.svg"
+           alt="Three nested harnesses — the workshop codebase (meta-harness) wraps GitHub Copilot (base AI harness), which builds the domain app harness, which steers an LLM. A sequential pipeline of slash commands (/plan-app, /bootstrap-harness, /test-harness) drives the build. A contrast panel shows vibe coding, where the AI assistant writes an algorithmic app with no LLM at runtime." />
+    </div>
+
+    <div class="notes">
+      <div class="note">
+        <h2>Relational — harnesses that wrap harnesses</h2>
+        <p>Read the nesting from outside in. Each layer <span class="key">wraps</span> the next:</p>
+        <p><span class="key">Meta-harness</span> — this workshop codebase. Its <code>/slash</code> commands and skills exist to help you build a harness.</p>
+        <p><span class="key">Base AI harness</span> — the GitHub Copilot VS Code extension. It wraps the model and gives you an agent in your editor.</p>
+        <p><span class="key">Domain app harness</span> — what you ship: persona, rules, tools, hooks, MCP, evals — the AI-based app itself.</p>
+      </div>
+      <div class="note">
+        <h2>Sequential — the build pipeline</h2>
+        <p>The meta-harness moves you through an ordered set of slash commands:</p>
+        <p><code>/plan-app</code> → <code>/bootstrap-harness</code> → <code>/test-harness</code>.</p>
+        <p>Each step's output feeds the next; the result is the domain app harness in the center.</p>
+      </div>
+      <div class="note">
+        <h2>The point — steering an LLM</h2>
+        <p>The domain harness <span class="key">steers</span> a non-deterministic LLM at runtime. The harness is everything <span class="key">around</span> the model that shapes what it outputs.</p>
+      </div>
+      <div class="note">
+        <h2>Not the same as vibe coding</h2>
+        <p>In vibe coding the AI is your <span class="key">coding assistant</span>: it writes an algorithmic app, then steps away. The shipped product runs plain code with <span class="key">no LLM at runtime</span>.</p>
+      </div>
+    </div>
+
+    <p class="foot">
+      Source: <code>assets/harness-recursion-diagram.svg</code> (black / white / gray, matches the deck).
+      Back to <a href="../start.html">Start here</a>.
+    </p>
+  </main>
+</body>
+</html>
