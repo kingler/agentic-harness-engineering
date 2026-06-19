@@ -330,3 +330,277 @@ footer.site a:hover { color: var(--navy-900); }
   color: var(--navy-900);
 }
 .callout b { color: var(--accent); }
+
+/* =========================================================
+   Copilot "do this in VS Code" walkthrough + screenshot
+   ---------------------------------------------------------
+   The .vsc-shot block is a vector mockup of the GitHub
+   Copilot UI. To swap in a REAL screenshot later, replace
+   the <div class="vsc"> … </div> inside each <figure> with:
+     <img src="../assets/copilot-<name>.png" alt="…">
+   The <figure>/<figcaption> wrapper and caption stay put.
+   ========================================================= */
+
+.copilot-howto {
+  border: 1px solid var(--gray-300);
+  border-radius: 14px;
+  padding: 26px 28px 30px;
+  margin: 18px 0 28px;
+  background:
+    linear-gradient(180deg, #FBFCFF 0%, #fff 120px);
+}
+.copilot-howto > h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+.copilot-howto > h3 .gh-mark {
+  display: inline-flex;
+  width: 26px; height: 26px;
+  align-items: center; justify-content: center;
+  border-radius: 999px;
+  background: var(--navy-900);
+  color: #fff;
+  font-size: 14px;
+}
+.copilot-howto .sub {
+  margin: 0 0 18px;
+  font-size: 14px;
+  color: var(--gray-600);
+}
+.copilot-howto .file-path {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  padding: 3px 8px;
+  color: var(--navy-900);
+}
+.gh-steps {
+  counter-reset: ghstep;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 22px;
+}
+.gh-steps li {
+  position: relative;
+  padding-left: 38px;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+.gh-steps li::before {
+  counter-increment: ghstep;
+  content: counter(ghstep);
+  position: absolute;
+  left: 0; top: -1px;
+  width: 26px; height: 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center; justify-content: center;
+}
+.gh-steps kbd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 1px 6px;
+  color: var(--navy-900);
+}
+.gh-steps code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9em;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+
+/* ---- the mockup "screenshot" ---- */
+.vsc-shot { margin: 4px 0 0; }
+.vsc-shot figcaption {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: var(--gray-600);
+  font-style: italic;
+}
+.vsc {
+  font-family: 'JetBrains Mono', 'Menlo', monospace;
+  background: #1e1e1e;
+  border: 1px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+  color: #d4d4d4;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.vsc-chrome {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #323233;
+  padding: 9px 14px;
+  border-bottom: 1px solid #000;
+}
+.vsc-chrome .dot { width: 11px; height: 11px; border-radius: 999px; display: inline-block; }
+.vsc-chrome .dot.r { background: #ff5f56; }
+.vsc-chrome .dot.y { background: #ffbd2e; }
+.vsc-chrome .dot.g { background: #27c93f; }
+.vsc-chrome .vsc-file {
+  margin-left: 12px;
+  color: #8a8a8a;
+  font-size: 11.5px;
+}
+.vsc-main { display: flex; min-height: 250px; }
+.vsc-side {
+  width: 210px;
+  flex: none;
+  background: #252526;
+  border-right: 1px solid #1a1a1a;
+  padding: 10px 0;
+}
+.vsc-side .grp {
+  padding: 4px 14px;
+  color: #9d9d9d;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.vsc-side .row {
+  padding: 3px 14px 3px 22px;
+  color: #cfcfcf;
+  white-space: nowrap;
+}
+.vsc-side .row.dir { color: #c8c8c8; }
+.vsc-side .row.sel { background: #094771; color: #fff; }
+.vsc-side .row .mut { color: #6f6f6f; }
+.vsc-side .row.lvl2 { padding-left: 34px; }
+.vsc-side .row.lvl3 { padding-left: 46px; }
+.vsc-edit {
+  flex: 1;
+  background: #1e1e1e;
+  padding: 12px 16px;
+  overflow: hidden;
+}
+.vsc-edit .ln { white-space: pre; }
+.vsc-edit .fm { color: #6a9955; }          /* frontmatter fence / comment */
+.vsc-edit .k  { color: #9cdcfe; }           /* key */
+.vsc-edit .s  { color: #ce9178; }           /* string */
+.vsc-edit .h  { color: #569cd6; font-weight: 600; } /* heading */
+.vsc-edit .kw { color: #c586c0; }           /* keyword */
+.vsc-edit .g  { color: #808080; }           /* dim */
+
+/* Copilot chat pane */
+.vsc-chat {
+  width: 320px;
+  flex: none;
+  background: #1b1b1c;
+  border-left: 1px solid #000;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.vsc-chat .ttl {
+  color: #cfcfcf;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 7px;
+}
+.vsc-chat .ttl .ci {
+  width: 16px; height: 16px; border-radius: 999px;
+  background: #8957e5; color: #fff; font-size: 10px;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.vsc-bubble {
+  background: #2a2d2e;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #d4d4d4;
+}
+.vsc-bubble.me { background: #2b3a55; border-color: #38496b; }
+.vsc-pick {
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: #252526;
+  overflow: hidden;
+}
+.vsc-pick .opt { padding: 6px 10px; color: #cfcfcf; display: flex; align-items: center; gap: 8px; }
+.vsc-pick .opt.on { background: #094771; color: #fff; }
+.vsc-pick .opt .badge {
+  margin-left: auto;
+  font-size: 9.5px;
+  color: #8957e5;
+  border: 1px solid #4a3a6b;
+  border-radius: 4px;
+  padding: 0 5px;
+}
+.vsc-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 10.5px;
+  background: #21303f;
+  border: 1px solid #2e4a63;
+  border-radius: 6px;
+  padding: 2px 7px;
+  color: #8fc6f0;
+}
+.vsc-tag {
+  align-self: flex-start;
+  font-size: 10px;
+  color: #6a9955;
+  border: 1px solid #2f4a30;
+  background: #14210f;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+.vsc-tag.warn { color: #e0a458; border-color: #5a3f1d; background: #241a0c; }
+.vsc-input {
+  margin-top: auto;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  background: #252526;
+  padding: 7px 10px;
+  color: #7a7a7a;
+  display: flex; align-items: center; gap: 8px;
+}
+.vsc-input .cmd { color: #569cd6; }
+
+/* annotation callouts overlaid on the mockup */
+.gh-anno {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 6px;
+  padding: 3px 9px;
+  box-shadow: 0 2px 8px rgba(45,107,255,0.4);
+}
+.gh-anno-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+@media (max-width: 720px) {
+  .vsc-main { flex-direction: column; }
+  .vsc-side, .vsc-chat { width: 100%; }
+  .vsc-chat { border-left: 0; border-top: 1px solid #000; }
+}

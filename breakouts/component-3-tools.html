@@ -115,6 +115,59 @@
   "exec": "scripts/fetch_filing.sh ${accession_number}"
 }</pre>
 
+  <section class="copilot-howto" aria-label="Do this in GitHub Copilot">
+    <h3><span class="gh-mark">⌘</span>Intro demo — do this in GitHub Copilot</h3>
+    <p class="sub">Copilot exposes tools two ways: <b>MCP servers</b> wired in <code>.vscode/mcp.json</code> (someone else's toolset over a protocol) and <b>prompt files</b> under <code>.github/prompts/</code> (your slash commands). Both surface in the chat <b>Tools</b> picker the model chooses from.</p>
+
+    <ol class="gh-steps">
+      <li>Open <kbd>⚙ Configure Chat</kbd> → <b>Tools</b> → <b>Add MCP Server…</b> (or edit <span class="file-path">.vscode/mcp.json</span> directly).</li>
+      <li>Define the server — <code>command</code>/<code>args</code> for stdio, or <code>url</code> for HTTP. Its tools auto-register on reload.</li>
+      <li>Open the <b>🛠 Tools</b> picker in the chat input and <b>toggle on</b> only the tools this agent should pick — cap the roster.</li>
+      <li>For a script-as-tool, add <span class="file-path">.github/prompts/&lt;name&gt;.prompt.md</span> and run it with <code>/&lt;name&gt;</code>.</li>
+      <li>The <code>description</code> is all the model sees — write WHAT / WHEN / WHEN-NOT like a button label.</li>
+    </ol>
+
+    <figure class="vsc-shot">
+      <!-- SWAP-IN: replace the <div class="vsc">…</div> below with
+           <img src="../assets/copilot-tools-mcp.png" alt="Configuring MCP tools in GitHub Copilot"> -->
+      <div class="vsc" role="img" aria-label="VS Code showing .vscode/mcp.json and the Copilot Tools picker listing MCP tools">
+        <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">mcp.json — claudefs-harness</span></div>
+        <div class="vsc-main">
+          <aside class="vsc-side">
+            <div class="grp">Explorer</div>
+            <div class="row dir">▾ .vscode</div>
+            <div class="row sel lvl2">mcp.json</div>
+            <div class="row dir">▾ .github</div>
+            <div class="row dir lvl2">▾ prompts</div>
+            <div class="row lvl3">draft-tool.prompt.md</div>
+          </aside>
+          <div class="vsc-edit">
+            <div class="ln">{</div>
+            <div class="ln">&nbsp;&nbsp;<span class="k">"servers"</span>: {</div>
+            <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"edgar"</span>: {</div>
+            <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"command"</span>: <span class="s">"npx"</span>,</div>
+            <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"args"</span>: [<span class="s">"-y"</span>, <span class="s">"edgar-mcp"</span>]</div>
+            <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+            <div class="ln">&nbsp;&nbsp;}</div>
+            <div class="ln">}</div>
+          </div>
+          <aside class="vsc-chat">
+            <div class="ttl"><span class="ci">✦</span> Copilot · Tools</div>
+            <div class="vsc-pick">
+              <div class="opt on">✓ fetch_filing <span class="badge">MCP</span></div>
+              <div class="opt on">✓ query_workbook <span class="badge">MCP</span></div>
+              <div class="opt">☐ list_filings <span class="badge">MCP</span></div>
+              <div class="opt on">✓ /draft-tool <span class="badge">PROMPT</span></div>
+            </div>
+            <div class="vsc-bubble"><b>2 tools</b> enabled for this agent. Toggle off what it shouldn't reach for.</div>
+            <div class="vsc-input"><span class="cmd">/draft-tool</span> fetch_filing…</div>
+          </aside>
+        </div>
+      </div>
+      <figcaption>Figure · <b>.vscode/mcp.json</b> registering an MCP server, with its tools (plus a <code>/draft-tool</code> prompt file) in the Copilot Tools picker. (Mockup — swap in a real capture in <code class="inline">assets/</code>.)</figcaption>
+    </figure>
+  </section>
+
   <h2><span class="step-num">5</span>Pressure-test the pick</h2>
   <p>Read all your tool descriptions side by side. If the model had to choose between two without context, could it? If not, the descriptions overlap — tighten the WHEN-NOT lines.</p>
 

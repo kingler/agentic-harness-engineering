@@ -2846,6 +2846,95 @@ body[data-print-with-notes] #pdf-with-notes{ display:block; background:#fff; }
   animation:none !important;
 }
 .pdf-slide-wrap > section *{ animation:none !important; }
+
+/* =========================================================
+   COPILOT INTRO-DEMO SLIDES (Build it in GitHub Copilot)
+   Left: numbered UI steps · Right: a vector "screenshot"
+   mockup of the Copilot feature. To drop in a REAL capture,
+   replace the <div class="vsc">…</div> with
+     <img class="vsc-img" src="assets/copilot-<name>.png" alt="…">
+   ========================================================= */
+.cpd-feature{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'JetBrains Mono',monospace; font-size:18px;
+  background:var(--spectrum-gray-100); border:1px solid var(--spectrum-gray-300);
+  border-radius:8px; padding:6px 14px; color:var(--spectrum-navy-900);
+  margin-bottom:22px;
+}
+.cpd-feature b{ color:var(--spectrum-blue-500); }
+.cpd{
+  display:grid; grid-template-columns:0.82fr 1.18fr; gap:52px;
+  flex:1; align-items:center; min-height:0;
+}
+.cpd-steps{ counter-reset:cpd; list-style:none; padding:0; margin:0; }
+.cpd-steps li{
+  position:relative; padding-left:58px; margin-bottom:22px;
+  font-size:23px; line-height:1.4; color:var(--spectrum-gray-900);
+}
+.cpd-steps li:last-child{ margin-bottom:0; }
+.cpd-steps li::before{
+  counter-increment:cpd; content:counter(cpd);
+  position:absolute; left:0; top:-2px;
+  width:40px; height:40px; border-radius:999px;
+  background:var(--spectrum-navy-900); color:#fff;
+  font-family:'JetBrains Mono',monospace; font-size:19px; font-weight:700;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.cpd-steps kbd{
+  font-family:'JetBrains Mono',monospace; font-size:18px;
+  background:#fff; border:1px solid var(--spectrum-gray-300);
+  border-bottom-width:3px; border-radius:6px; padding:1px 8px;
+  color:var(--spectrum-navy-900); white-space:nowrap;
+}
+.cpd-steps code{
+  font-family:'JetBrains Mono',monospace; font-size:0.86em;
+  background:var(--spectrum-gray-100); border:1px solid var(--spectrum-gray-300);
+  border-radius:5px; padding:1px 6px;
+}
+.cpd-cap{
+  margin-top:16px; font-size:16px; font-style:italic;
+  color:var(--spectrum-gray-600);
+}
+
+/* the mockup window — deck scale */
+.vsc{
+  font-family:'JetBrains Mono','Menlo',monospace;
+  background:#1e1e1e; border:1px solid #000; border-radius:14px;
+  overflow:hidden; box-shadow:0 24px 70px rgba(0,0,0,0.34);
+  color:#d4d4d4; font-size:17px; line-height:1.5;
+}
+.vsc-img{ width:100%; border-radius:14px; box-shadow:0 24px 70px rgba(0,0,0,0.34); display:block; }
+.vsc-chrome{ display:flex; align-items:center; gap:9px; background:#323233; padding:13px 18px; border-bottom:1px solid #000; }
+.vsc-chrome .dot{ width:14px; height:14px; border-radius:999px; }
+.vsc-chrome .dot.r{ background:#ff5f56; } .vsc-chrome .dot.y{ background:#ffbd2e; } .vsc-chrome .dot.g{ background:#27c93f; }
+.vsc-chrome .vsc-file{ margin-left:16px; color:#8a8a8a; font-size:16px; }
+.vsc-main{ display:flex; min-height:430px; }
+.vsc-side{ width:288px; flex:none; background:#252526; border-right:1px solid #1a1a1a; padding:14px 0; }
+.vsc-side .grp{ padding:6px 20px; color:#9d9d9d; font-size:14px; letter-spacing:0.06em; text-transform:uppercase; }
+.vsc-side .row{ padding:5px 20px 5px 30px; color:#cfcfcf; white-space:nowrap; }
+.vsc-side .row.sel{ background:#094771; color:#fff; }
+.vsc-side .row .mut, .vsc-side .row.mut{ color:#6f6f6f; }
+.vsc-side .row.lvl2{ padding-left:46px; }
+.vsc-side .row.lvl3{ padding-left:62px; }
+.vsc-edit{ flex:1; background:#1e1e1e; padding:18px 22px; overflow:hidden; }
+.vsc-edit .ln{ white-space:pre; }
+.vsc-edit .fm{ color:#6a9955; } .vsc-edit .k{ color:#9cdcfe; } .vsc-edit .s{ color:#ce9178; }
+.vsc-edit .h{ color:#569cd6; font-weight:600; } .vsc-edit .kw{ color:#c586c0; } .vsc-edit .g{ color:#808080; }
+.vsc-chat{ width:430px; flex:none; background:#1b1b1c; border-left:1px solid #000; padding:18px 20px; display:flex; flex-direction:column; gap:14px; }
+.vsc-chat .ttl{ color:#cfcfcf; font-size:15px; letter-spacing:0.05em; text-transform:uppercase; display:flex; align-items:center; gap:9px; }
+.vsc-chat .ttl .ci{ width:22px; height:22px; border-radius:999px; background:#8957e5; color:#fff; font-size:13px; display:inline-flex; align-items:center; justify-content:center; }
+.vsc-bubble{ background:#2a2d2e; border:1px solid #333; border-radius:10px; padding:11px 14px; color:#d4d4d4; }
+.vsc-bubble.me{ background:#2b3a55; border-color:#38496b; }
+.vsc-bubble code{ color:#ce9178; }
+.vsc-pick{ border:1px solid #3a3a3a; border-radius:10px; background:#252526; overflow:hidden; }
+.vsc-pick .opt{ padding:9px 14px; color:#cfcfcf; display:flex; align-items:center; gap:10px; }
+.vsc-pick .opt.on{ background:#094771; color:#fff; }
+.vsc-pick .opt .badge{ margin-left:auto; font-size:13px; color:#b69be6; border:1px solid #4a3a6b; border-radius:5px; padding:0 7px; }
+.vsc-chip{ display:inline-flex; align-items:center; gap:6px; font-size:15px; background:#21303f; border:1px solid #2e4a63; border-radius:8px; padding:4px 10px; color:#8fc6f0; align-self:flex-start; }
+.vsc-tag{ align-self:flex-start; font-size:15px; color:#7bbf6a; border:1px solid #2f4a30; background:#14210f; border-radius:8px; padding:4px 11px; }
+.vsc-tag.warn{ color:#e0a458; border-color:#5a3f1d; background:#241a0c; }
+.vsc-input{ margin-top:auto; border:1px solid #3a3a3a; border-radius:10px; background:#252526; padding:11px 14px; color:#7a7a7a; display:flex; align-items:center; gap:10px; }
+.vsc-input .cmd{ color:#569cd6; }
 </style>
 </head>
 
@@ -4494,6 +4583,354 @@ column.</span>
 
     </div>
 
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SLIDES 18c–18i — "Build it in GitHub Copilot" intro demos
+     One divider + six component demos. Each shows the native
+     Copilot UI for creating that harness component, with a
+     vector "screenshot" mockup. Swap each <div class="vsc">…</div>
+     for <img class="vsc-img" src="assets/copilot-<name>.png" …>
+     when you capture real screens. See assets/copilot-screenshots.README.md
+     ============================================================ -->
+<section data-label="18c Demo · Build it in Copilot">
+  <div class="ex2 ex2-section-intro">
+    <div class="stripe" style="background-color: rgb(10, 31, 68);"></div>
+    <div class="left">
+      <div class="numeral">DEMO</div>
+      <div class="eyebrow">Day 1 · Before each breakout</div>
+      <h2>Build it in GitHub Copilot</h2>
+      <p>Before each breakout, a 2-minute review of the native Copilot feature that creates that component — custom agents, skills, tools/MCP, instructions, hooks, memory. Same files the slash commands write; this is the UI you'll drive.</p>
+      <div class="duration">~12 Minutes</div>
+    </div>
+    <div class="right">
+      <p class="lede ex2-lede-overlay"><span class="ex2-lede-inner">Every harness component has a home in <code>.github/</code> and a button in the Copilot Chat <b>Configure Chat</b> menu. Watch the demo, then build the same thing for your app. <b>The portable contract: files in the repo, not clicks in a panel.</b></span></p>
+      <div class="chip-row">
+        <span>Custom agents</span><span class="d"></span>
+        <span>Skills · Tools · Hooks</span><span class="d"></span>
+        <span>Knowledge &amp; Memory</span>
+      </div>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- 18d — Custom agents (system prompt) -->
+<section data-label="18d Demo · Custom agents">
+  <div class="frame">
+    <div class="eyebrow">Day 1 · Intro demo · GitHub Copilot</div>
+    <h2 class="slide-title">Custom agents — the persona, as a teammate</h2>
+    <span class="cpd-feature"><b>Configure Chat</b> ⚙ → Agents → New &nbsp;·&nbsp; .github/agents/&lt;name&gt;.agent.md</span>
+    <div class="cpd">
+      <ol class="cpd-steps">
+        <li>Chat view → <kbd>⚙ Configure Chat</kbd> → <b>New custom agent</b> (or <code>/create-agent</code>).</li>
+        <li>Save to <code>.github/agents/&lt;name&gt;.agent.md</code> — frontmatter sets <code>description</code>, <code>tools</code>, <code>model</code>.</li>
+        <li>Body = Identity · Scope · Hard rules from <code>AGENTS.md</code>. Always-on rules → <code>.github/copilot-instructions.md</code>.</li>
+        <li>Pick it from the <b>agent dropdown</b> to run the session as that persona.</li>
+      </ol>
+      <figure class="cpd-shot">
+        <!-- SWAP-IN: <img class="vsc-img" src="assets/copilot-create-agent.png" alt="Creating a custom agent in GitHub Copilot"> -->
+        <div class="vsc" role="img" aria-label="VS Code with a custom agent file open and the Copilot agent picker">
+          <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">reviewer.agent.md — harvey-harness</span></div>
+          <div class="vsc-main">
+            <aside class="vsc-side">
+              <div class="grp">Explorer</div>
+              <div class="row">▾ .github</div>
+              <div class="row lvl2">▾ agents</div>
+              <div class="row sel lvl3">reviewer.agent.md</div>
+              <div class="row lvl3">planner.agent.md</div>
+              <div class="row lvl2 mut">copilot-instructions.md</div>
+            </aside>
+            <div class="vsc-edit">
+              <div class="ln fm">---</div>
+              <div class="ln"><span class="k">description</span>: <span class="s">Read-only reviewer.</span></div>
+              <div class="ln"><span class="s">  Checks a change vs the rules.</span></div>
+              <div class="ln"><span class="k">tools</span>: [<span class="s">codebase</span>, <span class="s">search</span>]</div>
+              <div class="ln"><span class="k">model</span>: <span class="s">Claude Sonnet 4.6</span></div>
+              <div class="ln fm">---</div>
+              <div class="ln">&nbsp;</div>
+              <div class="ln h"># Reviewer (custom agent)</div>
+              <div class="ln g">Read-only. Never edits files.</div>
+            </div>
+            <aside class="vsc-chat">
+              <div class="ttl"><span class="ci">✦</span> Copilot · pick agent</div>
+              <div class="vsc-pick">
+                <div class="opt">Ask</div>
+                <div class="opt">Agent</div>
+                <div class="opt on">reviewer <span class="badge">CUSTOM</span></div>
+                <div class="opt">planner <span class="badge">CUSTOM</span></div>
+              </div>
+              <div class="vsc-bubble">Selected <b>reviewer</b> — read-only tools, Sonnet 4.6.</div>
+              <div class="vsc-input"><span class="cmd">/create-agent</span> a read-only reviewer…</div>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="cpd-cap">Mockup — swap in a real capture (assets/copilot-create-agent.png).</figcaption>
+      </figure>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- 18e — Agent skills -->
+<section data-label="18e Demo · Agent skills">
+  <div class="frame">
+    <div class="eyebrow">Day 1 · Intro demo · GitHub Copilot</div>
+    <h2 class="slide-title">Agent skills — a folder Copilot auto-loads</h2>
+    <span class="cpd-feature"><b>Configure Chat</b> ⚙ → Skills → New &nbsp;·&nbsp; .github/skills/&lt;name&gt;/SKILL.md</span>
+    <div class="cpd">
+      <ol class="cpd-steps">
+        <li>Create <code>.github/skills/&lt;skill-name&gt;/SKILL.md</code> — folder name matches the frontmatter <code>name</code>.</li>
+        <li>Two required fields: <code>name</code> and <code>description</code> — the <em>trigger</em>, phrased how a user asks.</li>
+        <li>Body = mechanical steps. Bundle <code>scripts/</code> (run), <code>references/</code> (on demand), <code>assets/</code>.</li>
+        <li>No manual invoke — Copilot shows <b>“Used skill: &lt;name&gt;”</b> when the description matches.</li>
+      </ol>
+      <figure class="cpd-shot">
+        <!-- SWAP-IN: <img class="vsc-img" src="assets/copilot-create-skill.png" alt="Creating an Agent Skill in GitHub Copilot"> -->
+        <div class="vsc" role="img" aria-label="VS Code showing a SKILL.md folder and Copilot auto-loading the skill">
+          <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">SKILL.md — granola-harness</span></div>
+          <div class="vsc-main">
+            <aside class="vsc-side">
+              <div class="grp">Explorer</div>
+              <div class="row">▾ .github</div>
+              <div class="row lvl2">▾ skills</div>
+              <div class="row lvl3">▾ summarize-meeting</div>
+              <div class="row sel" style="padding-left:78px">SKILL.md</div>
+              <div class="row mut" style="padding-left:78px">▸ scripts/</div>
+              <div class="row mut" style="padding-left:78px">▸ references/</div>
+            </aside>
+            <div class="vsc-edit">
+              <div class="ln fm">---</div>
+              <div class="ln"><span class="k">name</span>: <span class="s">summarize-meeting</span></div>
+              <div class="ln"><span class="k">description</span>: <span class="s">Recap a meeting</span></div>
+              <div class="ln"><span class="s">  from its transcript. Loads when</span></div>
+              <div class="ln"><span class="s">  the user asks to "summarize",</span></div>
+              <div class="ln"><span class="s">  "recap", or "write up" a meeting.</span></div>
+              <div class="ln fm">---</div>
+              <div class="ln">&nbsp;</div>
+              <div class="ln h"># Steps</div>
+            </div>
+            <aside class="vsc-chat">
+              <div class="ttl"><span class="ci">✦</span> Copilot · Agent</div>
+              <div class="vsc-bubble me">Recap the Acme sales call →</div>
+              <div class="vsc-tag">🛠 Used skill · summarize-meeting</div>
+              <div class="vsc-bubble">Summary, ⚠ flags, and owned action items.</div>
+              <div class="vsc-input"><span class="cmd">›</span> ask in the trigger words…</div>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="cpd-cap">Mockup — swap in a real capture (assets/copilot-create-skill.png).</figcaption>
+      </figure>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- 18f — Tools & MCP -->
+<section data-label="18f Demo · Tools & MCP">
+  <div class="frame">
+    <div class="eyebrow">Day 1 · Intro demo · GitHub Copilot</div>
+    <h2 class="slide-title">Tools &amp; MCP — what the agent can pick</h2>
+    <span class="cpd-feature"><b>Configure Chat</b> ⚙ → Tools → Add MCP Server &nbsp;·&nbsp; .vscode/mcp.json</span>
+    <div class="cpd">
+      <ol class="cpd-steps">
+        <li><kbd>⚙ Configure Chat</kbd> → <b>Tools</b> → <b>Add MCP Server</b> (or edit <code>.vscode/mcp.json</code>).</li>
+        <li>Server tools auto-register. Open the <b>🛠 Tools</b> picker and toggle on only what this agent needs.</li>
+        <li>Script-as-tool / slash command → <code>.github/prompts/&lt;name&gt;.prompt.md</code>, run with <code>/&lt;name&gt;</code>.</li>
+        <li>The <code>description</code> is all the model sees — WHAT / WHEN / WHEN-NOT, like a button label.</li>
+      </ol>
+      <figure class="cpd-shot">
+        <!-- SWAP-IN: <img class="vsc-img" src="assets/copilot-tools-mcp.png" alt="Configuring MCP tools in GitHub Copilot"> -->
+        <div class="vsc" role="img" aria-label="VS Code showing mcp.json and the Copilot Tools picker">
+          <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">mcp.json — claudefs-harness</span></div>
+          <div class="vsc-main">
+            <aside class="vsc-side">
+              <div class="grp">Explorer</div>
+              <div class="row">▾ .vscode</div>
+              <div class="row sel lvl2">mcp.json</div>
+              <div class="row">▾ .github</div>
+              <div class="row lvl2">▾ prompts</div>
+              <div class="row lvl3">draft-tool.prompt.md</div>
+            </aside>
+            <div class="vsc-edit">
+              <div class="ln">{</div>
+              <div class="ln">&nbsp;&nbsp;<span class="k">"servers"</span>: {</div>
+              <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"edgar"</span>: {</div>
+              <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"command"</span>: <span class="s">"npx"</span>,</div>
+              <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">"args"</span>: [<span class="s">"-y"</span>,<span class="s">"edgar-mcp"</span>]</div>
+              <div class="ln">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+              <div class="ln">&nbsp;&nbsp;}</div>
+              <div class="ln">}</div>
+            </div>
+            <aside class="vsc-chat">
+              <div class="ttl"><span class="ci">✦</span> Copilot · Tools</div>
+              <div class="vsc-pick">
+                <div class="opt on">✓ fetch_filing <span class="badge">MCP</span></div>
+                <div class="opt on">✓ query_workbook <span class="badge">MCP</span></div>
+                <div class="opt">☐ list_filings <span class="badge">MCP</span></div>
+                <div class="opt on">✓ /draft-tool <span class="badge">PROMPT</span></div>
+              </div>
+              <div class="vsc-bubble"><b>2 tools</b> enabled — toggle off what it shouldn't reach for.</div>
+              <div class="vsc-input"><span class="cmd">/draft-tool</span> fetch_filing…</div>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="cpd-cap">Mockup — swap in a real capture (assets/copilot-tools-mcp.png).</figcaption>
+      </figure>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- 18g — Rules (instructions) -->
+<section data-label="18g Demo · Rules / instructions">
+  <div class="frame">
+    <div class="eyebrow">Day 1 · Intro demo · GitHub Copilot</div>
+    <h2 class="slide-title">Rules — custom instructions, path-scoped</h2>
+    <span class="cpd-feature"><b>Configure Chat</b> ⚙ → Instructions → New &nbsp;·&nbsp; .github/instructions/&lt;name&gt;.instructions.md</span>
+    <div class="cpd">
+      <ol class="cpd-steps">
+        <li>Always-on → <code>.github/copilot-instructions.md</code> (scaffold with <code>/init</code>).</li>
+        <li>Path-scoped → <code>.github/instructions/&lt;name&gt;.instructions.md</code> with an <code>applyTo:</code> glob.</li>
+        <li>Loads only on matching files — language conventions, per-folder policy, privilege boundaries.</li>
+        <li>Instructions <em>advise</em>. The "must hold every time" half is a hook (next slide).</li>
+      </ol>
+      <figure class="cpd-shot">
+        <!-- SWAP-IN: <img class="vsc-img" src="assets/copilot-instructions.png" alt="Path-scoped custom instructions in GitHub Copilot"> -->
+        <div class="vsc" role="img" aria-label="VS Code showing an applyTo instructions file">
+          <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">matters.instructions.md — harvey-harness</span></div>
+          <div class="vsc-main">
+            <aside class="vsc-side">
+              <div class="grp">Explorer</div>
+              <div class="row">▾ .github</div>
+              <div class="row lvl2">copilot-instructions.md</div>
+              <div class="row lvl2">▾ instructions</div>
+              <div class="row sel lvl3">matters.instructions.md</div>
+              <div class="row lvl3">filings.instructions.md</div>
+            </aside>
+            <div class="vsc-edit">
+              <div class="ln fm">---</div>
+              <div class="ln"><span class="k">applyTo</span>: <span class="s">"matters/**"</span></div>
+              <div class="ln fm">---</div>
+              <div class="ln">&nbsp;</div>
+              <div class="ln g">Read only the active matter's folder.</div>
+              <div class="ln g">Privileged matter never leaves its</div>
+              <div class="ln g">workspace. Every claim gets a pin-cite.</div>
+            </div>
+            <aside class="vsc-chat">
+              <div class="ttl"><span class="ci">✦</span> Copilot · Agent</div>
+              <div class="vsc-chip">＠ matters.instructions.md applied</div>
+              <div class="vsc-bubble">Working in <code>matters/0042/</code> — scoped rules active for this path only.</div>
+              <div class="vsc-input"><span class="cmd">›</span> open a file under matters/…</div>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="cpd-cap">Mockup — swap in a real capture (assets/copilot-instructions.png).</figcaption>
+      </figure>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- 18h — Hooks -->
+<section data-label="18h Demo · Hooks">
+  <div class="frame">
+    <div class="eyebrow">Day 1 · Intro demo · GitHub Copilot</div>
+    <h2 class="slide-title">Hooks — enforcement the model can't argue past</h2>
+    <span class="cpd-feature">.github/hooks/hooks.json + pre-tool-use.sh &nbsp;·&nbsp; runs every matching tool call</span>
+    <div class="cpd">
+      <ol class="cpd-steps">
+        <li>Add <code>.github/hooks/</code> with a <code>hooks.json</code> + a <code>pre-tool-use</code> script.</li>
+        <li>The script inspects the pending call and emits <code>{"decision":"block","reason":…}</code> or <code>approve</code>.</li>
+        <li>Exit 0 honors the decision; non-zero means the hook failed — <b>be loud</b>, don't lose enforcement.</li>
+        <li><code>chmod +x .github/hooks/*.sh</code>. Anything that must happen <em>every time</em> lives here, not in a prompt.</li>
+      </ol>
+      <figure class="cpd-shot">
+        <!-- SWAP-IN: <img class="vsc-img" src="assets/copilot-hooks.png" alt="A blocking hook in GitHub Copilot"> -->
+        <div class="vsc" role="img" aria-label="VS Code showing a hook blocking a denied tool call">
+          <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">pre-tool-use.sh — harvey-harness</span></div>
+          <div class="vsc-main">
+            <aside class="vsc-side">
+              <div class="grp">Explorer</div>
+              <div class="row">▾ .github</div>
+              <div class="row lvl2">▾ hooks</div>
+              <div class="row lvl3">hooks.json</div>
+              <div class="row sel lvl3">pre-tool-use.sh</div>
+            </aside>
+            <div class="vsc-edit">
+              <div class="ln fm"># block cross-matter reads</div>
+              <div class="ln"><span class="kw">if</span> [[ <span class="s">"$path"</span> != matters/<span class="s">"$active"</span>/* ]]</div>
+              <div class="ln"><span class="kw">then</span></div>
+              <div class="ln">&nbsp;&nbsp;<span class="k">echo</span> <span class="s">'{"decision":"block",</span></div>
+              <div class="ln">&nbsp;&nbsp;<span class="s">"reason":"cross-matter read"}'</span></div>
+              <div class="ln">&nbsp;&nbsp;<span class="kw">exit</span> 0</div>
+              <div class="ln"><span class="kw">fi</span></div>
+            </div>
+            <aside class="vsc-chat">
+              <div class="ttl"><span class="ci">✦</span> Copilot · Agent</div>
+              <div class="vsc-bubble me">Read matters/0099/notes.md →</div>
+              <div class="vsc-tag warn">⛔ Blocked by hook · cross-matter read</div>
+              <div class="vsc-bubble">Outside the active matter (0042). Blocked by <code>pre-tool-use.sh</code>.</div>
+              <div class="vsc-input"><span class="cmd">›</span> try the denied path…</div>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="cpd-cap">Mockup — swap in a real capture (assets/copilot-hooks.png).</figcaption>
+      </figure>
+    </div>
+    <div class="footer">Agentic Harness Engineering Workshop</div>
+  </div>
+</section>
+
+<!-- 18i — Knowledge & memory -->
+<section data-label="18i Demo · Knowledge & memory">
+  <div class="frame">
+    <div class="eyebrow">Day 1 · Intro demo · GitHub Copilot</div>
+    <h2 class="slide-title">Knowledge &amp; memory — two tiers, two homes</h2>
+    <span class="cpd-feature"># knowledge/&lt;file&gt; on demand &nbsp;·&nbsp; memory/SESSION.md &nbsp;·&nbsp; Copilot Memory</span>
+    <div class="cpd">
+      <ol class="cpd-steps">
+        <li>Durable facts → a <code>knowledge/</code> folder. Pull one in with <code>#knowledge/&lt;file&gt;.md</code> (progressive disclosure).</li>
+        <li>Session state → <code>memory/SESSION.md</code>. Add to <code>.gitignore</code> if memory shouldn't land in git.</li>
+        <li>Enable <b>Copilot Memory</b> (Pro / Pro+ / Max) — repo facts it derives and reuses next session.</li>
+        <li>The test: survives releases → <code>knowledge/</code>; changes per session → <code>memory/</code>.</li>
+      </ol>
+      <figure class="cpd-shot">
+        <!-- SWAP-IN: <img class="vsc-img" src="assets/copilot-knowledge-memory.png" alt="Knowledge reference and Copilot Memory"> -->
+        <div class="vsc" role="img" aria-label="VS Code showing a knowledge reference and a Copilot Memory save">
+          <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">meeting-types.md — granola-harness</span></div>
+          <div class="vsc-main">
+            <aside class="vsc-side">
+              <div class="grp">Explorer</div>
+              <div class="row">▾ knowledge</div>
+              <div class="row sel lvl2">meeting-types.md</div>
+              <div class="row lvl2">action-item-format.md</div>
+              <div class="row">▾ memory</div>
+              <div class="row lvl2">SESSION.md <span class="mut">· gitignored</span></div>
+            </aside>
+            <div class="vsc-edit">
+              <div class="ln h"># Meeting types</div>
+              <div class="ln g">Durable taxonomy — changes quarterly.</div>
+              <div class="ln">&nbsp;</div>
+              <div class="ln kw">## 1:1</div>
+              <div class="ln g">blockers, decisions, follow-ups.</div>
+              <div class="ln kw">## Standup</div>
+              <div class="ln g">per-person status…</div>
+            </div>
+            <aside class="vsc-chat">
+              <div class="ttl"><span class="ci">✦</span> Copilot · Agent</div>
+              <div class="vsc-chip"># knowledge/meeting-types.md</div>
+              <div class="vsc-bubble me">Recap this standup using our rubric →</div>
+              <div class="vsc-tag">🧠 Copilot Memory · saved "team uses 1:1 + standup shapes"</div>
+              <div class="vsc-input"><span class="cmd">#</span> knowledge/…</div>
+            </aside>
+          </div>
+        </div>
+        <figcaption class="cpd-cap">Mockup — swap in a real capture (assets/copilot-knowledge-memory.png).</figcaption>
+      </figure>
+    </div>
     <div class="footer">Agentic Harness Engineering Workshop</div>
   </div>
 </section>

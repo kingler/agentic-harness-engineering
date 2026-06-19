@@ -121,6 +121,58 @@
     <b>Hook decision contract.</b> Stdout JSON of the form <code>{"decision":"block","reason":"…"}</code> or <code>{"decision":"approve"}</code>. Exit code 0 means the decision is honored; non-zero means the hook itself failed and the harness applies its default. <b>Be loud on failure</b> — silent hook errors silently lose enforcement.
   </div>
 
+  <section class="copilot-howto" aria-label="Do this in GitHub Copilot">
+    <h3><span class="gh-mark">⌘</span>Intro demo — do this in GitHub Copilot</h3>
+    <p class="sub">Rules in Copilot are <b>custom instructions</b> (path-scoped with an <code>applyTo</code> glob). The "must hold every time" half is a <b>hook</b> — a folder under <code>.github/hooks/</code> that runs a script around tool use. Instructions advise; hooks enforce.</p>
+
+    <ol class="gh-steps">
+      <li>Always-on rules → <span class="file-path">.github/copilot-instructions.md</span> (scaffold with <code>/init</code>). Run <kbd>⚙ Configure Chat</kbd> → <b>Instructions</b> → <b>New…</b> for scoped ones.</li>
+      <li>Path-scoped rules → <span class="file-path">.github/instructions/&lt;name&gt;.instructions.md</span> with an <code>applyTo:</code> glob so they load only on matching files.</li>
+      <li>For "every time" enforcement, add a <b>hook</b>: <span class="file-path">.github/hooks/</span> with a <code>hooks.json</code> + a <code>pre-tool-use</code> script.</li>
+      <li>The script inspects the pending call and emits <code>{"decision":"block","reason":…}</code> or <code>{"decision":"approve"}</code> — be loud on failure.</li>
+      <li><code>chmod +x .github/hooks/*.sh</code> so Copilot can actually run it. The model can't argue past a hook.</li>
+    </ol>
+
+    <figure class="vsc-shot">
+      <!-- SWAP-IN: replace the <div class="vsc">…</div> below with
+           <img src="../assets/copilot-rules-hooks.png" alt="Path-scoped instructions and a blocking hook in GitHub Copilot"> -->
+      <div class="vsc" role="img" aria-label="VS Code showing an applyTo instructions file and a hook blocking a denied tool call in Copilot">
+        <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">matters.instructions.md — harvey-harness</span></div>
+        <div class="vsc-main">
+          <aside class="vsc-side">
+            <div class="grp">Explorer</div>
+            <div class="row dir">▾ .github</div>
+            <div class="row dir lvl2">▾ instructions</div>
+            <div class="row sel lvl3">matters.instructions.md</div>
+            <div class="row dir lvl2">▾ hooks</div>
+            <div class="row lvl3">hooks.json</div>
+            <div class="row lvl3">pre-tool-use.sh</div>
+          </aside>
+          <div class="vsc-edit">
+            <div class="ln fm">---</div>
+            <div class="ln"><span class="k">applyTo</span>: <span class="s">"matters/**"</span></div>
+            <div class="ln fm">---</div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln g">Read only the active matter's folder.</div>
+            <div class="ln g">Privileged matter never leaves its</div>
+            <div class="ln g">workspace.</div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln fm"># enforced in .github/hooks/</div>
+            <div class="ln kw">pre-tool-use.sh</div>
+          </div>
+          <aside class="vsc-chat">
+            <div class="ttl"><span class="ci">✦</span> Copilot · Agent</div>
+            <div class="vsc-bubble me">Read matters/0099/notes.md →</div>
+            <div class="vsc-tag warn">⛔ Blocked by hook · cross-matter read</div>
+            <div class="vsc-bubble">That's outside the active matter (0042). Blocked by <code>pre-tool-use.sh</code>.</div>
+            <div class="vsc-input"><span class="cmd">›</span> try the denied path…</div>
+          </aside>
+        </div>
+      </div>
+      <figcaption>Figure · A path-scoped <b>*.instructions.md</b> (advice) paired with a <b>hooks/</b> folder whose script blocks the denied call (enforcement). (Mockup — swap in a real capture in <code class="inline">assets/</code>.)</figcaption>
+    </figure>
+  </section>
+
   <h2><span class="step-num">5</span>Pressure-test as the model</h2>
   <p>Read your deny list as if you were the model trying to argue your way past. Where's the wiggle room? Tighten the pattern, then re-run.</p>
 

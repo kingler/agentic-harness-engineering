@@ -101,6 +101,59 @@
     <b>The corrected definition.</b> Older docs sometimes describe a skill as a single <code>.md</code> file. The current spec is a <em>directory</em> with <code>SKILL.md</code> required + optional <code>scripts/ · references/ · assets/</code>. Keep <code>SKILL.md</code> under 500 lines; push detail into <code>references/</code>.
   </div>
 
+  <section class="copilot-howto" aria-label="Do this in GitHub Copilot">
+    <h3><span class="gh-mark">⌘</span>Intro demo — do this in GitHub Copilot</h3>
+    <p class="sub">In Copilot a skill is an <b>Agent Skill</b>: a folder under <code>.github/skills/</code> with a <code>SKILL.md</code> entrypoint. Copilot <b>auto-loads</b> it when the <code>description</code> matches the task — across agent mode, code review, the CLI, and the cloud agent.</p>
+
+    <ol class="gh-steps">
+      <li>Open the <kbd>⚙ Configure Chat</kbd> gear → <b>Skills</b> → <b>New skill…</b> (or just create the folder by hand).</li>
+      <li>Create <span class="file-path">.github/skills/&lt;skill-name&gt;/SKILL.md</span> — the folder name and the frontmatter <code>name</code> match.</li>
+      <li>Write the two required frontmatter fields: <code>name</code> (lowercase-with-hyphens) and <code>description</code> — <em>the trigger</em>, phrased the way a user asks.</li>
+      <li>Body = mechanical numbered steps. Bundle <code>scripts/</code> (run, not read), <code>references/</code> (loaded on demand), <code>assets/</code> (output templates).</li>
+      <li>No manual invoke — ask in the skill's trigger words and watch the run show <b>“Used skill: &lt;name&gt;”</b>.</li>
+    </ol>
+
+    <figure class="vsc-shot">
+      <!-- SWAP-IN: replace the <div class="vsc">…</div> below with
+           <img src="../assets/copilot-create-skill.png" alt="Creating an Agent Skill in GitHub Copilot"> -->
+      <div class="vsc" role="img" aria-label="VS Code showing a SKILL.md agent skill folder and Copilot auto-loading the skill">
+        <div class="vsc-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="vsc-file">SKILL.md — granola-harness</span></div>
+        <div class="vsc-main">
+          <aside class="vsc-side">
+            <div class="grp">Explorer</div>
+            <div class="row dir">▾ .github</div>
+            <div class="row dir lvl2">▾ skills</div>
+            <div class="row dir lvl3">▾ summarize-meeting</div>
+            <div class="row sel" style="padding-left:58px">SKILL.md</div>
+            <div class="row" style="padding-left:58px"><span class="mut">▸ scripts/</span></div>
+            <div class="row" style="padding-left:58px"><span class="mut">▸ references/</span></div>
+            <div class="row" style="padding-left:58px"><span class="mut">▸ assets/</span></div>
+          </aside>
+          <div class="vsc-edit">
+            <div class="ln fm">---</div>
+            <div class="ln"><span class="k">name</span>: <span class="s">summarize-meeting</span></div>
+            <div class="ln"><span class="k">description</span>: <span class="s">Write a recap of a</span></div>
+            <div class="ln"><span class="s">  meeting from its transcript. Loads</span></div>
+            <div class="ln"><span class="s">  when the user asks to "summarize",</span></div>
+            <div class="ln"><span class="s">  "recap", or "write up" a meeting.</span></div>
+            <div class="ln fm">---</div>
+            <div class="ln">&nbsp;</div>
+            <div class="ln h"># Steps</div>
+            <div class="ln g">1. Read transcript + meeting type…</div>
+          </div>
+          <aside class="vsc-chat">
+            <div class="ttl"><span class="ci">✦</span> Copilot · Agent</div>
+            <div class="vsc-bubble me">Recap the Acme sales call →</div>
+            <div class="vsc-tag">🛠 Used skill · summarize-meeting</div>
+            <div class="vsc-bubble">Summary, ⚠ flagged items, and owned action items — drafted from the rubric.</div>
+            <div class="vsc-input"><span class="cmd">›</span> ask in the trigger words…</div>
+          </aside>
+        </div>
+      </div>
+      <figcaption>Figure · A <b>skill folder</b> with <code>SKILL.md</code> + bundled resources, and Copilot auto-loading it from the <code>description</code>. (Mockup — swap in a real capture in <code class="inline">assets/</code>.)</figcaption>
+    </figure>
+  </section>
+
   <h2><span class="step-num">5</span>Pressure-test the description</h2>
   <p>Show the description (without the body) to a colleague. Can they predict when Claude should load it? If they can't, the loader can't either. Tighten and re-run.</p>
 
